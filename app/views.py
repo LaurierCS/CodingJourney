@@ -9,7 +9,7 @@ from .models import *
 
 
 def homepage(request):
-    sentence = "Hakuna Matata"
+    sentence = "Hakuna Matata - Old lion king is the best lion king"
     context = {
         "sentence": sentence,
     }
