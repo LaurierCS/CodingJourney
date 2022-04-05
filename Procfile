@@ -1,1 +1,1 @@
-web: gunicorn Wampus.wsgi
+web: gunicorn Webapp.wsgi
