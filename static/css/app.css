@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Poppins&family=Roboto&display=swap");
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 /* 
 Navigation Bar 
 - navbar-container
