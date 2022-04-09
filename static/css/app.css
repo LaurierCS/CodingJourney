@@ -1,4 +1,3 @@
-@import url("/static/css/global.css");
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Poppins&family=Roboto&display=swap");
 
 /* 
@@ -9,7 +8,7 @@ Navigation Bar
 */
 
 .navbar-container {
-  background: var(--inactive-dark);
+  background: #002d3d;
   max-width: 100vw;
   height: 80px;
   position: relative;
@@ -28,8 +27,8 @@ Navigation Bar
 
 .navbar li {
   list-style-type: none;
-  color: var(--white-justWhite);
-  font-family: var(--main-font);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* End of Navigation Bar */
