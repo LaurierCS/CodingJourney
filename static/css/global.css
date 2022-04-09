@@ -1,0 +1,69 @@
+/* 
+Instruction to import css to other css file:
+
+@import "global.css"; (using a string)
+
+or
+
+@import url("global.css"); (using url)
+
+
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Poppins&family=Roboto&display=swap");
+
+/* Global CSS setting */
+/* Note from Chee: somehow the global css selector doesn't work! */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  background-repeat: no-repeat;
+}
+
+body {
+  color: var(--white-justWhite);
+  background-color: var(--dark-justDark);
+}
+/* Global CSS variables */
+:root {
+  /***** Color *****/
+  /* main color palette */
+  --primary-color-bluishPurple: #475aaa;
+  --secondary-color-lightPurple: #ae8fdf;
+  --white-justWhite: #fff;
+  --dark-justDark: #00171f;
+  --success-color-greenLight: rgba(67, 214, 120, 0.8);
+  --error-color-redLight: rgba(227, 40, 42, 0.8);
+
+  /* extra color - bluish for button */
+  --medium-primary-color-darkerBluishPurple: #23307a;
+  /* --bluish: #488EDD; */
+
+  /* inactive color palette */
+  --inactive-primary-color: rgba(71, 90, 170, 0.4);
+  --inactive-secondary-color: rgba(122, 86, 201, 0.4);
+  --inactive-dark: #002d3d;
+
+  /* active outline palette */
+  --main-outline: 5px solid #1125da;
+  --secondary-outline: 5px solid #8b69d7;
+  --white-outline: 5px solid #c4c4c4;
+  --dark-outline: 5px solid #000;
+  --success-outline: 5px solid #a2f0b3;
+  --error-outline: 5px solid #ff7387;
+  /***** Color *****/
+
+  /*****  Typography ******/
+  --main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* font-size:  */
+
+  /*****  Typography ******/
+}
