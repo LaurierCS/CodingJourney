@@ -1,0 +1,51 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block headers %} 
+    <title>Hompage</title>
+{% endblock headers %}
+
+{% block content %}
+  <h1>This is login and register page</h1>
+    <!--  -->
+    {% if page == "login" %}
+    <div>
+      <form method="POST" action="">
+        {% csrf_token %}
+        <label for="username">Username: </label>
+        <input type="text" name="username" placeholder="Enter Username" />
+        <label for="password">Password: </label>
+        <input type="password" name="password" placeholder="Enter Password" />
+        <input type="submit" value="Login" />
+      </form>
+      <p>Haven't signed up yet?</p>
+      <a href="{% url 'register' %}">Sign Up</a>
+    </div>
+
+    {% else %}
+
+    <!-- register page -->
+    <div>
+      <form method="POST" action="">
+        {% csrf_token %} {{form.as_p}}
+        <input type="submit" value="Register" />
+      </form>
+      <p>Already signed up?</p>
+      <a href="{% url 'login' %}">Login</a>
+    </div>
+    {% endif %}
+    <!-- register page -->
+
+
+
+    <!-- show the error message here -->
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <!-- show the error message here -->
+{% endblock %}
+
