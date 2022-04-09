@@ -16,7 +16,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def homepage(request):
-    template_name = "index.html"
+    template_name = "app/homepage.html"
     template = {}
     return render(request, template_name , template)
 
