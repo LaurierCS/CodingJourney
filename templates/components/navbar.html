@@ -9,7 +9,7 @@
     <li>Resource</li>
   </ul>
 
-  <!-- if the user is not authenticate, then don't show the logout button -->
+  {% comment %} <!-- if the user is not authenticate, then don't show the logout button -->
   {% if request.user.is_authenticated %}
     <h1>Sup, {{request.user}}</h1>
     <a href="{% url 'logout' %}">Logout</a>
@@ -25,5 +25,5 @@
       {% endfor %}
     </ul>
   {% endif %}
-  <!-- show the error message here -->
+  <!-- show the error message here --> {% endcomment %}
 </section>

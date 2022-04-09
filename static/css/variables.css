@@ -1,38 +1,13 @@
 /* 
-Instruction to import css to other css file:
+Instruction to import css and varibles from here into to another css file:
 
 @import "global.css"; (using a string)
-
 or
-
 @import url("global.css"); (using url)
-
 
 */
 
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Poppins&family=Roboto&display=swap");
-
-/* Global CSS setting */
-/* Note from Chee: somehow the global css selector doesn't work! */
-* {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -ms-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  background-repeat: no-repeat;
-}
-
-body {
-  color: var(--white-justWhite);
-  background-color: var(--dark-justDark);
-}
-/* Global CSS variables */
+/* GLOBAL CSS VARIABLES */
 :root {
   /***** Color *****/
   /* main color palette */
