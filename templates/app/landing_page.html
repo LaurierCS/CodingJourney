@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%block headers%}
+  <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
+  <title>Coding Journy</title>
+{%endblock headers%}
+
+{%block content %}
+{% include "app/hero.html" %}
+{% include "app/how_it_works.html" %}
+{% include "app/about_us.html" %}
+{%endblock content%}

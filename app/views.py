@@ -75,3 +75,10 @@ def register(request):
 
     context = { page: "register", 'form': form}
     return render(request, 'app/login_register.html', context)
+
+
+def langing_page(request):
+    template = "app/landing_page.html"
+    context = {}
+
+    return render(request, template, context)
