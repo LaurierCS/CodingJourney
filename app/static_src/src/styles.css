@@ -1,11 +1,8 @@
-/* 
-Instruction to import css and varibles from here into to another css file:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import "global.css"; (using a string)
-or
-@import url("global.css"); (using url)
-
-*/
+/* Now this is our root/global css file */
 
 /* GLOBAL CSS VARIABLES */
 :root {
@@ -41,4 +38,18 @@ or
   /* font-size:  */
 
   /*****  Typography ******/
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+}
+
+body {
+  color: var(--white-justWhite);
+  background-color: var(--dark-justDark);
 }
