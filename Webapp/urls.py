@@ -19,4 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('', include("app.urls")),
     path('admin/', admin.site.urls),
+    # This path is for tailwind css hot reload
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
