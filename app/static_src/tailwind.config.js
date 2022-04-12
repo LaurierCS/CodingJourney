@@ -64,11 +64,17 @@ module.exports = {
                 'outline-white': '#c4c4c4',
                 'outline-dark': '#000000',
                 'outline-success': '#a2f0b3',
-                'outline-error': '#ff7387'
+                'outline-error': '#ff7387',
+                'white': "#ffffff",
+                'black': '#000000',
             },
             maxWidth: {
                 'vw-full': '100vw',
                 'vh-full': '100vh'
+            },
+            backgroundImage: {
+                'primary-gradient': 'linear-gradient(to bottom, #5561FF, #3643FC);',
+                'dark-gradient': 'linear-gradient(to bottom, #535354, #020206);'
             }
         },
     },

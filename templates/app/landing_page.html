@@ -6,8 +6,23 @@
   <title>Coding Journy</title>
 {%endblock headers%}
 
+{%block nav%}
+{% include "components/navbar.html" with transparent=True alternate=True%}
+{%endblock nav%}
+
 {%block content %}
-{% include "app/hero.html" %}
-{% include "app/how_it_works.html" %}
-{% include "app/about_us.html" %}
+<section id="hero" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed flex">
+  <div class="w-1/2 mt-[10%] ml-[15%]">
+    <h1 class="font-bold text-[4rem] w-[70%]">{{ site_title|title|linebreaks }}</h1>
+    <p class="w-1/2 text-xl text-gray-100">
+      {{ site_description }}
+    </p>
+    <button class="bg-primary-gradient py-[12px] px-[32px] rounded-md mt-10 font-semibold text-md" type="button">Start Now</button>
+  </div>
+  <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px]">
+    <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="w-[70%] absolute left-[30%] rounded-md drop-shadow-lg">
+    <img src="{% static 'images/timeline.jpg' %}" alt="projects search view" class="w-[70%] absolute left-0 top-[20%] rounded-md drop-shadow-lg">
+  </div>
+</section>
+
 {%endblock content%}

@@ -1,13 +1,22 @@
 {% load static %}
 
-<nav class="bg-dark max-w-vw-full h-20 relative top-0 left-0">
+<nav class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 fixed top-0 left-0">
   
+  {%if alternate %}
+    <ul class="flex justify-end items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none">
+      <li class="mx-10 cursor-pointer text-black opacity-70 hover:opacity-100">Home</li>
+      <li class="mx-10 cursor-pointer text-black opacity-70 hover:opacity-100"">How It Works</li>
+      <li class="mx-10 cursor-pointer text-black opacity-70 hover:opacity-100"">About Us</li>
+      <li class="mx-10 cursor-pointer"><a href="#" class="bg-dark-gradient py-2 px-4 rounded-md">Log In</a></li>
+    </ul>
+  {% else %}
   <ul class="flex justify-between items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none">
     <li>Home</li>
     <li>How It Works</li>
     <li>About Us</li>
     <li>Resource</li>
   </ul>
+  {% endif %}
 
   {% comment %} <!-- if the user is not authenticate, then don't show the logout button -->
   {% if request.user.is_authenticated %}
