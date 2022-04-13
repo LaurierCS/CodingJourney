@@ -1,12 +1,12 @@
 {% load static %}
 
-<nav class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 fixed top-0 left-0">
+<nav class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 fixed top-0 left-0 z-[2] transition-all duration-200">
   
   {%if alternate %}
     <ul class="flex justify-end items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none">
-      <li class="mx-10 cursor-pointer text-black opacity-70 hover:opacity-100">Home</li>
-      <li class="mx-10 cursor-pointer text-black opacity-70 hover:opacity-100"">How It Works</li>
-      <li class="mx-10 cursor-pointer text-black opacity-70 hover:opacity-100"">About Us</li>
+      <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">Home</li>
+      <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100"">How It Works</li>
+      <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100"">About Us</li>
       <li class="mx-10 cursor-pointer"><a href="#" class="bg-dark-gradient py-2 px-4 rounded-md">Log In</a></li>
     </ul>
   {% else %}

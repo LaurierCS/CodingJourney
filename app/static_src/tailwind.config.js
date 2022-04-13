@@ -75,6 +75,21 @@ module.exports = {
             backgroundImage: {
                 'primary-gradient': 'linear-gradient(to bottom, #5561FF, #3643FC);',
                 'dark-gradient': 'linear-gradient(to bottom, #535354, #020206);'
+            },
+            keyframes: {
+                'fade-in-upward': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateY(10px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                }
+            },
+            animation: {
+                'fade-in-upward': 'fade-in-upward .5s ease-in'
             }
         },
     },

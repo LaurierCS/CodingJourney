@@ -48,15 +48,3 @@
   padding: 0;
   background-repeat: no-repeat;
 }
-
-html {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  color: var(--white-justWhite);
-  background-color: var(--dark-justDark);
-  width: 100%;
-  height: 100%;
-}

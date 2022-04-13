@@ -11,18 +11,31 @@
 {%endblock nav%}
 
 {%block content %}
-<section id="hero" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed flex">
-  <div class="w-1/2 mt-[10%] ml-[15%]">
-    <h1 class="font-bold text-[4rem] w-[70%]">{{ site_title|title|linebreaks }}</h1>
-    <p class="w-1/2 text-xl text-gray-100">
-      {{ site_description }}
-    </p>
-    <button class="bg-primary-gradient py-[12px] px-[32px] rounded-md mt-10 font-semibold text-md" type="button">Start Now</button>
+<section id="hero" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed">
+  <div class="flex h-[95%]">
+    <div class="w-1/2 mt-[10%] ml-[15%]">
+      <h1 class="font-bold text-[4rem] w-[70%]">{{ site_title|title|linebreaks }}</h1>
+      <p class="w-1/2 text-xl text-gray-100">
+        {{ site_description }}
+      </p>
+      <button class="bg-primary-gradient py-[12px] px-[32px] rounded-md mt-10 font-semibold text-md" type="button">Start Now</button>
+    </div>
+    <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px]">
+      <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="w-[70%] absolute left-[30%] rounded-md drop-shadow-lg">
+      <img src="{% static 'images/timeline.jpg' %}" alt="projects search view" class="w-[70%] absolute left-0 top-[20%] rounded-md drop-shadow-lg">
+    </div>
   </div>
-  <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px]">
-    <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="w-[70%] absolute left-[30%] rounded-md drop-shadow-lg">
-    <img src="{% static 'images/timeline.jpg' %}" alt="projects search view" class="w-[70%] absolute left-0 top-[20%] rounded-md drop-shadow-lg">
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 m-auto animate-bounce" fill="none" viewBox="0 0 28 28" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 18l-7 7-7-7" />
+    </svg>
   </div>
 </section>
-
+<section id="how_it_works" class="w-full h-full relative">
+  <h2 class="text-[3rem] my-5 text-center">How it Works</h2>
+  
+</section>
+<section id="about_us" class="w-full h-full"></section>
+<script src="{% static 'js/script.js' %}"></script>
 {%endblock content%}
