@@ -6,6 +6,13 @@
 ## Pre-requisites ❗
 
 - Have NodeJS install in your machine. [Download NodeJS](https://nodejs.org/en/download/)
+- Install tailwind dependency
+  ```bash
+  # Navigate to where package.json is located
+  $ (Pod4) cd ./static/js/tailwind
+  # Install dependencies
+  $ (Pod4/static/js/tailwind) npm install
+  ```
 
 ## Start Development Environment
 
