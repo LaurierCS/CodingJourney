@@ -26,7 +26,7 @@ In vscode, you can open two terminals side by side by clicking on the split icon
 
 ## Theme Configuration 🎨
 
-To edit the theme, read [cusutomize theme](https://tailwindcss.com/docs/theme). Then edit `tailwind.config.js` file located in `app/static_src`.
+To edit the theme, read [customize theme](https://tailwindcss.com/docs/theme). Then edit `tailwind.config.js` file located in `app/static_src`.
 
 #### Font Family
 
