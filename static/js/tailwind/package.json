@@ -17,10 +17,6 @@
   },
   "homepage": "https://github.com/LaurierCS/Pod4#readme",
   "devDependencies": {
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tailwindcss/forms": "^0.5.0",
-    "@tailwindcss/line-clamp": "^0.3.1",
-    "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
