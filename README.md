@@ -12,14 +12,16 @@
 With 2 shells
 ```bash
 # shell 1
-# start watching changes in classes
-$ npm start
+# navigate to the tailwind folder
+$ (Pod4) cd ./static/js/tailwind
+# start watching changes in html files
+$ (Pod4/static/js/tailwind) npm start
 ```
 
 ```bash
 # shell 2
 # start web server
-$ python manage.py runserver
+$ (Pod4) python manage.py runserver
 ```
 
 ## Theme Configuration 🎨
