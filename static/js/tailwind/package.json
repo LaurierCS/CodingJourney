@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "tailwind configuration for Pod4 project",
   "scripts": {
-    "start": "NODE_ENV=development tailwindcss --postcss -i ../../css/tailwind.src.css -o ../../css/tailwind.css --watch"
+    "start": "NODE_ENV=development tailwindcss --postcss -i ../../css/tailwind.src.css -o ../../css/tailwind.css --watch",
+    "build": "NODE_ENV=production tailwindcss --postcss -i ../../css/tailwind.src.css -o ../../css/tailwind.css --minify"
   },
   "repository": {
     "type": "git",
