@@ -1,28 +1,26 @@
 # Quick Start With Tailwind In Django
 
+## Resources
+- [Tailwind Docs](https://tailwindcss.com/docs/)
+
 ## Pre-requisites ❗
 
-### - Have NodeJS install in your machine. [Download NodeJS](https://nodejs.org/en/download/)
+- Have NodeJS install in your machine. [Download NodeJS](https://nodejs.org/en/download/)
 
-## Before running server
-Run the following commands
+## Start Development Environment
 
-`pipenv install --skip-lock` to install all the new packages needed. \
-`python manage.py tailwind install` to install tailwind and other npm packages. \
-\
-NOTE:
-`--skip-lock` IS A WORK AROUND DUE TO AN ISSUE WHEN INSTALLING WITHOUT THE OPTION. [Click for more details.](https://github.com/LaurierCS/Pod4/issues/10)
+With 2 shells
+```bash
+# shell 1
+# start watching changes in classes
+$ npm start
+```
 
-
-## Run Development Server
-First we need to build our css and have a hot reload to make our lives easier.\
-We will need to terminals because one is for building the css and another for the web server.\
-In vscode, you can open two terminals side by side by clicking on the split icon located to the left of the trash icon.\
-`python manage.py tailwind start` to watch changes in our css files, hot reload.\
-`python manage.py runserver` to start development server.
-
-## [Tailwind Docs](https://tailwindcss.com/docs/aspect-ratio)
-
+```bash
+# shell 2
+# start web server
+$ python manage.py runserver
+```
 
 ## Theme Configuration 🎨
 
