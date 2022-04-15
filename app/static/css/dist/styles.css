@@ -687,9 +687,19 @@ select {
   margin: auto;
 }
 
+.my-20 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
 .my-5 {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+.my-\[10rem\] {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
 }
 
 .my-0 {
@@ -707,21 +717,6 @@ select {
   margin-right: 2.5rem;
 }
 
-.my-20 {
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-}
-
-.my-\[10rem\] {
-  margin-top: 10rem;
-  margin-bottom: 10rem;
-}
-
-.my-40 {
-  margin-top: 10rem;
-  margin-bottom: 10rem;
-}
-
 .mt-\[10\%\] {
   margin-top: 10%;
 }
@@ -736,14 +731,6 @@ select {
 
 .block {
   display: block;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.inline {
-  display: inline;
 }
 
 .flex {
@@ -770,12 +757,12 @@ select {
   height: 2rem;
 }
 
-.h-20 {
-  height: 5rem;
+.h-auto {
+  height: auto;
 }
 
-.h-1\/4 {
-  height: 25%;
+.h-20 {
+  height: 5rem;
 }
 
 .w-full {
@@ -794,10 +781,6 @@ select {
   width: 2rem;
 }
 
-.w-11\/12 {
-  width: 91.666667%;
-}
-
 .w-1\/4 {
   width: 25%;
 }
@@ -806,6 +789,14 @@ select {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
+}
+
+.w-3\/4 {
+  width: 75%;
 }
 
 @-webkit-keyframes bounce {
@@ -841,35 +832,6 @@ select {
           animation: bounce 1s infinite;
 }
 
-@-webkit-keyframes fade-in-upward {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in-upward {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-upward {
-  -webkit-animation: fade-in-upward .5s ease-in;
-          animation: fade-in-upward .5s ease-in;
-}
-
 .cursor-pointer {
   cursor: pointer;
 }
@@ -890,6 +852,10 @@ select {
   flex-direction: column;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .items-center {
   align-items: center;
 }
@@ -906,12 +872,12 @@ select {
   justify-content: space-between;
 }
 
-.gap-20 {
-  gap: 5rem;
+.justify-around {
+  justify-content: space-around;
 }
 
-.gap-10 {
-  gap: 2.5rem;
+.gap-20 {
+  gap: 5rem;
 }
 
 .overflow-hidden {
@@ -922,12 +888,20 @@ select {
   border-radius: 0.375rem;
 }
 
-.rounded-lg {
-  border-radius: 0.5rem;
+.rounded-\[25rem\] {
+  border-radius: 25rem;
 }
 
-.rounded-\[60pt\] {
-  border-radius: 60pt;
+.rounded-\[25px\] {
+  border-radius: 25px;
+}
+
+.rounded-\[25\%\] {
+  border-radius: 25%;
+}
+
+.rounded-\[20\%\] {
+  border-radius: 20%;
 }
 
 .bg-black {
@@ -988,9 +962,9 @@ select {
   padding-right: 1rem;
 }
 
-.py-20 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .text-center {
@@ -1031,6 +1005,16 @@ select {
 .text-rice-white {
   --tw-text-opacity: 1;
   color: rgb(241 250 238 / var(--tw-text-opacity));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-sky-400 {
+  --tw-text-opacity: 1;
+  color: rgb(56 189 248 / var(--tw-text-opacity));
 }
 
 .opacity-70 {
@@ -1097,4 +1081,13 @@ select {
 
 .hover\:opacity-100:hover {
   opacity: 1;
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus\:outline-dashed:focus {
+  outline-style: dashed;
 }
