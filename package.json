@@ -1,0 +1,28 @@
+{
+  "name": "pod4-tailwindcss",
+  "version": "1.0.0",
+  "description": "tailwind configuration for Pod4 project",
+  "scripts": {
+    "start": "NODE_ENV=development tailwindcss --postcss -i ./static/css/tailwind.src.css -o ./static/css/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaurierCS/Pod4.git"
+  },
+  "author": "Pod4 Members",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LaurierCS/Pod4/issues"
+  },
+  "homepage": "https://github.com/LaurierCS/Pod4#readme",
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.0",
+    "@tailwindcss/line-clamp": "^0.3.1",
+    "@tailwindcss/typography": "^0.5.2",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "postcss-cli": "^9.1.0",
+    "tailwindcss": "^3.0.24"
+  }
+}

@@ -1,5 +1,10 @@
-/*
-! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+/* 
+  This file will be used to included all styles configured by plugins.
+  Tailwind will inject them when generating the styles.
+*/
+
+/* 
+  ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -757,10 +762,6 @@ select {
   height: 2rem;
 }
 
-.h-auto {
-  height: auto;
-}
-
 .h-20 {
   height: 5rem;
 }
@@ -785,18 +786,8 @@ select {
   width: 25%;
 }
 
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
 .w-11\/12 {
   width: 91.666667%;
-}
-
-.w-3\/4 {
-  width: 75%;
 }
 
 @-webkit-keyframes bounce {
@@ -872,41 +863,20 @@ select {
   justify-content: space-between;
 }
 
-.justify-around {
-  justify-content: space-around;
-}
-
 .gap-20 {
   gap: 5rem;
-}
-
-.overflow-hidden {
-  overflow: hidden;
 }
 
 .rounded-md {
   border-radius: 0.375rem;
 }
 
-.rounded-\[25rem\] {
-  border-radius: 25rem;
-}
-
-.rounded-\[25px\] {
-  border-radius: 25px;
-}
-
-.rounded-\[25\%\] {
-  border-radius: 25%;
-}
-
 .rounded-\[20\%\] {
   border-radius: 20%;
 }
 
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+.bg-background {
+  background-color: var(--background);
 }
 
 .bg-transparent {
@@ -914,16 +884,15 @@ select {
 }
 
 .bg-dark {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 45 61 / var(--tw-bg-opacity));
+  background-color: var(--dark-background);
 }
 
 .bg-primary-gradient {
-  background-image: linear-gradient(to bottom, #5561FF, #3643FC);;
+  background-image: var(--primary-gradient-top-bottom);
 }
 
 .bg-dark-gradient {
-  background-image: linear-gradient(to bottom, #535354, #020206);;
+  background-image: var(--dark-gradient-top-bottom);
 }
 
 .bg-cover {
@@ -952,6 +921,11 @@ select {
   padding-right: 32px;
 }
 
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -960,11 +934,6 @@ select {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
-}
-
-.px-10 {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
 }
 
 .text-center {
@@ -993,8 +962,7 @@ select {
 }
 
 .text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: var(--white);
 }
 
 .text-gray-100 {
@@ -1003,18 +971,7 @@ select {
 }
 
 .text-rice-white {
-  --tw-text-opacity: 1;
-  color: rgb(241 250 238 / var(--tw-text-opacity));
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.text-sky-400 {
-  --tw-text-opacity: 1;
-  color: rgb(56 189 248 / var(--tw-text-opacity));
+  color: var(--rice-white);
 }
 
 .opacity-70 {
@@ -1036,58 +993,54 @@ select {
   transition-duration: 200ms;
 }
 
-/* Now this is our root/global css file */
-
-/* GLOBAL CSS VARIABLES */
-
 :root {
   /***** Color *****/
   /* main color palette */
   --primary-color-bluishPurple: #475aaa;
   --secondary-color-lightPurple: #ae8fdf;
-  --white-justWhite: #fff;
-  --dark-justDark: #00171f;
-  --success-color-greenLight: rgba(67, 214, 120, 0.8);
-  --error-color-redLight: rgba(227, 40, 42, 0.8);
+  --white: #fff;
+  --black: #000;
+  --rice-white: #f1faee;
+  --background: #000b0f;
+  --dark-background: #002d3d;
+  --success: #43d678;
+  --error: #e3282a;
   /* extra color - bluish for button */
-  --medium-primary-color-darkerBluishPurple: #23307a;
-  /* --bluish: #488EDD; */
+  --darker-primary: #23307a;
+  /* outline colors */
+  --outline-primary-color: #1125da;
+  --outline-secondary-color: #8b69d7;
+  --outline-white-color: #c4c4c4;
+  --outline-dark-color: #000000;
+  --outline-success-color: #a2f0b3;
+  --outline-error-color: #ff7387;
   /* inactive color palette */
   --inactive-primary-color: rgba(71, 90, 170, 0.4);
   --inactive-secondary-color: rgba(122, 86, 201, 0.4);
-  --inactive-dark: #002d3d;
+  --inactive-dark-color: #002d3d;
   /* active outline palette */
-  --main-outline: 5px solid #1125da;
-  --secondary-outline: 5px solid #8b69d7;
-  --white-outline: 5px solid #c4c4c4;
-  --dark-outline: 5px solid #000;
-  --success-outline: 5px solid #a2f0b3;
-  --error-outline: 5px solid #ff7387;
-  /***** Color *****/
+  --main-outline: 5px solid var(--outline-primary-color);
+  --secondary-outline: 5px solid var(--outline-secondary-color);
+  --white-outline: 5px solid var(--outline-white-color);
+  --dark-outline: 5px solid var(--outline-dark-color);
+  --success-outline: 5px solid var(--outline-success-color);
+  --error-outline: 5px solid var(--outline-error-color);
+  /* Linear gradients palette*/
+  --primary-gradient-color-from: #5561ff;
+  --primary-gradient-color-to: #3643fc;
+  --primary-gradient-top-bottom: linear-gradient(to bottom, var(--primary-gradient-color-from), var(--primary-gradient-color-to));
+  --dark-gradient-color-from: #535354;
+  --dark-gradient-color-to: #020206;
+  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to))
+
+  /***** End Of Color *****/
+
   /*****  Typography ******/
   --main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   /* font-size:  */
-  /*****  Typography ******/
-}
-
-* {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  background-repeat: no-repeat;
+  /*****  End Of Typography ******/
 }
 
 .hover\:opacity-100:hover {
   opacity: 1;
-}
-
-.focus\:outline-none:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.focus\:outline-dashed:focus {
-  outline-style: dashed;
 }

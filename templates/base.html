@@ -1,4 +1,3 @@
-{% load tailwind_tags %}
 {% load static  %}
 
 <!DOCTYPE html>
@@ -10,11 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700&family=Poppins:wght@200;400;500;700&family=Roboto:wght@200;400;500;700&display=swap" rel="stylesheet">
-    {% tailwind_css %}
-    {% block headers %}
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    {% block headers %} 
     {% endblock headers %}
   </head>
-  <body class="w-full h-full bg-black text-white">
+  <body class="w-full h-full bg-background text-white">
     <!-- 
       Due to the different look of the navbar on the landing page,
       this block could be replaced with what ever block it is need to achieve the look
