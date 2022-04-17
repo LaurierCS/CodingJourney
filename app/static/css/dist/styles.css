@@ -692,9 +692,14 @@ select {
   margin-bottom: 5rem;
 }
 
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .my-\[10rem\] {
@@ -702,14 +707,24 @@ select {
   margin-bottom: 10rem;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.mx-6 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
 .my-0 {
   margin-top: 0px;
   margin-bottom: 0px;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .mx-10 {
@@ -727,6 +742,18 @@ select {
 
 .mt-10 {
   margin-top: 2.5rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
+}
+
+.ml-6 {
+  margin-left: 1.5rem;
+}
+
+.mt-11 {
+  margin-top: 2.75rem;
 }
 
 .block {
@@ -753,16 +780,24 @@ select {
   height: 400px;
 }
 
-.h-8 {
-  height: 2rem;
-}
-
 .h-auto {
   height: auto;
 }
 
+.h-\[76px\] {
+  height: 76px;
+}
+
 .h-20 {
   height: 5rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.min-h-\[476px\] {
+  min-height: 476px;
 }
 
 .w-full {
@@ -777,26 +812,59 @@ select {
   width: 70%;
 }
 
-.w-8 {
-  width: 2rem;
-}
-
-.w-1\/4 {
-  width: 25%;
-}
-
 .w-fit {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
+.w-5\/12 {
+  width: 41.666667%;
+}
+
+.w-\[76px\] {
+  width: 76px;
+}
+
 .w-11\/12 {
   width: 91.666667%;
 }
 
-.w-3\/4 {
-  width: 75%;
+.w-8 {
+  width: 2rem;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-\[2\] {
+  flex: 2;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  -webkit-animation: fade-in .5s ease-in forwards;
+          animation: fade-in .5s ease-in forwards;
 }
 
 @-webkit-keyframes bounce {
@@ -844,18 +912,6 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-rows-1 {
-  grid-template-rows: repeat(1, minmax(0, 1fr));
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.items-start {
-  align-items: flex-start;
-}
-
 .items-center {
   align-items: center;
 }
@@ -864,49 +920,42 @@ select {
   justify-content: flex-end;
 }
 
-.justify-center {
-  justify-content: center;
-}
-
 .justify-between {
   justify-content: space-between;
-}
-
-.justify-around {
-  justify-content: space-around;
-}
-
-.gap-20 {
-  gap: 5rem;
 }
 
 .overflow-hidden {
   overflow: hidden;
 }
 
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
 .rounded-md {
   border-radius: 0.375rem;
 }
 
-.rounded-\[25rem\] {
-  border-radius: 25rem;
+.rounded-lg {
+  border-radius: 0.5rem;
 }
 
-.rounded-\[25px\] {
-  border-radius: 25px;
-}
-
-.rounded-\[25\%\] {
-  border-radius: 25%;
-}
-
-.rounded-\[20\%\] {
-  border-radius: 20%;
+.rounded-\[50\%\] {
+  border-radius: 50%;
 }
 
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-black\/\[\.3\] {
+  background-color: rgb(0 0 0 / .3);
+}
+
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(71 90 170 / var(--tw-bg-opacity));
 }
 
 .bg-transparent {
@@ -916,6 +965,10 @@ select {
 .bg-dark {
   --tw-bg-opacity: 1;
   background-color: rgb(0 45 61 / var(--tw-bg-opacity));
+}
+
+.bg-\[url\(\'\/static\/images\/journey_image\.jpg\'\)\] {
+  background-image: url('/static/images/journey_image.jpg');
 }
 
 .bg-primary-gradient {
@@ -942,6 +995,10 @@ select {
   background-origin: border-box;
 }
 
+.p-10 {
+  padding: 2.5rem;
+}
+
 .py-\[12px\] {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -962,9 +1019,8 @@ select {
   padding-right: 1rem;
 }
 
-.px-10 {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -984,12 +1040,21 @@ select {
   font-size: 3rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .font-bold {
   font-weight: 700;
 }
 
 .font-semibold {
   font-weight: 600;
+}
+
+.tracking-\[0\.5px\] {
+  letter-spacing: 0.5px;
 }
 
 .text-white {
@@ -1007,18 +1072,16 @@ select {
   color: rgb(241 250 238 / var(--tw-text-opacity));
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.text-sky-400 {
-  --tw-text-opacity: 1;
-  color: rgb(56 189 248 / var(--tw-text-opacity));
+.opacity-0 {
+  opacity: 0;
 }
 
 .opacity-70 {
   opacity: 0.7;
+}
+
+.bg-blend-darken {
+  background-blend-mode: darken;
 }
 
 .drop-shadow-lg {
@@ -1034,6 +1097,11 @@ select {
 
 .duration-200 {
   transition-duration: 200ms;
+}
+
+.animation-delay-500 {
+  -webkit-animation-delay: 500ms;
+          animation-delay: 500ms;
 }
 
 /* Now this is our root/global css file */
@@ -1081,13 +1149,4 @@ select {
 
 .hover\:opacity-100:hover {
   opacity: 1;
-}
-
-.focus\:outline-none:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.focus\:outline-dashed:focus {
-  outline-style: dashed;
 }

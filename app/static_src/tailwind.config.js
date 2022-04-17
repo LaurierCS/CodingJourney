@@ -77,6 +77,14 @@ module.exports = {
                 'dark-gradient': 'linear-gradient(to bottom, #535354, #020206);'
             },
             keyframes: {
+                'fade-in': {
+                    '0%': {
+                        opacity: '0'
+                    },
+                    '100%': {
+                        opacity: '1'
+                    }
+                },
                 'fade-in-upward': {
                     '0%': {
                         opacity: '0',
@@ -86,10 +94,44 @@ module.exports = {
                         opacity: '1',
                         transform: 'translateY(0)'
                     }
+                },
+                'fade-in-downward': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateY(-10px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                },
+                'fade-in-right': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateX(-10px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateX(0)'
+                    }
+                },
+                'fade-in-left': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateX(10px)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateX(0)'
+                    }
                 }
             },
             animation: {
-                'fade-in-upward': 'fade-in-upward .5s ease-in'
+                'fade-in': 'fade-in .5s ease-in forwards',
+                'fade-in-upward': 'fade-in-upward .5s ease-in forwards',
+                'fade-in-downward': 'fade-in-downward .5s ease-in forwards',
+                'fade-in-right': 'fade-in-right .5s ease-in forwards',
+                'fade-in-left': 'fade-in-left .5s ease-in forwards',
             }
         },
     },
@@ -103,5 +145,6 @@ module.exports = {
         require('@tailwindcss/typography'),
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/aspect-ratio'),
+        require('tailwindcss-animation-delay'),
     ],
 }
