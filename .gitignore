@@ -1,2 +1,12 @@
+# vscode workspace settings
+# ignoring this because we all might have different preferences
 .vscode
+
 */**/node_modules
+
+# generated tailwind css, ignore since every time we update the style this updates.
+# it is better to just generate one when starting dev env or for production.
+static/css/tailwind.css
+
+
+*/**/__pycache__
