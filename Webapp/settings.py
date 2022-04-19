@@ -38,9 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tailwind',
     'app.apps.AppConfig',
-    'django_browser_reload'
 ]
 
 TAILWIND_APP_NAME = 'app'

@@ -75,3 +75,13 @@ def register(request):
 
     context = { page: "register", 'form': form}
     return render(request, 'app/login_register.html', context)
+
+
+def langing_page(request):
+    template = "app/landing_page.html"
+    context = {
+        "site_title": "design your\ncoding journey",
+        "site_description": "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
+    }
+
+    return render(request, template, context)
