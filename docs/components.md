@@ -14,6 +14,7 @@ Content Table
   - [Tech Tag](#tech-tag)
     - [Available variants of Tech Tag](#available-variants-of-tech-tag)
     - [Preview](#preview-of-tech-tag)
+  - [Marker](#marker) 
 
 
 ## Button
@@ -152,6 +153,7 @@ A list of all the colors is available [here](https://tailwindcss.com/docs/custom
 {% include 'components/marker.html' with marker_name="HTML" marker_color="bg-red-700" %}
 ```
 The color context must be a valid color class. Failing to provide a valid color class will default to `white`.
+Valid color classes include [tailwind official colors](https://tailwindcss.com/docs/customizing-colors) and [customized colors](https://github.com/LaurierCS/Pod4/blob/main/docs/tailwind-quick-start.md#colors).
 
 | Attribute | Description |
 | :-------- | :---------- |
