@@ -109,3 +109,37 @@ The class context directly passed to the `<svg>` tag in the template. It serves 
 ### Preview of the icons (in the same order as the table above)
 
 ![image](https://user-images.githubusercontent.com/46619361/164488267-7a25a000-2f5b-404c-b921-7f2080430775.png)
+
+## Tech Tag
+
+```html
+<!-- Pre-defined colors -->
+<span class="tech-tag-1 tech-tag-blue">Tech</span>
+<span class="tech-tag-1 tech-tag-orange">Tech</span>
+<span class="tech-tag-1 tech-tag-green">Tech</span>
+
+<!-- tech-tag-2 is a bigger version of tech-tag-1 -->
+<span class="tech-tag-2 tech-tag-blue">Tech</span>
+<span class="tech-tag-2 tech-tag-orange">Tech</span>
+<span class="tech-tag-2 tech-tag-green">Tech</span>
+
+<!-- Custom color -->
+<span class="tech-tag-2 border-rice-white text-rice-white hover:bg-rice-white hover:text-black">Tech</span>
+```
+
+It is also possible to use a `<div>` tag to do the job.
+
+### Available variants of Tech Tag
+
+| Class Name | Description |
+| :--------- | :---------- |
+| `tech-tag-1` | Default size of a tech tag. |
+| `tech-tag-2` | Slightly bigger tech tag. |
+| `tech-tag-blue` | Pre-defined `sky-400` color theme with hover effect. |
+| `tech-tag-orange` | Pre-defined `orange-400` color theme with hover effect. |
+| `tech-tag-green` | Pre-defined `green-400` color theme with hover effect. |
+A list of all the colors is available [here](https://tailwindcss.com/docs/customizing-colors).
+
+### Preview
+
+![Preview](https://user-images.githubusercontent.com/46619361/164512195-fc435539-db22-4067-9612-0568ebf33899.gif)
