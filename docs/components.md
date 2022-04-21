@@ -146,3 +146,14 @@ A list of all the colors is available [here](https://tailwindcss.com/docs/custom
 ### Preview of Tech Tag
 
 ![Preview](https://user-images.githubusercontent.com/46619361/164512195-fc435539-db22-4067-9612-0568ebf33899.gif)
+
+## Marker
+```html
+{% include 'components/marker.html' with marker_name="HTML" marker_color="bg-red-700" %}
+```
+The color context must be a valid color class. Failing to provide a valid color class will default to `white`.
+
+| Attribute | Description |
+| :-------- | :---------- |
+| `marker_name` | The text beside the circle. |
+| `marker_color` | The color of the circel. |
