@@ -11,6 +11,9 @@ Content Table
   - [Icon](#icon)
     - [Available Icon Templates](#available-icon-templates)
     - [Preview of the icons (in the same order as the table above)](#preview-of-the-icons-in-the-same-order-as-the-table-above)
+  - [Tech Tag](#tech-tag)
+    - [Available variants of Tech Tag](#available-variants-of-tech-tag)
+    - [Preview](#preview-of-tech-tag)
 
 
 ## Button
@@ -140,6 +143,6 @@ It is also possible to use a `<div>` tag to do the job.
 | `tech-tag-green` | Pre-defined `green-400` color theme with hover effect. |
 A list of all the colors is available [here](https://tailwindcss.com/docs/customizing-colors).
 
-### Preview
+### Preview of Tech Tag
 
 ![Preview](https://user-images.githubusercontent.com/46619361/164512195-fc435539-db22-4067-9612-0568ebf33899.gif)
