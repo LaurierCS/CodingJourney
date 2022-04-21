@@ -134,13 +134,13 @@ It is also possible to use a `<div>` tag to do the job.
 
 ### Available variants of Tech Tag
 
-| Class Name | Description |
-| :--------- | :---------- |
-| `tech-tag-1` | Default size of a tech tag. |
-| `tech-tag-2` | Slightly bigger tech tag. |
-| `tech-tag-blue` | Pre-defined `sky-400` color theme with hover effect. |
-| `tech-tag-orange` | Pre-defined `orange-400` color theme with hover effect. |
-| `tech-tag-green` | Pre-defined `green-400` color theme with hover effect. |
+| Class Name | Description | Tag |
+| :--------- | :---------- | :-- |
+| `tech-tag-1` | Default size of a tech tag. | `base` |
+| `tech-tag-2` | Slightly bigger tech tag. | `base` |
+| `tech-tag-blue` | Pre-defined `sky-400` color theme with hover effect. | `utility` |
+| `tech-tag-orange` | Pre-defined `orange-400` color theme with hover effect. | `utility` |
+| `tech-tag-green` | Pre-defined `green-400` color theme with hover effect. | `utility` |
 A list of all the colors is available [here](https://tailwindcss.com/docs/customizing-colors).
 
 ### Preview of Tech Tag
