@@ -5,7 +5,59 @@
 
 @tailwind base;
 @tailwind components;
+
+@layer components {
+
+  .tech-tag {
+    @apply 
+      border-2 border-solid rounded-md
+      w-fit my-4 mx-2
+      font-bold text-base
+      cursor-pointer
+      transition-colors duration-150
+      inline-block
+    ;
+  }
+
+  .tech-tag-1 {
+    @apply
+      tech-tag
+      py-1 px-2
+      ;
+    }
+    
+    .tech-tag-2 {
+      @apply
+      tech-tag 
+      py-2 px-5
+    ;
+  }
+}
+
 @tailwind utilities;
+
+@layer utilities {
+  .tech-tag-blue {
+    @apply 
+      border-sky-400 text-sky-400
+      hover:bg-sky-400 hover:text-sky-900
+    ;
+  }
+
+  .tech-tag-orange {
+    @apply
+      border-orange-400 text-orange-400
+      hover:bg-orange-400 hover:text-orange-900
+    ;
+  }
+
+  .tech-tag-green {
+    @apply
+      border-green-400 text-green-400
+      hover:bg-green-400 hover:text-green-900
+    ;
+  }
+}
 
 
 :root {
