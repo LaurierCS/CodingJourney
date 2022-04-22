@@ -50,7 +50,7 @@
           </div>
         </div>
         <!-- The end of container for input box -->
-        {% include 'components/button.html' %}
+        
       </form>
     </div>
 
@@ -88,29 +88,8 @@
         {% include 'components/button.html' %}
       </form>
     </div>
-    <!-- register page -->
-    <!-- <div>
-      <form method="POST" action="">
-        {% csrf_token %} 
-        {{form.username.label}}
-        {{form.username}}
-        {{form.email.label}}
-        {{form.email}}
-        {{form.password1.label}}
-        {{form.password1}}
-        {{form.password2.label}}
-        {{form.password2}}
-
-        <input type="submit" value="Create User" />
-      </form>
-      <p>Already signed up?</p>
-      <a href="{% url 'login' %}">Login</a>
-    </div> -->
     {% endif %}
-    <!-- register page -->
-
-
-
+  
     <!-- show the error message here -->
     {% if messages %}
     <ul class="messages">
