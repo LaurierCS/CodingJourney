@@ -33,6 +33,7 @@ module.exports = {
         dark: "var(--dark-background)",
         success: "var(--success)",
         error: "var(--error)",
+        active: "var(--active)",
         "darker-primary": "var(--darker-primary)",
         "inactive-primary": "var(--inactive-primary-color)",
         "inactive-secondary": "var(--inactive-secondary-color)",
@@ -71,5 +72,8 @@ module.exports = {
         "fade-in-upward": "fade-in-upward .5s ease-in",
       },
     },
-  }
+  },
+  plugins: [
+    require('./plugins/pseudo_selectors')
+  ]
 };

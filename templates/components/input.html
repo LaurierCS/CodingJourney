@@ -1,0 +1,28 @@
+
+{% with attributes=input_context.attributes state=input_context.state label=input_context.label %}
+
+<div
+  class="input-container"
+>
+  <input 
+  {% for k, v in attributes.items %}
+    {{ k }}="{{ v }}"
+  {% endfor %}
+  class="input peer
+  {% if state == 'valid' %} input-valid 
+  {% elif state == 'invalid' %} input-invalid 
+  {% endif %}"
+  />
+  <label 
+    for="{{ attributes.name }}" 
+    class="input-label
+    {% if state == 'valid' %} text-valid 
+    {% elif state == 'invalid' %} text-invalid 
+    {% endif %}
+    " 
+  >
+    {{ label }}
+  </label>
+</div>
+
+{% endwith %}
