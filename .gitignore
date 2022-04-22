@@ -9,6 +9,4 @@
 static/css/tailwind.css
 
 
-*/**/__pycache__
-*/app/__pycache__
-*/Webapp/__pycache__
+__pycache__
