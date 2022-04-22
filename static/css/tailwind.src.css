@@ -5,7 +5,47 @@
 
 @tailwind base;
 @tailwind components;
+
+@layer components {
+  /* 
+  Button base styles.
+    They only have styles for the shape but not the background color.
+    The background color should be given in the html for flexibility.
+  */
+  .button {
+    @apply rounded-md py-2 px-4 text-center font-sans bg-primary-gradient;
+  }
+
+  .button-sm {
+    @apply py-1 px-2 text-center font-sans rounded-sm;
+  }
+
+  .button-lg {
+    @apply py-3 px-6 text-center font-sans rounded-md;
+  }
+
+  .button-xl {
+    @apply py-3 px-8 text-center font-sans font-semibold rounded-md;
+  }
+
+}
+
 @tailwind utilities;
+
+@layer utilities {
+  /* 
+    This utility is to make a button have some animation so that it looks better.
+  */
+  .button-transition {
+    @apply 
+      transition-all duration-150 ease-linear select-none cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-white
+      hover:brightness-125 
+      active:ring-2 active:ring-white active:brightness-100 active:duration-[34ms]
+      visited:no-underline visited:text-white
+    ;
+  }
+}
 
 
 :root {
@@ -51,8 +91,7 @@
   --primary-gradient-top-bottom: linear-gradient(to bottom, var(--primary-gradient-color-from), var(--primary-gradient-color-to));
   --dark-gradient-color-from: #535354;
   --dark-gradient-color-to: #020206;
-  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to))
-
+  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to));
   /***** End Of Color *****/
 
   /*****  Typography ******/
