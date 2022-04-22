@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 fixed top-0 left-0 z-[2] transition-all duration-200">
+<nav class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% endif %} transition-all duration-200">
   
   {%if alternate %}
     <ul class="flex justify-end items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none">

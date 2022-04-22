@@ -78,7 +78,7 @@ def logoutUser(request):
 """
 
 def langing_page(request):
-    template = "app/landingpage.html"
+    template = "app/landing_page.html"
     context = {
         "site_title": "design your\ncoding journey",
         "site_description": "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
