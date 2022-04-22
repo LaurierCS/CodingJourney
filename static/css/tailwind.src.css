@@ -5,48 +5,55 @@
 
 @tailwind base;
 @tailwind components;
-
 @layer components {
-  /* 
-  Button base styles.
-    They only have styles for the shape but not the background color.
-    The background color should be given in the html for flexibility.
-  */
-  .button {
-    @apply rounded-md py-2 px-4 text-center font-sans bg-primary-gradient;
+
+  .input-container {
+    @apply relative w-fit p-4 mt-4 mb-2 mx-2;
   }
 
-  .button-sm {
-    @apply py-1 px-2 text-center font-sans rounded-sm;
+  .input {
+    @apply 
+      p-2 bg-transparent outline-none 
+      border-white rounded-xl border-solid border-2 
+      transition-colors duration-150
+      focus-visible:placeholder:text-gray-500
+      focus-visible:border-active 
+      focus-visible:text-active
+      text-white w-full placeholder:text-white 
+      invalid:text-error invalid:border-error invalid:placeholder:text-invalid
+    ;
   }
 
-  .button-lg {
-    @apply py-3 px-6 text-center font-sans rounded-md;
-  }
+  .input-label {
+    @apply 
+      absolute left-5 
+      peer-focus-visible:text-active
+      transition-colors duration-150  
+      peer-invalid:text-error
+    ;
 
-  .button-xl {
-    @apply py-3 px-8 text-center font-sans font-semibold rounded-md;
+    top: -15%;
   }
-
 }
 
 @tailwind utilities;
-
 @layer utilities {
-  /* 
-    This utility is to make a button have some animation so that it looks better.
-  */
-  .button-transition {
-    @apply 
-      transition-all duration-150 ease-linear select-none cursor-pointer
-      focus:outline-none focus:ring-2 focus:ring-white
-      hover:brightness-125 
-      active:ring-2 active:ring-white active:brightness-100 active:duration-[34ms]
-      visited:no-underline visited:text-white
-    ;
+  .input-invalid {
+    @apply text-error border-error placeholder:text-invalid;
+  }
+
+  .input-valid {
+    @apply text-success border-success placeholder:text-valid;
+  }
+
+  .text-invalid {
+    @apply text-error;
+  }
+
+  .text-valid {
+    @apply text-success;
   }
 }
-
 
 :root {
   /***** Color *****/
@@ -59,6 +66,7 @@
   --background: #000b0f;
   --dark-background: #002d3d;
   --success: #43d678;
+  --active: #559CDE;
   --error: #e3282a;
 
   /* extra color - bluish for button */
@@ -91,7 +99,8 @@
   --primary-gradient-top-bottom: linear-gradient(to bottom, var(--primary-gradient-color-from), var(--primary-gradient-color-to));
   --dark-gradient-color-from: #535354;
   --dark-gradient-color-to: #020206;
-  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to));
+  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to))
+
   /***** End Of Color *****/
 
   /*****  Typography ******/
