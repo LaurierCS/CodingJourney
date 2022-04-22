@@ -21,12 +21,29 @@
     @apply py-1 px-2 text-center font-sans rounded-sm;
   }
 
-  .button-lg {
-    @apply py-3 px-6 text-center font-sans rounded-md;
+  .tech-tag {
+    @apply 
+      border-2 border-solid rounded-md
+      w-fit my-4 mx-2
+      font-bold text-base
+      cursor-pointer
+      transition-colors duration-150
+      inline-block
+    ;
   }
 
-  .button-xl {
-    @apply py-3 px-8 text-center font-sans font-semibold rounded-md;
+  .tech-tag-1 {
+    @apply
+      tech-tag
+      py-1 px-2
+      ;
+    }
+    
+    .tech-tag-2 {
+      @apply
+      tech-tag 
+      py-2 px-5
+    ;
   }
 
   .tech-tag {
@@ -62,12 +79,24 @@
     This utility is to make a button have some animation so that it looks better.
   */
   .button-transition {
+  .tech-tag-blue {
     @apply 
-      transition-all duration-150 ease-linear select-none cursor-pointer
-      focus:outline-none focus:ring-2 focus:ring-white
-      hover:brightness-125 
-      active:ring-2 active:ring-white active:brightness-100 active:duration-[34ms]
-      visited:no-underline visited:text-white
+      border-sky-400 text-sky-400
+      hover:bg-sky-400 hover:text-sky-900
+    ;
+  }
+
+  .tech-tag-orange {
+    @apply
+      border-orange-400 text-orange-400
+      hover:bg-orange-400 hover:text-orange-900
+    ;
+  }
+
+  .tech-tag-green {
+    @apply
+      border-green-400 text-green-400
+      hover:bg-green-400 hover:text-green-900
     ;
   }
   
