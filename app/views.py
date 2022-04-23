@@ -5,14 +5,63 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here
-from .models import Project, Marker
+from .models import *
 from .forms import CreateUserForm
 from django.db.models import Q
 
 def homepage(request):
     template_name = "app/homepage.html"
-    template = {}
-    return render(request, template_name , template)
+
+    tech = {
+            'python': ['E-commerce', 'Hotel Booking App'], 
+            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
+            'css':['AmazingMe', 'Coding Journey'],
+        }
+    """
+    comment:
+        inside the card have context, got the key of tech-card
+        dict:
+        techname
+        project_list:
+        {
+            name:
+            tech list:
+            tag name: (marker??)
+
+            exp:
+            1: {   
+                name: Amazingme
+                tech_list: ['python', 'javascript', 'css']
+            }
+            
+
+        }
+    
+    """
+    tech = dict(sorted(tech.items()))
+    
+    context = {
+        "name" : 'item name',
+        "logo" : 'svg/bookmark.html',
+        "link" : 'homepage',
+        "tech" : tech
+
+    }
+    return render(request, template_name , context)
+
+
+# def get_user(request):
+#     current_user = request.user
+#     print(current_user.id)
+
+# def get_projects(request):
+    #current_user = request.user
+    #profile = current_user.profile
+    #print(profile1.project_set.all())
+
+# def filter_projects(request, marker):
+    
+    
 
 def register(request):
     if request.user.is_authenticated:
@@ -57,6 +106,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+
 # search feature
 """def searchProjects(request):
     searchQuery = ""
@@ -84,3 +134,5 @@ def langing_page(request):
     }
 
     return render(request, template, context)
+
+
