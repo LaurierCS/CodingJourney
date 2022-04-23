@@ -11,7 +11,7 @@ class Project(models.Model):
   project_name = models.CharField(max_length=200)
   project_description = models.TextField(null=True, blank=True)
   markers = models.ManyToManyField("Marker")
-  likes_amount = models.IntegerField(default=0)
+  likes = models.IntegerField(default=0)
   start_date = models.DateField(auto_now=False, auto_now_add=False)
   end_date = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)
   project_link = models.CharField(max_length=2000, null=True, blank=True)

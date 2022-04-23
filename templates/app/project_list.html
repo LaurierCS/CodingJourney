@@ -1,0 +1,15 @@
+
+<div class="projectsListContainer max-w-sm rounded overflow-hidden shadow-lg">
+    <div class="projectListHeader">
+        {% comment %} {% include "project_list_header.html" %} {% endcomment %}
+    </div>
+    <div class="projectListCardsContainer">
+        {% if projectList %}
+            {% for project in projectList %}
+                <h2>Project: {{project.project_name}}/h2>
+                <p>{{project.description}}</p>
+                {% include "project_list_card.html" %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>

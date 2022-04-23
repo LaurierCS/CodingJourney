@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 """
 
 # general django imports 
+from sqlite3 import Date
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -94,6 +95,49 @@ def langing_page(request):
     }
 
     return render(request, template, context)
+
+
+# Project List Display
+
+dummyData = { 
+    "project1": { 
+        "project_id": 1, 
+        "project_name": "project 1", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    "project2": { 
+        "project_id": 2, 
+        "project_name": "project 2", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    "project3": { 
+        "project_id": 3, 
+        "project_name": "project 3", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+}
+
+def projectList(request):
+    context = { 
+        "projectList": dummyData, 
+        "header": ["Project Name", "Date Posted", ""]
+    }
+    return render(request, "app\\project_list.html", context)
 
 
 
