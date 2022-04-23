@@ -21,6 +21,14 @@
     @apply py-1 px-2 text-center font-sans rounded-sm;
   }
 
+  .button-lg {
+    @apply py-3 px-6 text-center font-sans rounded-md;
+  }
+
+  .button-xl {
+    @apply py-3 px-8 text-center font-sans font-semibold rounded-md;
+  }
+
   .tech-tag {
     @apply 
       border-2 border-solid rounded-md
@@ -79,6 +87,15 @@
     This utility is to make a button have some animation so that it looks better.
   */
   .button-transition {
+    @apply 
+      transition-all duration-150 ease-linear select-none cursor-pointer
+      focus:outline-none focus:ring-2 focus:ring-white
+      hover:brightness-125 
+      active:ring-2 active:ring-white active:brightness-100 active:duration-[34ms]
+      visited:no-underline visited:text-white
+    ;
+  }
+  
   .tech-tag-blue {
     @apply 
       border-sky-400 text-sky-400
