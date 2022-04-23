@@ -2,7 +2,6 @@
 {% load static %}
 
 {%block headers%}
-  <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
   <title>Coding Journy</title>
 {%endblock headers%}
 
@@ -11,48 +10,93 @@
 {%endblock nav%}
 
 {%block content %}
-<section id="hero" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed">
+<section id="banner" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-black/[.3]">
   <div class="flex h-[95%]">
     <div class="w-1/2 mt-[10%] ml-[15%]">
       <h1 class="font-bold text-[4rem] w-[70%]">{{ site_title|title|linebreaks }}</h1>
       <p class="w-1/2 text-xl text-gray-100">
         {{ site_description }}
       </p>
-      <a href="#"><button class="bg-primary-gradient py-[12px] px-[32px] rounded-md mt-10 font-semibold text-md">Start Now</button></a>
+      <button class="bg-primary-gradient button-xl button-transition mt-10">Start Now</button>
     </div>
     <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px]">
       <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="w-[70%] absolute left-[30%] rounded-md drop-shadow-lg">
       <img src="{% static 'images/timeline.jpg' %}" alt="projects search view" class="w-[70%] absolute left-0 top-[20%] rounded-md drop-shadow-lg">
     </div>
   </div>
-  <div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 m-auto animate-bounce" fill="none" viewBox="0 0 28 28" stroke="currentColor" stroke-width="2">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-      <path stroke-linecap="round" stroke-linejoin="round" d="M19 18l-7 7-7-7" />
-    </svg>
+  <div class="animate-fade-in animation-delay-500 opacity-0">
+    {% include 'svg/double_chevron_down.html' with animate=True %}
   </div>
 </section>
-<section id="how_it_works" class="w-full relative">
-  <h2 class="text-[3rem] my-20 text-center">How it Works</h2>
-  <p class="w-1/2 text-center m-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate. Diam feugiat mattis eu non nisi, erat urna blandit integer. Felis ut non eu varius euismod vel, nisl imperdiet pulvinar. Suscipit fermentum nisl, amet id justo integer montes, ac. Lorem lectus felis, integer dolor. Faucibus nunc mauris maecenas bibendum neque, libero tortor consequat. Euismod nullam gravida aliquet elementum aliquam. Massa auctor at urna adipiscing sollicitudin faucibus sed tristique.</p>
-  <div class="my-20">
-    <h2 class="text-[3rem] my-5 text-center">What are markers?</h2>
-    <div class="grid gap-20 grid-cols-2 grid-rows-1 w-1/4 m-auto">
-      <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum arcu bibendum at mauris duis. Sapien pharetra luctus amet nunc amet, augue dui felis. Risus integer pulvinar ipsum bibendum est non dolor odio. Mattis quis pulvinar sociis sit id nulla sit. At id lacus, et in dictum senectus diam. Est platea vehicula donec morbi odio quisque. Quis lectus ac vitae massa turpis eleifend arcu. Quis aliquet ullamcorper volutpat arcu ac gravida. Nulla mauris, euismod magna massa ante sed velit elementum. Cras porttitor mi, morbi dui turpis vitae purus. Nam morbi dis lobortis convallis gravida vulputate scelerisque.</p>
-      <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum arcu bibendum at mauris duis. Sapien pharetra luctus amet nunc amet, augue dui felis. Risus integer pulvinar ipsum bibendum est non dolor odio. Mattis quis pulvinar sociis sit id nulla sit. At id lacus, et in dictum senectus diam. Est platea vehicula donec morbi odio quisque. Quis lectus ac vitae massa turpis eleifend arcu. Quis aliquet ullamcorper volutpat arcu ac gravida. Nulla mauris, euismod magna massa ante sed velit elementum. Cras porttitor mi, morbi dui turpis vitae purus. Nam morbi dis lobortis convallis gravida vulputate scelerisque.</p>
+{% comment %}
+  This anchor is needed because when going directly to the section the title will be blocked by the navbar since its position is fixed.
+{% endcomment %}
+<a id="how_it_works" name="how_it_works"></a> 
+<section id="how_it_works_section" class="w-full relative">
+  <article class="w-1/2 m-auto">
+    <h2 class="text-[3rem] mt-20 mb-15 text-left w-fit">How it Works</h2>
+    <p class="text-left m-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate. Diam feugiat mattis eu non nisi, erat urna blandit integer. Felis ut non eu varius euismod vel, nisl imperdiet pulvinar. Suscipit fermentum nisl, amet id justo integer montes, ac. Lorem lectus felis, integer dolor. Faucibus nunc mauris maecenas bibendum neque, libero tortor consequat. Euismod nullam gravida aliquet elementum aliquam. Massa auctor at urna adipiscing sollicitudin faucibus sed tristique.</p>
+  </article>
+  {% include 'svg/double_chevron_down.html' with animate=True classes="my-20"%}
+  <div class="my-20 mx-auto w-1/2 min-h-[476px] bg-primary rounded-lg p-10">
+    <h3 class="font-bold text-4xl">Step X</h3>
+    <div class="my-12 flex justify-between">
+      {% comment %}
+        change div to an image element when screenshot is available
+      {% endcomment %}
+      <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-5/12 h-auto rounded-lg flex-1" />
+      <p class="flex-[2] ml-6">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate.
+      </p>
     </div>
   </div>
-  <div class="my-[10rem] flex flex-col items-center">
-    <h2 class="text-center text-[3rem]">Start Marking Your Journey</h2>
-    <a href="#"><button class="bg-primary-gradient py-[12px] px-[32px] rounded-md mt-10 font-semibold text-md">Start Now</button></a>
+  {% include 'svg/double_chevron_down.html' with animate=True classes="my-20"%}
+  <div class="my-20 mx-auto w-1/2 min-h-[476px] bg-primary rounded-lg p-10">
+    <h3 class="font-bold text-4xl">Step X</h3>
+    <div class="my-12 flex justify-between">
+      {% comment %}
+        change div to an image element when screenshot is available
+      {% endcomment %}
+      <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-5/12 h-auto rounded-lg flex-1" />
+      <p class="flex-[2] ml-6">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate.
+      </p>
+    </div>
   </div>
 </section>
-<section id="about_us" class="w-full my-20 flex items-start justify-center">
-  <img src="{% static 'images/team.jpg' %}" alt="Team Member Hands" class="rounded-[20%]">
-  <div class="px-10 w-1/2">
-    <h2 class="text-[3rem]">About Us</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dolor, vitae in tortor nunc ipsum eget dictum. Faucibus sed dolor est ut lacinia platea. Non lobortis sagittis, curabitur iaculis. Facilisis leo ut ultrices mauris sollicitudin id vel nulla amet. Maecenas pretium, ornare tortor, nunc tellus gravida proin cras eget. Varius tristique neque, nunc volutpat platea non massa vitae sed. Non aliquet turpis et facilisi cursus nam nisi. Sagittis morbi vitae sit amet massa nisi, eleifend vitae.</p>
+<section id="about_us" class="w-full my-[10rem]">
+  <article class="w-1/2 m-auto">
+    <h2 class="text-[3rem] my-5 text-center">About Us</h2>
+    <p class="text-center">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate.
+    </p>
+  </article>
+  <div class="grid grid-cols-2 w-1/2 m-auto mt-11">
+    <div class="flex items-center my-6">
+      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
+        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
+      </div>
+      <span class="font-bold">Team Member X</span>
+    </div>
+    <div class="flex items-center my-6">
+      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
+        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
+      </div>
+      <span class="font-bold">Team Member X</span>
+    </div>
+    <div class="flex items-center my-6">
+      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
+        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
+      </div>
+      <span class="font-bold">Team Member X</span>
+    </div>
+    <div class="flex items-center my-6">
+      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
+        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
+      </div>
+      <span class="font-bold">Team Member X</span>
+    </div>
   </div>
 </section>
-<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/navbar_scroll_animation.js' %}"></script>
 {%endblock content%}
