@@ -78,6 +78,34 @@
       py-2 px-5
     ;
   }
+
+  .input-container {
+    @apply relative w-fit p-4 mt-4 mb-2 mx-2;
+  }
+
+  .input {
+    @apply 
+      p-2 bg-transparent outline-none 
+      border-white rounded-xl border-solid border-2 
+      transition-colors duration-150
+      focus-visible:placeholder:text-gray-500
+      focus-visible:border-active 
+      focus-visible:text-active
+      text-white w-full placeholder:text-white 
+      invalid:text-error invalid:border-error invalid:placeholder:text-invalid
+    ;
+  }
+
+  .input-label {
+    @apply 
+      absolute left-5 
+      peer-focus-visible:text-active
+      transition-colors duration-150  
+      peer-invalid:text-error
+    ;
+
+    top: -15%;
+  }
 }
 
 @tailwind utilities;
@@ -137,6 +165,27 @@
       hover:bg-green-400 hover:text-green-900
     ;
   }
+
+  .input-invalid {
+    @apply 
+      text-error border-error placeholder:text-invalid
+    ;
+  }
+  
+  .input-valid {
+    @apply 
+      text-success border-success placeholder:text-valid
+      invalid:text-success invalid:border-success invalid:placeholder:text-success
+    ;
+  }
+
+  .text-invalid {
+    @apply text-error;
+  }
+
+  .text-valid {
+    @apply text-success peer-invalid:text-success;
+  }
 }
 
 
@@ -151,6 +200,7 @@
   --background: #000b0f;
   --dark-background: #002d3d;
   --success: #43d678;
+  --active: #559CDE;
   --error: #e3282a;
 
   /* extra color - bluish for button */
