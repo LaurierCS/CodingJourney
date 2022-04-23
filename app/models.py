@@ -15,7 +15,6 @@ class Project(models.Model):
   start_date = models.DateField(auto_now=False, auto_now_add=False)
   end_date = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)
   project_link = models.CharField(max_length=2000, null=True, blank=True)
-  difficulty = models.ForeignKey("Difficulty", on_delete=models.CASCADE)
   
   def __str__(self):
     return self.project_name
