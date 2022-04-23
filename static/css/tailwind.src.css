@@ -183,7 +183,7 @@
   --primary-gradient-top-bottom: linear-gradient(to bottom, var(--primary-gradient-color-from), var(--primary-gradient-color-to));
   --dark-gradient-color-from: #535354;
   --dark-gradient-color-to: #020206;
-  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to))
+  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to));
 
   /***** End Of Color *****/
 
