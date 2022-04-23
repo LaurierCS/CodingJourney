@@ -1,0 +1,28 @@
+{% load static %}
+
+
+<!-- side card -->
+<div class="h-[calc(100%-5rem)] w-80 px-10 pt-10 fixed bottom-0 left-0 z-10 overflow-auto bg-blue-400 ">
+  <div class="mb-8 space-y-1"> 
+      {% include 'components/menu_item.html' with name="Skill Tree"  link="homepage" %}
+      {% include 'components/menu_item.html' with name="All Projects"  link="landing_page" %}
+      {% include 'components/menu_item.html' with name="Settings"  link="landing_page" %}
+  </div>  
+  <!-- the sidebar menu item -->
+  <!-- tech card  -->
+  <div class="mb-10 space-y-4">
+    {% include "components/tech_card.html" %}
+  </div>
+  <!-- end of the tech card -->
+</div>
+
+
+
+
+<!-- end of the sidebar menu item -->
+
+
+
+<!-- tech card  -->
+
+<!-- end of the tech card -->

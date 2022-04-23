@@ -22,9 +22,14 @@
     {% block nav %}
       {% include "components/navbar.html"%}
     {% endblock nav %}
-    
-    {% block content %}
-    {% endblock content%}
 
+    {% block content %}
+      {% block side_menu %}
+      {% endblock side_menu %}
+      
+      {% block side_content %}
+      {% endblock side_content %}
+
+    {% endblock content %}
   </body>
 </html>

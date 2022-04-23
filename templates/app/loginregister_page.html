@@ -50,7 +50,7 @@
           </div>
         </div>
         <!-- The end of container for input box -->
-        
+        {% include 'components/button.html' %}
       </form>
     </div>
 
@@ -62,6 +62,7 @@
         <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'register' %}">Register</a></li>
       </ul>
+
       <form method="POST" action="" class="flex flex-col justify-center items-center px-4 space">
         {% csrf_token %} 
         <!-- The container for input box -->
