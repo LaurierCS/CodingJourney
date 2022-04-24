@@ -1,8 +1,33 @@
+"""
+django.contrib.auth.decorators
+- module that used for restricted users for certain functions in our app
+from django.contrib.auth.forms import UserCreationForm
+- A form that creates a user, with no privileges, from the given username and password.
+"""
+
+# general django imports 
+from sqlite3 import Date
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views import View
+
+# from django auth import s
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
+
+# forms imports
+from .forms import *
+
+# models imports 
+from .models import *
+
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+
 
 # Create your views here
 from .models import *
@@ -135,4 +160,119 @@ def langing_page(request):
 
     return render(request, template, context)
 
+# Project List Display
 
+dummyData = [ { 
+        "project_id": 1, 
+        "project_name": "project 1", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 2, 
+        "project_name": "project 2", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 3, 
+        "project_name": "project 3", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 3, 
+        "project_name": "project 3", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 3, 
+        "project_name": "project 3", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 3, 
+        "project_name": "project 3", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+]
+
+def projectList(request):
+    context = { 
+        "projectList": dummyData, 
+        "header": ["Project Name", "Date Posted", ""]
+    }
+    return render(request, "components\project_list.html", context)
+
+
+
+# template code for project input multi phase form 
+def projectInput(request): 
+    form = ProjectInputForm(request.POST)
+    return render(request, "app\\project_input1.html", {"form": form})
+
+
+# def projectInputSave(request):
+#     # if method is not a post method, then we need to redirect to project input 
+#     if request.method != "POST":
+
+#         return HttpResponseRedirect(reverse("projectInput"))
+#     # otherwise we can submit the post request 
+#     else:
+#         form = ProjectInputForm(request.POST)
+#         if form.is_valid():
+
+
+
+"""
+Later goal is to take initial input and cause phase 2 to render while storing information 
+inside of a session variable to be accessed by later phases + to populate form 
+fields 
+"""
+# def projectInput1(request):
+#     initial={'fn': request.session.get('fn', None)}
+#     form = PersonForm(request.POST or None, initial=initial)
+#     if request.method == 'POST':
+#         if form.is_valid():
+#             request.session['fn'] = form.cleaned_data['fn']
+#             return HttpResponseRedirect(reverse('step2'))
+#     return render(request, 'step1.html', {'form': form})
+
+# def projectInput2(request):
+#     form = PetForm(request.POST or None)
+#     if request.method == 'POST':
+#         if form.is_valid():
+#             pet = form.save(commit=False)
+#             person = Person.objects.create(fn=request.session['fn'])
+#             pet.owner = person
+#             pet.save()
+#             return HttpResponseRedirect(reverse('finished'))
+#     return render(request, 'step2.html', {'form': form})
+# 

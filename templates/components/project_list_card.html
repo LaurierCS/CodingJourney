@@ -1,0 +1,24 @@
+<div class="projectCardContainer">
+    <div class="condensed_card">
+        <div class="project_name">
+            {{project.project_name}}
+        </div>
+        <div class="likes">
+            {{project.likes}}
+        </div>
+        <div class="post_date">
+            {{project.startDate}}
+        </div>
+        <div class="markers">
+            {% for marker in project.markers %}
+                {% include "/components/marker.html" with marker=marker %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="expanded_card">
+        <div class="description-container" style="display:none;">
+            {{project.description}}
+        </div>
+    </div>
+    
+</div> 
