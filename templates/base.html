@@ -13,7 +13,7 @@
     {% block headers %} 
     {% endblock headers %}
   </head>
-  <body class="w-full h-full bg-background text-white">
+  <body class="w-full h-full bg-black text-white tracking-[0.5px] scroll-smooth">
     <!-- 
       Due to the different look of the navbar on the landing page,
       this block could be replaced with what ever block it is need to achieve the look
@@ -22,8 +22,14 @@
     {% block nav %}
       {% include "components/navbar.html"%}
     {% endblock nav %}
-    
+
     {% block content %}
-    {% endblock content%}
+      {% block side_menu %}
+      {% endblock side_menu %}
+      
+      {% block side_content %}
+      {% endblock side_content %}
+
+    {% endblock content %}
   </body>
 </html>
