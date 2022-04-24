@@ -1,0 +1,12 @@
+{% load static %}
+
+{% for techname, projects in tech.items %}
+  <div id="tech_card" class="space-y-2">
+    <h3 class="">{{techname|title}}</h3>
+      {% for project in projects %}
+        <div class="border-2 border-white rounded-xl">
+          <a href="#"><p class="p-1 bg-slate-500 rounded-lg">{{project|title}}</p></a>
+        </div>
+      {% endfor %}
+  </div>
+{% endfor %}

@@ -8,5 +8,5 @@
 # it is better to just generate one when starting dev env or for production.
 static/css/tailwind.css
 
-
 __pycache__
+
