@@ -10,8 +10,6 @@ from django.contrib.auth.models import User
 #  our class defined imports
 from .models import *
 
-
-
 class ProjectInputForm1(forms.Form): 
     # project_name = forms.CharField(label='Project Name', max_length=100)
     # project_link = forms.CharField(label='Project Link', max_length=100)
@@ -58,5 +56,8 @@ class ProjectInputForm(forms.ModelForm):
 
 # class customMMCF():
 
-#     def func1():
-#         return
+class CreateUserForm(UserCreationForm):
+  class Meta:
+    model = User
+    fields = ['username', 'email', 'password1', 'password2']
+
