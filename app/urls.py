@@ -10,7 +10,3 @@ urlpatterns = [
     
 ]
 
-
-from . import dview
-urlpatterns.append(path("d/",dview.d,name='d'))
-
