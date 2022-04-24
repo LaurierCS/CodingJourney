@@ -78,6 +78,7 @@
       py-2 px-5
     ;
   }
+<<<<<<< HEAD
 
   .filter[data-active="true"] {
     @apply border-primary;
@@ -86,6 +87,8 @@
   .filter-selections[data-active="true"] {
     @apply block;
   }
+||||||| bce8459
+=======
 
   .input-container {
     @apply relative w-fit p-4 mt-4 mb-2 mx-2;
@@ -114,11 +117,13 @@
 
     top: -15%;
   }
+>>>>>>> main
 }
 
 @tailwind utilities;
 
 @layer utilities {
+<<<<<<< HEAD
       /* 
       This utility is to make a button have some animation so that it looks better.
     */
@@ -129,6 +134,7 @@
         hover:bg-sky-400 hover:text-sky-900
       ;
     }
+||||||| bce8459
     /* 
     This utility is to make a button have some animation so that it looks better.
   */
@@ -139,6 +145,7 @@
       hover:bg-sky-400 hover:text-sky-900
     ;
   }
+=======
     /* 
     This utility is to make a button have some animation so that it looks better.
   */
@@ -158,6 +165,7 @@
       hover:bg-sky-400 hover:text-sky-900
     ;
   }
+>>>>>>> main
 
     .tech-tag-orange {
       @apply
