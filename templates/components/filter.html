@@ -1,0 +1,61 @@
+{% load static %}
+{% with selections=filter.selections endpoint=filter.endpoint %}
+<div class="w-fit relative select-none m-auto">
+  <div id="filter" 
+  data-active="false"
+  class="
+  peer
+  filter
+  flex 
+  justify-end 
+  items-center 
+  border-2 border-solid border-white
+  brightness-75 
+  hover:brightness-100 
+  py-3 px-4 
+  rounded-md 
+  transition-all duration-75
+  cursor-pointer">
+    <!-- selection button -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+    </svg>
+    <span class="">Filters</span>
+  </div>
+  <form method="post" action="{{ endpoint|add:'/' }}"
+  id="drop_down"
+  class="
+  filter-selections
+  w-max
+  absolute 
+  bg-blue-400 
+  left-1/2 top-full translate-y-2 -translate-x-1/2
+  rounded-md 
+  bg-dark
+  overflow-hidden
+  hidden
+  ">
+    {% csrf_token %}
+    <!-- drop down menu -->
+    <ul id="list">
+      {% for value in selections %}
+        <li 
+        class="
+        w-full py-1 px-2 flex justify-center items-center 
+        transition-colors duration-100 hover:bg-primary cursor-pointer
+        capitalize" 
+        data-value="{{ value }}">
+          {{ value }}
+        </li>
+      {% endfor %}
+    </ul>
+    {% comment %}
+      The input tags are hidden. 
+      They are only needed to submit the select value to the backend.
+    {% endcomment %}
+    <input type="text" name="filter-query" id="query_text" value="" aria-hidden="true" class="hidden" />
+    <input type="submit" value="" id="submit" aria-hidden="true" class="hidden"/>
+  </form>
+  <script src="{% static 'js/filter_component.js' %}"></script>
+</div>
+{% endwith %}

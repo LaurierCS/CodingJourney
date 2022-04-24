@@ -10,3 +10,4 @@ urlpatterns = [
     path('projectInput/', views.projectInput, name="project_input"),
     path('projectList/', views.projectList, name="project_list"),
 ]
+
