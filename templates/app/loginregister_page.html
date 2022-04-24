@@ -7,8 +7,6 @@
       body {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
       }
       label {
         font-size: 0.95rem;
@@ -27,6 +25,7 @@
 {% endblock headers %}
 
 {% block content %}
+<div class="justify-center relative top-36 mx-auto">
     {% if page == "login" %}
     <!-- login page -->
     <div class="border-2 border-white rounded-xl">
@@ -50,7 +49,7 @@
           </div>
         </div>
         <!-- The end of container for input box -->
-        {% include 'components/button.html' %}
+        <button type="submit" class="my-10 rounded-lg w-[150px] h-[63px] bg-blue-700">Log In</button>
       </form>
     </div>
 
@@ -86,7 +85,7 @@
           </div>
         </div>
         <!-- The end of container for input box -->
-        {% include 'components/button.html' %}
+        <button type="submit" class="my-10 rounded-lg w-[150px] h-[63px] bg-blue-700">Log In</button>
       </form>
     </div>
     {% endif %}
@@ -100,4 +99,6 @@
     </ul>
     {% endif %}
     <!-- show the error message here -->
+    
+</div>
 {% endblock %}
