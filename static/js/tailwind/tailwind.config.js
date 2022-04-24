@@ -32,6 +32,7 @@ module.exports = {
         "rice-white": "var(--rice-white)",
         dark: "var(--dark-background)",
         success: "var(--success)",
+        active: "var(--active)",
         error: "var(--error)",
         active: "var(--active)",
         "darker-primary": "var(--darker-primary)",
