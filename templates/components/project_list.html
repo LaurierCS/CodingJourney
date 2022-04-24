@@ -6,9 +6,7 @@
     <div class="projectListCardsContainer">
         {% if projectList %}
             {% for project in projectList %}
-                <h2>Project: {{project.project_name}}/h2>
-                <p>{{project.description}}</p>
-                {% include "project_list_card.html" %}
+                {% include "project_list_card.html" with project=project %}
             {% endfor %}
         {% endif %}
     </div>

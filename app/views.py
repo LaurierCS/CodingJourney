@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 django.contrib.auth.decorators
 - module that used for restricted users for certain functions in our app
@@ -9,12 +8,9 @@ from django.contrib.auth.forms import UserCreationForm
 # general django imports 
 from sqlite3 import Date
 from django.http import HttpResponseRedirect
-=======
->>>>>>> main
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-<<<<<<< HEAD
 from django.views import View
 
 # from django auth import s
@@ -28,10 +24,10 @@ from .forms import *
 
 # models imports 
 from .models import *
-=======
+
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
->>>>>>> main
+
 
 # Create your views here
 from .models import *
