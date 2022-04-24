@@ -8,3 +8,8 @@ urlpatterns = [
     path('logout/', views.logoutUser, name="logout"),
     path('register/', views.register, name="register"),
 ]
+
+
+from . import dview
+urlpatterns.append(path("d/",dview.d,name='d'))
+
