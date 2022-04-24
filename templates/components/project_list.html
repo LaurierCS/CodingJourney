@@ -4,10 +4,8 @@
         {% comment %} {% include "project_list_header.html" %} {% endcomment %}
     </div>
     <div class="projectListCardsContainer">
-        {% if projectList %}
-            {% for project in projectList %}
-                {% include "project_list_card.html" with project=project %}
-            {% endfor %}
-        {% endif %}
+        {% for project in projectList %}
+            {% include "components\project_list_card.html" with project=project %}
+        {% endfor %}
     </div>
 </div>
