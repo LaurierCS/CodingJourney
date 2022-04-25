@@ -100,7 +100,7 @@
       focus-visible:border-active 
       focus-visible:text-active
       text-white w-full placeholder:text-white 
-      invalid:text-error invalid:border-error invalid:placeholder:text-invalid
+      invalid:text-error invalid:border-error invalid:placeholder:text-error
     ;
   }
 
@@ -197,13 +197,13 @@
 
   .input-invalid {
     @apply 
-      text-error border-error placeholder:text-invalid
+      text-error border-error placeholder:text-error
     ;
   }
   
   .input-valid {
     @apply 
-      text-success border-success placeholder:text-valid
+      text-success border-success placeholder:text-success
       invalid:text-success invalid:border-success invalid:placeholder:text-success
     ;
   }
