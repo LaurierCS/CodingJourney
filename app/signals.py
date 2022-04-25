@@ -6,7 +6,7 @@ from .models import *
 
 # Example: Create a Profile for every new User
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, kwargs):
+def create_profile(sender, instance, created, **kwargs):
     if created:
         user = instance
         profile = Profile.objects.create(
@@ -14,7 +14,7 @@ def create_profile(sender, instance, created, kwargs):
         )
 
 @receiver(post_delete, sender=Profile)
-def del_profile(sender, instance, kwargs):
+def del_profile(sender, instance, **kwargs):
     user = instance.user
     user.delete()
 
