@@ -19,7 +19,6 @@ class Profile(models.Model):
 class Experience(models.Model):
   profile = models.ForeignKey("Profile", on_delete=models.CASCADE, null=True)
   markers = models.ManyToManyField("Marker")
-
   name = models.CharField(max_length=200)
   EXPERIENCE_TYPE = (
         ('E', 'Exploration'),
