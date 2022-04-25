@@ -129,7 +129,7 @@ def homepage(request):
         "name" : 'item name',
         "logo" : 'icons/bookmark_outline.html',
         "link" : 'homepage',
-        "tech" : tech
+        "tech" : tech 
 
     }
     return render(request, template_name , context)
