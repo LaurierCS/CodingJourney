@@ -4,8 +4,10 @@
   <div id="tech_card" class="space-y-2">
     <h3 class="">{{techname|title}}</h3>
       {% for project in projects %}
-        <div class="border-2 border-white rounded-xl">
-          <a href="#"><p class="p-1 bg-slate-500 rounded-lg">{{project|title}}</p></a>
+        <div>
+          <a href="#">
+            <p class="border-2 border-white rounded-xl p-1 bg-slate-500 hover:bg-darker_blue hover:-translate-y-0.5 transform transition">{{project|title}}</p>
+          </a>
         </div>
       {% endfor %}
   </div>

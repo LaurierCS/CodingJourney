@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% block side_menu %}
+    {% include "components/sidemenu.html" %}
+  {% endblock side_menu %}
+
+  {% block side_content %}
+  <div class="ml-80 mt-20 bg-white text-black h-full">
+    <p>This is setting page</p>
+  </div>
+  {% endblock side_content %}
+
+{% endblock content %}

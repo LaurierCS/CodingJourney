@@ -94,6 +94,8 @@ REGISTER_FORM_INPUTS = [{
                 "label": "Password Confirmation",
             }]
 
+
+
 def homepage(request):
     template_name = "app/homepage.html"
 
@@ -145,7 +147,7 @@ def homepage(request):
     #print(profile1.project_set.all())
 
 # def filter_projects(request, marker):
-    
+
     
 def register(request):
     # populate forms
@@ -350,3 +352,34 @@ def how_it_works(request):
 
 def about_us(request):
     return render(request, 'app/about_us_page.html', {})
+
+def setting(request):
+    template = 'app/setting.html'
+    tech = {
+            'python': ['E-commerce', 'Hotel Booking App'], 
+            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
+            'css':['AmazingMe', 'Coding Journey'],
+        }
+    context = {
+        "name" : 'item name',
+        "logo" : 'icons/bookmark_outline.html',
+        "link" : 'homepage',
+        "tech" : tech 
+    }
+    return render(request, template, context)
+
+def profile(request):
+    template = 'app/profile.html'
+    tech = {
+            'python': ['E-commerce', 'Hotel Booking App'], 
+            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
+            'css':['AmazingMe', 'Coding Journey'],
+        }
+    context = {
+        "name" : 'item name',
+        "logo" : 'icons/bookmark_outline.html',
+        "link" : 'homepage',
+        "tech" : tech 
+    }
+    return render(request, template, context)
+    
