@@ -7,12 +7,12 @@
 
     {% block side_content %}
     <div class="ml-80 mt-20 bg-background h-full space-y-4">
-        <div id="profile" class="flex items-center justify-center space-x-10 py-5">
+        <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
           <div id="pic-container" class="w-52">
-            <img src="{{profile.image.url}}" alt="profile.img" class="w-full h-52 object-cover object-top border-2 rounded-full">
+            <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-52 object-cover object-top rounded-full">
           </div>
           <div>
-            <p class="text-4xl mb-5">{{user.username|title}}</p>
+            <p class="text-4xl mb-5">{{request.user.username|title}}</p>
             <a href="{% url 'setting' %}">
               <button class="button p-3">
                 Edit Profile
@@ -25,8 +25,8 @@
           <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
             <h3 class='text-2xl'>Biography</h3>
             <p class="break-words">
-              {% if profile.bio %}
-                {{profile.bio}}
+              {% if request.user.profile.bio %}
+                {{request.user.profile.bio}}
               {% else %} 
                 Add your legendary bio &#128526; 
               {% endif %}
@@ -35,7 +35,7 @@
           <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
             <h3 class='text-2xl'>Extra Info</h3>
             <div id="created-time">
-              <p>📅 Member since {{profile.date_created}} </p>
+              <p>📅 Member since {{request.user.profile.date_created}} </p>
             </div>
             <div id="num-exp">
               <p>🔥 Number of experience: 4</p>
@@ -44,7 +44,7 @@
 
           <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
             <h3 class='text-2xl'>Email</h3>
-            <p class="break-words">{{profile.email}}</p>
+            <p class="break-words">{{request.user.profile.email}}</p>
           </div>
         </div>
 

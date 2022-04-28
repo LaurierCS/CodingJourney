@@ -42,10 +42,12 @@
     <!-- end of links -->
     <!-- profile: img, profile-info(name, info) -->
     <div class="flex justify-start items-center h-20">
-      <img src="{% static 'images/avatar.svg' %}" class="w-10 h-10">
-      <div class="mx-10">
-        <p class="cursor-pointer opacity-70 hover:opacity-100">Robert Wilson</p>
-        <p class="cursor-pointer opacity-70 hover:opacity-100">info</p>
+      <div id="pic-container" class="w-12">
+        <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-12 object-cover object-top rounded-full">
+      </div>
+      <div class="ml-10">
+        <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.username | title}}</p>
+        <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.profile.email}}</p>
       </div>
     </div>
     <!-- end of profile -->
