@@ -95,7 +95,6 @@ REGISTER_FORM_INPUTS = [{
             }]
 
 
-
 def homepage(request):
     template_name = "app/homepage.html"
 
@@ -360,16 +359,39 @@ def setting(request):
             'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
             'css':['AmazingMe', 'Coding Journey'],
         }
+
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    bio = profile.bio
+    email = profile.email
+    image = profile.image
+    # get back the form that contain all the info of the user profile
+    profile_form = ProfileForm(instance=profile)
+
+    if request.method == "POST":
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('setting')
+
     context = {
         "name" : 'item name',
         "logo" : 'icons/bookmark_outline.html',
         "link" : 'homepage',
-        "tech" : tech 
+        "tech" : tech ,
+        "bio" : bio,
+        "email": email,
+        "image": image
+        
     }
+
     return render(request, template, context)
 
 def profile(request):
     template = 'app/profile.html'
+    current_user = request.user
+    current_profile = current_user.profile
     tech = {
             'python': ['E-commerce', 'Hotel Booking App'], 
             'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
@@ -379,7 +401,9 @@ def profile(request):
         "name" : 'item name',
         "logo" : 'icons/bookmark_outline.html',
         "link" : 'homepage',
-        "tech" : tech 
+        "tech" : tech,
+        "user" : current_user,
+        "profile": current_profile
     }
     return render(request, template, context)
     
