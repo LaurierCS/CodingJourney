@@ -8,16 +8,15 @@ from django.contrib.auth.forms import UserCreationForm
 # general django imports 
 from sqlite3 import Date
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 
 # from django auth import s
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 
 # forms imports
 from .forms import *
@@ -27,12 +26,12 @@ from .models import *
 
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-
-
-# Create your views here
-from .models import *
 from .forms import CreateUserForm
 from django.db.models import Q
+
+# Logging imports and behaviours
+import logging
+logger = logging.getLogger(__name__)
 
 def homepage(request):
     template_name = "app/homepage.html"
@@ -161,81 +160,37 @@ def langing_page(request):
     return render(request, template, context)
 
 # Project List Display
-
-dummyData = [ { 
-        "project_id": 1, 
-        "project_name": "project 1", 
-        "project_description" : "Lorem ipsum",
-        "markers": [], 
-        "likes": 1, 
-        "start_date": Date(2022, 2, 2),
-        "end_date": Date(2022, 3, 2),
-        "project_url": "https://github.com/"
-    },
-    { 
-        "project_id": 2, 
-        "project_name": "project 2", 
-        "project_description" : "Lorem ipsum",
-        "markers": [], 
-        "likes": 1, 
-        "start_date": Date(2022, 2, 2),
-        "end_date": Date(2022, 3, 2),
-        "project_url": "https://github.com/"
-    },
-    { 
-        "project_id": 3, 
-        "project_name": "project 3", 
-        "project_description" : "Lorem ipsum",
-        "markers": [], 
-        "likes": 1, 
-        "start_date": Date(2022, 2, 2),
-        "end_date": Date(2022, 3, 2),
-        "project_url": "https://github.com/"
-    },
-    { 
-        "project_id": 3, 
-        "project_name": "project 3", 
-        "project_description" : "Lorem ipsum",
-        "markers": [], 
-        "likes": 1, 
-        "start_date": Date(2022, 2, 2),
-        "end_date": Date(2022, 3, 2),
-        "project_url": "https://github.com/"
-    },
-    { 
-        "project_id": 3, 
-        "project_name": "project 3", 
-        "project_description" : "Lorem ipsum",
-        "markers": [], 
-        "likes": 1, 
-        "start_date": Date(2022, 2, 2),
-        "end_date": Date(2022, 3, 2),
-        "project_url": "https://github.com/"
-    },
-    { 
-        "project_id": 3, 
-        "project_name": "project 3", 
-        "project_description" : "Lorem ipsum",
-        "markers": [], 
-        "likes": 1, 
-        "start_date": Date(2022, 2, 2),
-        "end_date": Date(2022, 3, 2),
-        "project_url": "https://github.com/"
-    },
-]
-
 def projectList(request):
+    user_profile = getUserProfile()
+    logger.debug(user_profile)
+    projectList = Experience.objects.filter(profile=user_profile)
+    print(projectList)
+    for project in projectList: 
+        print(project.kind)
     context = { 
-        "projectList": dummyData, 
-        "header": ["Project Name", "Date Posted", ""]
+        "projectList": projectList, 
+        "header": ["Project Name", "Date Posted"]
     }
     return render(request, "components\project_list.html", context)
 
-
+def getUserProfile():
+    return get_object_or_404(Profile, email="aleks.neceski@gmail.com")
 
 # template code for project input multi phase form 
-def projectInput(request): 
-    form = ProjectInputForm(request.POST)
+def experienceInput(request): 
+
+    if request.method == "POST": 
+        form = ExperienceInputform(request.POST)
+
+# / NEED to modify form so that input includes user 
+        if (form.is_valid()):
+            experience_instance = form.clean()
+            form.save()
+            
+
+    else: 
+        form = ExperienceInputform()
+
     return render(request, "app\\project_input1.html", {"form": form})
 
 
@@ -276,3 +231,36 @@ fields
 #             return HttpResponseRedirect(reverse('finished'))
 #     return render(request, 'step2.html', {'form': form})
 # 
+
+
+dummyData = [ { 
+        "project_id": 1, 
+        "project_name": "project 1", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 2, 
+        "project_name": "project 2", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+    { 
+        "project_id": 3, 
+        "project_name": "project 3", 
+        "project_description" : "Lorem ipsum",
+        "markers": [], 
+        "likes": 1, 
+        "start_date": Date(2022, 2, 2),
+        "end_date": Date(2022, 3, 2),
+        "project_url": "https://github.com/"
+    },
+]

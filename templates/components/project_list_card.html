@@ -1,24 +1,24 @@
-<div class="projectCardContainer">
+<div class="projectCardContainer flex flex-row">
     <div class="condensed_card">
         <div class="project_name">
-            {{project.project_name}}
+            {{project.name}}
         </div>
         <div class="likes">
-            {{project.likes}}
+            {{project.likes_amount}}
         </div>
         <div class="post_date">
-            {{project.startDate}}
+            {{project.start_date}}
         </div>
         <div class="markers">
-            {% for marker in project.markers %}
-                {% include "/components/marker.html" with marker=marker %}
-            {% endfor %}
+            {% comment %} {% for marker in project.markers %} {% endcomment %}
+                {% comment %} {% include "/components/marker.html" with marker=project.markers %} {% endcomment %}
+            {% comment %} {% endfor %} {% endcomment %}
         </div>
     </div>
     <div class="expanded_card">
-        <div class="description-container" style="display:none;">
+        <div class="description-container" style="display:none;"> 
+            {% comment %}  {% endcomment %}
             {{project.description}}
         </div>
     </div>
-    
 </div> 

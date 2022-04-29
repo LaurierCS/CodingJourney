@@ -19,7 +19,7 @@ module.exports = {
     },
 
     /**
-     * Extend the classes that tailwind has to offer instead of overriding them.
+     * Extend the classes that tailwind has to offerY instead of overriding them.
      * Overriding any of the default category, such as margin, will get rid of all
      * built-in classes for margin and leave the ones you have define.
      */

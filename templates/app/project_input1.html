@@ -1,10 +1,9 @@
-<form action="">
-    {{form.as_table}}
+<form action="/experienceInput/" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
 
-    <button type="submit">Submit</button>
+    <button type="submit" value="Submit">Submit</button>
 </form>
-
-div
 
 
 

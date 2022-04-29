@@ -10,21 +10,38 @@ from django.contrib.auth.models import User
 #  our class defined imports
 from .models import *
 
-class ProjectInputForm(forms.ModelForm): 
-    project_input = forms.TextInput()
-    project_description = forms.Textarea()
+class ExperienceInputform(forms.ModelForm): 
     # start as text input and adjust to match figma
     markers = forms.ModelMultipleChoiceField(
         queryset=Marker.objects.all(),
-        widget=forms.CheckboxSelectMultiple
     )
-    start_date = forms.DateInput()
-    end_date = forms.DateInput()
-    project_link = forms.URLField()
+    kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
+    description = forms.Textarea()
+    start_date = forms.DateField(widget=forms.SelectDateWidget)
+    end_date = forms.DateField(widget=forms.SelectDateWidget)
+    project_link = forms.URLInput()
     
     class Meta:
-        model = Project
+        model = Experience
         fields = "__all__"
+        exclude = ('profile', 'likes_amount',)
+
+        # lables = { 
+        #   "name": "Experience Name",
+        #   "markers": "Add Marker Tags",
+        #   "kind": "Experience Type",
+        #   "descripton": "Experience Description",
+        # }
+
+    def clean(self):
+      cleaned_data = super().clean()
+      start_date = cleaned_data.get("start_date")
+      end_date = cleaned_data.get("end_date")
+      if end_date < start_date:
+        raise forms.ValidationError(_("End date should be greater than start date."), code="invalidDate")
+
+      return cleaned_data
+
 
 # class customMMCF():
 
