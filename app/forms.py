@@ -5,7 +5,7 @@ from django.forms import CheckboxSelectMultiple, ChoiceField, ModelForm
 
 # django auth imports
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import *
 
 #  our class defined imports
 from .models import *
@@ -37,3 +37,8 @@ class CreateUserForm(UserCreationForm):
   class Meta:
     model = User
     fields = ['username', 'email', 'password1', 'password2']
+
+class ProfileForm(ModelForm):
+  class Meta:
+    model = Profile
+    fields = ['email', 'bio', 'image']

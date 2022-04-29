@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% block side_menu %}
+      {% include "components/sidemenu.html" %}
+    {% endblock side_menu %}
+
+    {% block side_content %}
+    <div class="ml-80 mt-20 bg-background h-full space-y-4">
+        <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
+          <div id="pic-container" class="w-52">
+            <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-52 object-cover object-top rounded-full">
+          </div>
+          <div>
+            <p class="text-4xl mb-5">{{request.user.username|title}}</p>
+            <a href="{% url 'setting' %}">
+              <button class="button p-3">
+                Edit Profile
+              </button>
+            </a>
+          </div>
+        </div>
+
+        <div id="grid" class="grid gap-8 grid-cols-2 p-20">
+          <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+            <h3 class='text-2xl'>Biography</h3>
+            <p class="break-words">
+              {% if request.user.profile.bio %}
+                {{request.user.profile.bio}}
+              {% else %} 
+                Add your legendary bio &#128526; 
+              {% endif %}
+            </p>
+          </div>
+          <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+            <h3 class='text-2xl'>Extra Info</h3>
+            <div id="created-time">
+              <p>📅 Member since {{request.user.profile.date_created}} </p>
+            </div>
+            <div id="num-exp">
+              <p>🔥 Number of experience: 4</p>
+            </div>
+          </div>
+
+          <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+            <h3 class='text-2xl'>Email</h3>
+            <p class="break-words">{{request.user.profile.email}}</p>
+          </div>
+        </div>
+
+    </div>
+    {% endblock side_content %}
+{% endblock content %}
