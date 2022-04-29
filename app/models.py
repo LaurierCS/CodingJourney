@@ -7,14 +7,13 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
   user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-
   email = models.EmailField(max_length=200, null=True)
   bio = models.TextField(max_length=500)
   image = models.ImageField(upload_to='images/', blank=True)
   date_created = models.DateTimeField(auto_now_add=True, null=True)
 
   def __str__(self):
-    return self.email
+    return self.user.username
 
   
 class Experience(models.Model):

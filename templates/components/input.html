@@ -1,25 +1,26 @@
 
-{% with attributes=input_context.attributes state=input_context.state label=input_context.label %}
+{% with attributes=input_context.attributes label=input_context.label %}
 
 <div
-  class="input-container"
+  class="relative w-fit p-4 mt-4 mb-2 mx-2"
 >
   <input 
   {% for k, v in attributes.items %}
     {{ k }}="{{ v }}"
   {% endfor %}
-  class="input peer
-  {% if state == 'valid' %} input-valid 
-  {% elif state == 'invalid' %} input-invalid 
-  {% endif %}"
+  class="peer p-2 bg-transparent outline-none 
+  border-white rounded-xl border-solid border-2 
+  transition-colors duration-150
+  focus-visible:placeholder:text-gray-500
+  focus-visible:border-active 
+  text-white w-full placeholder:text-white 
+  required:not-focus-visible:border-white
+  required:not-focus-visible:invalid:border-error
+  valid:focus-visible:border-success" 
   />
   <label 
     for="{{ attributes.name }}" 
-    class="input-label
-    {% if state == 'valid' %} text-valid 
-    {% elif state == 'invalid' %} text-invalid 
-    {% endif %}
-    " 
+    class="absolute left-5 -top-[15%] text-white"
   >
     {{ label }}
   </label>

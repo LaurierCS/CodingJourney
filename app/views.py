@@ -33,6 +33,66 @@ from django.db.models import Q
 import logging
 logger = logging.getLogger(__name__)
 
+# CONSTANTS
+LOGIN_FORM_INPUTS = [{
+                "attributes": {
+                    "id": "username_input",
+                    "name": "username",
+                    "type": "text",
+                    "required": "true"
+                },
+                "label": "Username",
+            },
+            {
+                "attributes": {
+                    "id": "password_input",
+                    "name": "password",
+                    "type": "password",
+                    "required": "true"
+                },
+                "label": "Password",
+            }]
+REGISTER_FORM_INPUTS = [{
+                "attributes": {
+                    "id": "id_username",
+                    "name": "username",
+                    "type": "text",
+                    "maxlength": "250",
+                    "required": "true"
+                },
+                "label": "Username",
+            },
+            {
+                "attributes": {
+                    "id": "id_email",
+                    "name": "email",
+                    "type": "email",
+                    "maxlength": "254",
+                    "required": "true"
+                },
+                "label": "Email Address",
+            },
+            {
+                "attributes": {
+                    "id": "id_password1",
+                    "name": "password1",
+                    "type": "password",
+                    "required": "true",
+                    "autocomplete": "new-password"
+                },
+                "label": "Password",
+            },
+            {
+                "attributes": {
+                    "id": "id_password2",
+                    "name": "password2",
+                    "type": "password",
+                    "required": "true",
+                    "autocomplete": "new-password"
+                },
+                "label": "Password Confirmation",
+            }]
+
 def homepage(request):
     template_name = "app/homepage.html"
 
@@ -66,7 +126,7 @@ def homepage(request):
     
     context = {
         "name" : 'item name',
-        "logo" : 'svg/bookmark.html',
+        "logo" : 'icons/bookmark_outline.html',
         "link" : 'homepage',
         "tech" : tech
 
@@ -86,46 +146,54 @@ def homepage(request):
 # def filter_projects(request, marker):
     
     
-
 def register(request):
+    # populate forms
+    context = {"register_form_inputs": REGISTER_FORM_INPUTS}
+    template = "app/register_page.html"
+
     if request.user.is_authenticated:
         return redirect('homepage')
-    else:
-        page = "register"
-        form = CreateUserForm()
-        if request.method == "POST":
-            form = CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get('username')
-                messages.success(request, f'Account was created for {user}')
 
-                return redirect('login')
-        context = { "page": page, "form": form}
-        return render(request, 'app/loginregister_page.html', context)
+    if request.method == "POST":
+        form = CreateUserForm(request.POST) # here we are essentially overriding the previous value
+        
+        """
+        as of now, the form does not validate if the passwords match or not in real time before submitting the form
+        """
+        
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, f'Account was created for {user}')
+
+            return redirect('login')
+
+    return render(request, template, context)
 
 # page for login user
-def loginPage(request):
+def login_page(request):
+    # populate forms
+    context = { "login_form_inputs": LOGIN_FORM_INPUTS }
+    template = "app/login_page.html"
+
     if request.user.is_authenticated:
         return redirect('homepage')
-    else:
-        page = "login"
-        if request.method == 'POST':
-            username = request.POST.get('username').lower()
-            password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('homepage')
-            else:
-                messages.info(request, "Username/Password is incorrect")
-                return redirect('login')
+    if request.method == 'POST':
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
 
-        context = {'page': page}
-        return render(request, 'app/loginregister_page.html', context)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('homepage')
 
-def logoutUser(request):
+        messages.info(request, "Username/Password is incorrect")
+        return redirect('login')
+
+    return render(request, template, context)
+
+def logout_user(request):
     # remove the session id and get user back to the login page
     logout(request)
     return redirect('login')
@@ -232,6 +300,7 @@ fields
 #     return render(request, 'step2.html', {'form': form})
 # 
 
+<<<<<<< HEAD
 
 dummyData = [ { 
         "project_id": 1, 
@@ -264,3 +333,10 @@ dummyData = [ {
         "project_url": "https://github.com/"
     },
 ]
+=======
+def how_it_works(request):
+    return render(request, 'app/how_it_works_page.html', {})
+
+def about_us(request):
+    return render(request, 'app/about_us_page.html', {})
+>>>>>>> main

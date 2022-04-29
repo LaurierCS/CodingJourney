@@ -1,5 +1,5 @@
 # django lib imports
-from tkinter.tix import Select
+# from tkinter.tix import Select
 from django import forms
 from django.forms import CheckboxSelectMultiple, ChoiceField, ModelForm
 

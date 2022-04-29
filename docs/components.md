@@ -24,8 +24,6 @@ def some_view(request):
         "placeholder": "Enter Username"
       },
       "label": "Username:"
-      # here we can decide its look after some input validation
-      "state": "valid" if data_is_valid else "invalid" if data_is_invalid else None
     }
   }
   # some more code
@@ -51,9 +49,6 @@ def some_view(request):
 | :-- | :---- | :---------- |
 | `attributes` | `dictionary` | This should be a dictionary with the keys being an attribute of an input tag and its value being the correct value the attribute needs.|
 | `label` | `string` | This is the label text that is above the input box. |
-| `state` | `"valid"`, `"invalid"`, `None` | This decides the look of the input box. `valid` for a green look, and `invalid` for a red look. If neither look is desired then do not defined this in the context.|
-
-The input component is built to be able to handle simple validation that the element tag originally supports. Since the `invalid` style uses the pseudo-selector `:invalid`.
 
 ## Filter
 
