@@ -247,17 +247,21 @@
 */
 
 /* Tree Nodes */
-
-.node {
-  /* rect tag */
+.node,
+.node-category,
+.link {
   stroke-width: 3;
   stroke: var(--primary);
+}
+
+.node,
+.node-category {
   fill: var(--primary-darker);
   width: 150px;
   height: 150px;
 }
 
-.link {
-  stroke: var(--foreground);
-  stroke-width: 3;
+.node-category {
+  width: 250px;
+  height: 60px;
 }
