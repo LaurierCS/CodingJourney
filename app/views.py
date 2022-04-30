@@ -300,7 +300,6 @@ fields
 #     return render(request, 'step2.html', {'form': form})
 # 
 
-<<<<<<< HEAD
 
 dummyData = [ { 
         "project_id": 1, 
@@ -333,10 +332,8 @@ dummyData = [ {
         "project_url": "https://github.com/"
     },
 ]
-=======
 def how_it_works(request):
     return render(request, 'app/how_it_works_page.html', {})
 
 def about_us(request):
     return render(request, 'app/about_us_page.html', {})
->>>>>>> main
