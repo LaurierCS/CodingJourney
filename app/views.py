@@ -93,6 +93,7 @@ REGISTER_FORM_INPUTS = [{
                 "label": "Password Confirmation",
             }]
 
+
 def homepage(request):
     template_name = "app/homepage.html"
 
@@ -128,7 +129,7 @@ def homepage(request):
         "name" : 'item name',
         "logo" : 'icons/bookmark_outline.html',
         "link" : 'homepage',
-        "tech" : tech
+        "tech" : tech 
 
     }
     return render(request, template_name , context)
@@ -144,7 +145,7 @@ def homepage(request):
     #print(profile1.project_set.all())
 
 # def filter_projects(request, marker):
-    
+
     
 def register(request):
     # populate forms
@@ -337,3 +338,48 @@ def how_it_works(request):
 
 def about_us(request):
     return render(request, 'app/about_us_page.html', {})
+
+def setting(request):
+    template = 'app/setting.html'
+    user = request.user
+    tech = {
+            'python': ['E-commerce', 'Hotel Booking App'], 
+            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
+            'css':['AmazingMe', 'Coding Journey'],
+        }
+    profile = Profile.objects.get(user=user)
+    # get back the form that contain all the info of the user profile
+    profile_form = ProfileForm(instance=profile)
+
+    if request.method == "POST":
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('setting')
+
+    context = {
+        "name" : 'item name',
+        "logo" : 'icons/bookmark_outline.html',
+        "link" : 'homepage',
+        "tech" : tech,
+        
+    }
+
+    return render(request, template, context)
+
+def profile(request):
+    template = 'app/profile.html'
+    tech = {
+            'python': ['E-commerce', 'Hotel Booking App'], 
+            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
+            'css':['AmazingMe', 'Coding Journey'],
+        }
+    context = {
+        "name" : 'item name',
+        "logo" : 'icons/bookmark_outline.html',
+        "link" : 'homepage',
+        "tech" : tech,
+    }
+    return render(request, template, context)
+    

@@ -125,7 +125,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+
 
 
 STATICFILES_DIRS = [
@@ -150,3 +150,4 @@ LOGGING = {
         'level': 'WARNING',
     },
 }
+MEDIA_URL = '/media/'

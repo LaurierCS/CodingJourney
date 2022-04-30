@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+  <title>Setting</title>
+{% endblock header %}
+
+{% block content %}
+
+  {% block side_menu %}
+    {% include "components/sidemenu.html" %}
+  {% endblock side_menu %}
+
+  {% block side_content %} 
+  <div class="ml-80 mt-20 bg-background">
+    <div id="container" class="flex items-center justify-center">
+      <form method="POST" enctype="multipart/form-data" class="mx-20 my-5 lg:space-y-8 w-3/5 h-full">
+        {% csrf_token %}
+        <div class="border-2 rounded-xl p-5">
+          <div class="space-y-2">
+            <label for="email" class="">Update your email address</label>
+            <p>
+              Change the email address you want to associate with your account.
+             </p>
+          </div>  
+          <div class="space-y-2">
+            <input 
+            id="id_email" 
+            name="email" 
+            type="email" 
+            maxlength="254" 
+            value="{{request.user.profile.email}}" 
+            placeholder="Write your email here" 
+            class="input my-4 px-2"
+            />
+            <button type="submit" class="button">Save</button>
+          </div>
+        </div>
+        <div class="border-2 rounded-xl p-5 space-y-4">
+          <div id="pic-container" class="w-44">
+            <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full">
+          </div>
+          <p id="output"></p>
+          <label for="image_input" class=" cursor-pointer">Update your image</label>
+          <div class="space-x-4">
+            <input id="image_input" name="image" type="file" value="{{request.user.profile.image.url}}" class="cursor-pointer" onchange="myFile()">
+           <button type="submit" class="button">Save</button>
+          </div>
+        </div>
+  
+        <div class="border-2 rounded-xl p-5">
+          <div class="space-y-2">
+            <label for="bio" class="">Update your biography</label>
+            <p class="">Tell me about yourself</p>
+          </div>
+          <textarea name="bio" id="bio" class="input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-2 resize-none box-border w-full">{{request.user.profile.bio}}</textarea>
+          <button type="submit" class="button block">Save</button>
+        </div>
+  
+    </div>
+    <!-- The container for setting card -->
+    
+    </form>
+    <!-- end of setting card -->
+  </div>
+  {% endblock side_content %}
+  <script src="{% static 'js/image_upload_button.js'%}"></script>
+{% endblock content %}

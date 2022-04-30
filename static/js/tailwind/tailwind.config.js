@@ -31,6 +31,7 @@ module.exports = {
         secondary: "var(--secondary-color-lightPurple)",
         "rice-white": "var(--rice-white)",
         dark: "var(--dark-background)",
+        darker_blue: "#00232f",
         success: "var(--success)",
         active: "var(--active)",
         error: "var(--error)",
