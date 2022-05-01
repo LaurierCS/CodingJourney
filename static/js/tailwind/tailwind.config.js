@@ -16,7 +16,22 @@ module.exports = {
         "sans-serif",
       ],
     },
-
+    fontSize: {
+      'h1': '70px',
+      'h2': '55px',
+      'h3': '40px',
+      'h4': '25px',
+      'button': '16px',
+      'body': '19px',
+      'link': '17px',
+    },
+    lineHeight : {
+      'h1': '75.5px',
+      'h2': '41px',
+      'h4': '38px',
+      'button': '30px',
+      'link': '15px',
+    },
     /**
      * Extend the classes that tailwind has to offer instead of overriding them.
      * Overriding any of the default category, such as margin, will get rid of all

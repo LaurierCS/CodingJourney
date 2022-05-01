@@ -7,52 +7,59 @@
 @tailwind components;
 
 @layer base {
+  h1, h2, h3, h4 {
+    @apply
+      tracking-wide
+      font-bold
+  }
+
 
   h1 {
-    font-size: 70px;
-    line-height: 75.5px;
-    letter-spacing: 0.5px;
-    font-weight: 700; 
+    @apply
+      text-h1
+      leading-h1
   }
   h2 {
-    font-size: 55px;
-    line-height: 41px;
-    letter-spacing: 0.5px;
-    font-weight: 700; 
+    @apply
+      text-h2
+      leading-h2
   }
   h3 {
-    font-size: 40px;
-    line-height: 41px;
-    letter-spacing: 0.5px;
-    font-weight: 700; 
+    @apply
+      text-h3
+      leading-h2
   }
   h4 {
-    font-size: 25px;
-    line-height: 38px;
-    letter-spacing: 0.5px;
-    font-weight: 600; 
+    @apply
+      text-h4
+      leading-h4
   }
 
   body {
-    font-size: 18px;
-    line-height: 38px;
-    letter-spacing: 0.5px;
-    font-weight: 500; 
+    @apply
+      text-body
+      leading-h4
+      tracking-wide
+      font-medium
   }
+
+  button, a {
+    @apply
+      tracking-wide
+      font-semibold
+  }
+
   button {
-    font-size: 18px;
-    line-height: 30px;
-    letter-spacing: 0.5px;
-    font-weight: 600; 
+    @apply
+      text-button
+      leading-button
   }
 
   a {
-    font-size: 17px;
-    line-height: 15px;
-    letter-spacing: 0.5px;
-    font-weight: 600; 
+    @apply  
+      text-link
+      leading-link
   }
-
 }
 
 @layer components {

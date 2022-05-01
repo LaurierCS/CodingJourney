@@ -40,7 +40,6 @@
           <div id="pic-container" class="w-44">
             <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full">
           </div>
-          <p id="output"></p>
           <label for="image_input" class=" cursor-pointer text-[25px]">Update your image</label>
           <div class="space-x-4">
             <input id="image_input" name="image" type="file" value="{{request.user.profile.image.url}}" class="cursor-pointer" onchange="myFile()">
@@ -64,5 +63,5 @@
     <!-- end of setting card -->
   </div>
   {% endblock side_content %}
-  <script src="{% static 'js/image_upload_button.js'%}"></script>
+  <!-- <script src="{% static 'js/image_upload_button.js'%}"></script> -->
 {% endblock content %}

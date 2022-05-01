@@ -366,7 +366,6 @@ def setting(request):
 
     if request.method == "POST":
         profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
-
         if profile_form.is_valid():
             profile_form.save()
             return redirect('setting')
@@ -376,6 +375,7 @@ def setting(request):
         "logo" : 'icons/bookmark_outline.html',
         "link" : 'homepage',
         "tech" : tech,
+
         
     }
 
@@ -383,6 +383,7 @@ def setting(request):
 
 def profile(request):
     template = 'app/profile.html'
+
     tech = {
             'python': ['E-commerce', 'Hotel Booking App'], 
             'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
