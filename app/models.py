@@ -31,14 +31,17 @@ class Language(models.Model):
 
 
 class Technology(models.Model):
+  #1. EVERY TECHNOLOGY IS EITHER A LANGUAGE, FRAMEWORK OR LIBRARY
+  #2. EVERY TECHNOLOGY CAN HAVE ANOTHER TECHNOLOGY AS A PARENT USING THE parent RELATIONSHIP VARIABLE
   name = models.CharField(max_length=100, blank=False)
   description = models.TextField(null=True, blank=True)
-  language = models.ForeignKey("Language", null=False, blank=False)
+  parents = models.ManyToManyField("self", null=False, blank=False)
   TECHNOLOGY_TYPE = (
+        ('L','Language')
         ('F', 'Framework'),
         ('L', 'Library or Package'),
     )
-  kind = models.CharField(max_length=40, choices=TECHNOLOGY_TYPE, default="F" )
+  kind = models.CharField(max_length=40, choices=TECHNOLOGY_TYPE, default="L")
 
   def __str__(self):
     return self.name
