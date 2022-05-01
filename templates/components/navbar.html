@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav
-  class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% endif %} transition-all duration-200"
+  class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% else %} fixed top-0 left-0 z-[2]{% endif %}  transition-all duration-200"
 >
   {%if alternate %}
   <ul
@@ -15,7 +15,7 @@
     </li>
     <li class="mx-10 cursor-pointer">
       <a href="{% url 'login' %}"
-        ><button class="bg-dark-gradient py-2 px-4 rounded-md">
+        ><button class="button bg-dark-gradient button-transition">
           Log In
         </button></a
       >
@@ -33,30 +33,26 @@
         <a href="{% url 'landing_page' %}">Logo</a>
       </li>
       <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">
-        <a href="{% url 'landing_page' %}">About Us</a>
+        <a href="{% url 'about_us' %}">About Us</a>
       </li>
       <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">
-        <a href="{% url 'landing_page'%}">How It Works</a>
+        <a href="{% url 'how_it_works'%}">How It Works</a>
       </li>
     </ul>
     <!-- end of links -->
     <!-- profile: img, profile-info(name, info) -->
     <div class="flex justify-start items-center h-20">
-      <div class="border-white border-2 rounded-full w-10 h-10 bg-white"></div>
-      <div class="mx-10">
-        <p class="cursor-pointer opacity-70 hover:opacity-100">Robert Wilson</p>
-        <p class="cursor-pointer opacity-70 hover:opacity-100">info</p>
+      <div id="pic-container" class="w-12">
+        <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-12 object-cover object-top rounded-full">
+      </div>
+      <div class="ml-10">
+        <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.username | title}}</p>
+        <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.profile.email}}</p>
       </div>
     </div>
     <!-- end of profile -->
   </div>
   <!-- end of container -->
-  <!-- <ul class="flex justify-between items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none">
-    <li>Home</li>
-    <li>How It Works</li>
-    <li>About Us</li>
-    <li>Resource</li>
-  </ul> -->
   {% endif %} {% comment %}
   <!-- if the user is not authenticate, then don't show the logout button -->
   {% if request.user.is_authenticated %}

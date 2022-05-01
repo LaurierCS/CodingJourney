@@ -1,0 +1,6 @@
+{% load static %}
+
+<div id="menu_item" class="flex space-x-2 py-1 items-center">
+  {% include logo with class="h-5 w-5"%}
+  <a href="{% url link %}" class="w-full">{{name}}</a>
+</div>

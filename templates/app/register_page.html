@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headers %}
+<title>Register</title>
+{% endblock %}
+
+{% block content %}
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-xl w-fit m-auto">
+    <!-- navbar  -->
+    <ul class="flex space-x-10 py-4 pl-6 pr-4 text-xl mx-auto">
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'register' %}" class="decoration-solid decoration-primary underline decoration-2">Register</a></li>
+    </ul>
+    <form method="POST" action="" class="flex flex-col justify-center items-center p-10">
+      {% csrf_token %} 
+      <!-- The container for input box -->
+        {% for input in register_form_inputs %}
+          {% include 'components/input.html' with input_context=input %}
+        {% endfor %}
+        <!-- The end of container for input box -->
+        <button type="submit" class="button m-auto">Register</button>
+    </form>
+
+    <!-- show the error message here -->
+    {% if messages %}
+    <ul class="messages absolute -top-12 left-1/2 -translate-x-1/2 min-w-max w-max">
+      {% for message in messages %}
+      <li class="bg-error p-2 rounded-md">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+{% endblock %}
+

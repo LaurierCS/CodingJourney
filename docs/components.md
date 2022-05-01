@@ -8,6 +8,8 @@ Content Table
   - [Button](#button)
   - [Input](#input)
     - [Input Component Context](#input-component-context)
+  - [Filter](#filter)
+    - [Filter Object For Context](#filter-object-for-context)
   - [Icon](#icon)
     - [Available Icon Templates](#available-icon-templates)
     - [Preview of the icons (in the same order as the table above)](#preview-of-the-icons-in-the-same-order-as-the-table-above)
@@ -176,8 +178,6 @@ def some_view(request):
         "placeholder": "Enter Username"
       },
       "label": "Username:"
-      # here we can decide its look after some input validation
-      "state": "valid" if data_is_valid else "invalid" if data_is_invalid else None
     }
   }
   # some more code
@@ -203,6 +203,46 @@ def some_view(request):
 | :-- | :---- | :---------- |
 | `attributes` | `dictionary` | This should be a dictionary with the keys being an attribute of an input tag and its value being the correct value the attribute needs.|
 | `label` | `string` | This is the label text that is above the input box. |
-| `state` | `"valid"`, `"invalid"`, `None` | This decides the look of the input box. `valid` for a green look, and `invalid` for a red look. If neither look is desired then do not defined this in the context.|
 
 The input component is built to be able to handle simple validation that the element tag originally supports. Since the `invalid` style uses the pseudo-selector `:invalid`.
+
+## Filter
+
+```html
+{% include 'components/filter.html' with filter=filter_object %}
+<!-- or with context = { "filter": { ... } " -->
+{% include 'components/filter.html' %}
+```
+
+```python
+# views.py
+
+def view_with_filter(request):
+  template = "app/template.html"
+  endpoint = "/api/filter"
+  # create a list of selections
+  ...
+  context = {
+    "filter": {
+      "selections": selections, # list
+      "endpoint": endpoint
+    }
+  }
+  if request.method == "POST":
+    # handle filter query
+    # get filter query value
+    filter_query = request.POST.get("filter-query")
+    # search in database
+    ...
+    # make context
+    ...
+    return render(request, template, context) # return a view with filtered content
+
+  return render(request, template, context) # return a view with all content
+```
+
+### Filter Object For Context
+| Field | Description |
+| :---- | :---------- |
+| `selections` | A list of strings with the available filtering selections. This values should match the category that we can actually query or compare with what it is in the database. |
+| `endpoint` | The endpoint url. It is going to send a `POST` request with a form. Get the value of the query with `request.POST.get("filter-query")`. |

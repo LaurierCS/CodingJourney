@@ -2,15 +2,15 @@
 {% load static %}
 
 {%block headers%}
-  <title>Coding Journy</title>
+  <title>Coding Journey</title>
 {%endblock headers%}
 
 {%block nav%}
-{% include "components/navbar.html" with transparent=True alternate=True%}
+{% include "components/navbar.html" with transparent=True alternate=True %}
 {%endblock nav%}
 
 {%block content %}
-<section id="banner" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-black/[.3]">
+<section id="banner" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-[#0000004d]">
   <div class="flex h-[95%]">
     <div class="w-1/2 mt-[10%] ml-[15%]">
       <h1 class="font-bold text-[4rem] w-[70%]">{{ site_title|title|linebreaks }}</h1>
@@ -25,78 +25,13 @@
     </div>
   </div>
   <div class="animate-fade-in animation-delay-500 opacity-0">
-    {% include 'svg/double_chevron_down.html' with animate=True %}
+    {% include 'icons/double_chevron_down.html' with class="h-8 w-8 m-auto animate-bounce" %}
   </div>
 </section>
 {% comment %}
   This anchor is needed because when going directly to the section the title will be blocked by the navbar since its position is fixed.
 {% endcomment %}
-<a id="how_it_works" name="how_it_works"></a> 
-<section id="how_it_works_section" class="w-full relative">
-  <article class="w-1/2 m-auto">
-    <h2 class="text-[3rem] mt-20 mb-15 text-left w-fit">How it Works</h2>
-    <p class="text-left m-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate. Diam feugiat mattis eu non nisi, erat urna blandit integer. Felis ut non eu varius euismod vel, nisl imperdiet pulvinar. Suscipit fermentum nisl, amet id justo integer montes, ac. Lorem lectus felis, integer dolor. Faucibus nunc mauris maecenas bibendum neque, libero tortor consequat. Euismod nullam gravida aliquet elementum aliquam. Massa auctor at urna adipiscing sollicitudin faucibus sed tristique.</p>
-  </article>
-  {% include 'svg/double_chevron_down.html' with animate=True classes="my-20"%}
-  <div class="my-20 mx-auto w-1/2 min-h-[476px] bg-primary rounded-lg p-10">
-    <h3 class="font-bold text-4xl">Step X</h3>
-    <div class="my-12 flex justify-between">
-      {% comment %}
-        change div to an image element when screenshot is available
-      {% endcomment %}
-      <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-5/12 h-auto rounded-lg flex-1" />
-      <p class="flex-[2] ml-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate.
-      </p>
-    </div>
-  </div>
-  {% include 'svg/double_chevron_down.html' with animate=True classes="my-20"%}
-  <div class="my-20 mx-auto w-1/2 min-h-[476px] bg-primary rounded-lg p-10">
-    <h3 class="font-bold text-4xl">Step X</h3>
-    <div class="my-12 flex justify-between">
-      {% comment %}
-        change div to an image element when screenshot is available
-      {% endcomment %}
-      <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-5/12 h-auto rounded-lg flex-1" />
-      <p class="flex-[2] ml-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate.
-      </p>
-    </div>
-  </div>
-</section>
-<section id="about_us" class="w-full my-[10rem]">
-  <article class="w-1/2 m-auto">
-    <h2 class="text-[3rem] my-5 text-center">About Us</h2>
-    <p class="text-center">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate.
-    </p>
-  </article>
-  <div class="grid grid-cols-2 w-1/2 m-auto mt-11">
-    <div class="flex items-center my-6">
-      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
-        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
-      </div>
-      <span class="font-bold">Team Member X</span>
-    </div>
-    <div class="flex items-center my-6">
-      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
-        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
-      </div>
-      <span class="font-bold">Team Member X</span>
-    </div>
-    <div class="flex items-center my-6">
-      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
-        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
-      </div>
-      <span class="font-bold">Team Member X</span>
-    </div>
-    <div class="flex items-center my-6">
-      <div class="w-[76px] h-[76px] rounded-[50%] overflow-hidden mx-6" >
-        <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="profile picture" />
-      </div>
-      <span class="font-bold">Team Member X</span>
-    </div>
-  </div>
-</section>
+{% include 'app/how_it_works_content.html' %}
+{% include 'app/about_us_content.html' %}
 <script src="{% static 'js/navbar_scroll_animation.js' %}"></script>
 {%endblock content%}

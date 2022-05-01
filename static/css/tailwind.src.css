@@ -7,7 +7,6 @@
 @tailwind components;
 
 @layer components {
-
   /* 
   Button base styles.
     They only have styles for the shape but not the background color.
@@ -21,107 +20,163 @@
     @apply py-1 px-2 text-center font-sans rounded-sm;
   }
 
+  .button-lg {
+    @apply py-3 px-6 text-center font-sans rounded-md;
+  }
+
+  .button-xl {
+    @apply py-3 px-8 text-center font-sans font-semibold rounded-md;
+  }
+
   .tech-tag {
-    @apply 
-      border-2 border-solid rounded-md
+    @apply border-2 border-solid rounded-md
       w-fit my-4 mx-2
       font-bold text-base
       cursor-pointer
       transition-colors duration-150
-      inline-block
-    ;
+      inline-block;
   }
 
   .tech-tag-1 {
-    @apply
-      tech-tag
-      py-1 px-2
-      ;
-    }
-    
-    .tech-tag-2 {
-      @apply
-      tech-tag 
-      py-2 px-5
-    ;
+    @apply tech-tag
+      py-1 px-2;
+  }
+
+  .tech-tag-2 {
+    @apply tech-tag 
+      py-2 px-5;
   }
 
   .tech-tag {
-    @apply 
-      border-2 border-solid rounded-md
+    @apply border-2 border-solid rounded-md
       w-fit my-4 mx-2
       font-bold text-base
       cursor-pointer
       transition-colors duration-150
-      inline-block
-    ;
+      inline-block;
   }
 
   .tech-tag-1 {
-    @apply
-      tech-tag
-      py-1 px-2
-      ;
-    }
-    
-    .tech-tag-2 {
-      @apply
-      tech-tag 
-      py-2 px-5
+    @apply tech-tag
+      py-1 px-2;
+  }
+
+  .tech-tag-2 {
+    @apply tech-tag 
+      py-2 px-5;
+  }
+
+  .filter[data-active="true"] {
+    @apply border-primary;
+  }
+
+  .filter-selections[data-active="true"] {
+    @apply block;
+  }
+
+  .input-container {
+    @apply relative w-fit p-4 mt-4 mb-2 mx-2;
+  }
+
+  .input {
+    @apply 
+      p-2 bg-transparent outline-none 
+      border-white rounded-xl border-solid border-2 
+      transition-colors duration-150
+      focus-visible:placeholder:text-gray-500
+      focus-visible:border-active 
+      focus-visible:text-active
+      text-white w-full placeholder:text-white 
+      invalid:text-error invalid:border-error invalid:placeholder:text-invalid
     ;
+  }
+
+  .input-label {
+    @apply 
+      absolute left-5 
+      peer-focus-visible:text-active
+      transition-colors duration-150  
+      peer-invalid:text-error
+    ;
+
+    top: -15%;
   }
 }
 
 @tailwind utilities;
 
 @layer utilities {
-    /* 
+  /* 
     This utility is to make a button have some animation so that it looks better.
   */
   .button-transition {
+    @apply transition-all duration-150 ease-linear select-none cursor-pointer
+  focus:outline-none focus:ring-2 focus:ring-white
+  hover:brightness-125 
+  active:ring-2 active:ring-white active:brightness-100 active:duration-[34ms]
+  visited:no-underline visited:text-white;
+  }
+
   .tech-tag-blue {
-    @apply 
-      border-sky-400 text-sky-400
-      hover:bg-sky-400 hover:text-sky-900
-    ;
+    @apply border-sky-400 text-sky-400
+        hover:bg-sky-400 hover:text-sky-900;
+  }
+  .tech-tag-blue {
+    @apply border-sky-400 text-sky-400
+      hover:bg-sky-400 hover:text-sky-900;
+  }
+
+  .tech-tag-blue {
+    @apply border-sky-400 text-sky-400
+      hover:bg-sky-400 hover:text-sky-900;
   }
 
   .tech-tag-orange {
-    @apply
-      border-orange-400 text-orange-400
-      hover:bg-orange-400 hover:text-orange-900
-    ;
+    @apply border-orange-400 text-orange-400
+        hover:bg-orange-400 hover:text-orange-900;
   }
 
   .tech-tag-green {
-    @apply
-      border-green-400 text-green-400
-      hover:bg-green-400 hover:text-green-900
+    @apply border-green-400 text-green-400
+        hover:bg-green-400 hover:text-green-900;
+  }
+
+  .tech-tag-blue {
+    @apply border-sky-400 text-sky-400
+        hover:bg-sky-400 hover:text-sky-900;
+  }
+
+  .tech-tag-orange {
+    @apply border-orange-400 text-orange-400
+        hover:bg-orange-400 hover:text-orange-900;
+  }
+
+  .tech-tag-green {
+    @apply border-green-400 text-green-400
+        hover:bg-green-400 hover:text-green-900;
+  }
+
+  .input-invalid {
+    @apply 
+      text-error border-error placeholder:text-invalid
     ;
   }
   
-  .tech-tag-blue {
+  .input-valid {
     @apply 
-      border-sky-400 text-sky-400
-      hover:bg-sky-400 hover:text-sky-900
+      text-success border-success placeholder:text-valid
+      invalid:text-success invalid:border-success invalid:placeholder:text-success
     ;
   }
 
-  .tech-tag-orange {
-    @apply
-      border-orange-400 text-orange-400
-      hover:bg-orange-400 hover:text-orange-900
-    ;
+  .text-invalid {
+    @apply text-error;
   }
 
-  .tech-tag-green {
-    @apply
-      border-green-400 text-green-400
-      hover:bg-green-400 hover:text-green-900
-    ;
+  .text-valid {
+    @apply text-success peer-invalid:text-success;
   }
 }
-
 
 :root {
   /***** Color *****/
@@ -131,9 +186,10 @@
   --white: #fff;
   --black: #000;
   --rice-white: #f1faee;
-  --background: #000b0f;
+  --background: #00141C;
   --dark-background: #002d3d;
   --success: #43d678;
+  --active: #559cde;
   --error: #e3282a;
 
   /* extra color - bluish for button */
@@ -159,14 +215,22 @@
   --dark-outline: 5px solid var(--outline-dark-color);
   --success-outline: 5px solid var(--outline-success-color);
   --error-outline: 5px solid var(--outline-error-color);
-  
+
   /* Linear gradients palette*/
   --primary-gradient-color-from: #5561ff;
   --primary-gradient-color-to: #3643fc;
-  --primary-gradient-top-bottom: linear-gradient(to bottom, var(--primary-gradient-color-from), var(--primary-gradient-color-to));
+  --primary-gradient-top-bottom: linear-gradient(
+    to bottom,
+    var(--primary-gradient-color-from),
+    var(--primary-gradient-color-to)
+  );
   --dark-gradient-color-from: #535354;
   --dark-gradient-color-to: #020206;
-  --dark-gradient-top-bottom: linear-gradient(to bottom, var(--dark-gradient-color-from), var(--dark-gradient-color-to))
+  --dark-gradient-top-bottom: linear-gradient(
+    to bottom,
+    var(--dark-gradient-color-from),
+    var(--dark-gradient-color-to)
+  );
 
   /***** End Of Color *****/
 

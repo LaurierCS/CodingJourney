@@ -3,52 +3,52 @@ from django.db.models.fields import *
 from django.template.defaultfilters import slugify
 from django import forms
 from django.contrib.auth.models import User
-import uuid
 
 
-# Journey Model
-class Journey(models.Model):
+class Profile(models.Model):
   user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-  journey_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  journey_name = models.CharField(max_length=200, null=True)
   email = models.EmailField(max_length=200, null=True)
-  journey_bio = models.TextField(max_length=500)
-  pic_link = models.CharField(max_length=2000, null=True, blank=True)
+  bio = models.TextField(max_length=500)
+  image = models.ImageField(default="images/smiley.jpg", upload_to='images/', blank=True)
   date_created = models.DateTimeField(auto_now_add=True, null=True)
 
   def __str__(self):
-    return self.journey_name
+    return self.user.username
 
   
-
-# Project Model
-class Project(models.Model):
-  project_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  project_name = models.CharField(max_length=200)
-  project_description = models.TextField(null=True, blank=True)
-  journey_id = models.ForeignKey("Journey", on_delete=models.CASCADE, null=True)
+class Experience(models.Model):
+  profile = models.ForeignKey("Profile", on_delete=models.CASCADE, null=True)
   markers = models.ManyToManyField("Marker")
+  name = models.CharField(max_length=200)
+  EXPERIENCE_TYPE = (
+        ('E', 'Exploration'),
+        ('P', 'Project'),
+        ('L', 'Learning'),
+        ('H', 'Hackathon'),
+        ('E', 'Event'),
+    )
+  kind = models.CharField(max_length=40, choices=EXPERIENCE_TYPE, default="E" )
+  description = models.TextField(null=True, blank=True)
   likes_amount = models.IntegerField(default=0)
-  start_date = models.DateField(auto_now=False, auto_now_add=False)
-  end_date = models.DateField(null=True, blank=True, auto_now=False, auto_now_add=False)
+  start_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
+  end_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
   project_link = models.CharField(max_length=2000, null=True, blank=True)
-  difficulty = models.ForeignKey("Difficulty", on_delete=models.CASCADE)
+  image = models.ImageField(upload_to='images/', blank=True)
   
   def __str__(self):
     return self.project_name
 
-# difficulty model
+
 class Difficulty(models.Model):
-  diffuculty_name = models.CharField(max_length=200)
+  name = models.CharField(max_length=200)
   difficulty_id = models.AutoField(primary_key=True)
 
   def __str__(self):
     return self.diffuculty_name
 
-# Markers Model
+
 class Marker(models.Model):
-  marker_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  marker_name = models.CharField(max_length=100)
+  name = models.CharField(max_length=100)
   description = models.TextField(null=True, blank=True)
 
   def __str__(self):

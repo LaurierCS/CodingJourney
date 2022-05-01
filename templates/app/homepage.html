@@ -7,8 +7,14 @@
 
 {% block content %}
 
-    <h1>Homepage</h1>
+    {% block side_menu %}
+        {% include "components/sidemenu.html" %}
+    {% endblock side_menu %}
 
-    
+    {% block side_content %}
+    <div class="ml-80 mt-20 text-white h-full bg-background">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quis quasi exercitationem quibusdam minima deserunt fuga praesentium corrupti enim animi architecto perferendis voluptas obcaecati, cumque nulla ea numquam, cum voluptate!</p>
+    </div>
+    {% endblock side_content %}
 
 {% endblock content%}
