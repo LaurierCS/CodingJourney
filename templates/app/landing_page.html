@@ -12,12 +12,14 @@
 {%block content %}
 <section id="banner" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-[#0000004d]">
   <div class="flex h-[95%]">
-    <div class="w-1/2 mt-[10%] ml-[15%]">
-      <h1 class="font-bold text-[4rem] w-[70%]">{{ site_title|title|linebreaks }}</h1>
-      <p class="w-1/2 text-xl text-gray-100">
+    <div class="w-1/2 mt-[10%] ml-[15%] space-y-9">
+      <h1 class="font-bold text-[4rem] w-[70%]">
+        {{ site_title|title|linebreaks }}
+      </h1>
+      <p class="w-1/2 text-gray-100">
         {{ site_description }}
       </p>
-      <button class="bg-primary-gradient button-xl button-transition mt-10">Start Now</button>
+      <button class="bg-primary-gradient button-xl button-transition">Start Now</button>
     </div>
     <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px]">
       <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="w-[70%] absolute left-[30%] rounded-md drop-shadow-lg">
