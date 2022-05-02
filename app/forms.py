@@ -13,7 +13,7 @@ from .models import *
 class ExperienceInputform(forms.ModelForm): 
     # start as text input and adjust to match figma
     markers = forms.ModelMultipleChoiceField(
-        queryset=Marker.objects.all(),
+        queryset=Skill.objects.all(),
     )
     kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
     description = forms.Textarea()
