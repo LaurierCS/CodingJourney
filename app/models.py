@@ -36,15 +36,7 @@ class Experience(models.Model):
   image = models.ImageField(upload_to='images/', blank=True)
   
   def __str__(self):
-    return self.project_name
-
-
-class Difficulty(models.Model):
-  name = models.CharField(max_length=200)
-  difficulty_id = models.AutoField(primary_key=True)
-
-  def __str__(self):
-    return self.diffuculty_name
+    return self.name
 
 
 class Marker(models.Model):
@@ -52,4 +44,4 @@ class Marker(models.Model):
   description = models.TextField(null=True, blank=True)
 
   def __str__(self):
-    return self.marker_name
+    return self.name

@@ -1,24 +1,33 @@
-<div class="projectCardContainer">
-    <div class="condensed_card">
-        <div class="project_name">
-            {{project.project_name}}
+{% load static %}
+<script src="{%static '/js/project_list_descrption.js' %}"></script>
+<div class="projectCardContainer" id="proj-card-{{project.id}}" >
+    <div class="
+        condensed_card grid grid-cols-3 
+        bg-slate-600 bg-opacity-50 
+        rounded-md my-1.5 align-middle mx-2 p-0
+        "
+        onClick="showDescription({{project.id}})">
+        {% comment %} bg-graay-300 rounded-sm border-slate-50 {% endcomment %}
+        <div class="project_name my-auto">
+            {{project.name}}
         </div>
-        <div class="likes">
-            {{project.likes}}
+        <div class="likes my-auto">
+            {{project.likes_amount}}
         </div>
-        <div class="post_date">
-            {{project.startDate}}
+        <div class="post_date my-auto">
+            {{project.start_date}}
         </div>
         <div class="markers">
-            {% for marker in project.markers %}
-                {% include "/components/marker.html" with marker=marker %}
-            {% endfor %}
+            {% comment %} {% for marker in project.markers %} {% endcomment %}
+                {% comment %} {% include "/components/marker.html" with marker=project.markers %} {% endcomment %}
+            {% comment %} {% endfor %} {% endcomment %}
         </div>
     </div>
-    <div class="expanded_card">
-        <div class="description-container" style="display:none;">
+    <div class="expanded_card border-2 border-gray-600 rounded-lg mx-2">
+        <div class="" 
+        id="proj-desc-{{project.id}}"> 
+            {% comment %}  {% endcomment %}
             {{project.description}}
         </div>
     </div>
-    
 </div> 
