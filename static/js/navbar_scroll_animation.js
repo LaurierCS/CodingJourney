@@ -6,11 +6,11 @@
     if (window.scrollY > navOffset + 200) {
       if (nav.classList.contains("bg-transparent")) {
         nav.classList.remove("bg-transparent");
-        nav.classList.add("bg-dark");
+        nav.classList.add("bg-foreground");
       }
     } else {
-      if (nav.classList.contains("bg-dark")) {
-        nav.classList.remove("bg-dark");
+      if (nav.classList.contains("bg-foreground")) {
+        nav.classList.remove("bg-foreground");
         nav.classList.add("bg-transparent");
       }
     }
