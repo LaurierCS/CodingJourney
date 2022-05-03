@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headers %}
+<title>Log In</title>
+{% endblock %}
+
+{% block content %}
+  <div style="margin-top: 100px;" class=" top-1/2 border-white rounded-xl w-fit m-auto">
+    <ul class="flex space-x-10 py-4 pl-6 pr-4 text-xl mx-auto">
+      <li><a href="{% url 'login' %}" class="decoration-solid decoration-primary underline decoration-2">Login</a></li>
+      <li><a href="{% url 'register' %}">Register</a></li>
+    </ul>
+
+    <form method="POST" action="{% url 'login' %}" id="loginForm" class="visible border-slate-400">
+        {% csrf_token %}
+        <label for="">Username</label>
+        <input type="text" name="username" placeholder="Username...">
+    
+        <label for="">Password</label>
+        <input type="password" name="password" placeholder="Password...">
+        <input type="submit" value="Login">
+    </form>  
+
+    <form method="POST" action="{% url "register" %}" id="loginForm" class="invisible border-slate-400">
+        {% csrf_token %} 
+        {{register_form}}
+    <!-- The container for input box -->
+        {% for input in register_form_inputs %}
+        {% include 'components/input.html' with input_context=input %}
+        {% endfor %}
+        <!-- The end of container for input box -->
+        <button type="submit" class="button m-auto">Register</button>
+    </form>
+
+    <!-- show the error message here -->
+    {% if messages %}
+    <ul class="messages absolute -top-12 left-1/2 -translate-x-1/2 min-w-max w-max">
+      {% for message in messages %}
+      <li class="bg-error p-2 rounded-md">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+{% endblock %}
+
