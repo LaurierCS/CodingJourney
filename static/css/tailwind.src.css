@@ -257,11 +257,8 @@
 .node,
 .node-category {
   fill: var(--primary-darker);
-  width: 150px;
-  height: 150px;
 }
 
 .node-category {
-  width: 250px;
-  height: 60px;
+
 }
