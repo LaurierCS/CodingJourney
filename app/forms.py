@@ -12,8 +12,8 @@ from .models import *
 
 class ExperienceInputform(forms.ModelForm): 
     # start as text input and adjust to match figma
-    markers = forms.ModelMultipleChoiceField(
-        queryset=Marker.objects.all(),
+    skills = forms.ModelMultipleChoiceField(
+        queryset=Skill.objects.all(),
     )
     kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
     description = forms.Textarea()
@@ -38,7 +38,7 @@ class ExperienceInputform(forms.ModelForm):
       start_date = cleaned_data.get("start_date")
       end_date = cleaned_data.get("end_date")
       if end_date < start_date:
-        raise forms.ValidationError(_("End date should be greater than start date."), code="invalidDate")
+        raise forms.ValidationError(("End date should be greater than start date."), code="invalidDate")
 
       return cleaned_data
 

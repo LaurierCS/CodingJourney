@@ -45,7 +45,7 @@ class Experience(models.Model):
 """
 class Skill(models.Model): 
   id = models.CharField(primary_key=True, max_length=30)
-  children = models.ManyToOneRel("Skill", null=True)
+  children = models.ManyToOneRel("Skill", to='', field_name='')
   name = models.CharField(max_length=30)
   icon_HREF = models.URLField(max_length=200)
   node_type_choices = [("C", "Category"), ("N", "Node")]
@@ -63,8 +63,8 @@ class Skill(models.Model):
 """
 class DesiredSkill(models.Model):
   user_id = models.ForeignKey("Profile", on_delete=models.CASCADE)
-  skill = models.ForeignKey("Skill")
-  experiences = models.ManyToOneRel("Experience", null=True)
+  skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
+  experiences = models.ManyToOneRel("Experience", to='', field_name='')
   proficiency_choices = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
   proficiency = models.FloatField(choices=proficiency_choices, default=0)
   description = models.TextField(max_length=1000)
