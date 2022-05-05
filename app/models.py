@@ -18,7 +18,7 @@ class Profile(models.Model):
     # This is all the tech they either want to work with or have already achieved experience with
     # This will allow us to make the graph unique to each persons tech goals, instead of showing nodes for dozens of different
     # technologies they aren't even aiming to achieve
-    tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
+    # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
