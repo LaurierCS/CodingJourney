@@ -1,3 +1,4 @@
+from random import choices
 from django.db import models
 from django.db.models.fields import *
 from django.template.defaultfilters import slugify
@@ -43,10 +44,18 @@ class Profile(models.Model):
 
 
 class Experience(models.Model):
+<<<<<<< HEAD
+||||||| ced5559
+  profile = models.ForeignKey(
+      "Profile", on_delete=models.CASCADE, null=False, blank=False)
+  technologies = models.ManyToManyField("Technology")
+  name = models.CharField(max_length=200)
+=======
   profile = models.ForeignKey(
       "Profile", on_delete=models.CASCADE, null=False, blank=False)
   # technologies = models.ManyToManyField("Technology")
   name = models.CharField(max_length=200)
+>>>>>>> skill_tree_remodel
   EXPERIENCE_TYPE = (
         ('E', 'Exploration'),
         ('P', 'Project'),
@@ -115,9 +124,17 @@ class DesiredSkill(models.Model):
   user_id = models.ForeignKey("Profile", on_delete=models.CASCADE)
   skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
   experiences = models.ManyToOneRel("Experience", to='', field_name='')
+<<<<<<< HEAD
 
   # User Input Fields 
   proficiency = models.FloatField(choices=proficiency_choices, default=0)
+||||||| ced5559
+  proficiency_choices = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
+  proficiency = models.FloatField(choices=proficiency_choices, default=0)
+=======
+  # proficiency_choices = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
+  # proficiency = models.FloatField(choices=proficiency_choices, default=0)
+>>>>>>> skill_tree_remodel
   description = models.TextField(max_length=1000)
   
   def __str__(self):

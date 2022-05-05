@@ -10,7 +10,7 @@ class ExperienceInputform(forms.ModelForm):
     skills = forms.ModelMultipleChoiceField(
         queryset=Skill.objects.all(),
     )
-    kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
+    # kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
     description = forms.Textarea()
     start_date = forms.DateField(widget=forms.SelectDateWidget)
     end_date = forms.DateField(widget=forms.SelectDateWidget)
