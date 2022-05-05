@@ -17,7 +17,7 @@ class Profile(models.Model):
     # This is all the tech they either want to work with or have already achieved experience with
     # This will allow us to make the graph unique to each persons tech goals, instead of showing nodes for dozens of different
     # technologies they aren't even aiming to achieve
-    tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
+    # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -45,7 +45,7 @@ class Profile(models.Model):
 class Experience(models.Model):
   profile = models.ForeignKey(
       "Profile", on_delete=models.CASCADE, null=False, blank=False)
-  technologies = models.ManyToManyField("Technology")
+  # technologies = models.ManyToManyField("Technology")
   name = models.CharField(max_length=200)
   EXPERIENCE_TYPE = (
       ('E', 'Exploration'),
@@ -92,8 +92,8 @@ class DesiredSkill(models.Model):
   user_id = models.ForeignKey("Profile", on_delete=models.CASCADE)
   skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
   experiences = models.ManyToOneRel("Experience", to='', field_name='')
-  proficiency_choices = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
-  proficiency = models.FloatField(choices=proficiency_choices, default=0)
+  # proficiency_choices = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
+  # proficiency = models.FloatField(choices=proficiency_choices, default=0)
   description = models.TextField(max_length=1000)
   
   def __str__(self):

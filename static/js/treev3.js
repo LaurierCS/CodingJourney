@@ -8,7 +8,7 @@ const NODE_TYPES = {
 }
 
 const NODE_DIM = {
-  C: [50, 30],
+  C: [250, 60],
   N: [150, 150],
   U: [150, 150],
 }
@@ -117,6 +117,13 @@ const skills = getSkills()
 let id = 0
 
 function getNodeToNodePathString(d) {
+  if (d.source.data.nodeType === NODE_TYPES.U) {
+    // shift starting point of line
+    console.log(d)
+    // return "M" + (d.source.x/RATIO + 75) + "," + d.source.y/RATIO
+    // + " l" + (d.target.x - d.source.x + 10)/RATIO + "," + (d.target.y - d.source.y)/RATIO
+  }
+
   return "M" + (d.source.x/RATIO + 75) + "," + d.source.y/RATIO
     + " l" + (d.target.x - d.source.x)/RATIO + "," + (d.target.y - d.source.y)/RATIO
 }
@@ -187,8 +194,8 @@ const node = tree
   .enter()
   .append("rect") //Potential problem line
   .attr("class", d => d.data.nodeType === NODE_TYPES.C ? "node-category" : "node")
-  .attr("width", '150')
-  .attr("height", '150')
+  .attr("width", d => NODE_DIM[d.data.nodeType][0])
+  .attr("height", d => NODE_DIM[d.data.nodeType][1])
   .attr("rx", d => d.data.nodeType === NODE_TYPES.U ? "75" : "15")
   .attr("ry", d => d.data.nodeType === NODE_TYPES.U ? "75" : "15")
   .attr("x", d => {
