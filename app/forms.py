@@ -1,13 +1,8 @@
-# django lib imports
-# from tkinter.tix import Select
 from django import forms
-from django.forms import CheckboxSelectMultiple, ChoiceField, ModelForm
-
-# django auth imports
+from django.forms import ModelForm, CheckboxSelectMultiple, ChoiceField, ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import *
+from django.contrib.auth.models import User
 
-#  our class defined imports
 from .models import *
 
 class ExperienceInputform(forms.ModelForm): 
@@ -55,7 +50,3 @@ class CreateUserForm(UserCreationForm):
     model = User
     fields = ['username', 'email', 'password1', 'password2']
 
-class ProfileForm(ModelForm):
-  class Meta:
-    model = Profile
-    fields = ['email', 'bio', 'image']
