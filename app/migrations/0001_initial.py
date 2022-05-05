@@ -32,6 +32,7 @@ class Migration(migrations.Migration):
                 ('bio', models.TextField(max_length=500)),
                 ('image', models.ImageField(blank=True, default='images/smiley.jpg', upload_to='images/')),
                 ('date_created', models.DateTimeField(auto_now_add=True, null=True)),
+                ('tech_roadmap', models.ManyToManyField(blank=True, null=True, to='app.Technology')),
                 ('user', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

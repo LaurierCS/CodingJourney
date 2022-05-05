@@ -1,167 +1,48 @@
-"""
-django.contrib.auth.decorators
-- module that used for restricted users for certain functions in our app
-from django.contrib.auth.forms import UserCreationForm
-- A form that creates a user, with no privileges, from the given username and password.
-"""
-
-# general django imports 
-from sqlite3 import Date
+# DJANGO IMPORTS
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 
-# from django auth import s
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 
-# forms imports
+# FILE IMPORTS
+from .models import *
 from .forms import *
 
-# models imports 
-from .models import *
 
-# from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm
-from django.db.models import Q
+# ****************************************************************************
+# TEMPLATE VIEWS - GET DATA, PERFORM OPERATIONS, AND RETURN A TEMPLATE
+# ****************************************************************************
+def langing_page(request):
 
-# Logging imports and behaviours
-import logging
-logger = logging.getLogger(__name__)
+    document_title = "Coding Journey"
+    page_header = "Design your\ncoding journey"
+    description = "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
+    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
 
-# CONSTANTS
-LOGIN_FORM_INPUTS = [{
-                "attributes": {
-                    "id": "username_input",
-                    "name": "username",
-                    "type": "text",
-                    "required": "true"
-                },
-                "label": "Username",
-            },
-            {
-                "attributes": {
-                    "id": "password_input",
-                    "name": "password",
-                    "type": "password",
-                    "required": "true"
-                },
-                "label": "Password",
-            }]
-REGISTER_FORM_INPUTS = [{
-                "attributes": {
-                    "id": "id_username",
-                    "name": "username",
-                    "type": "text",
-                    "maxlength": "250",
-                    "required": "true"
-                },
-                "label": "Username",
-            },
-            {
-                "attributes": {
-                    "id": "id_email",
-                    "name": "email",
-                    "type": "email",
-                    "maxlength": "254",
-                    "required": "true"
-                },
-                "label": "Email Address",
-            },
-            {
-                "attributes": {
-                    "id": "id_password1",
-                    "name": "password1",
-                    "type": "password",
-                    "required": "true",
-                    "autocomplete": "new-password"
-                },
-                "label": "Password",
-            },
-            {
-                "attributes": {
-                    "id": "id_password2",
-                    "name": "password2",
-                    "type": "password",
-                    "required": "true",
-                    "autocomplete": "new-password"
-                },
-                "label": "Password Confirmation",
-            }]
-
-
-def homepage(request):
-    template_name = "app/homepage.html"
-
-    tech = {
-            'python': ['E-commerce', 'Hotel Booking App'], 
-            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
-            'css':['AmazingMe', 'Coding Journey'],
-        }
-    """
-    comment:
-        inside the card have context, got the key of tech-card
-        dict:
-        techname
-        project_list:
-        {
-            name:
-            tech list:
-            tag name: (marker??)
-
-            exp:
-            1: {   
-                name: Amazingme
-                tech_list: ['python', 'javascript', 'css']
-            }
-            
-
-        }
-    
-    """
-    tech = dict(sorted(tech.items()))
-    
+    template = "app/landing_page.html"
     context = {
-        "name" : 'item name',
-        "logo" : 'icons/bookmark_outline.html',
-        "link" : 'homepage',
-        "tech" : tech 
-
+        "document_title": document_title,
+        "page_header": page_header,
+        "description": description
     }
-    return render(request, template_name , context)
+
+    return render(request, template, context)
 
 
-# def get_user(request):
-#     current_user = request.user
-#     print(current_user.id)
-
-# def get_projects(request):
-    #current_user = request.user
-    #profile = current_user.profile
-    #print(profile1.project_set.all())
-
-# def filter_projects(request, marker):
-
+def authpage(request):
+    document_title = "Login"
     
-def register(request):
-    # populate forms
-    context = {"register_form_inputs": REGISTER_FORM_INPUTS}
-    template = "app/register_page.html"
-
+    register_form = CreateUserForm()
+    # LOGIN AND REGISTRATION AUTHENTICATION
     if request.user.is_authenticated:
         return redirect('homepage')
-
-    if request.method == "POST":
-        form = CreateUserForm(request.POST) # here we are essentially overriding the previous value
-        
-        """
-        as of now, the form does not validate if the passwords match or not in real time before submitting the form
-        """
-        
+    elif request.method == "POST":
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
@@ -169,145 +50,122 @@ def register(request):
 
             return redirect('login')
 
-    return render(request, template, context)
+    template_name = "app/auth_page.html"
+    context = {
+        "document_title": document_title,
+        "register_form": register_form
+    }
+    return render(request, template_name, context)
 
-# page for login user
-def login_page(request):
-    # populate forms
-    context = { "login_form_inputs": LOGIN_FORM_INPUTS }
-    template = "app/login_page.html"
 
+def dashboard(request):
+    document_title = "Skill Tree"
+    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
+    profile = request.user.profile
+    experiences = Experience.object.filter(profile=profile)
+    tech_roadmap = profile.tech_roadmap
+
+    
+
+    template_name = "app/homepage.html"
+    context = {
+        "document_title": document_title,
+        "profile": profile,
+        "experiences":experiences,
+        "tech_roadmap":tech_roadmap
+    }
+    return render(request, template_name, context)
+
+
+
+def allexperiences(request):
+    document_title = "Roadmap & Experiences"
+    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
+    profile=request.user.profile
+    experiences = Experience.objects.filter(profile=profile)
+    tech_roadmap = profile.tech_roadmap
+
+    template_name = "app/homepage.html"
+    context = {
+        "document_title":document_title,
+        "profile":profile,
+        "experiences":experiences,
+        "tech_roadmap":tech_roadmap
+    }
+    return render(request, template_name, context)
+
+
+def profilepage(request):
+    document_title = ""
+    page_header = ""
+    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
+    profile = request.user.profile
+
+
+    template_name = "app/homepage.html"
+    context = {
+        "document_title":document_title,
+        "page_header": page_header,
+        "profile":profile
+    }
+    return render(request, template_name, context)
+
+
+def settingspage(request):
+    document_title = ""
+    page_header = ""
+    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
+    profile = request.user.profile
+
+
+    template_name = "app/homepage.html"
+    context = {
+        "document_title":document_title,
+        "page_header": page_header,
+        "profile":profile
+    }
+    return render(request, template_name, context)
+
+
+# *************************************************************************************
+# ENDPOINT VIEWS - ONLY PERFORM ACTIONS ON DATA OR RETURN DATA,  DONT RETURN A TEMPLATE
+# *************************************************************************************
+def login_handler(request):
     if request.user.is_authenticated:
         return redirect('homepage')
 
     if request.method == 'POST':
-        username = request.POST.get('username').lower()
+        username = request.POST.get('username')
         password = request.POST.get('password')
-
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
-            return redirect('homepage')
+            print("Logged In")
+            return redirect('home')
+        else:
+            messages.info(request, 'Username or password is incorrect')
+    return
 
-        messages.info(request, "Username/Password is incorrect")
-        return redirect('login')
+def registration_handler(request):
+    if request.method == 'POST':
+        register_form = CreateUserForm(request.POST)
+        if register_form.is_valid():
+            register_form.save()
+            messages.success(
+                request, f'Account created')
+            print("Account created")
 
-    return render(request, template, context)
+            username = register_form.cleaned_data.get('username')
+            password = register_form.cleaned_data.get("password1")
+            user = authenticate(request, username=username, password=password)
 
-def logout_user(request):
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    return
+
+def logout_handler(request):
     # remove the session id and get user back to the login page
     logout(request)
     return redirect('login')
-
-
-# search feature
-"""def searchProjects(request):
-    searchQuery = ""
-    
-    if request.GET.get('searchQuery'):
-        searchQuery = request.GET.get('searchQuery')
-
-    # We will have a query set of skills here
-    markers = Marker.objects.filter(title__icontains = searchQuery)
-
-    projects = Project.objects.distinct().filter(
-        Q(project_name__icontains = searchQuery) |
-        Q(markers__in = markers) | 
-        Q(project_description = searchQuery))
-    context = {"projects": projects, "search_query": searchQuery}
-
-    return render(request, "app/homepage.html", context)
-"""
-
-def langing_page(request):
-    template = "app/landing_page.html"
-    context = {
-        "site_title": "design your\ncoding journey",
-        "site_description": "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
-    }
-
-    return render(request, template, context)
-
-# Project List Display
-def projectList(request):
-    user_profile = getUserProfile()
-    logger.debug(user_profile)
-    projectList = Experience.objects.filter(profile=user_profile)
-    print(projectList)
-    for project in projectList: 
-        print(project.kind)
-    context = { 
-        "projectList": projectList, 
-        "header": ["Project Name", "Date Posted"]
-    }
-    return render(request, "components\project_list.html", context)
-
-def getUserProfile():
-    return get_object_or_404(Profile, email="aleks.neceski@gmail.com")
-
-# template code for project input multi phase form 
-def experienceInput(request): 
-
-    if request.method == "POST": 
-        form = ExperienceInputform(request.POST)
-
-# / NEED to modify form so that input includes user 
-        if (form.is_valid()):
-            experience_instance = form.clean()
-            form.save()
-            
-
-    else: 
-        form = ExperienceInputform()
-
-    return render(request, "app\\project_input1.html", {"form": form})
-
-def how_it_works(request):
-    return render(request, 'app/how_it_works_page.html', {})
-
-def about_us(request):
-    return render(request, 'app/about_us_page.html', {})
-
-def setting(request):
-    template = 'app/setting.html'
-    user = request.user
-    tech = {
-            'python': ['E-commerce', 'Hotel Booking App'], 
-            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
-            'css':['AmazingMe', 'Coding Journey'],
-        }
-    profile = Profile.objects.get(user=user)
-    # get back the form that contain all the info of the user profile
-    profile_form = ProfileForm(instance=profile)
-
-    if request.method == "POST":
-        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
-
-        if profile_form.is_valid():
-            profile_form.save()
-            return redirect('setting')
-
-    context = {
-        "name" : 'item name',
-        "logo" : 'icons/bookmark_outline.html',
-        "link" : 'homepage',
-        "tech" : tech,
-        
-    }
-
-    return render(request, template, context)
-
-def profile(request):
-    template = 'app/profile.html'
-    tech = {
-            'python': ['E-commerce', 'Hotel Booking App'], 
-            'html':['E-commerce', 'Hotel Booking App', 'Portfolio'],
-            'css':['AmazingMe', 'Coding Journey'],
-        }
-    context = {
-        "name" : 'item name',
-        "logo" : 'icons/bookmark_outline.html',
-        "link" : 'homepage',
-        "tech" : tech,
-    }
-    return render(request, template, context)

@@ -6,17 +6,24 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.langing_page, name="landing_page"),
-    path('how-it-works/', views.how_it_works, name="how_it_works"),
-    path('about-us/', views.about_us, name="about_us"),
-    path('home/', views.homepage, name='homepage'),
-    path('login/', views.login_page, name="login"),
-    path('logout/', views.logout_user, name="logout"),
-    path('register/', views.register, name="register"),
-    path('project-input/', views.experienceInput, name="project_input"),
-    path('project-list/', views.projectList, name="project_list"),
-    path('setting/',views.setting, name= "setting" ),
-    path('profile/', views.profile, name= "profile"),
-    
+    path('auth', views.authpage, name="auth_page"),
+
+    path('dashboard', views.dashboard, name='dashboard_page'),
+    path('summary', views.allexperiences, name="summary_page"),
+    path('profilepage', views.profilepage, name="profile_page"),
+    path('settings', views.settingspage, name="settings_page"),
+    path('profile', views.profilepage, name="profile_page"),
+
+    # ************************************************************
+    # ENDPOINT URLS - FOR HANDLING DATA LIKE LOGIN AND REGISRATION
+    # ************************************************************
+    path('login', views.login_handler, name="login"),
+    path('register', views.registration_handler, name="register"),
+    path('logout', views.logout_handler, name="logout"),
+
+
+
 ]
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
