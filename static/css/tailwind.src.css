@@ -254,11 +254,11 @@
   stroke: var(--primary);
 }
 
+.link {
+  stroke: var(--foreground);
+}
+
 .node,
 .node-category {
   fill: var(--primary-darker);
-}
-
-.node-category {
-
 }
