@@ -6,6 +6,62 @@
 @tailwind base;
 @tailwind components;
 
+@layer base {
+  h1, h2, h3, h4 {
+    @apply
+      tracking-wide
+      font-bold
+  }
+
+
+  h1 {
+    @apply
+      text-h1
+      leading-h1
+  }
+  h2 {
+    @apply
+      text-h2
+      leading-h2
+  }
+  h3 {
+    @apply
+      text-h3
+      leading-h2
+  }
+  h4 {
+    @apply
+      text-h4
+      leading-h4
+  }
+
+  body {
+    @apply
+      text-body
+      leading-h4
+      tracking-wide
+      font-medium
+  }
+
+  button, a {
+    @apply
+      tracking-wide
+      font-semibold
+  }
+
+  button {
+    @apply
+      text-button
+      leading-button
+  }
+
+  a {
+    @apply  
+      text-link
+      leading-link
+  }
+}
+
 @layer components {
   /* 
   Button base styles.
