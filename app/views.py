@@ -150,7 +150,7 @@ def login_handler(request):
             return redirect('home')
         else:
             messages.info(request, 'Username or password is incorrect')
-    return redirect('auth_page', form_type="login")
+    return redirect("auth_page")
 
 def registration_handler(request):
     if request.method == 'POST':
@@ -168,7 +168,9 @@ def registration_handler(request):
             if user is not None:
                 login(request, user)
                 return redirect('home')
-    return redirect('auth_page', form_type="register")
+        else:
+            messages.info(request, 'Registration Failed')
+    return redirect("auth_page")
 
 def logout_handler(request):
     # remove the session id and get user back to the login page
