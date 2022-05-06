@@ -12,7 +12,7 @@
       <li><a href="{% url 'login' %}" class="decoration-solid decoration-primary underline decoration-2">Login</a></li>
       <li><a href="{% url 'register' %}">Register</a></li>
     </ul>
-    <form method="POST" action="" class="flex flex-col justify-center items-center p-4">
+    <form method="POST" action="{% url 'register' %}" class="flex flex-col justify-center items-center p-4">
       {% csrf_token %} 
       <!-- The container for input box -->
         {% for input in login_form_inputs %}
