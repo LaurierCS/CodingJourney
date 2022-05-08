@@ -26,3 +26,8 @@ urlpatterns = [
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+from . import dview
+urlpatterns.append(path("d/",dview.d,name='d'))
+

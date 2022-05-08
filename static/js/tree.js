@@ -27,13 +27,18 @@ const NODE_DIM = {
   U: [150, 150],
 };
 
+/**
+ * @constant
+ */
+const NODE_IMG_SIZE = 120
+
 const width = document.getElementById("treeContainer").clientWidth;
 const height = document.getElementById("treeContainer").clientHeight;
 const viewBox = {
   x: -width / 2,
   y: 0,
-  width,
-  height,
+  width: width * 1.5, // zoom out view
+  height: height * 1.5, // zoom out view
 };
 
 const skills1 = [
@@ -167,27 +172,32 @@ function getLinkPath(d) {
   if (d.source.data.nodeType === NODE_TYPES.U) {
     return (
       "M" +
-      (d.source.x  + halfNodeSize) +
+      (d.source.x + halfNodeSize) +
       "," +
-      (d.source.y + halfNodeSize)  +
+      (d.source.y + halfNodeSize) +
       " l" +
-      (d.target.x - d.source.x)  +
+      (d.target.x - d.source.x) +
       "," +
-      (d.target.y - d.source.y - halfNodeSize) 
+      (d.target.y - d.source.y - halfNodeSize)
     );
   }
 
   // handle all other links that are not connecting a User Node
   return (
     "M" +
-    (d.source.x  + halfNodeSize) +
+    (d.source.x + halfNodeSize) +
     "," +
-    d.source.y  +
+    d.source.y +
     " l" +
-    (d.target.x - d.source.x)  +
+    (d.target.x - d.source.x) +
     "," +
-    (d.target.y - d.source.y) 
+    (d.target.y - d.source.y)
   );
+}
+
+function onNodeClick(d) {
+  // todo: implement on click behaviour
+  console.log("Node click behaviour not implemented.");
 }
 
 const container = d3.select("#treeContainer");
@@ -207,7 +217,8 @@ const treemap = d3
 
     return 1;
   });
-let hierarchy = treemap(d3.stratify()(skills));
+const hierarchy = treemap(d3.stratify()(skills));
+const descendants = hierarchy.descendants()
 
 const svg = container
   .append("svg")
@@ -215,7 +226,9 @@ const svg = container
   .attr("width", width)
   .attr("height", height)
   .attr("style", "cursor: move;")
-  .attr("viewBox", (d) => getViewBoxString(viewBox.x, viewBox.y, viewBox.width, viewBox.height)); // for zooming in/out
+  .attr("viewBox", (d) =>
+    getViewBoxString(viewBox.x, viewBox.y, viewBox.width, viewBox.height)
+  ); // for zooming in/out
 
 const tree = svg.append("g");
 
@@ -225,13 +238,13 @@ const links = tree
   .enter()
   .append("path")
   .attr("class", "link")
-  .attr("d", (d) => getLinkPath(d));
+  .attr("d", (d) => getLinkPath(d))
 
-const node = tree
+const nodes = tree
   .selectAll(".node")
-  .data(hierarchy.descendants())
+  .data(descendants)
   .enter()
-  .append("rect") //Potential problem line
+  .append("rect")
   .attr("class", (d) =>
     d.data.nodeType === NODE_TYPES.C ? "node-category" : "node"
   )
@@ -239,22 +252,40 @@ const node = tree
   .attr("height", (d) => NODE_DIM[d.data.nodeType][1])
   .attr("rx", (d) => (d.data.nodeType === NODE_TYPES.U ? "75" : "15"))
   .attr("ry", (d) => (d.data.nodeType === NODE_TYPES.U ? "75" : "15"))
-  .attr("x", (d) => {
-    switch (d.data.nodeType) {
-      case NODE_TYPES.C:
-        // handle cat node
-        return d.x - 50;
-      default:
-        return d.x;
-    }
+  .attr("x", (d) => d.data.nodeType === NODE_TYPES.C ? d.x - 50 : d.x )
+  .attr("y", (d) => d.y)
+  .on("click", onNodeClick);
+
+const nodeLabel = tree
+  .selectAll(".node-label")
+  .data(descendants)
+  .enter()
+  .append("text")
+  .text(d => d.data.label)
+  .attr("class", d => d.data.nodeType !== NODE_TYPES.C ? "node-label" : "node-title")
+  .attr("x", d => d.x + (d.data.nodeType === NODE_TYPES.C ? NODE_DIM[d.data.nodeType][0] / 2 - 50 : NODE_DIM[d.data.nodeType][0] / 2))
+  .attr("y", d => d.data.nodeType === NODE_TYPES.C ? d.y + NODE_DIM.C[1] / 2 : d.y + NODE_DIM[d.data.nodeType][1] + 20)
+
+const nodeImage = tree
+  .selectAll(".node-image")
+  .data(descendants.filter(d => d.data.nodeType === NODE_TYPES.N))
+  .enter()
+  .append("image")
+  .attr("href", d => {
+    // todo: return iconHref instead
+    return "/static/images/python_logo.png"
   })
-  .attr("y", (d) => d.y);
+  .attr("width", NODE_IMG_SIZE)
+  .attr("height", NODE_IMG_SIZE)
+  .attr("x", d => d.x + NODE_DIM[d.data.nodeType][0] / 2 - NODE_IMG_SIZE / 2)
+  .attr("y", d => d.y + NODE_DIM[d.data.nodeType][1] / 2 - NODE_IMG_SIZE / 2)
+  
 
 // add panning
 const originPoint = { x: -1, y: -1 };
 const newViewBox = { ...viewBox };
 const svgEl = document.getElementById("#tree");
-let isPointerDown = false;
+let isPointerDown = false; 
 
 function getViewBoxString(x, y, w, h) {
   return `${x} ${y} ${w} ${h}`;
@@ -275,13 +306,15 @@ function getPoint(e) {
 }
 
 function onPointerDown(e) {
+  e.preventDefault()
   isPointerDown = true;
   let point = getPoint(e);
   originPoint.x = point.x;
   originPoint.y = point.y;
 }
 
-function onPointerUp() {
+function onPointerUp(e) {
+  e.preventDefault()
   isPointerDown = false;
 
   viewBox.x = newViewBox.x;
