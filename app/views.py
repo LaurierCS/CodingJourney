@@ -3,11 +3,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
+from django.core import serializers
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+
+import json
 
 # FILE IMPORTS
 from .models import *
@@ -169,3 +172,51 @@ def logout_handler(request):
     # remove the session id and get user back to the login page
     logout(request)
     return redirect('login')
+
+class TreeQueries:
+    def getFullTree():
+        skill_tree = Skill.objects.all()
+        serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
+        return serialized
+    
+    def getTrimmedTree(user):
+        desired_skills = DesiredSkill.objects.all().values()
+        # get categories from skill stree
+        skill_tree_category = Skill.objects.filter(node_type="C").values()
+        # create skills from desired_skills 
+        for ds in desired_skills: 
+            print(desired_skills)
+
+    def populateDatabase(request): 
+        #Open the JSON file
+        f = open("static\\json\\tree.json")
+
+        data = json.load(f)
+
+        # tale all items from initial json and instantiate 
+        # 
+        for item in data: 
+            id = item['id']
+            name = item['label']
+            node_type = item['node_type']
+            if "icon_HREF" in item:
+                icon_HREF = item['icon_HREF']
+                Skill.objects.create(
+                    id=id,
+                    name=name,
+                    icon_HREF=icon_HREF,
+                    node_type=node_type
+                )
+            else: 
+                Skill.objects.create(
+                    id=id,
+                    name=name,
+                    node_type=node_type
+                )
+        
+        for item in data: 
+            if "parentId" in item:
+                skill = Skill.objects.get(id=item["id"])
+                parent = Skill.objects.get(id=item["parentId"])
+                skill.parent = parent
+                skill.save()

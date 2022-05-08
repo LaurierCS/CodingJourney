@@ -20,8 +20,7 @@ urlpatterns = [
     path('login', views.login_handler, name="login"),
     path('register', views.registration_handler, name="register"),
     path('logout', views.logout_handler, name="logout"),
-
-
+    path('populate-skills', views.TreeQueries.populateDatabase, name="pop-database")
 
 ]
 

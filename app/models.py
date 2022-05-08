@@ -21,7 +21,7 @@ class Profile(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.user
+        return self.first_name
 
 
 # class Skill(models.Model):
@@ -80,7 +80,7 @@ class Experience(models.Model):
 class Skill(models.Model): 
 
   node_type_choices = (
-    ("C", "Category"), ("N", "Node")
+    ("C", "Category"), ("N", "Node"), ("U", "User")
   )
   # Foreign key fields 
   parent = models.ForeignKey("Skill", on_delete=models.CASCADE, null=True)

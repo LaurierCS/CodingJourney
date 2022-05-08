@@ -40,7 +40,7 @@ migrations
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
+.idea/**/uiDesigner.xm
 .idea/**/dbnavigator.xml
 
 # Gradle
