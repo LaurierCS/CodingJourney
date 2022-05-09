@@ -8,5 +8,9 @@
 {% block content %}
 <div id="treeContainer" class="w-1/2 h-1/2"></div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    var received_data  = "{{ tree_json|safe }}";
+    tree_data = JSON.parse(received_data)
+</script>
 <script src="{% static 'js/tree.js' %}"></script>
 {% endblock content %}

@@ -181,31 +181,18 @@ class TreeQueries:
     
     def getTrimmedTree(user):
         subset_skills = DesiredSkill.objects.all().values_list('skill', flat=True)
-        str = ""
-        for skill in subset_skills: 
-            str += "<p>"
-            str = str + skill.__str__() + "\n"
-            str += "</p>"
-            print(skill)
 
-        # get categories from skill stree
-        skill_tree_categories = Skill.objects.filter(node_type="C").values()
-        skill_tree_nodes = Skill.objects.filter(skill__in=subset_skills)
-        print()
+        # get all of the skills appearing in the desired skills subset
+        skill_tree_nodes = Skill.objects.filter(id__in=subset_skills)
+        # get ids of all parents in desired skills subset
+        skill_tree_node_parents = skill_tree_nodes.values_list('parent', flat=True)
+        # get all categories that are parents of skills in desired skills subset
+        skill_tree_categories = Skill.objects.filter(node_type="C").filter(id__in=skill_tree_node_parents)
         skill_tree = skill_tree_categories.union(skill_tree_nodes)
+        print(skill_tree)
+        serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
+        return HttpResponse(serialized, content_type='application/json')
 
-        # print(skill_tree_category)
-        # create skills from desired_skills 
-        # for ds in desired_skills: 
-        
-        for skill in skill_tree: 
-            str += "<p>"
-            str = str + skill.__str__() + "\n"
-            str += "</p>"
-            print(skill)
-        return HttpResponse(str)
-
-            
 
     def populateDatabase(request): 
         #Open the JSON file
