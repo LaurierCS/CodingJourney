@@ -1,5 +1,5 @@
 # DJANGO IMPORTS
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
@@ -180,12 +180,32 @@ class TreeQueries:
         return serialized
     
     def getTrimmedTree(user):
-        desired_skills = DesiredSkill.objects.all().values()
+        subset_skills = DesiredSkill.objects.all().values_list('skill', flat=True)
+        str = ""
+        for skill in subset_skills: 
+            str += "<p>"
+            str = str + skill.__str__() + "\n"
+            str += "</p>"
+            print(skill)
+
         # get categories from skill stree
-        skill_tree_category = Skill.objects.filter(node_type="C").values()
+        skill_tree_categories = Skill.objects.filter(node_type="C").values()
+        skill_tree_nodes = Skill.objects.filter(skill__in=subset_skills)
+        print()
+        skill_tree = skill_tree_categories.union(skill_tree_nodes)
+
+        # print(skill_tree_category)
         # create skills from desired_skills 
-        for ds in desired_skills: 
-            print(desired_skills)
+        # for ds in desired_skills: 
+        
+        for skill in skill_tree: 
+            str += "<p>"
+            str = str + skill.__str__() + "\n"
+            str += "</p>"
+            print(skill)
+        return HttpResponse(str)
+
+            
 
     def populateDatabase(request): 
         #Open the JSON file

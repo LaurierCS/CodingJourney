@@ -121,4 +121,4 @@ class DesiredSkill(models.Model):
   description = models.TextField(max_length=1000)
   
   def __str__(self):
-    return self.project_name
+    return self.skill.__str__()
