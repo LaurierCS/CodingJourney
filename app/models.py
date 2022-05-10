@@ -83,7 +83,7 @@ class Skill(models.Model):
     ("C", "Category"), ("N", "Node"), ("U", "User")
   )
   # Foreign key fields 
-  parent = models.ForeignKey("Skill", on_delete=models.CASCADE, null=True)
+  parentId = models.ForeignKey("Skill", on_delete=models.CASCADE, null=True)
 
   # Text fields
   id = models.CharField(primary_key=True, max_length=30)
