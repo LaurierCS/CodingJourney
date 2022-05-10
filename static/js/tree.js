@@ -42,10 +42,14 @@ const viewBox = {
 };
 
 function getSkills() {
-  returnList = []
+  let returnList = []
+  console.log(tree_data)
   for (let elem of tree_data){ 
-    returnList.push(elem.fields)
+    let fields = elem.fields
+    fields.id = elem.pk
+    returnList.push(fields)
   }
+  console.log(returnList)
   return returnList;
 }
 const skills = getSkills();

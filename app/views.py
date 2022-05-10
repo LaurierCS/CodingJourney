@@ -181,19 +181,22 @@ class TreeQueries:
         return serialized
     
     def getTrimmedTree(user):
+        # todo: 1. need to include parent of nodes, always.
+        # todo: 2. need to include user as root.
+        # todo: 3. condense all information into the node.
         subset_skills = DesiredSkill.objects.all().values_list('skill', flat=True)
 
         # get all of the skills appearing in the desired skills subset
         skill_tree_nodes = Skill.objects.filter(id__in=subset_skills)
         # get ids of all parents in desired skills subset
-        skill_tree_node_parents = skill_tree_nodes.values_list('parent', flat=True)
+        skill_tree_node_parents = skill_tree_nodes.values_list('parentId', flat=True)
         # get all categories that are parents of skills in desired skills subset
         skill_tree_categories = Skill.objects.filter(node_type="C").filter(id__in=skill_tree_node_parents)
         skill_tree = skill_tree_categories.union(skill_tree_nodes)
         print(skill_tree)
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
         print(serialized)
-        return HttpResponse(serialized, content_type='application/json')
+        return serialized
 
 
     def populateDatabase(request): 
