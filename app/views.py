@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 
 import json
+import os
 
 # FILE IMPORTS
 from .models import *
@@ -191,12 +192,14 @@ class TreeQueries:
         skill_tree = skill_tree_categories.union(skill_tree_nodes)
         print(skill_tree)
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
+        print(serialized)
         return HttpResponse(serialized, content_type='application/json')
 
 
     def populateDatabase(request): 
         #Open the JSON file
-        f = open("static\\json\\tree.json")
+        tree_json_path = os.path.join("static/json/tree.json")
+        f = open(tree_json_path)
 
         data = json.load(f)
 
