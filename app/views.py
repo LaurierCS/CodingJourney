@@ -36,7 +36,10 @@ def langing_page(request):
 
 
 def authpage(request):
-    document_title = "Login"
+
+    form_type = request.GET.get('form_type', 'login')
+
+    document_title = form_type
     
     register_form = CreateUserForm()
     # LOGIN AND REGISTRATION AUTHENTICATION
@@ -54,7 +57,8 @@ def authpage(request):
     template_name = "app/auth_page.html"
     context = {
         "document_title": document_title,
-        "register_form": register_form
+        "register_form": register_form,
+        "endpoint": 'login'
     }
     return render(request, template_name, context)
 
@@ -146,7 +150,7 @@ def login_handler(request):
             return redirect('home')
         else:
             messages.info(request, 'Username or password is incorrect')
-    return
+    return redirect("auth_page")
 
 def registration_handler(request):
     if request.method == 'POST':
@@ -164,7 +168,9 @@ def registration_handler(request):
             if user is not None:
                 login(request, user)
                 return redirect('home')
-    return
+        else:
+            messages.info(request, 'Registration Failed')
+    return redirect("auth_page")
 
 def logout_handler(request):
     # remove the session id and get user back to the login page

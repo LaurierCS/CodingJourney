@@ -17,8 +17,8 @@ class Profile(models.Model):
     # This is all the tech they either want to work with or have already achieved experience with
     # This will allow us to make the graph unique to each persons tech goals, instead of showing nodes for dozens of different
     # technologies they aren't even aiming to achieve
-    tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
+    # date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.user
@@ -29,7 +29,7 @@ class Skill(models.Model):
     # 2. EVERY Skill CAN HAVE ANOTHER Skill AS A PARENT USING THE parent RELATIONSHIP VARIABLE
     name = models.CharField(max_length=100, blank=False)
     description = models.TextField(null=True, blank=True)
-    parents = models.ManyToManyField("self", null=False, blank=False)
+    # parents = models.ManyToManyField("self", null=False, blank=False)
     Skill_TYPE = (
         ('L', 'Language'),
         ('F', 'Framework'),
@@ -45,7 +45,7 @@ class Skill(models.Model):
 class Experience(models.Model):
     profile = models.ForeignKey(
         "Profile", on_delete=models.CASCADE, null=False, blank=False)
-    technologies = models.ManyToManyField("Technology")
+    # technologies = models.ManyToManyField("Technology")
     name = models.CharField(max_length=200)
     EXPERIENCE_TYPE = (
         ('E', 'Exploration'),
