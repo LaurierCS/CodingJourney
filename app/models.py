@@ -80,8 +80,7 @@ class Experience(models.Model):
 class Skill(models.Model): 
 
   node_type_choices = (
-    ("C", "Category"), ("N", "Node"), ("U", "User")
-  )
+    ("C", "Category"), ("N", "Node"), ("U", "User"))
   # Foreign key fields 
   parentId = models.ForeignKey("Skill", on_delete=models.CASCADE, null=True)
 

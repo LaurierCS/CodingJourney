@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 import json
 import os
 
+from django.apps import apps
+
 # FILE IMPORTS
 from .models import *
 from .forms import *
@@ -186,6 +188,8 @@ class TreeQueries:
         # todo: 3. condense all information into the node.
         subset_skills = DesiredSkill.objects.all().values_list('skill', flat=True)
 
+        print(Skill.objects.filter(id="user").values())
+
         # get all of the skills appearing in the desired skills subset
         skill_tree_nodes = Skill.objects.filter(id__in=subset_skills)
         # get ids of all parents in desired skills subset
@@ -193,10 +197,31 @@ class TreeQueries:
         # get all categories that are parents of skills in desired skills subset
         skill_tree_categories = Skill.objects.filter(node_type="C").filter(id__in=skill_tree_node_parents)
         skill_tree = skill_tree_categories.union(skill_tree_nodes)
-        print(skill_tree)
+
+        # app_models = apps.get_app_config("app").get_models()
+        # for model in app_models: 
+        #     print(model)
+
+        skill_tree = Skill.objects.raw('''
+            WITH RECURSIVE skill_tree AS (
+                SELECT ds.skill
+                FROM DesiredSkill ds 
+
+                UNION ALL 
+
+                SELECT * 
+                FROM Skill sk 
+                JOIN skill_tree st ON st.parentId = sk.id
+            )
+
+            Select * FROM skill_tree
+        ''')
+        for skill in skill_tree: 
+            print(skill)
+    
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
-        print(serialized)
-        return serialized
+        
+        # return serialized
 
 
     def populateDatabase(request): 
