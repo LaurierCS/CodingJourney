@@ -46,7 +46,7 @@ def authpage(request):
     register_form = CreateUserForm()
     # LOGIN AND REGISTRATION AUTHENTICATION
     if request.user.is_authenticated:
-        return redirect('homepage')
+        return redirect('dashboard_page')
     elif request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -68,8 +68,8 @@ def dashboard(request):
     document_title = "Skill Tree"
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
-    experiences = Experience.object.filter(profile=profile)
-    tech_roadmap = profile.tech_roadmap
+    experiences = Experience.objects.filter(profile=profile)
+    # tech_roadmap = profile.tech_roadmap
 
     
 
@@ -78,7 +78,7 @@ def dashboard(request):
         "document_title": document_title,
         "profile": profile,
         "experiences":experiences,
-        "tech_roadmap":tech_roadmap
+        # "tech_roadmap":tech_roadmap
     }
     return render(request, template_name, context)
 
@@ -138,7 +138,7 @@ def settingspage(request):
 # *************************************************************************************
 def login_handler(request):
     if request.user.is_authenticated:
-        return redirect('homepage')
+        return redirect('dashboard_page')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -168,7 +168,7 @@ def registration_handler(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('dashboard_page')
     return
 
 def logout_handler(request):
