@@ -47,6 +47,7 @@ function getSkills() {
   for (let elem of tree_data){ 
     let fields = elem.fields
     fields.id = elem.pk
+    fields.nodeType = elem.fields.node_type
     returnList.push(fields)
   }
   console.log(returnList)
@@ -150,7 +151,7 @@ const nodeLabel = tree
   .data(descendants)
   .enter()
   .append("text")
-  .text(d => d.data.label)
+  .text(d => d.data.name)
   .attr("class", d => d.data.nodeType !== NODE_TYPES.C ? "node-label" : "node-title")
   .attr("x", d => d.x + (d.data.nodeType === NODE_TYPES.C ? NODE_DIM[d.data.nodeType][0] / 2 - 50 : NODE_DIM[d.data.nodeType][0] / 2))
   .attr("y", d => d.data.nodeType === NODE_TYPES.C ? d.y + NODE_DIM.C[1] / 2 : d.y + NODE_DIM[d.data.nodeType][1] + 20)
