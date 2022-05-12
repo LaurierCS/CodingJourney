@@ -6,9 +6,16 @@ from django.contrib.auth.models import User
 from .models import *
 
 class ExperienceInputform(forms.ModelForm): 
+    name = forms.CharField(required=True)
+    type = forms.ModelMultipleChoiceField(
+      queryset=Experience.EXPERIENCE_TYPE, 
+      )
     # start as text input and adjust to match figma
     skills = forms.ModelMultipleChoiceField(
         queryset=Skill.objects.all(),
+        required=True,
+        label="Skills", 
+        help_text="What Skills did you learn or use?"
     )
     # kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
     description = forms.Textarea()
@@ -32,7 +39,7 @@ class ExperienceInputform(forms.ModelForm):
       cleaned_data = super().clean()
       start_date = cleaned_data.get("start_date")
       end_date = cleaned_data.get("end_date")
-      if end_date < start_date:
+      if end_date and end_date < start_date:
         raise forms.ValidationError(("End date should be greater than start date."), code="invalidDate")
 
       return cleaned_data

@@ -109,7 +109,7 @@ class DesiredSkill(models.Model):
     (4, "Able to Use Professionally"),
     (5, "Expert"),
     ]
-
+    
   # Foreign Key Fields
   user_id = models.ForeignKey("Profile", on_delete=models.CASCADE)
   skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
