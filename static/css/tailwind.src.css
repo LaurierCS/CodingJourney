@@ -254,12 +254,12 @@
 
 /* Tree Nodes */
 .node,
-.node-category,
-.link {
-  stroke-width: 3;
+.node-category {
+  stroke-width: 5;
 }
 
 .link {
+  stroke-width: 3;
   stroke: var(--foreground);
 }
 
@@ -267,11 +267,27 @@
 .node-category,
 .node-image {
   fill: var(--primary-darker);
+}
+
+.node,
+.node-category,
+.node-image,
+.node-label {
+  transition: transform 500ms, filter 500ms;
+}
+
+.node-group {
   cursor: pointer;
 }
 
-.node-image:hover, .node:hover {
+.node-group:hover > .node, .node-group:hover > .node-category, .node-group:hover > .node-image, .node-group:hover > .node-label {
+  transition: transform 150ms, filter 150ms;
+  transform: translateY(-10px);
+}
+
+.node-group:hover > .node, .node-group:hover > .node-category {
   stroke: var(--primary);
+  filter: drop-shadow(0px 0px 15px var(--secondary));
 }
 
 .node-label, .node-title {

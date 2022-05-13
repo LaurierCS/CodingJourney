@@ -35,7 +35,7 @@ const NODE_IMG_SIZE = 120
 const width = document.getElementById("treeContainer").clientWidth;
 const height = document.getElementById("treeContainer").clientHeight;
 const viewBox = {
-  x: -width / 2,
+  x: -width / 2 - NODE_DIM.U[0] * 2,
   y: 0,
   width: width * 1.5, // zoom out view
   height: height * 1.5, // zoom out view
@@ -43,15 +43,15 @@ const viewBox = {
 
 function getSkills() {
   let returnList = []
-  console.log(tree_data)
+  // console.log(tree_data)
   for (let elem of tree_data){ 
     let fields = elem.fields
     fields.id = elem.pk
     fields.nodeType = elem.fields.node_type
-    console.log(elem.fields)
+    // console.log(elem.fields)
     returnList.push(fields)
   }
-  console.log(returnList)
+  // console.log(returnList)
   return returnList;
 }
 const skills = getSkills();
@@ -117,12 +117,12 @@ const svg = container
   .attr("width", width)
   .attr("height", height)
   .attr("style", "cursor: move;")
-  .attr("viewBox", (d) =>
-    getViewBoxString(viewBox.x, viewBox.y, viewBox.width, viewBox.height)
-  ); // for zooming in/out
+  .attr("viewBox", getViewBoxString(viewBox.x, viewBox.y, viewBox.width, viewBox.height)); // for zooming in/out
 
-const tree = svg.append("g");
+const tree = svg.append("g").attr("data-tree", "true");
 
+// links are separated from the node group
+// it is easier to draw the links this way
 const links = tree
   .selectAll(".link")
   .data(hierarchy.links())
@@ -131,13 +131,22 @@ const links = tree
   .attr("class", "link")
   .attr("d", (d) => getLinkPath(d))
 
+/**
+ * Put all nodes into separate groups to handle on hover effects.
+ * bug: fixed size category nodes will become a problem if the category name is too long.
+ * todo: adjust category node size dynamically.
+ */
 const nodes = tree
   .selectAll(".node")
   .data(descendants)
   .enter()
+  .append("g")
+  .attr("class", "node-group")
+
+const rects = nodes
   .append("rect")
   .attr("class", (d) =>
-    d.data.nodeType === NODE_TYPES.C ? "node-category" : "node"
+  d.data.nodeType === NODE_TYPES.C ? "node-category" : "node"
   )
   .attr("width", (d) => NODE_DIM[d.data.nodeType][0])
   .attr("height", (d) => NODE_DIM[d.data.nodeType][1])
@@ -145,33 +154,45 @@ const nodes = tree
   .attr("ry", (d) => (d.data.nodeType === NODE_TYPES.U ? "75" : "15"))
   .attr("x", (d) => d.data.nodeType === NODE_TYPES.C ? d.x - 50 : d.x )
   .attr("y", (d) => d.y)
+  .attr("data-node-id", d => d.id)
   .on("click", onNodeClick);
 
-const nodeLabel = tree
-  .selectAll(".node-label")
-  .data(descendants)
-  .enter()
+const nodeLabel = nodes
   .append("text")
   .text(d => d.data.name)
-  .attr("class", d => d.data.nodeType !== NODE_TYPES.C ? "node-label" : "node-title")
-  .attr("x", d => d.x + (d.data.nodeType === NODE_TYPES.C ? NODE_DIM[d.data.nodeType][0] / 2 - 50 : NODE_DIM[d.data.nodeType][0] / 2))
+  .attr("class", d => d.data.nodeType !== NODE_TYPES.C ? "node-label" : "node-label node-title")
+  .attr("x", d => {
+    // because the x in d.x does not reflect the x position of the rectangle
+    // to center the text for a category node, we need to get the x from the rect element directly.
+    let x;
+    if (d.data.nodeType === NODE_TYPES.C) {
+      let r = document.querySelector(`rect[data-node-id="${d.id}"`)
+      x = parseFloat(r.getAttribute("x"))
+    } else {
+      x = d.x
+    }
+    return x + NODE_DIM[d.data.nodeType][0] / 2;
+  })
   .attr("y", d => d.data.nodeType === NODE_TYPES.C ? d.y + NODE_DIM.C[1] / 2 : d.y + NODE_DIM[d.data.nodeType][1] + 20)
+  .attr("text-anchor", "middle")
+  .attr("dominant-baseline", "middle")
+  .attr("data-node-label-id", d => d.id)
 
-const nodeImage = tree
-  .selectAll(".node-image")
-  .data(descendants.filter(d => d.data.nodeType === NODE_TYPES.N))
-  .enter()
+const nodeImage = nodes
   .append("image")
   .attr("href", d => {
     // todo: return iconHref instead
     return "/static/images/python_logo.png"
   })
   .attr("class", "node-image")
-  .attr("width", NODE_IMG_SIZE)
-  .attr("height", NODE_IMG_SIZE)
+  .attr("width", d => d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : 0) // todo: return actual size for user nodes
+  .attr("height", d => d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : 0) // todo: return actual szie for user nodes
   .attr("x", d => d.x + NODE_DIM[d.data.nodeType][0] / 2 - NODE_IMG_SIZE / 2)
   .attr("y", d => d.y + NODE_DIM[d.data.nodeType][1] / 2 - NODE_IMG_SIZE / 2)
-  
+  .attr("data-node-image-id", d => d.id)
+
+// update viewbox
+console.log(document.querySelector('g[data-tree="true"]').getClientRects())
 
 // add panning
 const originPoint = { x: -1, y: -1 };
