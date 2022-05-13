@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.core import serializers
+from django.db import connection
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -176,6 +178,13 @@ def logout_handler(request):
     logout(request)
     return redirect('login')
 
+def experience_input_handler(request):
+    if request.method == 'POST':
+        form = ExperienceInputform(request.POST)
+        if form.is_valid():
+            new_instance = Experience.objects.create()
+            
+
 class TreeQueries:
     def getFullTree():
         skill_tree = Skill.objects.all()
@@ -198,26 +207,35 @@ class TreeQueries:
         skill_tree_categories = Skill.objects.filter(node_type="C").filter(id__in=skill_tree_node_parents)
         skill_tree = skill_tree_categories.union(skill_tree_nodes)
 
-        # app_models = apps.get_app_config("app").get_models()
-        # for model in app_models: 
-        #     print(model)
+        print(DesiredSkill._meta.db_table)
+
+        
+        skill_tree = Skill.objects.raw('''
+                SELECT *
+                FROM app_desiredskill.skill
+                ''')
+                # FROM app_skill s
+                # LEFT JOIN app_desiredskill on app_desiredskill.skill = s.id''')
+        for skill in skill_tree: 
+            print(skill.skill)
+
+        # get all skills that are referenced by a foreign key in the DesiredSKills table s.t. skill.id = DesiredSkill.skill
 
         skill_tree = Skill.objects.raw('''
             WITH RECURSIVE skill_tree AS (
-                SELECT ds.skill
-                FROM DesiredSkill ds 
+                SELECT *
+                FROM app_skill s
+                LEFT JOIN app_desiredskill ds on ds.skill = s.id
 
                 UNION ALL 
 
                 SELECT * 
-                FROM Skill sk 
-                JOIN skill_tree st ON st.parentId = sk.id
+                FROM app_skill sk 
+                LEFT JOIN skill_tree st ON skill_tree.parentId = sk.id
             )
 
             Select * FROM skill_tree
         ''')
-        for skill in skill_tree: 
-            print(skill)
     
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
         
