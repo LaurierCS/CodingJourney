@@ -7,9 +7,9 @@ from .models import *
 
 class ExperienceInputform(forms.ModelForm): 
     name = forms.CharField(required=True)
-    type = forms.ModelMultipleChoiceField(
-      queryset=Experience.EXPERIENCE_TYPE, 
-      )
+    # type = forms.ModelMultipleChoiceField(
+    #   queryset=Experience.EXPERIENCE_TYPE, 
+    #   )
     # start as text input and adjust to match figma
     skills = forms.ModelMultipleChoiceField(
         queryset=Skill.objects.all(),

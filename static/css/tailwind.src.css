@@ -257,7 +257,6 @@
 .node-category,
 .link {
   stroke-width: 3;
-  stroke: var(--primary);
 }
 
 .link {
@@ -265,9 +264,14 @@
 }
 
 .node,
-.node-category {
+.node-category,
+.node-image {
   fill: var(--primary-darker);
   cursor: pointer;
+}
+
+.node-image:hover, .node:hover {
+  stroke: var(--primary);
 }
 
 .node-label, .node-title {

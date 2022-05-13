@@ -48,6 +48,7 @@ function getSkills() {
     let fields = elem.fields
     fields.id = elem.pk
     fields.nodeType = elem.fields.node_type
+    console.log(elem.fields)
     returnList.push(fields)
   }
   console.log(returnList)
@@ -165,6 +166,7 @@ const nodeImage = tree
     // todo: return iconHref instead
     return "/static/images/python_logo.png"
   })
+  .attr("class", "node-image")
   .attr("width", NODE_IMG_SIZE)
   .attr("height", NODE_IMG_SIZE)
   .attr("x", d => d.x + NODE_DIM[d.data.nodeType][0] / 2 - NODE_IMG_SIZE / 2)

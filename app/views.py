@@ -273,6 +273,6 @@ class TreeQueries:
         for item in data: 
             if "parentId" in item:
                 skill = Skill.objects.get(id=item["id"])
-                parent = Skill.objects.get(id=item["parentId"])
-                skill.parent = parent
+                parentId = Skill.objects.get(id=item["parentId"])
+                skill.parentId = parentId
                 skill.save()
