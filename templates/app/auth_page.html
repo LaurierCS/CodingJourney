@@ -6,7 +6,7 @@
 {% block content %}
 <div class="w-full h-full flex justify-center items-center">
   <div
-  class="flex justify-center items-center flex-col border-2 border-white rounded-xl w-fit"
+  class="flex justify-center items-center flex-col rounded-xl w-fit bg-dark"
   >
     <!-- show the error message here -->
     {% if messages %}
@@ -53,9 +53,9 @@
           required
           maxlength="150"
           pattern="^[A-Za-z0-9@\.\+-_]+$"
-          class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
+          class="input"
         />
-        <label for="username" class="absolute left-5 -top-[15%] text-white">
+        <label for="username" class="input-label">
           Username
         </label>
       </div>
@@ -64,9 +64,9 @@
           name="password"
           type="password"
           required
-          class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
+          class="input"
         />
-        <label for="password" class="absolute left-5 -top-[15%] text-white">
+        <label for="password" class="input-label">
           Password
         </label>
       </div>
@@ -86,14 +86,14 @@
       <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
         <input
           id="id_username"
-          name="username"
+          name="username"`
           type="text"
           required
           maxlength="150"
           pattern="^[A-Za-z0-9@\.\+-_]+$"
-          class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
+          class="input"
         />
-        <label for="username" class="absolute left-5 -top-[15%] text-white">
+        <label for="username" class="input-label">
           Username
         </label>
       </div>
@@ -103,9 +103,9 @@
           name="email"
           type="email"
           required
-          class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
+          class="input"
         />
-        <label for="email" class="absolute left-5 -top-[15%] text-white">
+        <label for="email" class="input-label">
           Email
         </label>
       </div>
@@ -116,9 +116,9 @@
           type="password"
           required
           minlength="8"
-          class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
+          class="input"
         />
-        <label for="password1" class="absolute left-5 -top-[15%] text-white">
+        <label for="password1" class="input-label">
           Password
         </label>
       </div>
@@ -129,9 +129,9 @@
           type="password"
           required
           minlength="8"
-          class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
+          class="input"
         />
-        <label for="password2" class="absolute left-5 -top-[15%] text-white">
+        <label for="password2" class="input-label">
           Confirm Password
         </label>
       </div>
