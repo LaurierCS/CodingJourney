@@ -150,8 +150,6 @@ def login_handler(request):
 def registration_handler(request):
     if request.method == 'POST':
         register_form = CreateUserForm(request.POST)
-        print(register_form)
-        print(register_form.is_valid())
         if register_form.is_valid():
             register_form.save()
             messages.success(
@@ -166,6 +164,8 @@ def registration_handler(request):
                 login(request, user)
                 return redirect('dashboard_page')
         else:
+            if "password2" in register_form.errors:
+                print(register_form.errors["password2"])
             messages.info(request, 'Registration Failed')
     return redirect(reverse("auth_page") + "?form=register")
 
