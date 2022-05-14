@@ -2,6 +2,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
@@ -59,6 +60,7 @@ def authpage(request):
     }
     return render(request, template_name, context)
 
+@login_required(login_url='auth_page')
 def dashboard(request):
 
     # redirect user back to auth_page if not logged in
@@ -68,7 +70,7 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
 
-    
+    print(profile)
 
     template_name = "app/homepage.html"
     context = {
@@ -95,7 +97,7 @@ def allexperiences(request):
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='auth_page')
 def profilepage(request):
     document_title = ""
     page_header = ""
@@ -111,7 +113,7 @@ def profilepage(request):
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='auth_page')
 def settingspage(request):
     document_title = "Setting"
     page_header = ""
@@ -141,7 +143,6 @@ def login_handler(request):
 
         if user is not None:
             login(request, user)
-            print("Logged In")
             return redirect('dashboard_page')
         else:
             messages.info(request, 'Username or password is incorrect')
@@ -152,9 +153,6 @@ def registration_handler(request):
         register_form = CreateUserForm(request.POST)
         if register_form.is_valid():
             register_form.save()
-            messages.success(
-                request, f'Account created')
-            print("Account created")
 
             username = register_form.cleaned_data.get('username')
             password = register_form.cleaned_data.get("password1")
@@ -165,11 +163,19 @@ def registration_handler(request):
                 return redirect('dashboard_page')
         else:
             if "password2" in register_form.errors:
-                print(register_form.errors["password2"])
-            messages.info(request, 'Registration Failed')
+                for validationError in register_form.errors.as_data()['password2']:
+                    messages.info(request, validationError.message)
+            if "username" in register_form.errors:
+                for validationError in register_form.errors.as_data()['username']:
+                    messages.info(request, validationError.message)
+    
     return redirect(reverse("auth_page") + "?form=register")
 
 def logout_handler(request):
+
+    if not request.user.is_authenticated:
+        return redirect("auth_page")
+
     # remove the session id and get user back to the login page
     logout(request)
     return redirect('landing_page')

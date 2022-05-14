@@ -11,10 +11,10 @@
     <!-- show the error message here -->
     {% if messages %}
     <ul
-      class="messages min-w-max w-max"
+      class="fixed bottom-5 right-5 messages min-w-max w-max"
     >
       {% for message in messages %}
-      <li class="bg-error p-2 rounded-md">{{ message }}</li>
+      <li class="bg-error p-2 rounded-md my-2 max-w-xs">{{ message }}</li>
       {% endfor %}
     </ul>
     {% endif %}
@@ -90,7 +90,6 @@
           type="text"
           required
           maxlength="150"
-          pattern="^[A-Za-z0-9@\.\+-_]+$"
           class="input"
         />
         <label for="username" class="input-label">

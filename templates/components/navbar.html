@@ -60,23 +60,4 @@
   </div>
   <!-- end of container -->
   {% endif %} 
-  {% comment %}
-  <!-- if the user is not authenticate, then don't show the logout button -->
-  {% if request.user.is_authenticated %}
-  <h1>Sup, {{request.user}}</h1>
-  <a href="{% url 'logout' %}">Logout</a>
-  {% else %}
-  <a href="{% url 'login' %}">Login</a>
-  {% endif %}
-
-  <!-- show the error message here -->
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  <!-- show the error message here -->
-  {% endcomment %}
 </nav>
