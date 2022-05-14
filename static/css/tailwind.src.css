@@ -139,10 +139,11 @@
       p-2 bg-transparent outline-none 
       border-white rounded-xl border-solid border-2 
       transition-colors duration-150
-      focus-visible:placeholder:text-gray-500
+      placeholder:text-gray-500
       focus-visible:border-active 
       focus-visible:text-active
-      text-white w-full placeholder:text-white 
+      text-white w-full 
+      placeholder:text-sm
       invalid:text-error invalid:border-error invalid:placeholder:text-invalid
     ;
   }
