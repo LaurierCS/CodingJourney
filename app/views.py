@@ -101,13 +101,13 @@ def allexperiences(request):
 
 
 def profilepage(request):
-    document_title = ""
+    document_title = "Profile"
     page_header = ""
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
 
 
-    template_name = "app/homepage.html"
+    template_name = "app/profile.html"
     context = {
         "document_title":document_title,
         "page_header": page_header,

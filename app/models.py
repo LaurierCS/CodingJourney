@@ -21,7 +21,7 @@ class Profile(models.Model):
     # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class Skill(models.Model):
