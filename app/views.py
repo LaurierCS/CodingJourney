@@ -3,12 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.urls import reverse
 from django.views import View
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
 
 # FILE IMPORTS
 from .models import *
@@ -19,7 +15,6 @@ from .forms import *
 # TEMPLATE VIEWS - GET DATA, PERFORM OPERATIONS, AND RETURN A TEMPLATE
 # ****************************************************************************
 def langing_page(request):
-
     document_title = "Coding Journey"
     page_header = "Design your\ncoding journey"
     description = "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
@@ -55,20 +50,23 @@ def authpage(request):
             return redirect('login')
 
     template_name = "app/auth_page.html"
+    form  = CreateUserForm(request.POST)
     context = {
         "document_title": document_title,
         "register_form": register_form,
-        "endpoint": 'login'
+        "endpoint": 'login',
+        "form": form
     }
     return render(request, template_name, context)
 
-
 def dashboard(request):
+
+    # redirect user back to auth_page if not logged in
+    if not request.user.is_authenticated:
+        return redirect("auth_page")
+
     document_title = "Skill Tree"
-    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
-    # experiences = Experience.object.filter(profile=profile)
-    # tech_roadmap = profile.tech_roadmap
 
     
 
@@ -76,8 +74,6 @@ def dashboard(request):
     context = {
         "document_title": document_title,
         "profile": profile,
-        # "experiences": experiences,
-        # "tech_roadmap":tech_roadmap
     }
     return render(request, template_name, context)
 
@@ -154,6 +150,8 @@ def login_handler(request):
 def registration_handler(request):
     if request.method == 'POST':
         register_form = CreateUserForm(request.POST)
+        print(register_form)
+        print(register_form.is_valid())
         if register_form.is_valid():
             register_form.save()
             messages.success(
@@ -169,9 +167,9 @@ def registration_handler(request):
                 return redirect('dashboard_page')
         else:
             messages.info(request, 'Registration Failed')
-    return redirect("auth_page")
+    return redirect(reverse("auth_page") + "?form=register")
 
 def logout_handler(request):
     # remove the session id and get user back to the login page
     logout(request)
-    return redirect('login')
+    return redirect('landing_page')

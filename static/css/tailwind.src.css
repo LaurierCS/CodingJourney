@@ -10,29 +10,29 @@
   h1, h2, h3, h4 {
     @apply
       tracking-wide
-      font-bold
+      font-bold;
   }
 
 
   h1 {
     @apply
       text-h1
-      leading-h1
+      leading-h1;
   }
   h2 {
     @apply
       text-h2
-      leading-h2
+      leading-h2;
   }
   h3 {
     @apply
       text-h3
-      leading-h2
+      leading-h2;
   }
   h4 {
     @apply
       text-h4
-      leading-h4
+      leading-h4;
   }
 
   body {
@@ -40,25 +40,25 @@
       text-body
       leading-h4
       tracking-wide
-      font-medium
+      font-medium;
   }
 
   button, a {
     @apply
       tracking-wide
-      font-semibold
+      font-semibold;
   }
 
   button {
     @apply
       text-button
-      leading-button
+      leading-button;
   }
 
   a {
     @apply  
       text-link
-      leading-link
+      leading-link;
   }
 }
 
@@ -136,26 +136,17 @@
 
   .input {
     @apply 
-      p-2 bg-transparent outline-none 
-      border-white rounded-xl border-solid border-2 
-      transition-colors duration-150
-      focus-visible:placeholder:text-gray-500
-      focus-visible:border-active 
-      focus-visible:text-active
-      text-white w-full placeholder:text-white 
-      invalid:text-error invalid:border-error invalid:placeholder:text-invalid
+    p-2 bg-transparent outline-none border-gray-500 rounded-xl border-solid border-2 transition-colors duration-150 
+    placeholder:text-gray-500 focus-visible:border-active text-white w-full
     ;
   }
 
   .input-label {
     @apply 
       absolute left-5 
-      peer-focus-visible:text-active
-      transition-colors duration-150  
-      peer-invalid:text-error
     ;
 
-    top: -15%;
+    top: -17%;
   }
 }
 

@@ -1,161 +1,176 @@
-{% extends 'base.html' %} {% load static %} {% block headers %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block headers %}
 <title>Log In</title>
-{% endblock %} {% block content %}
-<div
-  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-xl w-fit m-auto"
->
-  <!-- navbar  -->
-  <ul class="flex space-x-10 py-4 pl-6 pr-4 text-xl mx-auto">
-    <li>
-      <a class="text-white cursor-pointer hover:opacity-100" id="loginAnchor" data-active="true"
-        >Login</a
-      >
-    </li>
-    <li><a id="registrationAnchor" data-active="false" class="text-white cursor-pointer opacity-50 hover:opacity-100">Register</a></li>
-  </ul>
-  
-  <!-- login form -->
-  <form
-  action="{% url 'login' %}"
-  method="POST"
-  class="flex flex-col justify-center items-center p-4"
-  id="loginForm"
+{% endblock %} 
+{% block content %}
+<div class="w-full h-full flex justify-center items-center">
+  <div
+  class="flex justify-center items-center flex-col rounded-xl w-fit bg-dark"
   >
-  {% csrf_token %}
-  <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-    <input
-    name="username"
-    type="text"
-    required
-    class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
-    />
-    <label
-    for="username"
-    class="absolute left-5 -top-[15%] text-white"
+    <!-- show the error message here -->
+    {% if messages %}
+    <ul
+      class="messages min-w-max w-max"
     >
-    Username
-  </label>
-</div>
-<div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-  <input
-  name="password"
-  type="password"
-  required
-  class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
-  />
-  <label
-  for="password"
-  class="absolute left-5 -top-[15%] text-white"
-  >
-  Password
-</label>
-</div>
-<button type="submit" class="button m-auto">Login</button>
-</form>
-<!-- end of login form -->
+      {% for message in messages %}
+      <li class="bg-error p-2 rounded-md">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <!-- navbar  -->
+    <ul class="flex space-x-10 py-4 pl-6 pr-4 text-xl mx-auto">
+      <li>
+        <a
+          class="text-white cursor-pointer hover:opacity-100"
+          id="loginAnchor"
+          data-active="true"
+          >Login</a
+        >
+      </li>
+      <li>
+        <a
+          id="registrationAnchor"
+          data-active="false"
+          class="text-white cursor-pointer opacity-50 hover:opacity-100"
+          >Register</a
+        >
+      </li>
+    </ul>
 
-<!-- register form -->
-
-<form 
-  method="POST"
-  class="flex flex-col justify-center items-center p-4 hidden"
-  action="{% url 'register' %}" 
-  id="registrationForm"
-  >
-  {% csrf_token %}
-  <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-    <input
-    name="username"
-    type="text"
-    required
-    class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
-    />
-    <label
-    for="username"
-    class="absolute left-5 -top-[15%] text-white"
+    <!-- login form -->
+    <form
+      action="{% url 'login' %}"
+      method="POST"
+      class="flex flex-col justify-center items-center p-4"
+      id="loginForm"
     >
-    Username
-  </label>
+      {% csrf_token %}
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          name="username"
+          type="text"
+          required
+          maxlength="150"
+          pattern="^[A-Za-z0-9@\.\+-_]+$"
+          class="input"
+        />
+        <label for="username" class="input-label">
+          Username
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          name="password"
+          type="password"
+          required
+          class="input"
+        />
+        <label for="password" class="input-label">
+          Password
+        </label>
+      </div>
+      <button type="submit" class="button m-auto">Login</button>
+    </form>
+    <!-- end of login form -->
+
+    <!-- register form -->
+
+    <form
+      method="POST"
+      class="flex flex-col justify-center items-center p-4 hidden"
+      action="{% url 'register' %}"
+      id="registrationForm"
+    >
+      {% csrf_token %}
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_username"
+          name="username"`
+          type="text"
+          required
+          maxlength="150"
+          pattern="^[A-Za-z0-9@\.\+-_]+$"
+          class="input"
+        />
+        <label for="username" class="input-label">
+          Username
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_email"
+          name="email"
+          type="email"
+          required
+          class="input"
+        />
+        <label for="email" class="input-label">
+          Email
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_password1"
+          name="password1"
+          type="password"
+          required
+          minlength="8"
+          class="input"
+        />
+        <label for="password1" class="input-label">
+          Password
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_password2"
+          name="password2"
+          type="password"
+          required
+          minlength="8"
+          class="input"
+        />
+        <label for="password2" class="input-label">
+          Confirm Password
+        </label>
+      </div>
+      <button type="submit" class="button m-auto">Register</button>
+    </form>
+    <!-- end of register form -->
+  </div>
 </div>
-<div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-  <input
-  name="email"
-  type="email"
-  required
-  class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
-  />
-  <label
-  for="email"
-  class="absolute left-5 -top-[15%] text-white"
-  >
-  Email
-</label>
-    </div>
-    <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-      <input
-        name="password1"
-        type="password"
-        required
-        class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
-      />
-      <label
-        for="password1"
-        class="absolute left-5 -top-[15%] text-white"
-      >
-        Password
-      </label>
-    </div>
-    <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-      <input
-        name="password2"
-        type="password"
-        required
-        class="peer p-2 bg-transparent outline-none border-white rounded-xl border-solid border-2 transition-colors duration-150 focus-visible:placeholder:text-gray-500 focus-visible:border-active text-white w-full placeholder:text-white required:not-focus-visible:border-white required:not-focus-visible:invalid:border-error valid:focus-visible:border-success"
-      />
-      <label
-        for="password2"
-        class="absolute left-5 -top-[15%] text-white"
-      >
-        Confirm Password
-      </label>
-    </div>
-  <button type="submit" class="button m-auto">Register</button>
-</form>
-  <!-- end of register form -->
+<script>
+  // hide/show forms
+  const regForm = document.getElementById("registrationForm");
+  const logForm = document.getElementById("loginForm");
+  const regAnchor = document.getElementById("registrationAnchor");
+  const logAnchor = document.getElementById("loginAnchor");
+  const activeClass =
+    "decoration-solid decoration-primary underline decoration-2";
 
+  function showRegisterForm() {
+    logForm.classList.add("hidden");
+    regForm.classList.remove("hidden");
+    logAnchor.classList.add("opacity-50");
+    regAnchor.classList.remove("opacity-50");
+  }
 
-  <!-- show the error message here -->
-  {% if messages %}
-  <ul
-    class="messages absolute -top-12 left-1/2 -translate-x-1/2 min-w-max w-max"
-  >
-    {% for message in messages %}
-    <li class="bg-error p-2 rounded-md">{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-</div>
+  function showLoginForm() {
+    logForm.classList.remove("hidden");
+    regForm.classList.add("hidden");
+    logAnchor.classList.remove("opacity-50");
+    regAnchor.classList.add("opacity-50");
+  }
 
-  <script>
-    const regForm = document.getElementById("registrationForm")
-    const logForm = document.getElementById("loginForm")
-    const regAnchor = document.getElementById("registrationAnchor")
-    const logAnchor = document.getElementById("loginAnchor")
-    const activeClass ="decoration-solid decoration-primary underline decoration-2"
+  regAnchor.addEventListener("click", showRegisterForm);
 
-    regAnchor.addEventListener("click", () => {
-      logForm.classList.add("hidden")
-      regForm.classList.remove("hidden")
-      logAnchor.classList.add("opacity-50")
-      regAnchor.classList.remove("opacity-50")
-    });
-    
-    logAnchor.addEventListener("click", () => {
-      logForm.classList.remove("hidden")
-      regForm.classList.add("hidden")
-      logAnchor.classList.remove("opacity-50")
-      regAnchor.classList.add("opacity-50")
-    });
+  logAnchor.addEventListener("click", showLoginForm);
 
-  </script>
+  // check which form to show
+  const params = new URLSearchParams(window.location.search)
+  if (params.has("form") && params.get("form") === "register") {
+    showRegisterForm();
+  }
+</script>
 {% endblock %}
