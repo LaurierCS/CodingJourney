@@ -2,13 +2,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django.views import View
-
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.urls import reverse
+from django.views import View
 
 # FILE IMPORTS
 from .models import *
@@ -19,7 +16,6 @@ from .forms import *
 # TEMPLATE VIEWS - GET DATA, PERFORM OPERATIONS, AND RETURN A TEMPLATE
 # ****************************************************************************
 def langing_page(request):
-
     document_title = "Coding Journey"
     page_header = "Design your\ncoding journey"
     description = "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
@@ -44,7 +40,7 @@ def authpage(request):
     register_form = CreateUserForm()
     # LOGIN AND REGISTRATION AUTHENTICATION
     if request.user.is_authenticated:
-        return redirect('homepage')
+        return redirect('dashboard_page')
     elif request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
@@ -55,29 +51,31 @@ def authpage(request):
             return redirect('login')
 
     template_name = "app/auth_page.html"
+    form  = CreateUserForm(request.POST)
     context = {
         "document_title": document_title,
         "register_form": register_form,
-        "endpoint": 'login'
+        "endpoint": 'login',
+        "form": form
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='auth_page')
 def dashboard(request):
-    document_title = "Skill Tree"
-    # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
-    profile = request.user.profile
-    experiences = Experience.object.filter(profile=profile)
-    tech_roadmap = profile.tech_roadmap
 
-    
+    # redirect user back to auth_page if not logged in
+    if not request.user.is_authenticated:
+        return redirect("auth_page")
+
+    document_title = "Skill Tree"
+    profile = request.user.profile
+
+    print(profile)
 
     template_name = "app/homepage.html"
     context = {
         "document_title": document_title,
         "profile": profile,
-        "experiences":experiences,
-        "tech_roadmap":tech_roadmap
     }
     return render(request, template_name, context)
 
@@ -99,15 +97,15 @@ def allexperiences(request):
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='auth_page')
 def profilepage(request):
-    document_title = ""
+    document_title = "Profile"
     page_header = ""
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
 
 
-    template_name = "app/homepage.html"
+    template_name = "app/profile.html"
     context = {
         "document_title":document_title,
         "page_header": page_header,
@@ -115,19 +113,28 @@ def profilepage(request):
     }
     return render(request, template_name, context)
 
-
+@login_required(login_url='auth_page')
 def settingspage(request):
-    document_title = ""
+    document_title = "Setting"
     page_header = ""
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
+    setting_form = UserSettingForm(instance=profile)
+    template_name = "app/setting.html"
 
-
-    template_name = "app/homepage.html"
+    if request.method == "POST":
+        setting_form = UserSettingForm(request.POST, instance=profile)
+        if setting_form.is_valid():
+            setting_form.save()
+            messages.success(request, 'Profile details updated.')
+            return redirect('settings_page')
+        else:
+            messages.warning(request, 'Incorrect detail change.')
+            
     context = {
         "document_title":document_title,
         "page_header": page_header,
-        "profile":profile
+        "profile":profile,
     }
     return render(request, template_name, context)
 
@@ -137,7 +144,7 @@ def settingspage(request):
 # *************************************************************************************
 def login_handler(request):
     if request.user.is_authenticated:
-        return redirect('homepage')
+        return redirect('dashboard_page')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -146,8 +153,7 @@ def login_handler(request):
 
         if user is not None:
             login(request, user)
-            print("Logged In")
-            return redirect('home')
+            return redirect('dashboard_page')
         else:
             messages.info(request, 'Username or password is incorrect')
     return redirect("auth_page")
@@ -157,9 +163,6 @@ def registration_handler(request):
         register_form = CreateUserForm(request.POST)
         if register_form.is_valid():
             register_form.save()
-            messages.success(
-                request, f'Account created')
-            print("Account created")
 
             username = register_form.cleaned_data.get('username')
             password = register_form.cleaned_data.get("password1")
@@ -167,12 +170,22 @@ def registration_handler(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('dashboard_page')
         else:
-            messages.info(request, 'Registration Failed')
-    return redirect("auth_page")
+            if "password2" in register_form.errors:
+                for validationError in register_form.errors.as_data()['password2']:
+                    messages.info(request, validationError.message)
+            if "username" in register_form.errors:
+                for validationError in register_form.errors.as_data()['username']:
+                    messages.info(request, validationError.message)
+    
+    return redirect(reverse("auth_page") + "?form=register")
 
 def logout_handler(request):
+
+    if not request.user.is_authenticated:
+        return redirect("auth_page")
+
     # remove the session id and get user back to the login page
     logout(request)
-    return redirect('login')
+    return redirect('landing_page')

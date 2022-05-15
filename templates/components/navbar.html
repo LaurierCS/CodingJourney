@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav
-  class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% else %} fixed top-0 left-0 z-[2]{% endif %}  transition-all duration-200"
+  class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% endif %}  transition-all duration-200"
 >
   {%if alternate %}
   <ul
@@ -16,7 +16,11 @@
     <li class="mx-10 cursor-pointer">
       <a href="{% url 'auth_page' %}"
         ><button class="button bg-dark-gradient button-transition">
-          Log In
+          {% if user.is_authenticated %}
+            Dashboard
+          {% else %}
+            Log In
+          {% endif %}
         </button></a
       >
     </li>
@@ -48,7 +52,7 @@
         </div>
         <div class="ml-10">
           <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.username | title}}</p>
-          <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.profile.email|default:""}}</p>
+          <a href="{% url 'logout' %}">Log Out</a>
         </div>
       </div>
     {% endif %}
@@ -56,23 +60,4 @@
   </div>
   <!-- end of container -->
   {% endif %} 
-  {% comment %}
-  <!-- if the user is not authenticate, then don't show the logout button -->
-  {% if request.user.is_authenticated %}
-  <h1>Sup, {{request.user}}</h1>
-  <a href="{% url 'logout' %}">Logout</a>
-  {% else %}
-  <a href="{% url 'login' %}">Login</a>
-  {% endif %}
-
-  <!-- show the error message here -->
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  <!-- show the error message here -->
-  {% endcomment %}
 </nav>

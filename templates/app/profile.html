@@ -13,7 +13,7 @@
           </div>
           <div>
             <h3 class="mb-5">{{request.user.username|title}}</h3>
-            <a href="{% url 'setting' %}">
+            <a href="{% url 'settings_page' %}">
               <button class="button p-3">
                 Edit Profile
               </button>
@@ -44,7 +44,7 @@
 
           <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
             <h4>Email</h4>
-            <p class="break-words">{{request.user.email}}</p>
+            <p class="break-words">{{request.user.profile.email}}</p>
           </div>
         </div>
 
