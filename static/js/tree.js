@@ -88,7 +88,15 @@ function getLinkPath(d) {
   );
 }
 
-function onNodeClick(d) {
+function onNodeClick(e, d) {
+
+  // check if sidebar exists or not
+  if (!window.nodeSideBar) {
+    window.nodeSideBar = new NodeSideBar("nsb")
+  }
+
+  nodeSideBar.show();
+
   // todo: implement on click behaviour
   // todo: open node detail information sidebar
   console.log("Node click behaviour not implemented.");
@@ -188,10 +196,10 @@ const treemap = d3
     }
 
     return 1;
-  });
+  }); 
 const hierarchy = treemap(d3.stratify()(skills));
 const descendants = hierarchy.descendants()
-
+ 
 const svg = container
   .append("svg")
   .attr("id", "#tree")
@@ -205,7 +213,7 @@ const tree = svg.append("g").attr("data-tree", "true");
 // links are separated from the node group
 // it is easier to draw the links this way
 const links = tree
-  .selectAll(".link")
+  .selectAll(".link") 
   .data(hierarchy.links())
   .enter()
   .append("path")
@@ -224,6 +232,7 @@ const nodes = tree
   .enter()
   .append("g")
   .attr("class", "node-group")
+  .on("click", onNodeClick);
 
 const rects = nodes
   .append("rect")
@@ -237,7 +246,6 @@ const rects = nodes
   .attr("x", (d) => d.data.nodeType === NODE_TYPES.C ? d.x - 50 : d.x )
   .attr("y", (d) => d.y)
   .attr("data-node-id", d => d.id)
-  .on("click", onNodeClick);
 
 const nodeLabel = nodes
   .append("text")

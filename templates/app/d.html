@@ -6,7 +6,10 @@
 {% endblock nav %}      
 
 {% block content %}
-<div id="treeContainer" class="w-full h-full"></div>
+<div id="treeContainer" class="w-full h-full">
+    {% include 'components/node_side_bar.html' %}
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
     var received_data  = '{{ tree_json|safe }}'

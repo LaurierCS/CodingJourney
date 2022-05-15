@@ -35,4 +35,5 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 from . import dview
 urlpatterns.append(path("d/",dview.d,name='d'))
+urlpatterns.append(path("test/",dview.node_side_bar,name='node_side_bar'))
 
