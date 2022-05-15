@@ -117,12 +117,22 @@ def settingspage(request):
     page_header = ""
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
-
+    setting_form = UserSettingForm(instance=profile)
     template_name = "app/setting.html"
+
+    if request.method == "POST":
+        setting_form = UserSettingForm(request.POST, instance=profile)
+        if setting_form.is_valid():
+            setting_form.save()
+            messages.success(request, 'Profile details updated.')
+            return redirect('settings_page')
+        else:
+            messages.warning(request, 'Incorrect detail change.')
+            
     context = {
         "document_title":document_title,
         "page_header": page_header,
-        "profile":profile
+        "profile":profile,
     }
     return render(request, template_name, context)
 

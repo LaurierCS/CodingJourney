@@ -13,7 +13,6 @@
       font-bold;
   }
 
-
   h1 {
     @apply
       text-h1
@@ -148,6 +147,7 @@
 
     top: -17%;
   }
+
 }
 
 @tailwind utilities;
@@ -222,6 +222,14 @@
 
   .text-valid {
     @apply text-success peer-invalid:text-success;
+  }
+
+  .error {
+    @apply bg-error p-2 rounded-md;
+  }
+
+  .success {
+    @apply bg-success p-2 rounded-md;
   }
 }
 

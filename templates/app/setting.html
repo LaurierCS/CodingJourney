@@ -16,6 +16,15 @@
     <div id="container" class="flex items-center justify-center">
       <form method="POST" enctype="multipart/form-data" class="mx-20 my-5 lg:space-y-8 w-3/5 h-full">
         {% csrf_token %}
+        <!-- messages -->
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        <!-- end of messages -->
         <div class="border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="email" class="text-[25px]">Update your email address</label>
@@ -33,7 +42,6 @@
             placeholder="Write your email here" 
             class="input my-4 px-2 placeholder-gray-500"
             />
-            <button type="submit" class="button">Save</button>
           </div>
         </div>
         <div class="border-2 rounded-xl p-5 space-y-4">
@@ -42,8 +50,7 @@
           </div>
           <label for="image_input" class=" cursor-pointer text-[25px]">Update your image</label>
           <div class="space-x-4">
-            <input id="image_input" name="image" type="file" value="{{request.user.profile.image.url}}" class="cursor-pointer" onchange="myFile()">
-           <button type="submit" class="button">Save</button>
+            <input id="image_input" name="image" type="file" class="cursor-pointer">
           </div>
         </div>
   
@@ -53,15 +60,24 @@
             <p class="">Tell me about yourself</p>
           </div>
           <textarea name="bio" id="bio" class="input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-2 resize-none box-border w-full">{{request.user.profile.bio}}</textarea>
-          <button type="submit" class="button block">Save</button>
         </div>
-  
+        <button type="submit" class="button">Save</button>
+      </form>
     </div>
     <!-- The container for setting card -->
-    
-    </form>
     <!-- end of setting card -->
   </div>
   {% endblock side_content %}
-  <!-- <script src="{% static 'js/image_upload_button.js'%}"></script> -->
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+  <script text="javascript">
+      setTimeout(fade_out, 3000);
+      function fade_out() {
+          $(".messages").fadeOut().empty();
+      }
+      $(".post-form")[0].reset(); // this is to reset the form 
+  </script> -->
 {% endblock content %}
