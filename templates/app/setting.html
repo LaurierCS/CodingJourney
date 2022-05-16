@@ -6,12 +6,10 @@
 {% endblock header %}
 
 {% block content %}
-  {% block side_menu %}
-    {% include "components/sidemenu.html" %}
-  {% endblock side_menu %}
+<div class="grid grid-cols-12">
+  {% include "components/sidemenu.html" %}
 
-  {% block side_content %} 
-  <div class="ml-80 bg-background">
+  <div class="col-span-10 bg-background">
     <div id="container" class="flex items-center justify-center">
       <form method="POST" enctype="multipart/form-data" class="mx-20 my-5 lg:space-y-8 w-3/5 h-full">
         {% csrf_token %}
@@ -67,7 +65,7 @@
     <!-- The container for setting card -->
     <!-- end of setting card -->
   </div>
-  {% endblock side_content %}
+</div>
   <!-- <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
