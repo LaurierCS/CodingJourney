@@ -88,18 +88,14 @@ function getLinkPath(d) {
   );
 }
 
-function onNodeClick(e, d) {
+function onNodeClick(_, d) {
 
   // check if sidebar exists or not
   if (!window.nodeSideBar) {
     window.nodeSideBar = new NodeSideBar("nsb")
   }
 
-  nodeSideBar.show();
-
-  // todo: implement on click behaviour
-  // todo: open node detail information sidebar
-  console.log("Node click behaviour not implemented.");
+  nodeSideBar.show(d);
 }
 
 function getViewBoxString(x, y, w, h) {

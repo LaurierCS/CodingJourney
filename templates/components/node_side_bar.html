@@ -1,6 +1,6 @@
 {% load static %}
 
-<div id="nsb" class="bg-foreground p-4 max-w-md w-96 min-h-full fixed right-0 translate-x-full transition-transform duration-500">
+<div id="nsb" class="bg-foreground p-4 max-w-md w-96 min-h-full fixed right-0 translate-x-full transition-transform duration-300">
   <header class="flex justify-between items-center">
     <div class="flex items-center overflow-x-scroll">
       <img id="nsb_image" src="{% static 'images/python_logo.png' %}" alt="Icon" class="h-8 w-8">
@@ -48,13 +48,13 @@
       </div>
       <div class="h-1/2">
         <ul id="nsb_experience_list" class="overflow-y-scroll h-full">
-          <li class="my-2">
+          <li id="nsb_experience_base" class="my-2 hidden">
             <a data-experience-id="some experience id" data-experience-href="some/link" href="" class="hover:text-[#6482FF] hover:bg-background rounded-lg flex items-center py-2
             px-3 transition-colors duration-75 text-lg">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
-              <span class="font-medium">Experience Name</span>
+              <span id="nsb_experience_name" class="font-medium">Experience Name</span>
             </a>
           </li>
         </ul>
