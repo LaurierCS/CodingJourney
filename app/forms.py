@@ -22,6 +22,7 @@ class ExperienceInputform(forms.ModelForm):
     start_date = forms.DateField(widget=forms.SelectDateWidget)
     end_date = forms.DateField(widget=forms.SelectDateWidget)
     project_link = forms.URLInput()
+    image = forms.ImageField()
     
     class Meta:
         model = Experience
@@ -41,8 +42,6 @@ class ExperienceInputform(forms.ModelForm):
       end_date = cleaned_data.get("end_date")
       if end_date and end_date < start_date:
         raise forms.ValidationError(("End date should be greater than start date."), code="invalidDate")
-
-      return cleaned_data
 
 
 # class customMMCF():

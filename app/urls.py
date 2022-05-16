@@ -26,7 +26,7 @@ urlpatterns = [
     # ************************************************************
     path('populate-skills', views.TreeQueries.populateDatabase, name="pop-database"),
     path('test-trimmed-tree', views.TreeQueries.getTrimmedTree, name="get-trimmed-tree"),
-    
+    path('experience-input', views.experience_input_handler, name="exp-input-test")
 ]
 
 

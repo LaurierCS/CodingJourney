@@ -179,10 +179,39 @@ def logout_handler(request):
     return redirect('login')
 
 def experience_input_handler(request):
+    
     if request.method == 'POST':
         form = ExperienceInputform(request.POST)
-        if form.is_valid():
-            new_instance = Experience.objects.create()
+        
+        print(form.is_valid())
+        
+        form_data = form.cleaned_data
+        print(form_data)
+        # new_instance = Experience.objects.create(
+        #     # profile=request.user.profile,
+        #     name=form_data["name"],
+        #     type=form_data["type"],
+        #     skills=form_data["skills"],
+        #     description=form_data["description"],
+        #     start_date=form_data["start_date"],
+        #     end_date=form_data["end_date"],
+        #     project_link=form_data["project_link"],
+        #     image=form_data["image"],
+        # )
+        # print(new_instance)
+
+        form = ExperienceInputform()
+        context = {
+            'form': form,
+        } 
+        return render(request, 'app/experience_form.html', context=context)
+    
+    else: 
+        form = ExperienceInputform()
+        context = {
+            'form': form,
+        } 
+        return render(request, 'app/experience_form.html', context=context)
             
 
 class TreeQueries:
@@ -191,53 +220,35 @@ class TreeQueries:
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
         return serialized
     
-    def getTrimmedTree(user):
+    def getTrimmedTree(request):
         # todo: 1. need to include parent of nodes, always.
         # todo: 2. need to include user as root.
         # todo: 3. condense all information into the node.
-        subset_skills = DesiredSkill.objects.all().values_list('skill', flat=True)
 
-        print(Skill.objects.filter(id="user").values())
+        # desired skills query 
+        desired_skill_objects = DesiredSkill.objects.all()
+        # retrieve list of connected skills
+        subset_skills = desired_skill_objects.values_list('skill', flat=True)
+        # query skill objects associated w/ desired skills
+        skill_tree_qs = Skill.objects.filter(id__in=subset_skills)
+        # skill_query contains parents of all desired skills objects
+        skill_query = Skill.objects.filter(id__in=skill_tree_qs.values_list('parentId', flat=True))
+        while (skill_query.exists()): 
+            # create union of skill_query objects w/ skill objects
+            skill_tree_qs = skill_tree_qs.union(skill_query)
+            # requery skill_query objects to reference parents of previous skill_query
+            skill_query = Skill.objects.filter(id__in=skill_query.values_list('parentId', flat=True))
 
-        # get all of the skills appearing in the desired skills subset
-        skill_tree_nodes = Skill.objects.filter(id__in=subset_skills)
-        # get ids of all parents in desired skills subset
-        skill_tree_node_parents = skill_tree_nodes.values_list('parentId', flat=True)
-        # get all categories that are parents of skills in desired skills subset
-        skill_tree_categories = Skill.objects.filter(node_type="C").filter(id__in=skill_tree_node_parents)
-        skill_tree = skill_tree_categories.union(skill_tree_nodes)
+        serialized = serializers.serialize('json', skill_tree_qs, ensure_ascii=False)
+        return serialized
 
-        print(DesiredSkill._meta.db_table)
-
-        
-        skill_tree = Skill.objects.raw('''
-                SELECT *
-                FROM app_desiredskill.skill
-                ''')
-                # FROM app_skill s
-                # LEFT JOIN app_desiredskill on app_desiredskill.skill = s.id''')
-        for skill in skill_tree: 
-            print(skill.skill)
-
-        # get all skills that are referenced by a foreign key in the DesiredSKills table s.t. skill.id = DesiredSkill.skill
-
-        skill_tree = Skill.objects.raw('''
-            WITH RECURSIVE skill_tree AS (
-                SELECT *
-                FROM app_skill s
-                LEFT JOIN app_desiredskill ds on ds.skill = s.id
-
-                UNION ALL 
-
-                SELECT * 
-                FROM app_skill sk 
-                LEFT JOIN skill_tree st ON skill_tree.parentId = sk.id
-            )
-
-            Select * FROM skill_tree
-        ''')
+        # # get all of the skills appearing in the desired skills subset
+        # skill_tree_nodes = Skill.objects.filter(id__in=subset_skills)
+        # print(skill_tree_nodes)
+        # # get ids of all parents in desired skills subset
+        # skill_tree_node_parents = skill_tree_nodes.values_list('parentId', flat=True)
     
-        serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
+        # serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
         
         # return serialized
 

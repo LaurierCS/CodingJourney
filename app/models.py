@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name = 'profile', null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=False, default="John")
     last_name = models.CharField(max_length=100, blank=False, default="Doe")
     bio = models.TextField(max_length=500, blank=True)
@@ -43,8 +43,6 @@ class Profile(models.Model):
 
 
 class Experience(models.Model):
-  profile = models.ForeignKey(
-      "Profile", on_delete=models.CASCADE, null=False, blank=False)
   # technologies = models.ManyToManyField("Technology")
   name = models.CharField(max_length=200)
   EXPERIENCE_TYPE = (
@@ -57,7 +55,7 @@ class Experience(models.Model):
 
   # Foreign Key Fields
   profile = models.ForeignKey("Profile", on_delete=models.CASCADE, null=True)
-  skill = models.ForeignKey("Skill", on_delete=models.CASCADE, null=True)
+  skills = models.ManyToManyField("Skill", null=True)
   # Text Fields 
   name = models.CharField(max_length=200)
   kind = models.CharField(max_length=40, choices=EXPERIENCE_TYPE, default="E" )

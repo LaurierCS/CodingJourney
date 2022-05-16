@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/experience-input" method="post">
+    {% csrf_token %}
+    <div 
+        class = "
+            experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
+            left-0 z-50 w-full md:inset-0 h-600 md:h-full bg-gray-400 flex justify-center item-center
+        " 
+        aria-hidden="true">
+        <div class = "relative p-4 w-full max-w-md h-full md:h-auto">
+            <div class='tab'>
+                {{ form.non_field_errors }}
+                <div class="fieldWrapper">
+                    {{ form.name.errors }}
+                    <label for="id_name">Experience Name:</label>
+                    {{ form.name }}
+                </div>
+                <div class="fieldWrapper">
+                    {{ form.type.errors }}
+                    <label for="id_type">Type of Experience:</label>
+                    {{ form.type }}
+                </div>
+                <div class="fieldWrapper other-class">
+                    {{ form.start_date.errors }}
+                    <label for="id_start_date">Start Date:</label>
+                    {{ form.start_date }}
+                </div>
+                <div class="fieldWrapper other-class">
+                    {{ form.end_date.errors }}
+                    <label for="id_end_date">End Date:</label>
+                    {{ form.end_date }}
+                </div>
+            </div>
+            <div class="tab">
+                <div class="fieldWrapper other-class">
+                    {{ form.description.errors }}
+                    <label for="id_description">Description of Experience:</label>
+                    {{ form.description }}
+                </div>
+                <div class="fieldWrapper other-class">
+                    {{ form.project_link.errors }}
+                    <label for="id_project_link">Project Link:</label>
+                    {{ form.project_link }}
+                </div>
+                <div class="fieldWrapper other-class">
+                    {{ form.image.errors }}
+                    <label for="id_image">Image:</label>
+                    {{ form.image }}
+            </div>
+            <div class="tab">
+                <div class="fieldWrapper">
+                    {{ form.skills.errors }}
+                    <label for="id_skills">Skills Involved:</label>
+                    {{ form.skills }}
+                </div>
+            </div>
+            </div>
+            <div>
+                <div>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+            <p><input type="submit" value="Submit" /></p>
+        </div>
+    </div>
+    <button 
+        class =""
+        type="button"
+        data-modal-toggle="experience-modal"
+    >
+        Add Experience
+    </button>
+</form>
+{% endblock content %}
+
+
+<!-- <form action="/view function/" method="post">
+    <label for="Project Name">Project Name:</label>
+    <input id="project_name" type="text"  name="project_name" value="{{project_name}}">
+
+    <label for="Project Link">Project Link:</label>
+    <input id="project_link" type="text"  name="project_link" value="{{project_link}}">
+
+    <label for="Start Date">Start Date:</label>
+    <input id="start_date" type="date"  name="start_date" value="{{start_date}}">
+
+    <label for="End Date">End Date:</label>
+    <input id="end_date" type="date"  name="end_date" value="{{end_date}}">
+
+    <button type="submit">Submit</button>
+
+</form> -->
