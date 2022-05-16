@@ -6,13 +6,12 @@
 {% endblock header %}
 
 {% block content %}
-
   {% block side_menu %}
     {% include "components/sidemenu.html" %}
   {% endblock side_menu %}
 
   {% block side_content %} 
-  <div class="ml-80 mt-20 bg-background">
+  <div class="ml-80 bg-background">
     <div id="container" class="flex items-center justify-center">
       <form method="POST" enctype="multipart/form-data" class="mx-20 my-5 lg:space-y-8 w-3/5 h-full">
         {% csrf_token %}
@@ -40,8 +39,9 @@
             maxlength="254" 
             value="{{request.user.profile.email}}" 
             placeholder="Write your email here" 
-            class="input my-4 px-2 placeholder-gray-500"
+            class="peer input my-4 px-2 placeholder-gray-500"
             />
+            
           </div>
         </div>
         <div class="border-2 rounded-xl p-5 space-y-4">
@@ -50,7 +50,7 @@
           </div>
           <label for="image_input" class=" cursor-pointer text-[25px]">Update your image</label>
           <div class="space-x-4">
-            <input id="image_input" name="image" type="file" class="cursor-pointer">
+            <input id="image_input" name="image" type="file" class="block w-full text-sm "/>
           </div>
         </div>
   

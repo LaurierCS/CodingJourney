@@ -6,7 +6,7 @@
     {% endblock side_menu %}
 
     {% block side_content %}
-    <div class="ml-80 mt-20 bg-background h-full space-y-4">
+    <div class="ml-80 bg-background h-full space-y-4">
         <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
           <div id="pic-container" class="w-52">
             <img src="{{request.user.profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2">

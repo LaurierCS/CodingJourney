@@ -1,7 +1,7 @@
 {% load static %}
 
 <nav
-  class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% endif %}  transition-all duration-200"
+  class="{% if transparent %} bg-transparent {% else %} bg-dark {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% endif %}  transition-all duration-200 z-50"
 >
   {%if alternate %}
   <ul
@@ -48,11 +48,11 @@
     {% if request.user.profile %}
       <div class="flex justify-start items-center h-20">
         <div id="pic-container" class="w-12">
-          <img src="{{request.user.profile.image.url}}" alt="" class="w-full h-12 border-2 object-cover object-top rounded-full">
+          <img src="{{request.user.profile.image.url}}" class="w-full h-12 border-2 object-cover object-top rounded-full">
         </div>
         <div class="ml-10">
           <p class="cursor-pointer opacity-70 hover:opacity-100">{{request.user.username | title}}</p>
-          <a href="{% url 'logout' %}">Log Out</a>
+          <a href="{% url 'logout' %}" class="opacity-70 hover:opacity-100 ">Log Out</a>
         </div>
       </div>
     {% endif %}
