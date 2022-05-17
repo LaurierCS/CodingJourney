@@ -335,5 +335,3 @@ class TreeQueries:
     
 #     def get_description(self):
 #         return self.context['item'].description
-
-    
