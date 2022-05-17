@@ -13,6 +13,61 @@
 
 @tailwind components;
 
+@layer base {
+  h1, h2, h3, h4 {
+    @apply
+      tracking-wide
+      font-bold;
+  }
+
+  h1 {
+    @apply
+      text-h1
+      leading-h1;
+  }
+  h2 {
+    @apply
+      text-h2
+      leading-h2;
+  }
+  h3 {
+    @apply
+      text-h3
+      leading-h2;
+  }
+  h4 {
+    @apply
+      text-h4
+      leading-h4;
+  }
+
+  body {
+    @apply
+      text-body
+      leading-h4
+      tracking-wide
+      font-medium;
+  }
+
+  button, a {
+    @apply
+      tracking-wide
+      font-semibold;
+  }
+
+  button {
+    @apply
+      text-button
+      leading-button;
+  }
+
+  a {
+    @apply  
+      text-link
+      leading-link;
+  }
+}
+
 @layer components {
   /* 
   Button base styles.
@@ -87,27 +142,19 @@
 
   .input {
     @apply 
-      p-2 bg-transparent outline-none 
-      border-white rounded-xl border-solid border-2 
-      transition-colors duration-150
-      focus-visible:placeholder:text-gray-500
-      focus-visible:border-active 
-      focus-visible:text-active
-      text-white w-full placeholder:text-white 
-      invalid:text-error invalid:border-error invalid:placeholder:text-invalid
+    p-2 bg-transparent outline-none border-gray-500 rounded-xl border-solid border-2 transition-colors duration-150 
+    placeholder:text-gray-500 focus-visible:border-active text-white w-full
     ;
   }
 
   .input-label {
     @apply 
       absolute left-5 
-      peer-focus-visible:text-active
-      transition-colors duration-150  
-      peer-invalid:text-error
     ;
 
-    top: -15%;
+    top: -17%;
   }
+
 }
 
 @tailwind utilities;
@@ -183,6 +230,14 @@
   .text-valid {
     @apply text-success peer-invalid:text-success;
   }
+
+  .error {
+    @apply bg-error p-2 rounded-md;
+  }
+
+  .success {
+    @apply bg-success p-2 rounded-md;
+  }
 }
 
 :root {
@@ -200,8 +255,11 @@
   --active: #559cde;
   --error: #e3282a;
   --foreground: #003A4E;
-  --foreground-dark: #00232F;
-  
+  --darker-blue: #00232f;
+
+  /* extra color - bluish for button */
+  --darker-primary: #23307a;
+
   /* outline colors */
   --outline-primary-color: #1125da;
   --outline-secondary-color: #8b69d7;

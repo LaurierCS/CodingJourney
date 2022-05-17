@@ -1,35 +1,175 @@
-{% extends 'base.html' %}
-{% load static %}
-
+{% extends 'base.html' %} 
+{% load static %} 
 {% block headers %}
 <title>Log In</title>
-{% endblock %}
-
+{% endblock %} 
 {% block content %}
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-xl w-fit m-auto">
-    <!-- navbar  -->
-    <ul class="flex space-x-10 py-4 pl-6 pr-4 text-xl mx-auto">
-      <li><a href="{% url 'login' %}" class="decoration-solid decoration-primary underline decoration-2">Login</a></li>
-      <li><a href="{% url 'register' %}">Register</a></li>
-    </ul>
-    <form method="POST" action="{% url 'register' %}" class="flex flex-col justify-center items-center p-4">
-      {% csrf_token %} 
-      <!-- The container for input box -->
-        {% for input in login_form_inputs %}
-          {% include 'components/input.html' with input_context=input %}
-        {% endfor %}
-        <!-- The end of container for input box -->
-        <button type="submit" class="button m-auto">Login</button>
-    </form>
-
+<div class="w-full h-full flex justify-center items-center">
+  <div
+  class="flex justify-center items-center flex-col rounded-xl w-fit bg-dark"
+  >
     <!-- show the error message here -->
     {% if messages %}
-    <ul class="messages absolute -top-12 left-1/2 -translate-x-1/2 min-w-max w-max">
+    <ul
+      class="fixed bottom-5 right-5 messages min-w-max w-max"
+    >
       {% for message in messages %}
-      <li class="bg-error p-2 rounded-md">{{ message }}</li>
+      <li class="bg-error p-2 rounded-md my-2 max-w-xs">{{ message }}</li>
       {% endfor %}
     </ul>
     {% endif %}
-  </div>
-{% endblock %}
+    <!-- navbar  -->
+    <ul class="flex space-x-10 py-4 pl-6 pr-4 text-xl mx-auto">
+      <li>
+        <a
+          class="text-white cursor-pointer hover:opacity-100"
+          id="loginAnchor"
+          data-active="true"
+          >Login</a
+        >
+      </li>
+      <li>
+        <a
+          id="registrationAnchor"
+          data-active="false"
+          class="text-white cursor-pointer opacity-50 hover:opacity-100"
+          >Register</a
+        >
+      </li>
+    </ul>
 
+    <!-- login form -->
+    <form
+      action="{% url 'login' %}"
+      method="POST"
+      class="flex flex-col justify-center items-center p-4"
+      id="loginForm"
+    >
+      {% csrf_token %}
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          name="username"
+          type="text"
+          required
+          maxlength="150"
+          pattern="^[A-Za-z0-9@\.\+-_]+$"
+          class="input"
+        />
+        <label for="username" class="input-label">
+          Username
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          name="password"
+          type="password"
+          required
+          class="input"
+        />
+        <label for="password" class="input-label">
+          Password
+        </label>
+      </div>
+      <button type="submit" class="button m-auto">Login</button>
+    </form>
+    <!-- end of login form -->
+
+    <!-- register form -->
+
+    <form
+      method="POST"
+      class="flex flex-col justify-center items-center p-4 hidden"
+      action="{% url 'register' %}"
+      id="registrationForm"
+    >
+      {% csrf_token %}
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_username"
+          name="username"`
+          type="text"
+          required
+          maxlength="150"
+          class="input"
+        />
+        <label for="username" class="input-label">
+          Username
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_email"
+          name="email"
+          type="email"
+          required
+          class="input"
+        />
+        <label for="email" class="input-label">
+          Email
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_password1"
+          name="password1"
+          type="password"
+          required
+          minlength="8"
+          class="input"
+        />
+        <label for="password1" class="input-label">
+          Password
+        </label>
+      </div>
+      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+        <input
+          id="id_password2"
+          name="password2"
+          type="password"
+          required
+          minlength="8"
+          class="input"
+        />
+        <label for="password2" class="input-label">
+          Confirm Password
+        </label>
+      </div>
+      <button type="submit" class="button m-auto">Register</button>
+    </form>
+    <!-- end of register form -->
+  </div>
+</div>
+<script>
+  // hide/show forms
+  const regForm = document.getElementById("registrationForm");
+  const logForm = document.getElementById("loginForm");
+  const regAnchor = document.getElementById("registrationAnchor");
+  const logAnchor = document.getElementById("loginAnchor");
+  const activeClass =
+    "decoration-solid decoration-primary underline decoration-2";
+
+  function showRegisterForm() {
+    logForm.classList.add("hidden");
+    regForm.classList.remove("hidden");
+    logAnchor.classList.add("opacity-50");
+    regAnchor.classList.remove("opacity-50");
+  }
+
+  function showLoginForm() {
+    logForm.classList.remove("hidden");
+    regForm.classList.add("hidden");
+    logAnchor.classList.remove("opacity-50");
+    regAnchor.classList.add("opacity-50");
+  }
+
+  regAnchor.addEventListener("click", showRegisterForm);
+
+  logAnchor.addEventListener("click", showLoginForm);
+
+  // check which form to show
+  const params = new URLSearchParams(window.location.search)
+  if (params.has("form") && params.get("form") === "register") {
+    showRegisterForm();
+  }
+</script>
+{% endblock %}

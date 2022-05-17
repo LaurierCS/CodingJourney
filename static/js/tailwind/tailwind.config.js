@@ -3,7 +3,6 @@ module.exports = {
    * Look for class within all html files in our template folder
    */
   content: ["../../../templates/**/*.html"],
-
   /**
    * Theme configuration
    */
@@ -17,7 +16,6 @@ module.exports = {
         "sans-serif",
       ],
     },
-
     /**
      * Extend the classes that tailwind has to offerY instead of overriding them.
      * Overriding any of the default category, such as margin, will get rid of all
@@ -30,7 +28,7 @@ module.exports = {
         primary: "var(--primary)",
         secondary: "var(--secondary)",
         dark: "var(--dark-background)",
-        darker_blue: "#00232f",
+        "darker-blue": "var(--darker-blue)",
         success: "var(--success)",
         active: "var(--active)",
         error: "var(--error)",
@@ -75,6 +73,22 @@ module.exports = {
       },
       animation: {
         "fade-in-upward": "fade-in-upward .5s ease-in",
+      },
+      fontSize: {
+        'h1': '70px',
+        'h2': '55px',
+        'h3': '40px',
+        'h4': '25px',
+        'button': '16px',
+        'body': '19px',
+        'link': '17px',
+      },
+      lineHeight : {
+        'h1': '75.5px',
+        'h2': '41px',
+        'h4': '38px',
+        'button': '30px',
+        'link': '15px',
       },
     },
   },

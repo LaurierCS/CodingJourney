@@ -15,6 +15,19 @@
       }
     }
   });
+
+  document.addEventListener("readystatechange", () => {
+    if (document.readyState === "complete") {
+      if (window.scrollY > navOffset + 200) {
+        if (nav.classList.contains("bg-transparent")) {
+          nav.classList.remove("bg-transparent");
+          nav.classList.add("bg-dark");
+        }
+      }
+      document.removeEventListener("readystatechange")
+    }
+  });
+  
 })();
 
 
