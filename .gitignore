@@ -15,6 +15,7 @@ __pycache__
 __pycache__
 db.sqlite3
 media
+migrations
 
 # Backup files # 
 *.bak 
@@ -39,7 +40,7 @@ media
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
+.idea/**/uiDesigner.xm
 .idea/**/dbnavigator.xml
 
 # Gradle

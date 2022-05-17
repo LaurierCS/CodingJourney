@@ -1,11 +1,22 @@
+{% extends 'base.html' %}
+{% comment %} {% include "templates\components\sidemenu.html" %} {% endcomment %}
+{% load static %}
 
-<div class="projectsListContainer max-w-sm rounded overflow-hidden shadow-lg">
-    <div class="projectListHeader">
-        {% comment %} {% include "project_list_header.html" %} {% endcomment %}
+{% block headers %}
+    <title>Experiences</title>
+{% endblock headers %}
+
+{% block content %}
+<div class="projectsListContainer text-rice-white border-2 border-gray-600 rounded-lg m-1.5">
+    <div class="projectListHeader grid grid-cols-3 gap-4 bg-[#00171F] rounded-t-lg">
+        {% include "components/project_list_header.html" %}
     </div>
     <div class="projectListCardsContainer">
+        {% comment %} {{projectList}} {% endcomment %}
         {% for project in projectList %}
             {% include "components\project_list_card.html" with project=project %}
         {% endfor %}
     </div>
 </div>
+{% endblock content %}
+

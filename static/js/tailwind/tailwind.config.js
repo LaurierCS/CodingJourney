@@ -17,7 +17,7 @@ module.exports = {
       ],
     },
     /**
-     * Extend the classes that tailwind has to offer instead of overriding them.
+     * Extend the classes that tailwind has to offerY instead of overriding them.
      * Overriding any of the default category, such as margin, will get rid of all
      * built-in classes for margin and leave the ones you have define.
      */
@@ -25,16 +25,22 @@ module.exports = {
       colors: {
         transparent: "transparent",
         current: "currentColor",
-        primary: "var(--primary-color-bluishPurple)",
-        secondary: "var(--secondary-color-lightPurple)",
-        "rice-white": "var(--rice-white)",
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
         dark: "var(--dark-background)",
         "darker-blue": "var(--darker-blue)",
         success: "var(--success)",
         active: "var(--active)",
         error: "var(--error)",
         active: "var(--active)",
-        "darker-primary": "var(--darker-primary)",
+        white: "var(--white)",
+        black: "var(--black)",
+        background: "var(--background)",
+        foreground: "var(--foreground)", // for navbar, cards, and any foreground color
+        "foreground-dark": "var(--foreground-dark)", // darker background for an element next to or inside a an element with color "foreground"
+        "rice-white": "var(--rice-white)",
+        "primary-dark": "var(--primary-dark)",
+        "primary-darker": "var(--primary-darker)",
         "inactive-primary": "var(--inactive-primary-color)",
         "inactive-secondary": "var(--inactive-secondary-color)",
         "inactive-dark": "var(--inactive-dark-color)",
@@ -44,9 +50,6 @@ module.exports = {
         "outline-dark": "var(--outline-dark-color)",
         "outline-success": "var(--outline-success-color)",
         "outline-error": "var(--outline-error-color)",
-        white: "var(--white)",
-        black: "var(--black)",
-        background: "var(--background)",
       },
       maxWidth: {
         "vw-full": "100vw",

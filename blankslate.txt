@@ -1,0 +1,20 @@
+Format that current function returns in: 
+[
+    {"parentId_id": null, "id": "user", "name": "User", "icon_HREF": "", "node_type": "U"}, 
+    {"parentId_id": "b", "id": "bb", "name": "Javascript", "icon_HREF": "static/images/python_logo.png", "node_type": "N", "proficiency": 4.0, "description": "I'm so good I've got JavaScript running through my veins instead of blood"}, 
+    {"parentId_id": "javascript", "id": "vue", "name": "Vue", "icon_HREF": "static/images/python_logo.png", "node_type": "N", "proficiency": 3.0, "description": "I'm incredibly smart and handsome"}, 
+    {"parentId_id": "languages", "id": "javascript", "name": "Javascript", "icon_HREF": "static/images/python_logo.png", "node_type": "N"}, 
+    {"parentId_id": "languages", "id": "python", "name": "Python", "icon_HREF": "static/images/python_logo.png", "node_type": "N", "proficiency": 0.0, "description": "I know nothing of python"}, 
+    {"parentId_id": "user", "id": "b", "name": "Languages", "icon_HREF": "", "node_type": "C"}, 
+    {"parentId_id": "user", "id": "languages", "name": "Languages", "icon_HREF": "", "node_type": "C"}
+]
+Format that other previous function returns in: 
+[
+    {"model": "app.skill", "pk": "user", "fields": {"parentId": null, "name": "User", "icon_HREF": "", "node_type": "U"}}, 
+    {"model": "app.skill", "pk": "bb", "fields": {"parentId": "b", "name": "Javascript", "icon_HREF": "static/images/python_logo.png", "node_type": "N"}}, 
+    {"model": "app.skill", "pk": "vue", "fields": {"parentId": "javascript", "name": "Vue", "icon_HREF": "static/images/python_logo.png", "node_type": "N"}}, 
+    {"model": "app.skill", "pk": "javascript", "fields": {"parentId": "languages", "name": "Javascript", "icon_HREF": "static/images/python_logo.png", "node_type": "N"}}, 
+    {"model": "app.skill", "pk": "python", "fields": {"parentId": "languages", "name": "Python", "icon_HREF": "static/images/python_logo.png", "node_type": "N"}}, 
+    {"model": "app.skill", "pk": "b", "fields": {"parentId": "user", "name": "Languages", "icon_HREF": "", "node_type": "C"}}, 
+    {"model": "app.skill", "pk": "languages", "fields": {"parentId": "user", "name": "Languages", "icon_HREF": "", "node_type": "C"}}
+]

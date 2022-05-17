@@ -1,0 +1,117 @@
+[
+    { "id": "user", "label": "User", "node_type": "U" },
+    { "id": "languages", "label": "Languages", "parentId": "user", "node_type": "C" },
+    { "id": "a", "label": "Languages", "parentId": "user", "node_type": "C" },
+    { "id": "b", "label": "Languages", "parentId": "user", "node_type": "C" },
+    { "id": "c", "label": "Languages", "parentId": "user", "node_type": "C" },
+    { "id": "d", "label": "Languages", "parentId": "user", "node_type": "C" },
+    { "id": "e", "label": "Languages", "parentId": "user", "node_type": "C" },
+    {
+      "parentId": "languages",
+      "id": "python",
+      "label": "Python",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 4.5,
+      "description": ["I'm the best python programmer that's ever pythoned"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "python",
+      "id": "django",
+      "label": "Django",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at django"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "languages",
+      "id": "javascript",
+      "label": "Javascript",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 4.5,
+      "description": ["I'm the best python programmer that's ever pythoned"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "javascript",
+      "id": "vue",
+      "label": "Vue",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at Vue"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "javascript",
+      "id": "react",
+      "label": "React",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at React"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "a",
+      "id": "aa",
+      "label": "Django",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at django"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "a",
+      "id": "aaa",
+      "label": "Django",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at django"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "a",
+      "id": "aaaa",
+      "label": "Django",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at django"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "a",
+      "id": "aaaaa",
+      "label": "Django",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 3,
+      "description": ["I'm alright at django"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "b",
+      "id": "bb",
+      "label": "Javascript",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 4.5,
+      "description": ["I'm the best python programmer that's ever pythoned"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "bb",
+      "id": "bbb",
+      "label": "Javascript",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 4.5,
+      "description": ["I'm the best python programmer that's ever pythoned"],
+      "node_type": "N"
+    },
+    {
+      "parentId": "bb",
+      "id": "bbbb",
+      "label": "Javascript",
+      "icon_HREF": "static/images/python_logo.png",
+      "skillLevel": 4.5,
+      "description": ["I'm the best python programmer that's ever pythoned"],
+      "node_type": "N"
+    }
+]

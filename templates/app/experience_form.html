@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="/experience-input" method="post">
+    {% csrf_token %}
+    <button type="button" class="px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Experience
+</button>
+    <div 
+        class = "
+            modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
+            left-0 z-50 w-full md:inset-0 h-600 md:h-full flex justify-center items-center 
+            bg-gray-600 bg-opacity-50
+        " 
+        id="modal"
+        aria-hidden="true">
+        <div class = "relative p-4 w-full max-w-md h-full md:h-auto">
+            <div 
+                class="modal-content border-4 shadow-lg relative flex 
+                flex-col w-full pointer-events-auto bg-clip-padding 
+                rounded-md outline-none text-current">
+                <div
+                    class="
+                    modal-header flex flex-shrink-0 items-center justify-between 
+                    p-4 border-b border-gray-200 rounded-t-md">
+                    <h5 
+                        class="text-xl font-medium leading-normal text-gray-800" 
+                        id="exampleModalLabel">
+                        Experience Input
+                    </h5>
+                    <button 
+                        type="button" 
+                        class="
+                            btn-close box-content w-4 h-4 p-1 text-black border-none 
+                            rounded-none opacity-50 focus:shadow-none focus:outline-none 
+                            focus:opacity-100 hover:text-white hover:opacity-75 hover:no-underline"
+                    data-bs-dismiss="modal" aria-label="Close">x</button>
+            </div>
+            <div class='tab'>
+                {{ form.non_field_errors }}
+                <div class="fieldWrapper input-container">
+                    {{ form.name.errors }}
+                    <label for="id_name" class="input-label">Experience Name:</label>
+                    {{ form.name }}
+                </div>
+                <div class="fieldWrapper input-container">
+                    {{ form.type.errors }}
+                    <label for="id_type" class="input-label">Type of Experience:</label>
+                    {{ form.type }}
+                </div>
+                <div class="fieldWrapper input-container">
+                    {{ form.start_date.errors }}
+                    <label for="id_start_date" class="input-label">Start Date:</label>
+                    {{ form.start_date }}
+                </div>
+                <div class="fieldWrapper input-container">
+                    {{ form.end_date.errors }}
+                    <label for="id_end_date" class="input-label">End Date:</label>
+                    {{ form.end_date }}
+                </div>
+            </div>
+            <div class="tab">
+                <div class="fieldWrapper input-container">
+                    {{ form.description.errors }}
+                    <label for="id_description" class="input-label">Description of Experience:</label>
+                    {{ form.description }}
+                </div>
+                <div class="fieldWrapper input-container">
+                    {{ form.project_link.errors }}
+                    <label for="id_project_link" class="input-label">Project Link:</label>
+                    {{ form.project_link }}
+                </div>
+                <div class="fieldWrapper input-container">
+                    {{ form.image.errors }}
+                    <label for="id_image" class="input-label">Image:</label>
+                    {{ form.image }}
+            </div>
+            <div class="tab">
+                <div class="fieldWrapper input-container">
+                    {{ form.skills.errors }}
+                    <label for="id_skills" class="input-label">Skills Involved:</label>
+                    {{ form.skills }}
+                </div>
+            </div>
+            </div>
+            <div>
+                <div>
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+            <p><input type="submit" value="Submit" /></p>
+            </div>
+        </div>
+    </div>
+    <button 
+        class =""
+        type="button"
+        data-modal-toggle="experience-modal"
+    >
+        Add Experience
+    </button>
+</form>
+{% endblock content %}
+
+
+<!-- <form action="/view function/" method="post">
+    <label for="Project Name">Project Name:</label>
+    <input id="project_name" type="text"  name="project_name" value="{{project_name}}">
+
+    <label for="Project Link">Project Link:</label>
+    <input id="project_link" type="text"  name="project_link" value="{{project_link}}">
+
+    <label for="Start Date">Start Date:</label>
+    <input id="start_date" type="date"  name="start_date" value="{{start_date}}">
+
+    <label for="End Date">End Date:</label>
+    <input id="end_date" type="date"  name="end_date" value="{{end_date}}">
+
+    <button type="submit">Submit</button>
+
+</form> -->
