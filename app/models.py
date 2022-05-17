@@ -24,52 +24,6 @@ class Profile(models.Model):
         return self.first_name
 
 
-# class Skill(models.Model):
-#     # 1. EVERY Skill IS EITHER A LANGUAGE, FRAMEWORK OR LIBRARY
-#     # 2. EVERY Skill CAN HAVE ANOTHER Skill AS A PARENT USING THE parent RELATIONSHIP VARIABLE
-#     name = models.CharField(max_length=100, blank=False)
-#     description = models.TextField(null=True, blank=True)
-#     parents = models.ManyToManyField("self", null=False, blank=False)
-#     Skill_TYPE = (
-#         ('L', 'Language'),
-#         ('F', 'Framework'),
-#         ('L', 'Library or Package'),
-#         ('C', 'Programming Paradigm'),
-#     )
-#     kind = models.CharField(max_length=40, choices=Skill_TYPE, default="L")
-
-#     def __str__(self):
-#         return self.name
-
-
-class Experience(models.Model):
-  # technologies = models.ManyToManyField("Technology")
-  name = models.CharField(max_length=200)
-  EXPERIENCE_TYPE = (
-        ('E', 'Exploration'),
-        ('P', 'Project'),
-        ('L', 'Learning'),
-        ('H', 'Hackathon'),
-        ('Ev', 'Event'),
-  )
-
-  # Foreign Key Fields
-  profile = models.ForeignKey("Profile", on_delete=models.CASCADE, null=True)
-  skills = models.ManyToManyField("Skill", null=True)
-  # Text Fields 
-  name = models.CharField(max_length=200)
-  kind = models.CharField(max_length=40, choices=EXPERIENCE_TYPE, default="E" )
-  description = models.TextField(null=True, blank=True)
-  # Other Fields
-  likes_amount = models.IntegerField(default=0)
-  start_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
-  end_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
-  project_link = models.CharField(max_length=2000, null=True, blank=True)
-  image = models.ImageField(upload_to='images/', blank=True)
-  
-  def __str__(self):
-    return self.name
-
 """
   Condensed skill tree and markers into one unit
   Skill tree elements of type N will now represent skills 
@@ -91,7 +45,6 @@ class Skill(models.Model):
   def __str__(self): 
     return self.name
 
-
 """
   DesiredSkills list will contain all skills that a user is either currently proficient in or 
   desires to be proficient in
@@ -111,7 +64,6 @@ class DesiredSkill(models.Model):
   # Foreign Key Fields
   user_id = models.ForeignKey("Profile", on_delete=models.CASCADE)
   skill = models.ForeignKey("Skill", on_delete=models.CASCADE)
-  experiences = models.ManyToOneRel("Experience", to='', field_name='')
 
   # User Input Fields 
   proficiency = models.FloatField(choices=proficiency_choices, default=0)
@@ -119,3 +71,32 @@ class DesiredSkill(models.Model):
   
   def __str__(self):
     return self.skill.__str__()
+
+class Experience(models.Model):
+  # technologies = models.ManyToManyField("Technology")
+  name = models.CharField(max_length=200)
+  EXPERIENCE_TYPE = (
+        ('E', 'Exploration'),
+        ('P', 'Project'),
+        ('L', 'Learning'),
+        ('H', 'Hackathon'),
+        ('Ev', 'Event'),
+  )
+
+  # Foreign Key Fields
+  profile = models.ForeignKey("Profile", on_delete=models.CASCADE, null=True)
+  skills = models.ManyToManyField(DesiredSkill)
+  # Text Fields 
+  name = models.CharField(max_length=200)
+  kind = models.CharField(max_length=40, choices=EXPERIENCE_TYPE, default="E" )
+  description = models.TextField(null=True, blank=True)
+  # Other Fields
+  likes_amount = models.IntegerField(default=0)
+  start_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
+  end_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
+  project_link = models.CharField(max_length=2000, null=True, blank=True)
+  image = models.ImageField(upload_to='images/', blank=True)
+  
+  def __str__(self):
+    return self.name
+

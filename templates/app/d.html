@@ -11,8 +11,8 @@
 </div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-    var received_data  = '{{ tree_json|safe }}'
-    tree_data = JSON.parse(received_data)
+    var tree_data  = {{ tree_json|safe }}
+    {% comment %} tree_data = JSON.parse(received_data) {% endcomment %}
 </script>
 <script src="{% static 'js/tree.js' %}"></script>
 {% endblock content %}

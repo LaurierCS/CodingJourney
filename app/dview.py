@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .views import TreeQueries
 
 def d(r):
-    tree_json = TreeQueries.getFullTree()
+    tree_json = TreeQueries.getTrimmedTree()
     return render(r, 'app/d.html', {"tree_json": tree_json})
 
 def node_side_bar(r):

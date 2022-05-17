@@ -44,8 +44,17 @@ const viewBox = {
 // FUNCTIONS
 
 function getSkills() {
-  let returnList = []
   // console.log(tree_data)
+  if (tree_data[0].fields === undefined) {
+    for (let elem of tree_data) { 
+      elem.parentId = elem.parentId_id
+      elem.nodeType = elem.node_type
+    }
+    return tree_data
+  }
+ 
+  
+  let returnList = []
   for (let elem of tree_data){ 
     let fields = elem.fields
     fields.id = elem.pk
@@ -53,6 +62,7 @@ function getSkills() {
     // console.log(elem.fields)
     returnList.push(fields)
   }
+    
   // console.log(returnList)
   return returnList;
 }

@@ -22,7 +22,7 @@ class ExperienceInputform(forms.ModelForm):
     start_date = forms.DateField(widget=forms.SelectDateWidget)
     end_date = forms.DateField(widget=forms.SelectDateWidget)
     project_link = forms.URLInput()
-    image = forms.ImageField()
+    image = forms.ImageField(required=False)
     
     class Meta:
         model = Experience
