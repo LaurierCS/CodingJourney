@@ -9,11 +9,7 @@
   * {
     @apply font-sans;
   }
-}
 
-@tailwind components;
-
-@layer base {
   h1, h2, h3, h4 {
     @apply
       tracking-wide
@@ -68,6 +64,7 @@
   }
 }
 
+@tailwind components;
 @layer components {
   /* 
   Button base styles.
