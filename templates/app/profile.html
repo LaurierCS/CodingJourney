@@ -1,53 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% block side_menu %}
-      {% include "components/sidemenu.html" %}
-    {% endblock side_menu %}
+<div class="grid grid-cols-12 h-full">
 
-    {% block side_content %}
-    <div class="ml-80 mt-20 bg-background h-full space-y-4">
-        <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
-          <div id="pic-container" class="w-52">
-            <img src="{{request.user.profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2">
+  {% include "components/sidemenu.html" %}
+
+  <div class="col-span-10 bg-background h-full space-y-4">
+      <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
+        <div id="pic-container" class="w-52">
+          <img src="{{request.user.profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2">
+        </div>
+        <div>
+          <h3 class="mb-5">{{request.user.username|title}}</h3>
+          <a href="{% url 'settings_page' %}">
+            <button class="button p-3">
+              Edit Profile
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div id="grid" class="grid gap-8 grid-cols-2 p-20">
+        <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+          <h4>Biography</h4>
+          <p class="break-words">
+            {% if request.user.profile.bio %}
+              {{request.user.profile.bio}}
+            {% else %} 
+              Add your legendary bio &#128526; 
+            {% endif %}
+          </p>
+        </div>
+        <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+          <h4>Extra Info</h4>
+          <div id="created-time">
+            <p>📅 Member since {{request.user.profile.date_created}} </p>
           </div>
-          <div>
-            <h3 class="mb-5">{{request.user.username|title}}</h3>
-            <a href="{% url 'settings_page' %}">
-              <button class="button p-3">
-                Edit Profile
-              </button>
-            </a>
+          <div id="num-exp">
+            <p>🔥 Number of experience: 4</p>
           </div>
         </div>
 
-        <div id="grid" class="grid gap-8 grid-cols-2 p-20">
-          <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
-            <h4>Biography</h4>
-            <p class="break-words">
-              {% if request.user.profile.bio %}
-                {{request.user.profile.bio}}
-              {% else %} 
-                Add your legendary bio &#128526; 
-              {% endif %}
-            </p>
-          </div>
-          <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
-            <h4>Extra Info</h4>
-            <div id="created-time">
-              <p>📅 Member since {{request.user.profile.date_created}} </p>
-            </div>
-            <div id="num-exp">
-              <p>🔥 Number of experience: 4</p>
-            </div>
-          </div>
-
-          <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
-            <h4>Email</h4>
-            <p class="break-words">{{request.user.profile.email}}</p>
-          </div>
+        <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+          <h4>Email</h4>
+          <p class="break-words">{{request.user.profile.email}}</p>
         </div>
-
-    </div>
-    {% endblock side_content %}
+      </div>
+  </div>
+</div>
 {% endblock content %}

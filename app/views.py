@@ -72,7 +72,7 @@ def dashboard(request):
 
     print(profile)
 
-    template_name = "app/homepage.html"
+    template_name = "app/dashboard.html"
     context = {
         "document_title": document_title,
         "profile": profile,
