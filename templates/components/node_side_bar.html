@@ -14,7 +14,7 @@
     <!-- proficiency -->
     <p class="text-sm">Proficiency: <span id="nsb_proficiency_text">Able to Use Professionally</span></p>
     <div class="w-full h-3 bg-[#3d488b] rounded-xl overflow-hidden">
-      <div id="nsb_proficiency_bar" class="h-full bg-secondary rounded-xl"></div>
+      <div id="nsb_proficiency_bar" class="h-full bg-secondary rounded-xl transition-all duration-200"></div>
     </div>
   </section>
   <main class="grid grid-cols-1 grid-rows-6 gap-4">
@@ -49,7 +49,7 @@
       <div class="h-1/2">
         <ul id="nsb_experience_list" class="overflow-y-scroll h-full">
           <li id="nsb_experience_base" class="my-2 hidden">
-            <a data-experience-id="some experience id" data-experience-href="some/link" href="" class="hover:text-[#6482FF] hover:bg-background rounded-lg flex items-center py-2
+            <a id="nsb_experience_link" data-experience-id="" data-experience-href="" href="" class="hover:text-[#6482FF] hover:bg-background rounded-lg flex items-center py-2
             px-3 transition-colors duration-75 text-lg">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />

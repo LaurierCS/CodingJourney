@@ -1,0 +1,553 @@
+[
+  {"id": "user", "label": "User", "node_type": "U"},
+  
+  {"parentId": "user", "label": "Languages", "id": "languages", "node_type": "C"},
+  {
+    "parentId": "languages",
+    "id": "python",
+    "label": "Python",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "python",
+    "id": "django",
+    "label": "Django",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "python",
+    "id": "flask",
+    "label": "Flask",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "python",
+    "id": "fast_api",
+    "label": "FastAPI",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+
+  {
+    "parentId": "languages",
+    "id": "javascript",
+    "label": "Javascript",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "javascript",
+    "id": "nodejs",
+    "label": "Node.js",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "javascript",
+    "id": "angular",
+    "label": "Angular",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "javascript",
+    "id": "typescript",
+    "label": "Typescript",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "javascript",
+    "id": "react",
+    "label": "React",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "javascript",
+    "id": "vuejs",
+    "label": "Vue.js",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "javascript",
+    "id": "svelte",
+    "label": "Svelte",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+
+  {
+    "parentId": "languages",
+    "id": "php",
+    "label": "PHP",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "php",
+    "id": "laravel",
+    "label": "Laravel",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "php",
+    "id": "code_igniter",
+    "label": "CodeIgniter",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "php",
+    "id": "symfony",
+    "label": "Symfony",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+
+  {
+    "parentId": "languages",
+    "id": "java",
+    "label": "Java",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "java",
+    "id": "spring",
+    "label": "Spring",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "java",
+    "id": "hibernate",
+    "label": "Hibernate",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "java",
+    "id": "struts",
+    "label": "Struts",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+
+  {
+    "parentId": "languages",
+    "id": "markdown_html_css",
+    "label": "Markdown/HTML/CSS",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+
+  {
+    "parentId": "languages",
+    "id": "c_cpp",
+    "label": "C/C++",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+  {
+    "parentId": "c_cpp",
+    "id": "eigen",
+    "label": "Eigen",
+    "icon_HREF": "static/images/python_logo.png",
+    "node_type": "N"
+  },
+
+  {"parentId": "user", "label": "Programming Fundamentals", "id": "programming_fundamentals", "node_type": "C"},
+  {
+    "parentId": "programming_fundamentals",
+    "id": "debugging",
+    "label": "Debugging",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "programming_fundamentals",
+    "id": "design_patterns",
+    "label": "Design Patterns",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "programming_fundamentals",
+    "id": "oop_principles",
+    "label": "OOP Principles",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "programming_fundamentals",
+    "id": "algorithms_and_time_complexity",
+    "label": "Algorithms and Time Complexity",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "programming_fundamentals",
+    "id": "version_control_git",
+    "label": "Version Control/Git",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  
+  {"parentId": "user", "label": "Product Design", "id": "product_design", "node_type": "C"},
+  {
+    "parentId": "product_design",
+    "id": "er_diagrams",
+    "label": "ER Diagrams",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "product_design",
+    "id": "wireframing",
+    "label": "Wireframing",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "product_design",
+    "id": "documentation_practices",
+    "label": "Documentation Practices",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  
+  {"parentId": "user", "label": "Front-End", "id": "front_end", "node_type": "C"},
+  {
+    "parentId": "front_end",
+    "id": "ux_principles",
+    "label": "UX Principles",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "front_end",
+    "id": "adobe_premier",
+    "label": "Adobe Premier",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "front_end",
+    "id": "figma",
+    "label": "Figma",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "front_end",
+    "id": "front_end_frameworks",
+    "label": "Front-End Frameworks",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  
+  {"parentId": "user", "label": "Backend Engineer", "id": "backend_engineer", "node_type": "C"},
+  {
+    "parentId": "backend_engineer",
+    "id": "database_design",
+    "label": "Database Design",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "backend_engineer",
+    "id": "database_programming",
+    "label": "Database Programming",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "backend_engineer",
+    "id": "api_development",
+    "label": "API Development",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "backend_engineer",
+    "id": "restful_api",
+    "label": "RESTful API",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "backend_engineer",
+    "id": "backend_frameworks",
+    "label": "Backend Frameworks",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+
+  {"parentId": "user", "label": "Cloud", "id": "cloud", "node_type": "C"},
+  {
+    "parentId": "cloud",
+    "id": "hypervisors",
+    "label": "Hypervisors",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "hypervisors",
+    "id": "virtual_box",
+    "label": "VirtualBox",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "hypervisors",
+    "id": "hyper_v",
+    "label": "HyperV",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "cloud",
+    "id": "azure",
+    "label": "Azure",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "cloud",
+    "id": "aws",
+    "label": "AWS",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+
+  {"parentId": "user", "label": "Machine Learn", "id": "machine_learning", "node_type": "C"},
+  {
+    "parentId": "machine_learning",
+    "id": "infrastructure",
+    "label": "Infrastructure",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "machine_learning",
+    "id": "machine_learning_python",
+    "label": "Python",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "machine_learning_python",
+    "id": "machine_learning_python_kubernetes",
+    "label": "Kubernetes",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "machine_learning_python",
+    "id": "machine_learning_python_hadoop",
+    "label": "Hadoop",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "machine_learning",
+    "id": "libraries",
+    "label": "Libraries",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "libraries",
+    "id": "spark",
+    "label": "Spark",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "libraries",
+    "id": "m_lib",
+    "label": "MLib",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "libraries",
+    "id": "tensor_flow",
+    "label": "TensorFlow",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "libraries",
+    "id": "pytorch",
+    "label": "Pytorch",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "libraries",
+    "id": "mxnet",
+    "label": "mxnet",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+
+  {"parentId": "user", "label": "Data Science", "id": "data_science", "node_type": "C"},
+  {
+    "parentId": "data_science",
+    "id": "data_warehouse",
+    "label": "Data Warehouse",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "data_warehouse",
+    "id": "data_warehouse_spark",
+    "label": "Spark",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "data_warehouse",
+    "id": "data_warehouse_tez",
+    "label": "Tez",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "data_science",
+    "id": "visualization",
+    "label": "Visualization",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "visualization",
+    "id": "visualization_d3js",
+    "label": "D3.js",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "visualization",
+    "id": "visualization_recharts",
+    "label": "Recharts",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "visualization",
+    "id": "visualization_vitory",
+    "label": "Victory",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+
+  {"parentId": "user", "label": "Quality Assurance", "id": "quality_assurance", "node_type": "C"},
+  {
+    "parentId": "quality_assurance",
+    "id": "selenium",
+    "label": "Selenium",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "quality_assurance",
+    "id": "junit",
+    "label": "JUnit",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "quality_assurance",
+    "id": "jira",
+    "label": "JIRA",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "quality_assurance",
+    "id": "jmeter",
+    "label": "JMeter",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "quality_assurance",
+    "id": "gitlab",
+    "label": "GitLab",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "quality_assurance",
+    "id": "bit_bucket",
+    "label": "BitBucket",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "quality_assurance",
+    "id": "jenkins",
+    "label": "Jenkins",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+
+  {"parentId": "user", "label": "Soft Skills", "id": "soft_skills", "node_type": "C"},
+  {
+    "parentId": "soft_skills",
+    "id": "leadership",
+    "label": "Leadership",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "soft_skills",
+    "id": "agile",
+    "label": "Agile",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "agile",
+    "id": "scrum",
+    "label": "SCRUM",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "agile",
+    "id": "waterfall",
+    "label": "Waterfall",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "agile",
+    "id": "kanban_board",
+    "label": "Kanban Board",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "soft_skills",
+    "id": "teamwork",
+    "label": "Teamwork",
+    "icon_HREF": "",
+    "node_type": "N"
+  },
+  {
+    "parentId": "soft_skills",
+    "id": "communication",
+    "label": "Communication",
+    "icon_HREF": "",
+    "node_type": "N"
+  }
+]

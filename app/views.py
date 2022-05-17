@@ -230,10 +230,20 @@ class TreeQueries:
         # todo: 3. condense all information into the node.
         # desired skills query 
         desired_skill_objects = DesiredSkill.objects.all().order_by('skill')
+        
+        # user has no desired skill set, so we just return a user node
+        if len(desired_skill_objects) < 1:
+            # query user node
+            skill_query = Skill.objects.filter(id="user")
+            serialized_query = serializers.serialize("json", skill_query, ensure_ascii=False)
+            return serialized_query
+
         # retrieve list of connected skills
         subset_skills = desired_skill_objects.values_list('skill', flat=True)
+        print(subset_skills)
         # query skill objects associated w/ desired skills
         skill_tree_qs = Skill.objects.filter(id=subset_skills[0])
+        print(skill_tree_qs)
 
         # pdb.set_trace()
         for i in range(1, len(subset_skills)):
@@ -244,6 +254,7 @@ class TreeQueries:
         
         # skill_query contains parents of all desired skills objects
         skill_query = Skill.objects.filter(id__in=skill_tree_qs.values_list('parentId', flat=True))
+        print(skill_query)
         while (skill_query.exists()): 
             # create union of skill_query objects w/ skill objects
             skill_tree_qs = skill_tree_qs.union(skill_query)
@@ -267,7 +278,7 @@ class TreeQueries:
                 exp['start_date'] = exp['start_date'].strftime("%m/%d/%Y")
                 if exp["end_date"]:
                     exp['end_date'] = exp['end_date'].strftime("%m/%d/%Y")
-        
+            skill["proficiency_text"] = DesiredSkill.proficiency_choices[int(skill["proficiency"])][1]
         
 
         # serialized = serializers.serialize('json', skill_tree_qs, ensure_ascii=False)
@@ -277,7 +288,7 @@ class TreeQueries:
 
     def populateDatabase(request): 
         #Open the JSON file
-        tree_json_path = os.path.join("static/json/tree.json")
+        tree_json_path = os.path.join("static/json/full_tree.json")
         f = open(tree_json_path)
 
         data = json.load(f)

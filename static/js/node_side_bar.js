@@ -43,11 +43,11 @@ class NodeSideBar {
       }
     }
 
-    this._nsb_elements["nsb_close"].click(this.hide.bind(this))
+    this._nsb_elements["nsb_close"].click(this.hide.bind(this));
 
     this._nsb_elements["nsb_edit_description"].click(this._toggle_description_edit.bind(this));
 
-    this._nsb_elements["nsb_save_description"].click(this._save_description.bind(this))
+    this._nsb_elements["nsb_save_description"].click(this._save_description.bind(this));
 
     $.valHooks.textarea = {
       get(el) {
@@ -57,6 +57,10 @@ class NodeSideBar {
 
     this._description = this._nsb_elements["nsb_description"].val();
     this._currentInfo = null;
+    this._profieciency_total = 5;
+    this._profieciency = 0;
+
+    this._nsb_elements["nsb_proficiency_bar"].width((this._profieciency/this._profieciency_total*100).toString()+"%")
 
     this.is_opened = false;
 
@@ -93,21 +97,35 @@ class NodeSideBar {
     }
   }
 
-  _create_experiences(d) {
+  _create_experiences(node) {
     if (this._nsb_elements["nsb_experience_list"].children().length > 0) {
       // clean children
       this._nsb_elements["nsb_experience_list"].children().remove();
     }
 
-    for (let i=0;i<Math.floor(Math.random() * 20);i++) {
+    if (!node.data.experiences) return;
+
+    for (let i=0;i<node.data.experiences.length;i++) {
       let clone = this._nsb_elements["nsb_experience_base"].clone()
       clone.removeClass("hidden")
       clone
         .find("#nsb_experience_name")
-        .text("Sample Experience Name")
-        .attr("id", `nsb_experience_index_${i}`)
+        .text(node.data.experiences[i].name)
+        .attr("id", `nsb_experience_index_${node.data.experiences[i].id}`)
+      
+      clone
+        .find("#nsb_experience_link")
+        .attr("data-experience-id", node.data.experiences[i].id)
+        .attr("data-experience-href", node.data.experiences[i].project_link)
+        .attr("href", node.data.experiences[i].project_link)
+        .attr("id", `nsb_experience_link_${node.data.experiences[i].id}`)
       this._nsb_elements["nsb_experience_list"].append(clone);
     }
+  }
+
+  _set_new_progress_length(node) {
+    this._profieciency = node.data.proficiency ?? 0;
+    this._nsb_elements["nsb_proficiency_bar"].width((this._profieciency/this._profieciency_total*100).toString()+"%")
   }
 
   update_content(node) {
@@ -120,8 +138,16 @@ class NodeSideBar {
     this._nsb_elements["nsb_image"].attr("src", "/" + node.data.icon_HREF)
     this._nsb_elements["nsb_name"].text(node.data.name)
 
-    // todo: update the description
-    // todo: update proficiencies
+    this._nsb_elements["nsb_description"].val(node.data.description)
+    this._description = this._nsb_elements["nsb_description"].val()
+
+    if (node.data.proficiency_text) {
+      this._nsb_elements["nsb_proficiency_text"].text(node.data.proficiency_text)
+    } else {
+      this._nsb_elements["nsb_proficiency_text"].text("")
+    }
+
+    this._set_new_progress_length(node);
 
     // create experiences list
     this._create_experiences(node);

@@ -44,7 +44,8 @@ const viewBox = {
 // FUNCTIONS
 
 function getSkills() {
-  // console.log(tree_data)
+  if (tree_data.length < 1) return [];
+
   if (tree_data[0].fields === undefined) {
     for (let elem of tree_data) { 
       elem.parentId = elem.parentId_id
@@ -98,7 +99,11 @@ function getLinkPath(d) {
   );
 }
 
-function onNodeClick(_, d) {
+function onNodeClick(e, d) {
+
+  if (d.data.nodeType === NODE_TYPES.U || d.data.nodeType === NODE_TYPES.C) {
+    return;
+  }
 
   // check if sidebar exists or not
   if (!window.nodeSideBar) {
@@ -214,6 +219,18 @@ const svg = container
   .attr("style", "cursor: move;")
   .attr("viewBox", getViewBoxString(viewBox.x, viewBox.y, viewBox.width, viewBox.height)); // for zooming in/out
 
+// adding a clip path definition to make the circular view of the user node
+// so a bigger and squared image would fill the circular area and hide the overflow
+const defs = svg.append("defs");
+defs
+  .append("clipPath")
+  .attr("id", "user-clip")
+  .append("rect")
+  .attr("width", NODE_DIM.U[0])
+  .attr("height", NODE_DIM.U[1])
+  .attr("rx", NODE_DIM.U[0]/2)
+  .attr("ry", NODE_DIM.U[0]/2)
+
 const tree = svg.append("g").attr("data-tree", "true");
 
 // links are separated from the node group
@@ -243,19 +260,25 @@ const nodes = tree
 const rects = nodes
   .append("rect")
   .attr("class", (d) =>
-  d.data.nodeType === NODE_TYPES.C ? "node-category" : "node"
+  d.data.nodeType === NODE_TYPES.C ? "node-category" : d.data.nodeType === NODE_TYPES.U ? "node node-user" : "node"
   )
   .attr("width", (d) => NODE_DIM[d.data.nodeType][0])
   .attr("height", (d) => NODE_DIM[d.data.nodeType][1])
-  .attr("rx", (d) => (d.data.nodeType === NODE_TYPES.U ? "75" : "15"))
-  .attr("ry", (d) => (d.data.nodeType === NODE_TYPES.U ? "75" : "15"))
+  .attr("rx", (d) => (d.data.nodeType === NODE_TYPES.U ? NODE_DIM.U[0]/2 : 15))
+  .attr("ry", (d) => (d.data.nodeType === NODE_TYPES.U ? NODE_DIM.U[0]/2 : 15))
   .attr("x", (d) => d.data.nodeType === NODE_TYPES.C ? d.x - 50 : d.x )
   .attr("y", (d) => d.y)
   .attr("data-node-id", d => d.id)
 
 const nodeLabel = nodes
   .append("text")
-  .text(d => d.data.name)
+  .text(d => {
+    if (d.data.nodeType === NODE_TYPES.U && window.username) {
+      return window.username;
+    }
+
+    return d.data.name;
+  })
   .attr("class", d => d.data.nodeType !== NODE_TYPES.C ? "node-label" : "node-label node-title")
   .attr("x", d => {
     // because the x in d.x does not reflect the x position of the rectangle
@@ -278,13 +301,20 @@ const nodeImage = nodes
   .append("image")
   .attr("href", d => {
     // todo: return iconHref instead
+
+    if (d.data.nodeType === NODE_TYPES.U && window.profile_pic) {
+      return new URL(static_url+"images/profile_picture_holder.jpg", window.location.href).pathname;
+    }
+
     return "/static/images/python_logo.png"
   })
   .attr("class", "node-image")
-  .attr("width", d => d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : 0) // todo: return actual size for user nodes
-  .attr("height", d => d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : 0) // todo: return actual szie for user nodes
-  .attr("x", d => d.x + NODE_DIM[d.data.nodeType][0] / 2 - NODE_IMG_SIZE / 2)
-  .attr("y", d => d.y + NODE_DIM[d.data.nodeType][1] / 2 - NODE_IMG_SIZE / 2)
+  .attr("width", d => d.data.nodeType !== NODE_TYPES.C ? d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : NODE_DIM.U[0] : 0)
+  .attr("height", d => d.data.nodeType !== NODE_TYPES.C ? d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : NODE_DIM.U[1] : 0)
+  .attr("x", d => d.x + NODE_DIM[d.data.nodeType][0] / 2 - (d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : NODE_DIM.U[0]) / 2)
+  .attr("y", d => d.y + NODE_DIM[d.data.nodeType][1] / 2 - (d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : NODE_DIM.U[1]) / 2)
+  .attr("clip-path", d => d.data.nodeType === NODE_TYPES.U ? "url(#user-clip)" : "")
+  .attr("preserveAspectRatio", "none")
   .attr("data-node-image-id", d => d.id)
 
 // add panning
