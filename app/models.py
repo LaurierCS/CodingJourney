@@ -94,7 +94,7 @@ class Experience(models.Model):
   likes_amount = models.IntegerField(default=0)
   start_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
   end_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
-  project_link = models.CharField(max_length=2000, null=True, blank=True)
+  project_link = models.URLField(max_length=2000, null=True, blank=True)
   image = models.ImageField(upload_to='images/', blank=True)
   
   def __str__(self):
