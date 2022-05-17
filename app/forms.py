@@ -36,6 +36,16 @@ class ExperienceInputform(forms.ModelForm):
         #   "descripton": "Experience Description",
         # }
 
+    def __init__(self, *args, **kwargs):
+      super(ExperienceInputform, self).__init__(*args, **kwargs)
+      self.fields['name'].widget.attrs.update({'class': 'input'})
+      self.fields['skills'].widget.attrs.update({'class': 'input'})
+      self.fields['description'].widget.attrs.update({'class': 'input'})
+      self.fields['start_date'].widget.attrs.update({'class': 'input'})
+      self.fields['end_date'].widget.attrs.update({'class': 'input'})
+      self.fields['project_link'].widget.attrs.update({'class': 'input'})
+      self.fields['image'].widget.attrs.update({'class': 'tech-tag tech-tag-blue'})
+
     def clean(self):
       cleaned_data = super().clean()
       start_date = cleaned_data.get("start_date")
