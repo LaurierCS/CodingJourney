@@ -81,7 +81,7 @@ class NodeSideBar {
       method: "POST",
       body: formData
     })
-      .catch(e => console.error(e))
+      .catch(e => console.error(e)) // todo: show update failed message to user
   }
 
   _save_description() {
