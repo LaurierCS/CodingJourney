@@ -1,7 +1,8 @@
 from django import forms
-from django.forms import ModelForm, CheckboxSelectMultiple, ChoiceField, ModelForm
+from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
 
 from .models import *
 
@@ -69,4 +70,52 @@ class CreateUserForm(UserCreationForm):
 class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
-    fields = ['email', 'image', 'bio']
+    fields = '__all__'
+    exclude = ['user', 'date_created']
+
+  first_name = forms.CharField(
+    label='first name',
+    widget=forms.TextInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500',
+        'placeholder': 'Write your first name here...',
+        }
+      )
+    )
+  last_name = forms.CharField(
+    label='last name',
+    widget=forms.TextInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500',
+        'placeholder': 'Write your last name here...',
+        }
+      )
+    )
+  email = forms.EmailField(
+    label='email address',
+    widget=forms.EmailInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500'
+        }
+      )
+    )
+  image = forms.ImageField(
+    label='Upload image',
+    widget=forms.ClearableFileInput(
+      # attrs={
+      #   'class': 'block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none',
+      # }
+    )
+  )
+  bio = forms.CharField(
+    label='Biography',
+    widget=forms.Textarea(
+      attrs={
+        'class':'input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-3 resize-none box-bordere w-full placeholder-gray-500',
+        'rows': '4',
+        'placeholder': 'Tell me about yourself😎'
+        })
+    )
+
+
+  

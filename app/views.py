@@ -137,7 +137,7 @@ def settingspage(request):
     template_name = "app/setting.html"
 
     if request.method == "POST":
-        setting_form = UserSettingForm(request.POST, instance=profile)
+        setting_form = UserSettingForm(request.POST, request.FILES, instance=profile)
         if setting_form.is_valid():
             setting_form.save()
             messages.success(request, 'Profile details updated.')
@@ -149,6 +149,7 @@ def settingspage(request):
         "document_title":document_title,
         "page_header": page_header,
         "profile":profile,
+        "setting_form":setting_form,
     }
     return render(request, template_name, context)
 

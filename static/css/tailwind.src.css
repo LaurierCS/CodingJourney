@@ -228,13 +228,6 @@
     @apply text-success peer-invalid:text-success;
   }
 
-  .error {
-    @apply bg-error p-2 rounded-md;
-  }
-
-  .success {
-    @apply bg-success p-2 rounded-md;
-  }
 }
 
 :root {
@@ -369,3 +362,10 @@
 .node-title {
   font-weight: 600;
 }
+
+.success {
+  background-color: var(--success);
+  border-radius: 8px;  
+  padding: 8px;
+}
+
