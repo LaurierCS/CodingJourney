@@ -19,6 +19,7 @@ class Profile(models.Model):
     # technologies they aren't even aiming to achieve
     # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+    email = models.EmailField(max_length=256)
 
     def __str__(self):
         return self.first_name

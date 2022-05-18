@@ -82,6 +82,7 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
+    tree_json = TreeQueries.getTrimmedTree()
     # tech_roadmap = profile.tech_roadmap
 
     print(profile)
@@ -91,6 +92,7 @@ def dashboard(request):
         "document_title": document_title,
         "profile": profile,
         "experiences":experiences,
+        "tree_json": tree_json
         # "tech_roadmap":tech_roadmap
     }
     return render(request, template_name, context)

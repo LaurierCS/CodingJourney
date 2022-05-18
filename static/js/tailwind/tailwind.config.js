@@ -27,7 +27,6 @@ module.exports = {
         current: "currentColor",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
-        dark: "var(--dark-background)",
         "darker-blue": "var(--darker-blue)",
         success: "var(--success)",
         active: "var(--active)",
@@ -37,7 +36,7 @@ module.exports = {
         black: "var(--black)",
         background: "var(--background)",
         foreground: "var(--foreground)", // for navbar, cards, and any foreground color
-        "foreground-dark": "var(--foreground-dark)", // darker background for an element next to or inside a an element with color "foreground"
+        "foreground-dark": "var(--darker-blue)", // darker background for an element next to or inside a an element with color "foreground"
         "rice-white": "var(--rice-white)",
         "primary-dark": "var(--primary-dark)",
         "primary-darker": "var(--primary-darker)",
