@@ -30,13 +30,15 @@
         </svg>
       </div>
       </div>
-      <form id="nsb_description_form" action="">
+      <form id="nsb_description_form" action="{% url 'update_ds_description' %}" method="post">
+        {% csrf_token %}
         <textarea 
-          name="nsb_description" 
+          name="description" 
           id="nsb_description" 
           autocomplete="false"
           placeholder="Click the edit icon on the right to add a description!" 
           form="nsb_description_form"
+          maxlength="10000"
           rows="30"
           readonly
           class="w-full bg-background p-4 rounded-lg max-h-72 resize-none outline-none focus-visible:outline-2 focus-visible:outline-white"></textarea>
@@ -62,5 +64,7 @@
     </section>
   </main>
 </div>
+<script>
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/node_side_bar.js' %}"></script>

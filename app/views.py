@@ -1,9 +1,8 @@
 # DJANGO IMPORTS
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from django.views import View
 from django.core import serializers
 from django.db import connection
 from django.contrib import messages
@@ -18,6 +17,7 @@ import json
 import os
 
 from django.apps import apps
+from urllib3 import HTTPResponse
 
 # FILE IMPORTS
 from .models import *
@@ -246,12 +246,12 @@ class TreeQueries:
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
         return serialized
     
-    def getTrimmedTree():
+    def getTrimmedTree(request):
         # todo: 1. need to include parent of nodes, always.
         # todo: 2. need to include user as root.
         # todo: 3. condense all information into the node.
         # desired skills query 
-        desired_skill_objects = DesiredSkill.objects.all().order_by('skill')
+        desired_skill_objects = DesiredSkill.objects.filter(user_id=request.user.profile).order_by('skill')
         
         # user has no desired skill set, so we just return a user node
         if len(desired_skill_objects) < 1:
@@ -342,6 +342,15 @@ class TreeQueries:
                 parentId = Skill.objects.get(id=item["parentId"])
                 skill.parentId = parentId
                 skill.save()
+
+def update_desired_skill_description(request):
+    if request.method == "POST":
+        form = UpdateDesiredSkillDescriptionForm(request.POST)
+        ds = DesiredSkill.objects.filter(user_id=request.user.profile, skill__name=form['skill_name'].value())
+        ds.update(description=form['description'].value())
+        return HttpResponse()
+    
+    return HttpResponseBadRequest()
 
 # class SkillsSerializer(serializers.ModelSerializer): 
     

@@ -49,6 +49,8 @@ class NodeSideBar {
 
     this._nsb_elements["nsb_save_description"].click(this._save_description.bind(this));
 
+    this._nsb_elements["nsb_description_form"].submit(this._submit_description.bind(this));
+
     $.valHooks.textarea = {
       get(el) {
         return el.value.replace(/\r?\n/g, "\r\n")
@@ -56,7 +58,7 @@ class NodeSideBar {
     }
 
     this._description = this._nsb_elements["nsb_description"].val();
-    this._currentInfo = null;
+    this._current_info = null;
     this._profieciency_total = 5;
     this._profieciency = 0;
 
@@ -68,12 +70,28 @@ class NodeSideBar {
     this.hide();
   }
 
+  _submit_description(e) {
+    e.preventDefault();
+    const formData = new FormData(this._nsb_elements["nsb_description_form"][0]);
+    const url = this._nsb_elements["nsb_description_form"].attr("action");
+
+    formData.append("skill_name", this._current_info.data.name)
+
+    fetch(url, {
+      method: "POST",
+      body: formData
+    })
+      .catch(e => console.error(e))
+  }
+
   _save_description() {
     if (this._description !== this._nsb_elements["nsb_description"].val()) {
       // there is actual change, we make post request to update
       // the description in the database.
       // todo: make post request to update database
       this._description = this._nsb_elements["nsb_description"].val()
+
+      this._nsb_elements["nsb_description_form"].submit()
     }
 
     this._toggle_description_edit();
@@ -134,7 +152,7 @@ class NodeSideBar {
       return;
     }
     
-    this._currentInfo = node;
+    this._current_info = node;
     this._nsb_elements["nsb_image"].attr("src", "/" + node.data.icon_HREF)
     this._nsb_elements["nsb_name"].text(node.data.name)
 
@@ -154,7 +172,7 @@ class NodeSideBar {
   }
 
   show(d) {
-    if (d && d === this._currentInfo && this.is_opened) {
+    if (d && d === this._current_info && this.is_opened) {
       return;
     }
     // update content first

@@ -70,3 +70,11 @@ class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
     fields = ['email', 'image', 'bio']
+
+class UpdateDesiredSkillDescriptionForm(ModelForm):
+
+  skill_name = forms.CharField()
+
+  class Meta:
+    model = DesiredSkill
+    fields = ['description']
