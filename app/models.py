@@ -10,6 +10,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=False, default="John")
     last_name = models.CharField(max_length=100, blank=False, default="Doe")
     bio = models.TextField(max_length=500, blank=True)
+    email = models.EmailField(max_length=256)
     image = models.ImageField(
         default="images/smiley.jpg", upload_to='images/', blank=True)
     # 👇 THE "tech_roadmap" RELATIONSHIP BELOW IS THE TECHNOLOGIES THAT THE USER WANTS TO ACHIEVE
