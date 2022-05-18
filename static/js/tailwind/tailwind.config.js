@@ -91,7 +91,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('./plugins/pseudo_selectors')
-  ]
+  plugins: []
 };
