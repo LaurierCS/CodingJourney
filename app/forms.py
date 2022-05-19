@@ -65,7 +65,7 @@ from django import forms
 class CreateUserForm(UserCreationForm):
   class Meta:
     model = User
-    fields = ['username', 'email', 'password1', 'password2']
+    fields = ['username','email', 'password1', 'password2', 'first_name', 'last_name']
 
 class UserSettingForm(ModelForm):
   class Meta:
@@ -109,7 +109,7 @@ class UserSettingForm(ModelForm):
       attrs={
         'class':'input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-3 resize-none box-bordere w-full placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'rows': '4',
-        'placeholder': 'Tell me about yourself😎'
+        'placeholder': 'Boast about yourself😎'
         })
     )
 

@@ -9,7 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name = 'profile', null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=False, default="John")
     last_name = models.CharField(max_length=100, blank=False, default="Doe")
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(default="Tell me about yourself 😎", max_length=500, blank=True)
     image = models.ImageField(
         default="images/smiley.jpg", upload_to='images/', blank=True)
     email = models.EmailField(max_length=256)

@@ -6,7 +6,7 @@
 {% block content %}
 <div class="w-full h-full flex justify-center items-center">
   <div
-  class="flex justify-center items-center flex-col rounded-xl w-fit bg-dark"
+  class="flex justify-center items-center flex-col rounded-xl w-fit border-2 border-rice-white"
   >
     <!-- show the error message here -->
     {% if messages %}
@@ -42,11 +42,12 @@
     <form
       action="{% url 'login' %}"
       method="POST"
-      class="flex flex-col justify-center items-center p-4"
+      class="flex flex-col justify-center px-6 pb-8 space-y-6"
       id="loginForm"
     >
       {% csrf_token %}
-      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+      <h3>Login</h3>
+      <div class="relative w-fit">
         <input
           name="username"
           type="text"
@@ -54,21 +55,17 @@
           maxlength="150"
           pattern="^[A-Za-z0-9@\.\+-_]+$"
           class="input"
+          placeholder="Username*"
         />
-        <label for="username" class="input-label">
-          Username
-        </label>
       </div>
-      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
+      <div class="relative w-fit">
         <input
           name="password"
           type="password"
           required
           class="input"
+          placeholder="Password*"
         />
-        <label for="password" class="input-label">
-          Password
-        </label>
       </div>
       <button type="submit" class="button m-auto">Login</button>
     </form>
@@ -78,61 +75,79 @@
 
     <form
       method="POST"
-      class="flex flex-col justify-center items-center p-4 hidden"
+      class="flex flex-col justify-center hidden space-y-6 px-6 pb-8"
       action="{% url 'register' %}"
       id="registrationForm"
     >
       {% csrf_token %}
-      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-        <input
-          id="id_username"
-          name="username"`
-          type="text"
-          required
-          maxlength="150"
-          class="input"
-        />
-        <label for="username" class="input-label">
-          Username
-        </label>
-      </div>
-      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-        <input
-          id="id_email"
-          name="email"
-          type="email"
-          required
-          class="input"
-        />
-        <label for="email" class="input-label">
-          Email
-        </label>
-      </div>
-      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-        <input
-          id="id_password1"
-          name="password1"
-          type="password"
-          required
-          minlength="8"
-          class="input"
-        />
-        <label for="password1" class="input-label">
-          Password
-        </label>
-      </div>
-      <div class="relative w-fit p-4 mt-4 mb-2 mx-2">
-        <input
-          id="id_password2"
-          name="password2"
-          type="password"
-          required
-          minlength="8"
-          class="input"
-        />
-        <label for="password2" class="input-label">
-          Confirm Password
-        </label>
+      <h3>Register</h3>
+      <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+        <div class="relative w-fit">
+          <input
+            id="id_first_name"
+            name="first_name"`
+            type="text"
+            required
+            maxlength="150"
+            class="input"
+            placeholder="First name*"
+          />
+        </div>
+        <div class="relative w-fit">
+          <input
+            id="id_last_name"
+            name="last_name"`
+            type="text"
+            required
+            maxlength="150"
+            class="input"
+            placeholder="Last name*"
+          />
+        </div>
+        <div class="relative w-fit">
+          <input
+            id="id_username"
+            name="username"`
+            type="text"
+            required
+            pattern="^[A-Za-z0-9@\.\+-_]+$"
+            maxlength="150"
+            class="input"
+            placeholder="Username*"
+          />
+        </div>
+        <div class="relative w-fit">
+          <input
+            id="id_email"
+            name="email"
+            type="email"
+            required
+            class="input"
+            placeholder="Email*"
+          />
+        </div>
+        <div class="relative w-fit">
+          <input
+            id="id_password1"
+            name="password1"
+            type="password"
+            required
+            minlength="8"
+            class="input"
+            placeholder="Create password*"
+          />
+        </div>
+        <div class="relative w-fit">
+          <input
+            id="id_password2"
+            name="password2"
+            type="password"
+            required
+            minlength="8"
+            class="input"
+            placeholder="Confirm password*"
+          />
+        </div>
       </div>
       <button type="submit" class="button m-auto">Register</button>
     </form>
