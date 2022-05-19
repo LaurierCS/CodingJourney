@@ -369,3 +369,8 @@
   padding: 8px;
 }
 
+.warning {
+  background-color: var(--error);
+  border-radius: 8px;  
+  padding: 8px;
+}

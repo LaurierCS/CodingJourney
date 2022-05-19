@@ -77,7 +77,7 @@ class UserSettingForm(ModelForm):
     label='first name',
     widget=forms.TextInput(
       attrs={
-        'class': 'input my-4 px-3 placeholder-gray-500',
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'placeholder': 'Write your first name here...',
         }
       )
@@ -86,7 +86,7 @@ class UserSettingForm(ModelForm):
     label='last name',
     widget=forms.TextInput(
       attrs={
-        'class': 'input my-4 px-3 placeholder-gray-500',
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'placeholder': 'Write your last name here...',
         }
       )
@@ -95,23 +95,19 @@ class UserSettingForm(ModelForm):
     label='email address',
     widget=forms.EmailInput(
       attrs={
-        'class': 'input my-4 px-3 placeholder-gray-500'
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
         }
       )
     )
   image = forms.ImageField(
     label='Upload image',
-    widget=forms.ClearableFileInput(
-      # attrs={
-      #   'class': 'block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none',
-      # }
-    )
+    widget=forms.ClearableFileInput()
   )
   bio = forms.CharField(
     label='Biography',
     widget=forms.Textarea(
       attrs={
-        'class':'input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-3 resize-none box-bordere w-full placeholder-gray-500',
+        'class':'input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-3 resize-none box-bordere w-full placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'rows': '4',
         'placeholder': 'Tell me about yourself😎'
         })
