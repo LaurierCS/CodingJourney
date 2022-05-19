@@ -244,12 +244,12 @@ class TreeQueries:
         serialized = serializers.serialize('json', skill_tree, ensure_ascii=False)
         return serialized
     
-    def getTrimmedTree(request):
+    def getTrimmedTree(profile):
         # todo: 1. need to include parent of nodes, always.
         # todo: 2. need to include user as root.
         # todo: 3. condense all information into the node.
         # desired skills query 
-        desired_skill_objects = DesiredSkill.objects.filter(user_id=request.user.profile).order_by('skill')
+        desired_skill_objects = DesiredSkill.objects.filter(user_id=profile).order_by('skill')
         
         # user has no desired skill set, so we just return a user node
         if len(desired_skill_objects) < 1:
