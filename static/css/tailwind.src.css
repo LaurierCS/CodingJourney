@@ -62,6 +62,14 @@
       text-link
       leading-link;
   }
+  
+  select { 
+    @apply
+      focus:text-white 
+      focus:border-blue-600 
+      focus:outline-none;
+    background-color: var(--background)
+  }
 }
 
 @tailwind components;
@@ -151,6 +159,8 @@
 
     top: -17%;
   }
+
+  
 
 }
 
@@ -368,4 +378,13 @@
 
 .node-title {
   font-weight: 600;
+}
+
+.modal-content { 
+  background-color: var(--background)
+}
+
+.select { 
+  width: 100%;
+  background-color: var(--background);
 }
