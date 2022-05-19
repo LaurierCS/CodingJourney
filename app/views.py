@@ -84,8 +84,6 @@ def dashboard(request):
     experiences = Experience.objects.filter(profile=profile)
     # tech_roadmap = profile.tech_roadmap
 
-    print(profile)
-
     template_name = "app/dashboard.html"
     context = {
         "document_title": document_title,
