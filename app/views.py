@@ -437,7 +437,15 @@ class SearchQueries:
     def search_skills(query_string):
         result = []
 
-        skills = Skill.objects.filter(name__icontains=query_string).exclude(name="User").distinct().values("name", "node_type", "icon_HREF")
+        best_matches = Skill.objects.filter(name__startwith=query_string)
+        best_matches_values = best_matches.values()
+
+        skills = Skill.objects.filter(name__icontains=query_string) \
+        .exclude(name="User", id__in=best_matches_values) \
+        .distinct() \
+        .order_by("name")
+
+        # all_skills = best_matches.
 
         # todo: add url to show all experiences related to such skill.
         for skill in skills:
