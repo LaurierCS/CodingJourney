@@ -40,7 +40,7 @@ class ExperienceInputform(forms.ModelForm):
       super(ExperienceInputform, self).__init__(*args, **kwargs)
       self.fields['name'].widget.attrs.update({'class': 'input'})
       self.fields['skills'].widget.attrs.update({'class': 'input'})
-      self.fields['description'].widget.attrs.update({'class': 'input'})
+      self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input'})
       self.fields['start_date'].widget.attrs.update({'class': 'input select'})
       self.fields['end_date'].widget.attrs.update({'class': 'input select'})
       self.fields['project_link'].widget.attrs.update({'class': 'input'})

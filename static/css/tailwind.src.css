@@ -388,3 +388,8 @@
   width: 100%;
   background-color: var(--background);
 }
+
+.fixed-size-input { 
+  height: 220px;
+  resize: none;
+}
