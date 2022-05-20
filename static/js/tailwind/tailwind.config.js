@@ -2,7 +2,7 @@ module.exports = {
   /**
    * Look for class within all html files in our template folder
    */
-  content: ["../../../templates/**/*.html"],
+  content: ["../../../templates/**/*.html", "../*.js"],
   /**
    * Theme configuration
    */

@@ -1,5 +1,5 @@
-# DJANGO IMPORTS
-from django.http import HttpResponse, HttpResponseRedirect
+from __future__ import annotations
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -7,6 +7,7 @@ from django.views import View
 from django.core import serializers
 from django.db import connection
 from django.contrib import messages
+from django.db.models import Q, Case, F, Avg, When, Value, FloatField
 
 # Django Auth
 from django.contrib.auth.decorators import login_required
@@ -357,3 +358,109 @@ class TreeQueries:
     
 #     def get_description(self):
 #         return self.context['item'].description
+
+class SearchQueries:
+
+    def searchHandle(request):
+
+        if request.method == "POST":
+            return HttpResponseBadRequest("Does not accept POST requests.")
+
+        search = request.GET.get("search_query")
+        scope = request.GET.get("search_scope")
+        quick_query = not not request.GET.get("quick_query") # make it a boolean value
+
+        if scope == "all":
+            users = SearchQueries.search_users(search)
+            skills = SearchQueries.search_skills(search)
+            experiences = SearchQueries.search_experiences(search)
+
+            results = users + skills + experiences
+        elif scope == "user":
+            results = SearchQueries.search_users(search)
+        
+        elif scope == "skill":
+            results = SearchQueries.search_skills(search)
+        
+        elif scope == "experience":
+            results = SearchQueries.search_experiences(search)
+
+        else:
+            # out of scope
+            results = []
+
+        if quick_query:
+            return JsonResponse({
+                "search": search,
+                "scope": scope,
+                "results": results,
+                "quick_query": quick_query,
+                "entries": len(results),
+            })
+
+        # todo: render a template
+        return JsonResponse({
+            "search": search,
+            "scope": scope,
+            "result": results,
+            "quick_query": quick_query,
+            "entries": len(results),
+        })
+
+    def search_users(query_string):
+        result = []
+
+        splitted = query_string.split(" ")
+        first_name = splitted[0]
+        last_name = splitted[0]
+        if len(splitted) > 1:
+            last_name = splitted[1]
+
+        users = Profile.objects.filter(
+            Q(user__username__icontains=query_string) |
+            Q(first_name__icontains=first_name) | 
+            Q(last_name__icontains=last_name)
+            ).distinct().values("user__username", "first_name", "last_name", "image")
+
+        # todo: make url to go to user profile.
+        # todo: order results by best match
+        for user in users:
+            result.append({
+                "text": user["user__username"] + " - " + user["first_name"] + " " + user["last_name"],
+                "image": user["image"],
+                "category": "user",
+                "url": "",
+            })
+
+        return result
+
+    def search_skills(query_string):
+        result = []
+
+        skills = Skill.objects.filter(name__icontains=query_string).exclude(name="User").distinct().values("name", "node_type", "icon_HREF")
+
+        # todo: add url to show all experiences related to such skill.
+        for skill in skills:
+            result.append({
+                "text": skill["name"],
+                "image": skill["icon_HREF"],
+                "category": "skill" if skill["node_type"] != "C" else "skill category",
+                "url": "",
+            })
+
+        return result
+    
+    def search_experiences(query_string):
+        result = []
+
+        experiences = Experience.objects.filter(name__icontains=query_string).distinct().values("name", "project_link", "image")
+
+        for exp in experiences:
+            result.append({
+                "text": exp["name"],
+                "image": exp["image"],
+                "category": "experience",
+                "url": exp["project_link"]
+            })
+
+        return result

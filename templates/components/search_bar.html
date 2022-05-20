@@ -1,0 +1,106 @@
+{% load static %}
+<div class="relative">
+  <!-- search and filter -->
+  <div class="relative bg-gray-900 rounded-md h-12 flex items-center" id="search_bar">
+    <!-- left side, search -->
+    <div class="relative flex items-center min-w-[320px] max-w-lg h-full pl-3 flex-1">
+      <svg id="search_icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <form id="search_form" action="{% url 'search_page' %}" method="get"
+      data-static-url="{% static '' %}"
+      class="absolute top-0 right-0 left-0 bottom-0 flex items-center w-full"
+      >
+        {% csrf_token %}
+        <input type="hidden" name="search_scope" id="search_scope" value="all">
+        <label for="search_query" class="absolute w-0 overflow-hidden opacity-0">Search</label>
+        <input type="search" name="search_query" id="search_query"
+        placeholder="Search"
+        class="bg-transparent focus-visible:outline-none pl-10 pr-6 w-full"
+        >
+      </form>
+    </div>
+    <!-- divider -->
+    <div class="w-[2px] bg-gray-700 h-1/2"></div>
+    <!-- right side, filter -->
+    <div id="search_scope_filter" data-current-scope="all"
+      class="flex items-center justify-between px-3 h-full w-36 relative"
+    >
+      <span id="current_scope_text" class="mr-2 text-center capitalize select-none">all</span>
+      <svg id="filter_arrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-180 transition-transform duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+      </svg>
+      <!-- scope options -->
+      <div 
+        id="search_scope_menu"
+        class="
+          absolute 
+          top-full 
+          right-auto 
+          left-0 
+          z-10 
+          w-full
+          translate-y-2
+          text-left 
+          bg-gray-900 
+          px-3 
+          rounded-md 
+          scale-y-0 
+          origin-top 
+          transition-transform 
+          duration-100"
+      >
+        <ul id="search_scope_list"
+          class="select-none py-2"
+        >
+          <li
+            class="hover:text-secondary transition-colors duration-150"
+            data-scope="all"
+            data-active="true"
+          >All</li>
+          <li
+            class="hover:text-secondary transition-colors duration-150"
+            data-scope="user"
+            data-active="false"
+          >User</li>
+          <li
+            class="hover:text-secondary transition-colors duration-150"
+            data-scope="skill"
+            data-active="false"
+          >Skill</li>
+          <li
+            class="hover:text-secondary transition-colors duration-150"
+            data-scope="experience"
+            data-active="false"
+          >Experience</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- dropdown results -->
+  <div id="search_result_container" class="absolute top-full left-0 right-auto bg-gray-900 hover:opacity-100 transition-colors duration-150 w-full py-2 rounded-md translate-y-2 hidden">
+    <ul id="search_result_list" class="max-h-96 overflow-y-auto">
+      <!-- TEMPLATE -->
+      <!-- there are users, skills and experiences categories -->
+      <li id="search_result_item"
+        class="hover:text-secondary h-12 transition-color duration-150 hidden"
+        aria-hidden="true"
+      >
+        <a id="search_result_link" href="#" class="w-full max-w-full h-full py-1 pl-5 flex items-center">
+          <div class="flex items-center w-[300px] max-w-[300px]">
+            <img id="search_result_image" src="" alt="Icon" class="w-8 h-8 mr-3 hidden rounded-full">
+            <span class="truncate py-1" id="search_result_text">
+            </span>
+          </div>
+          <!-- divider -->
+          <div class="w-[2px] bg-gray-700 h-full"></div>
+          <span class="px-3 capitalize" id="search_result_category"></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/debounce.js' %}"></script>
+<script src="{% static 'js/search.js' %}"></script>
