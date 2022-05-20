@@ -18,6 +18,7 @@ import json
 import os
 
 from django.apps import apps
+import tornado
 
 # FILE IMPORTS
 from .models import *
@@ -82,7 +83,7 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
-    tree_json = TreeQueries.getTrimmedTree()
+    tree_json = TreeQueries.getTrimmedTree() # todo: profile to function when update_ds_description is merged.
     # tech_roadmap = profile.tech_roadmap
 
     print(profile)
