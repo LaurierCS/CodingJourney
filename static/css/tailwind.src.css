@@ -393,3 +393,7 @@
   height: 220px;
   resize: none;
 }
+
+.multi-select-input { 
+  height: 425px;
+}

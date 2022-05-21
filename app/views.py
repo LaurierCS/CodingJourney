@@ -212,8 +212,6 @@ def experience_input_handler(request):
     if request.method == 'POST':
         form = ExperienceInputform(request.POST)
         
-        print(form.is_valid())
-        
         form_data = form.cleaned_data
         print(form_data)
         # new_instance = Experience.objects.create(
@@ -230,10 +228,7 @@ def experience_input_handler(request):
         # print(new_instance)
 
         form = ExperienceInputform()
-        context = {
-            'form': form,
-        } 
-        return render(request, 'app/experience_form.html', context=context)
+        
     
     else: 
         form = ExperienceInputform()

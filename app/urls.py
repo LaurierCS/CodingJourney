@@ -20,6 +20,7 @@ urlpatterns = [
     path('login', views.login_handler, name="login"),
     path('register', views.registration_handler, name="register"),
     path('logout', views.logout_handler, name="logout"),
+    path('experience-handler', views.experience_input_handler, name="experience-handler"),
 
     # ************************************************************
     # Testing URLS - FOR Testing existing Functions

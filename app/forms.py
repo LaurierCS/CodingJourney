@@ -12,7 +12,7 @@ class ExperienceInputform(forms.ModelForm):
     #   )
     # start as text input and adjust to match figma
     skills = forms.ModelMultipleChoiceField(
-        queryset=Skill.objects.all(),
+        queryset=Skill.objects.filter(node_type="N"),
         required=True,
         label="Skills", 
         help_text="What Skills did you learn or use?"
@@ -39,7 +39,7 @@ class ExperienceInputform(forms.ModelForm):
     def __init__(self, *args, **kwargs):
       super(ExperienceInputform, self).__init__(*args, **kwargs)
       self.fields['name'].widget.attrs.update({'class': 'input'})
-      self.fields['skills'].widget.attrs.update({'class': 'input'})
+      self.fields['skills'].widget.attrs.update({'class': 'input multi-select-input'})
       self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input'})
       self.fields['start_date'].widget.attrs.update({'class': 'input select'})
       self.fields['end_date'].widget.attrs.update({'class': 'input select'})

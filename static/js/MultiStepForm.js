@@ -1,6 +1,3 @@
-var currentTab = 0;
-showTab(currentTab); 
-
 function showTab(n) { 
     var tabs = document.getElementsByClassName('tab'); 
     tabs[n].style.display = 'block'; 
@@ -38,7 +35,7 @@ function validateForm(){
         }
     }
     if(valid){
-        document.ggetElementsByClassName("step")[currentTab].className
+        document.getElementsByClassName("step")[currentTab].className
     }
     return valid;
 }
