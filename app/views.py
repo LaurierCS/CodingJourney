@@ -1,4 +1,4 @@
-from __future__ import annotations
+from pickle import TRUE
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -7,7 +7,7 @@ from django.views import View
 from django.core import serializers
 from django.db import connection
 from django.contrib import messages
-from django.db.models import Q, Case, F, Avg, When, Value, FloatField
+from django.db.models import Q, Case, F, Avg, When, Value, FloatField, IntegerField
 
 # Django Auth
 from django.contrib.auth.decorators import login_required
@@ -367,8 +367,12 @@ class SearchQueries:
             return HttpResponseBadRequest("Does not accept POST requests.")
 
         search = request.GET.get("search_query")
+
+        if search is None:
+            return HttpResponseBadRequest("No search query.")
+
         scope = request.GET.get("search_scope")
-        quick_query = not not request.GET.get("quick_query") # make it a boolean value
+        quick_query = request.GET.get("quick_query") == "true" # make it a boolean value
 
         if scope == "all":
             users = SearchQueries.search_users(search)
@@ -437,18 +441,16 @@ class SearchQueries:
     def search_skills(query_string):
         result = []
 
-        best_matches = Skill.objects.filter(name__startwith=query_string)
-        best_matches_values = best_matches.values()
+        best_matches = Skill.objects.filter(name__startswith=query_string).exclude(name="User").annotate(weight=Value(0, IntegerField()))
 
-        skills = Skill.objects.filter(name__icontains=query_string) \
-        .exclude(name="User", id__in=best_matches_values) \
-        .distinct() \
-        .order_by("name")
+        best_matches_ids = best_matches.values_list("id", flat=True)
 
-        # all_skills = best_matches.
+        skills = Skill.objects.filter(name__icontains=query_string).exclude(name="User").exclude(id__in=best_matches_ids).annotate(weight=Value(1, IntegerField()))
+
+        all_skills = best_matches.union(skills).order_by('weight', 'name').values()
 
         # todo: add url to show all experiences related to such skill.
-        for skill in skills:
+        for skill in all_skills:
             result.append({
                 "text": skill["name"],
                 "image": skill["icon_HREF"],
