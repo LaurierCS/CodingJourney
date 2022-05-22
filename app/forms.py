@@ -12,12 +12,12 @@ class ExperienceInputform(forms.ModelForm):
     #   )
     # start as text input and adjust to match figma
     skills = forms.ModelMultipleChoiceField(
-        queryset=Skill.objects.all(),
+        queryset=Skill.objects.filter(node_type="N"),
         required=True,
         label="Skills", 
         help_text="What Skills did you learn or use?"
     )
-    # kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
+    kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
     description = forms.Textarea()
     start_date = forms.DateField(widget=forms.SelectDateWidget)
     end_date = forms.DateField(widget=forms.SelectDateWidget)
@@ -39,11 +39,12 @@ class ExperienceInputform(forms.ModelForm):
     def __init__(self, *args, **kwargs):
       super(ExperienceInputform, self).__init__(*args, **kwargs)
       self.fields['name'].widget.attrs.update({'class': 'input'})
-      self.fields['skills'].widget.attrs.update({'class': 'input'})
-      self.fields['description'].widget.attrs.update({'class': 'input'})
-      self.fields['start_date'].widget.attrs.update({'class': 'input'})
-      self.fields['end_date'].widget.attrs.update({'class': 'input'})
+      self.fields['skills'].widget.attrs.update({'class': 'input multi-select-input'})
+      self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input'})
+      self.fields['start_date'].widget.attrs.update({'class': 'input select'})
+      self.fields['end_date'].widget.attrs.update({'class': 'input select'})
       self.fields['project_link'].widget.attrs.update({'class': 'input'})
+      self.fields['kind'].widget.attrs.update({'class': 'input select'})
       self.fields['image'].widget.attrs.update({'class': 'tech-tag tech-tag-blue'})
 
     def clean(self):
@@ -52,6 +53,7 @@ class ExperienceInputform(forms.ModelForm):
       end_date = cleaned_data.get("end_date")
       if end_date and end_date < start_date:
         raise forms.ValidationError(("End date should be greater than start date."), code="invalidDate")
+      return cleaned_data
 
 
 # class customMMCF():
