@@ -11,7 +11,6 @@ function modalCloseBehaviour(modalId) {
 }
 
 var currentTab = 0;
-showTab(currentTab); 
 
 function translateLeftByWidth(className, maxTabs) {
     let elems = document.getElementsByClassName(className);

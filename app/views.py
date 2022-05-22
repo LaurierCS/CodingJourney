@@ -102,16 +102,17 @@ def allexperiences(request):
     document_title = "Roadmap & Experiences"
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile=request.user.profile
-    experiences = Experience.objects.filter(profile=profile)
-    tech_roadmap = profile.tech_roadmap
+    experiences_qs = Experience.objects.filter(profile=profile).order_by('start_date') 
+    experiences = experiences_qs
 
-    template_name = "app/homepage.html"
+    template_name = "components/project_list.html"
     context = {
         "document_title":document_title,
         "profile":profile,
         "experiences":experiences,
-        "tech_roadmap":tech_roadmap
     }
+    for experience in experiences:
+        print(experience)
     return render(request, template_name, context)
 
 @login_required(login_url='auth_page')
@@ -212,22 +213,33 @@ def experience_input_handler(request):
     if request.method == 'POST':
         form = ExperienceInputform(request.POST)
         
-        form_data = form.cleaned_data
-        print(form_data)
-        # new_instance = Experience.objects.create(
-        #     # profile=request.user.profile,
-        #     name=form_data["name"],
-        #     type=form_data["type"],
-        #     skills=form_data["skills"],
-        #     description=form_data["description"],
-        #     start_date=form_data["start_date"],
-        #     end_date=form_data["end_date"],
-        #     project_link=form_data["project_link"],
-        #     image=form_data["image"],
-        # )
-        # print(new_instance)
-
-        form = ExperienceInputform()
+        if (form.is_valid()):
+            form_data = form.cleaned_data
+            experience_instance = Experience.objects.create(
+                profile=request.user.profile,
+                name=form_data["name"],
+                kind=form_data["kind"],
+                description=form_data["description"],
+                start_date=form_data["start_date"],
+                end_date=form_data["end_date"],
+                project_link=form_data["project_link"],
+                image=form_data["image"],
+            )
+            skills_ids = [skill.id for skill in form_data['skills']]
+            print(skills_ids)
+            context = {
+                'form': form,
+            } 
+            # experience_instance.skills.set(form_data["skills"])
+            return render(request, 'app/experience_form.html', context=context)
+        else: 
+            for field in form:
+                print("Field Error:", field.name,  field.errors)
+            # print(form_data)        
+            context = {
+                'form': form,
+            } 
+            return render(request, 'app/experience_form.html', context=context)
         
     
     else: 
@@ -284,7 +296,7 @@ class TreeQueries:
         desired_skill_dict = {}
         for skill in desired_skill_objects:
             desired_skill_dict[skill.skill_id] = skill
-         
+        
 
         skill_tree = skill_tree_qs.values()
         for skill in skill_tree:

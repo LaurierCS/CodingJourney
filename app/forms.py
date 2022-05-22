@@ -17,7 +17,7 @@ class ExperienceInputform(forms.ModelForm):
         label="Skills", 
         help_text="What Skills did you learn or use?"
     )
-    type = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
+    kind = forms.ChoiceField(choices=Experience.EXPERIENCE_TYPE)
     description = forms.Textarea()
     start_date = forms.DateField(widget=forms.SelectDateWidget)
     end_date = forms.DateField(widget=forms.SelectDateWidget)
@@ -44,7 +44,7 @@ class ExperienceInputform(forms.ModelForm):
       self.fields['start_date'].widget.attrs.update({'class': 'input select'})
       self.fields['end_date'].widget.attrs.update({'class': 'input select'})
       self.fields['project_link'].widget.attrs.update({'class': 'input'})
-      self.fields['type'].widget.attrs.update({'class': 'input select'})
+      self.fields['kind'].widget.attrs.update({'class': 'input select'})
       self.fields['image'].widget.attrs.update({'class': 'tech-tag tech-tag-blue'})
 
     def clean(self):
@@ -53,6 +53,7 @@ class ExperienceInputform(forms.ModelForm):
       end_date = cleaned_data.get("end_date")
       if end_date and end_date < start_date:
         raise forms.ValidationError(("End date should be greater than start date."), code="invalidDate")
+      return cleaned_data
 
 
 # class customMMCF():

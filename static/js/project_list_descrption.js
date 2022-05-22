@@ -1,12 +1,22 @@
-function showDescription(project_id)
-    console.log("clicked project: " + project_id)
-    desc = document.querySelector(`#proj-desc-${project_id}`)
+let prev_desc = undefined;
+function showDescription(project_id) {
+    desc = document.querySelector(`#proj-desc-${project_id}`);
     
     if (desc.classList.contains("hidden")) { 
-        desc.className.replace
-      ( /(?:^|\s)hidden(?!\S)/g , '' )
+        desc.classList.remove('hidden');
+        setTimeout(function() { 
+            desc.classList.remove('opacity-0')
+        }, 20);
     } else { 
-        desc.className += " hidden"
+        desc.classList.add('opacity-0'); 
+        desc.addEventListener('transitionend', function(e) { 
+            desc.classList.add('hidden');
+        }, {
+            capture: false, 
+            once: true, 
+            passive: false
+        })
     }
+}
 
-showDescription(1)
+// showDescription(1)
