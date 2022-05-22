@@ -62,6 +62,14 @@
       text-link
       leading-link;
   }
+  
+  select { 
+    @apply
+      focus:text-white 
+      focus:border-blue-600 
+      focus:outline-none;
+    background-color: var(--background)
+  }
 }
 
 @tailwind components;
@@ -151,6 +159,8 @@
 
     top: -17%;
   }
+
+  
 
 }
 
@@ -362,7 +372,6 @@
 .node-title {
   font-weight: 600;
 }
-
 .success {
   background-color: var(--success);
   border-radius: 8px;  
@@ -373,4 +382,21 @@
   background-color: var(--error);
   border-radius: 8px;  
   padding: 8px;
+}
+.modal-content { 
+  background-color: var(--background)
+}
+
+.select { 
+  width: 100%;
+  background-color: var(--background);
+}
+
+.fixed-size-input { 
+  height: 220px;
+  resize: none;
+}
+
+.multi-select-input { 
+  height: 425px;
 }

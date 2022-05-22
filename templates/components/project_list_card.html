@@ -1,22 +1,24 @@
 {% load static %}
-<script src="{%static '/js/project_list_descrption.js' %}"></script>
 <div class="projectCardContainer" id="proj-card-{{project.id}}" >
     <div class="
         condensed_card grid grid-cols-3 
-        bg-slate-600 bg-opacity-50 
+        bg-slate-600 bg-opacity-[30%] 
         rounded-md my-1.5 align-middle mx-2 p-0
+        pt-2 pb-2
+        justify-center align-center
         "
         onClick="showDescription({{project.id}})">
         {% comment %} bg-graay-300 rounded-sm border-slate-50 {% endcomment %}
-        <div class="project_name my-auto">
-            {{project.name}}
+        <div class="project_name my-auto flex justify-center">
+            <a href="{{project.project_link}}" target="_blank">{{project.name}}</a>
         </div>
-        <div class="likes my-auto">
+        <div class="likes my-auto flex justify-center">
             {{project.likes_amount}}
         </div>
-        <div class="post_date my-auto">
+        <div class="post_date my-auto flex justify-center">
             {{project.start_date}}
         </div>
+        <div></div>
         <div class="markers">
             {% comment %} {% for marker in project.markers %} {% endcomment %}
                 {% comment %} {% include "/components/marker.html" with marker=project.markers %} {% endcomment %}
@@ -24,10 +26,15 @@
         </div>
     </div>
     <div class="expanded_card border-2 border-gray-600 rounded-lg mx-2">
-        <div class="" 
+        <div class="hidden opacity-0 transition duration-[400ms]" 
         id="proj-desc-{{project.id}}"> 
             {% comment %}  {% endcomment %}
-            {{project.description}}
+            <div class="ml-3 flex justify-center w-[125px] border-b-2 border-white">
+                <h5>Description</h5>
+            </div>
+            <div class="disc-content mx-3">
+                {{project.description}}
+            </div>
         </div>
     </div>
 </div> 
