@@ -1,7 +1,8 @@
 from django import forms
-from django.forms import ModelForm, CheckboxSelectMultiple, ChoiceField, ModelForm
+from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
 
 from .models import *
 
@@ -66,11 +67,54 @@ from django import forms
 class CreateUserForm(UserCreationForm):
   class Meta:
     model = User
-    fields = ['username', 'email', 'password1', 'password2']
+    fields = ['username','email', 'password1', 'password2', 'first_name', 'last_name']
 
 class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
+    fields = '__all__'
+    exclude = ['user', 'date_created']
+
+  first_name = forms.CharField(
+    label='first name',
+    widget=forms.TextInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'Write your first name here...',
+        }
+      )
+    )
+  last_name = forms.CharField(
+    label='last name',
+    widget=forms.TextInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'Write your last name here...',
+        }
+      )
+    )
+  email = forms.EmailField(
+    label='email address',
+    widget=forms.EmailInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
+        }
+      )
+    )
+  image = forms.ImageField(
+    label='Upload image',
+    widget=forms.ClearableFileInput()
+  )
+  bio = forms.CharField(
+    label='Biography',
+    widget=forms.Textarea(
+      attrs={
+        'class':'input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-3 resize-none box-bordere w-full placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'rows': '4',
+        'placeholder': 'Boast about yourself😎'
+        })
+    )
+
     fields = ['email', 'image', 'bio']
 
 class SearchQueryForm(forms.Form):

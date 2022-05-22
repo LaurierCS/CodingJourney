@@ -11,8 +11,11 @@ def create_profile(sender, instance, created, **kwargs):
         user = instance
         profile = Profile.objects.create(
             user = user,
+            first_name = user.first_name,
+            last_name = user.last_name,
             email = user.email
         )
+
 
 @receiver(post_delete, sender=Profile)
 def del_profile(sender, instance, **kwargs):

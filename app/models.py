@@ -13,6 +13,7 @@ class Profile(models.Model):
     email = models.EmailField(max_length=256)
     image = models.ImageField(
         default="images/smiley.jpg", upload_to='images/', blank=True)
+    email = models.EmailField(max_length=256)
     # 👇 THE "tech_roadmap" RELATIONSHIP BELOW IS THE TECHNOLOGIES THAT THE USER WANTS TO ACHIEVE
     # (if a tech is in this list, it will show up on the tree graph)
     # This is all the tech they either want to work with or have already achieved experience with
