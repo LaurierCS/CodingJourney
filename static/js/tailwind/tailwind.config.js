@@ -93,6 +93,7 @@ module.exports = {
     },
   },
   plugins: [
-    require('./plugins/pseudo_selectors')
+    require('./plugins/pseudo_selectors'),
+    require('@tailwindcss/line-clamp'),
   ]
 };
