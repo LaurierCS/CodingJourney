@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/LaurierCS/Pod4#readme",
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.0",
     "autoprefixer": "^10.4.4",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",

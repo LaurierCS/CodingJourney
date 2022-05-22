@@ -62,6 +62,14 @@
       text-link
       leading-link;
   }
+  
+  select { 
+    @apply
+      focus:text-white 
+      focus:border-blue-600 
+      focus:outline-none;
+    background-color: var(--background)
+  }
 }
 
 @tailwind components;
@@ -152,6 +160,8 @@
     top: -17%;
   }
 
+  
+
 }
 
 @tailwind utilities;
@@ -228,13 +238,6 @@
     @apply text-success peer-invalid:text-success;
   }
 
-  .error {
-    @apply bg-error p-2 rounded-md;
-  }
-
-  .success {
-    @apply bg-success p-2 rounded-md;
-  }
 }
 
 :root {
@@ -246,7 +249,7 @@
   --secondary: #ae8fdf;
   --white: #fff;
   --black: #000;
-  --rice-white: #f1faee;
+  --rice-white: rgb(203 213 225);
   --background: #00141C;
   --success: #43d678;
   --active: #559cde;
@@ -368,4 +371,32 @@
 
 .node-title {
   font-weight: 600;
+}
+.success {
+  background-color: var(--success);
+  border-radius: 8px;  
+  padding: 8px;
+}
+
+.warning {
+  background-color: var(--error);
+  border-radius: 8px;  
+  padding: 8px;
+}
+.modal-content { 
+  background-color: var(--background)
+}
+
+.select { 
+  width: 100%;
+  background-color: var(--background);
+}
+
+.fixed-size-input { 
+  height: 220px;
+  resize: none;
+}
+
+.multi-select-input { 
+  height: 425px;
 }
