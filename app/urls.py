@@ -13,6 +13,7 @@ urlpatterns = [
     path('profilepage', views.profilepage, name="profile_page"),
     path('settings', views.settingspage, name="settings_page"),
     path('profile', views.profilepage, name="profile_page"),
+    path('search', views.SearchQueries.searchHandle, name="search_page"),
 
     # ************************************************************
     # ENDPOINT URLS - FOR HANDLING DATA LIKE LOGIN AND REGISRATION

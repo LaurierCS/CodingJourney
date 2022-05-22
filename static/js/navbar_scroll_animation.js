@@ -16,7 +16,8 @@
     }
   });
 
-  document.addEventListener("readystatechange", () => {
+  let ls;
+  document.addEventListener("readystatechange", ls = () => {
     if (document.readyState === "complete") {
       if (window.scrollY > navOffset + 200) {
         if (nav.classList.contains("bg-transparent")) {
@@ -24,7 +25,7 @@
           nav.classList.add("bg-foreground");
         }
       }
-      document.removeEventListener("readystatechange")
+      document.removeEventListener("readystatechange", ls);
     }
   });
   

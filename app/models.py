@@ -76,7 +76,6 @@ class DesiredSkill(models.Model):
 
 class Experience(models.Model):
   # technologies = models.ManyToManyField("Technology")
-  name = models.CharField(max_length=200)
   EXPERIENCE_TYPE = (
         ('E', 'Exploration'),
         ('P', 'Project'),

@@ -72,3 +72,7 @@ class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
     fields = ['email', 'image', 'bio']
+
+class SearchQueryForm(forms.Form):
+  search_query = forms.CharField(required=True)
+  search_scope = forms.CharField(required=True)
