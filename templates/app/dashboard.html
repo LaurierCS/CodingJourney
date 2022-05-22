@@ -9,8 +9,20 @@
 <div class="grid grid-cols-12 h-full">
     {% include "components/sidemenu.html" %}
 
-    <div class="col-span-10 text-white h-full bg-background">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores quis quasi exercitationem quibusdam minima deserunt fuga praesentium corrupti enim animi architecto perferendis voluptas obcaecati, cumque nulla ea numquam, cum voluptate!</p>
+    <div id="treeContainer" class="col-span-10 h-full bg-background">
+        {% include 'components/node_side_bar.html' %}
     </div>
 </div>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+{% if request.user.is_authenticated %}
+<script>
+    var profile_pic = "{{ request.user.profile.image|safe }}"
+    var username = "{{ request.user }}"
+</script>
+{% endif %}
+<script>
+    var tree_data  = {{ tree_json|safe }}
+    var static_url = "{% static '' %}"
+</script>
+<script src="{% static 'js/tree.js' %}"></script>
 {% endblock content%}

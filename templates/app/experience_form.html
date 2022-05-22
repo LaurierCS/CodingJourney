@@ -18,93 +18,110 @@
       active:bg-blue-800 active:shadow-lg
       transition
       duration-150
-      ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      ease-in-out" 
+      data-bs-toggle="modal" data-bs-target="#exampleModal"
+      onclick="modalOpenBehaviour('experience-input-modal')">
       Add Experience
 </button>
     <div 
         class = "
             modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
-            left-0 z-50 w-full md:inset-0 h-600 md:h-full flex justify-center items-center 
+            left-0 z-50 w-full md:inset-0 h-full md:h-full flex justify-center items-center 
             bg-gray-600 bg-opacity-50
         " 
-        id="modal"
-        aria-hidden="true">
-        <div class = "relative p-4 w-full max-w-md h-full md:h-auto">
+        id="experience-input-modal"
+        aria-hidden="true"
+        style="display: none ">
+        <div class = "relative w-[450px] max-w-md h-[700px]">
             <div 
                 class="modal-content border-4 shadow-lg relative flex 
-                flex-col w-full pointer-events-auto bg-clip-padding 
+                flex-col h-full pointer-events-auto bg-clip-padding 
                 rounded-md outline-none text-current">
                 <div
                     class="
                     modal-header flex flex-shrink-0 items-center justify-between 
                     p-4 border-b border-gray-200 rounded-t-md">
                     <h5 
-                        class="text-xl font-medium leading-normal text-gray-800" 
+                        class="text-xl font-medium leading-normal" 
                         id="exampleModalLabel">
                         Experience Input
                     </h5>
-                    <button 
-                        type="button" 
-                        class="
-                            btn-close box-content w-4 h-4 p-1 text-black border-none 
-                            rounded-none opacity-50 focus:shadow-none focus:outline-none 
-                            focus:opacity-100 hover:text-white hover:opacity-75 hover:no-underline"
-                    data-bs-dismiss="modal" aria-label="Close">x</button>
-            </div>
-            <div class='tab'>
-                {{ form.non_field_errors }}
-                <div class="fieldWrapper input-container">
-                    {{ form.name.errors }}
-                    <label for="id_name" class="input-label">Experience Name:</label>
-                    {{ form.name }}
+                    <svg id="nsb_close" xmlns="http://www.w3.org/2000/svg" 
+                    class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" 
+                    onclick="modalCloseBehaviour('experience-input-modal')"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
                 </div>
-                <div class="fieldWrapper input-container">
-                    {{ form.type.errors }}
-                    <label for="id_type" class="input-label">Type of Experience:</label>
-                    {{ form.type }}
+                <div class="w-full h-full pt-3 overflow-hidden block whitespace-nowrap">
+                    {% comment %} Add overflow hidden to this parent {% endcomment %}
+                    {% comment %} then in js prev/next translates ALL tabs by width of parent component? {% endcomment %}
+                    <div 
+                    class='tab w-full h-full inline-block align-top whitespace-normal 
+                    transition duration-300'>
+                        <div class="w-full max-h-full flex flex-col">
+                            {{ form.non_field_errors }}
+                            <div class="fieldWrapper input-container w-full p-5 mx-0">
+                                {{ form.name.errors }}
+                                <label for="id_name" class="input-label">Experience Name:</label>
+                                <div>
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="fieldWrapper input-container w-full p-5 mx-0">
+                                {{ form.kind.errors }}
+                                <label for="id_type" class="input-label">Type of Experience:</label>
+                                {{ form.kind }}
+                            </div>
+                            <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
+                                {{ form.start_date.errors }}
+                                <label for="id_start_date" class="input-label">Start Date:</label>
+                                {{ form.start_date }}
+                            </div>
+                            <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
+                                {{ form.end_date.errors }}
+                                <label for="id_end_date" class="input-label">End Date:</label>
+                                {{ form.end_date }}
+                            </div>
+                        </div>
+                    </div><div 
+                    class="tab w-full h-full max-h-full inline-block align-top whitespace-normal
+                    transition duration-300">
+                        <div class="w-full max-h-full flex flex-col">
+                            <div class="fieldWrapper input-container">
+                                {{ form.description.errors }}
+                                <div class="input-label absolute top-[-18px]">Description of Experience:</div>
+                                {{ form.description }}
+                            </div>
+                            <div class="fieldWrapper input-container w-full p-5 mx-0">
+                                {{ form.project_link.errors }}
+                                <label for="id_project_link" class="input-label">Project Link:</label>
+                                {{ form.project_link }}
+                            </div>
+                            <div class="fieldWrapper input-container w-full p-5 mx-0">
+                                {{ form.image.errors }}
+                                <label for="id_image" class="input-label">Image:</label>
+                                {{ form.image }}
+                            </div>
+                        </div>
+                    </div><div 
+                    class="tab inline-block w-full h-full whitespace-normal align-top
+                    transition duration-300">
+                        <div class="fieldWrapper input-container">
+                            {{ form.skills.errors }}
+                            <div class="input-label absolute top-[-18px]">Skills Involved:</div>
+                            {{ form.skills }}
+                        </div>
+                    </div>
                 </div>
-                <div class="fieldWrapper input-container">
-                    {{ form.start_date.errors }}
-                    <label for="id_start_date" class="input-label">Start Date:</label>
-                    {{ form.start_date }}
-                </div>
-                <div class="fieldWrapper input-container">
-                    {{ form.end_date.errors }}
-                    <label for="id_end_date" class="input-label">End Date:</label>
-                    {{ form.end_date }}
-                </div>
-            </div>
-            <div class="tab">
-                <div class="fieldWrapper input-container">
-                    {{ form.description.errors }}
-                    <label for="id_description" class="input-label">Description of Experience:</label>
-                    {{ form.description }}
-                </div>
-                <div class="fieldWrapper input-container">
-                    {{ form.project_link.errors }}
-                    <label for="id_project_link" class="input-label">Project Link:</label>
-                    {{ form.project_link }}
-                </div>
-                <div class="fieldWrapper input-container">
-                    {{ form.image.errors }}
-                    <label for="id_image" class="input-label">Image:</label>
-                    {{ form.image }}
-            </div>
-            <div class="tab">
-                <div class="fieldWrapper input-container">
-                    {{ form.skills.errors }}
-                    <label for="id_skills" class="input-label">Skills Involved:</label>
-                    {{ form.skills }}
-                </div>
-            </div>
-            </div>
-            <div>
                 <div>
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    <div class="flex justify-center">
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="prevBtn" onclick="translateRightByWidth('tab')">Previous</button>
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="nextBtn"  onclick="translateLeftByWidth('tab', 2)">Next</button>
+                    </div>
                 </div>
             </div>
-            <p><input type="submit" value="Submit" /></p>
+            <input class="modal-content rounded-md border-4 w-[450px] max-w-md" type="submit" value="Submit"/>
             </div>
         </div>
     </div>

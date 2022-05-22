@@ -10,6 +10,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=False, default="John")
     last_name = models.CharField(max_length=100, blank=False, default="Doe")
     bio = models.TextField(max_length=500, blank=True)
+    email = models.EmailField(max_length=256)
     image = models.ImageField(
         default="images/smiley.jpg", upload_to='images/', blank=True)
     # 👇 THE "tech_roadmap" RELATIONSHIP BELOW IS THE TECHNOLOGIES THAT THE USER WANTS TO ACHIEVE
@@ -19,7 +20,7 @@ class Profile(models.Model):
     # technologies they aren't even aiming to achieve
     # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=256)
 
     def __str__(self):
         return self.first_name

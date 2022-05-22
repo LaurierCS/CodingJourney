@@ -22,7 +22,7 @@
       if (window.scrollY > navOffset + 200) {
         if (nav.classList.contains("bg-transparent")) {
           nav.classList.remove("bg-transparent");
-          nav.classList.add("bg-dark");
+          nav.classList.add("bg-foreground");
         }
       }
       document.removeEventListener("readystatechange", ls);
