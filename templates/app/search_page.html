@@ -35,7 +35,7 @@
         data-category="{{ result.category|default_if_none:'' }}"
         data-url="{{ result.url|default_if_none:'' }}"
       >
-        <div data-search-content-area="" class="grid grid-cols-[64px_minmax(364px,_1fr)_200px] py-5">
+        <div class="grid grid-cols-[64px_minmax(364px,_1fr)_200px] py-5">
           <div class="w-16 h-16 rounded-md overflow-hidden col-span-1">
             {% if result.image %}
             <img src='{% static result.image|cut:"static" %}' alt="" class="w-full h-full object-cover">
