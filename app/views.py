@@ -82,7 +82,7 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
-    tree_json = TreeQueries.getTrimmedTree() # todo: profile to function when update_ds_description is merged.
+    tree_json = TreeQueries.getTrimmedTree(profile) # todo: profile to function when update_ds_description is merged.
     # tech_roadmap = profile.tech_roadmap
 
     template_name = "app/dashboard.html"
@@ -119,11 +119,24 @@ def profilepage(request):
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
 
+    # testing for getting other user profile
+    profiles = Profile.objects.all()
 
     template_name = "app/profile.html"
     context = {
         "document_title":document_title,
         "page_header": page_header,
+        "profile":profile,
+        "profiles": profiles,
+    }
+    return render(request, template_name, context)
+
+@login_required(login_url='auth_page')
+def otherprofilepage(request, pk):
+    profile = Profile.objects.get(id=pk)
+
+    template_name = "app/other_user_profile.html"
+    context = {
         "profile":profile
     }
     return render(request, template_name, context)
@@ -179,7 +192,6 @@ def registration_handler(request):
         register_form = CreateUserForm(request.POST)
         if register_form.is_valid():
             register_form.save()
-
             username = register_form.cleaned_data.get('username')
             password = register_form.cleaned_data.get("password1")
             user = authenticate(request, username=username, password=password)

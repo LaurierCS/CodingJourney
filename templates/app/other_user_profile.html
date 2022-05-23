@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="h-full">
+
+  <div class=" bg-background h-full space-y-4">
+      <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
+        <div id="pic-container" class="w-52">
+          <img src="{{profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2">
+        </div>
+      </div>
+
+      <div id="grid" class="grid gap-8 grid-cols-2 p-20">
+        <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+          <h4>Biography</h4>
+          <p class="break-words">
+            {% if profile.bio %}
+              {{profile.bio}}
+            {% else %} 
+              {{profile.first_name}} do not have bio
+            {% endif %}
+          </p>
+        </div>
+        <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+          <h4>Extra Info</h4>
+          <div id="created-time">
+            <p>📅 Member since {{profile.date_created}}</p>
+          </div>
+          <div id="num-exp">
+            <p>🔥 Number of experience: 4</p>
+          </div>
+        </div>
+
+        <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+          <h4>Email</h4>
+          <p class="break-words">{{profile.email}}</p>
+        </div>
+      </div>
+  </div>
+
+
+</div>
+{% endblock content %}

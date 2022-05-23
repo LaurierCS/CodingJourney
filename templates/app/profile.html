@@ -21,7 +21,7 @@
       </div>
 
       <div id="grid" class="grid gap-8 grid-cols-2 p-20">
-        <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+        <div id="bio" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Biography</h4>
           <p class="break-words">
             {% if request.user.profile.bio %}
@@ -31,7 +31,7 @@
             {% endif %}
           </p>
         </div>
-        <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+        <div id="add-info" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Extra Info</h4>
           <div id="created-time">
             <p>📅 Member since {{request.user.profile.date_created}} </p>
@@ -41,11 +41,54 @@
           </div>
         </div>
 
-        <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+        <div id="email" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Email</h4>
           <p class="break-words">{{request.user.profile.email}}</p>
         </div>
+
+        <!-- hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition: animation if needed -->
+        <div id="social-links" class="border-2 rounded-xl p-5 space-y-3">
+          <h4>Social</h4>
+          <ul class="grid grid-cols-2 gap-2">
+            <!-- if twitter_link exist -->
+
+            <!--end if -->
+            <a href="" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+              {% include 'icons/twitter.html' with class="h-8 w-8 mr-2 fill-white" %}  
+              <li>
+                Twitter
+              </li>
+            </a>
+            <a href="" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+              {% include 'icons/linkedin.html' with class="h-8 w-8 mr-2 fill-white " %}  
+              <li>
+                Linkedin
+              </li>
+            </a>
+            <a href="" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+              {% include 'icons/github.html' with class="h-8 w-8 mr-2 fill-white" %}
+              <li>
+                Github
+              </li>
+            </a>
+            <a href="" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+              {% include 'icons/website.html' with class="h-8 w-8 mr-2 fill-white"  %} 
+              <li>
+                Website
+              </li>
+            </a>
+          </ul>
+        </div>
+
       </div>
+
+      <!-- testing -->
+      <h3>Testing ground</h3>
+      {% for profile in profiles %}
+        <a href="{% url 'other_profile_page' profile.user.id %}" class="border-2">{{profile.first_name}}</a>
+      {% endfor %}
+
+      <!-- end of testing -->
   </div>
 </div>
 {% endblock content %}
