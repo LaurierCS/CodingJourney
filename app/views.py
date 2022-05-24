@@ -82,7 +82,7 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
-    tree_json = TreeQueries.getTrimmedTree() # todo: profile to function when update_ds_description is merged.
+    tree_json = TreeQueries.getTrimmedTree(request.user.profile) # todo: profile to function when update_ds_description is merged.
     # tech_roadmap = profile.tech_roadmap
 
     template_name = "app/dashboard.html"
@@ -305,7 +305,8 @@ class TreeQueries:
             skill["description"] = ds.description
             skill["experiences"] = list(ds.experience_set.all().values())
             for exp in skill["experiences"]:
-                exp['start_date'] = exp['start_date'].strftime("%m/%d/%Y")
+                if exp['start_date']:
+                    exp['start_date'] = exp['start_date'].strftime("%m/%d/%Y")
                 if exp["end_date"]:
                     exp['end_date'] = exp['end_date'].strftime("%m/%d/%Y")
             skill["proficiency_text"] = DesiredSkill.proficiency_choices[int(skill["proficiency"])][1]
