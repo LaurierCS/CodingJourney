@@ -1,3 +1,4 @@
+from tkinter import E
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
@@ -596,3 +597,25 @@ class SearchQueries:
             })
 
         return result
+
+class TargetedQueries:
+    def experienceGetter(request): 
+        if request.method == "POST":
+            return HttpResponseBadRequest("Does not accept POST requests.")
+
+        exp_id = request.GET.get("exp_id")
+
+        if exp_id is None:
+            return HttpResponseBadRequest("No experience ID given.")
+
+        try:
+            experience = Experience.objects.get(pk=exp_id)
+        except Experience.DoesNotExist:
+            return HttpResponseBadRequest("No element exists with id:" + exp_id)
+
+        context = {
+            "experience": experience,
+        }
+
+        return JsonResponse(context)
+    

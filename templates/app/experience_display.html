@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% csrf_token %}
+    <button type="button" class="px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out" 
+      data-bs-toggle="modal" data-bs-target="#exampleModal"
+      onclick="modalOpenBehaviour('experience-display-modal')">
+      Add Experience
+</button>
+<div 
+class = "
+    modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
+    left-0 z-50 w-full md:inset-0 h-full md:h-full flex justify-center items-center 
+    bg-gray-600 bg-opacity-50
+" 
+id="experience-display-modal"
+aria-hidden="true"
+style="">
+{% comment %} display: none  {% endcomment %}
+    <div 
+    class="modal modal-content border-4 shadow-lg relative w-[800px] h-[800px] flex 
+    flex-col h-full pointer-events-auto bg-clip-padding 
+    rounded-md outline-none text-current">
+        <div
+            class="
+            modal-header flex flex-shrink-0 items-center justify-between 
+            p-4 rounded-t-md">
+            <svg id="nsb_close" xmlns="http://www.w3.org/2000/svg" 
+            class="relative left-[740px] h-6 w-6 cursor-pointer text-gray-500 hover:text-white" 
+            onclick="modalCloseBehaviour('experience-display-modal')"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </div>
+        <div
+        class="px-[50px] pb-[30px] w-full h-full">
+            <div class="w-full flex justify-between">
+                <div 
+                class="experience-name">
+                    <h3 
+                    class="leading-normal" 
+                    id="exampleModalLabel">
+                    My Coding Journey
+                    </h3>
+                </div>
+                <div class="likes-icon pr-[15px]">
+                    9999 :)
+                </div>
+            </div>
+            <div
+            class="description pt-[20px]">
+                <h4
+                class="text-slate-400">
+                    Description
+                </h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque doloribus id accusantium omnis amet dolor facilis unde, saepe quidem deleniti laudantium voluptatem laborum velit magni quis architecto iste corporis laboriosam aut obcaecati magnam consequatur maiores vel. Vero, totam. Provident voluptatum fuga distinctio, nam delectus blanditiis eos! Officia quo sit laboriosam.
+                </p>
+            </div>
+            <div
+            class="tech-tag-container pt-[20px]">
+                <h4
+                class="text-slate-400">Skills</h4>
+                <div class="tech-tag tech-tag-blue p-2 ml-0">Python</div>
+                <div class="tech-tag tech-tag-green p-2">Django</div>
+                <div class="tech-tag tech-tag-orange p-2">Javascript</div>
+            </div>
+            <div
+            class="dates-container flex justify-between">
+                <div
+                class="start-date inline-block">
+                    <h4
+                    class="inline-block text-slate-400">Start Date:</h4>
+                    <div
+                    class="bg-slate-400/[.25] inline-block rounded-lg">
+                        <h4
+                        class=""> 12 April, 2022</h4>
+                    </div>
+                </div>
+                <div
+                class="end-date inline-block">
+                    <h4
+                    class="text-slate-400 inline-block ">End Date:</h4>
+                    <div
+                    class="bg-white opacity-10 inline-block rounded-lg">
+                        <h4
+                        class="text-white">18 April, 2022</h4>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="link pt-[20px]">
+                    <h4
+                    class="text-slate-400 inline-block ">Project Link</h4>
+                    <h5  class="text-slate-400"><a href="">https://linktoproject.me/</a></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

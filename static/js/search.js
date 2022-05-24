@@ -86,7 +86,7 @@
   }
 
   function showSearchResults(query_data) {
-    // clear all previous results
+    // clear all previous results 
     search_result_list.children().remove("[data-removable-result=\"true\"]");
 
     console.log(query_data)

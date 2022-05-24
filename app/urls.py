@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import testView
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -7,13 +8,12 @@ from django.conf import settings
 urlpatterns = [
     path('', views.langing_page, name="landing_page"),
     path('auth', views.authpage, name="auth_page"),
-
     path('dashboard', views.dashboard, name='dashboard_page'),
     path('summary', views.allexperiences, name="summary_page"),
     path('profilepage', views.profilepage, name="profile_page"),
     path('settings', views.settingspage, name="settings_page"),
     path('profile', views.profilepage, name="profile_page"),
-    path('search', views.SearchQueries.searchHandle, name="search_page"),
+    
 
     # ************************************************************
     # ENDPOINT URLS - FOR HANDLING DATA LIKE LOGIN AND REGISRATION
@@ -22,6 +22,8 @@ urlpatterns = [
     path('register', views.registration_handler, name="register"),
     path('logout', views.logout_handler, name="logout"),
     path('experience-handler', views.experience_input_handler, name="experience-handler"),
+    path('search', views.SearchQueries.searchHandle, name="search_page"),
+    path('experience-view-handler', views.TargetedQueries.experienceGetter, name="Experience Query"),
 
     # ************************************************************
     # Testing URLS - FOR Testing existing Functions
@@ -30,6 +32,7 @@ urlpatterns = [
     path('test-trimmed-tree', views.TreeQueries.getTrimmedTree, name="get-trimmed-tree"),
     path('experience-input', views.experience_input_handler, name="exp-input-test"),
     path('experience-list', views.allexperiences, name='experience-list'),
+    path('experience-display-modal', testView.experience_display_view , name='experience-list'),
 ]
 
 
