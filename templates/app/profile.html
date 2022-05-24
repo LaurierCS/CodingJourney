@@ -11,7 +11,7 @@
           <img src="{{request.user.profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2">
         </div>
         <div>
-          <h3 class="mb-5">{{request.user.username|title}}</h3>
+          <h3>{{request.user.username|title}}</h3>
           <a href="{% url 'settings_page' %}">
             <button class="button p-3">
               Edit Profile
@@ -35,7 +35,7 @@
           <h4>Extra Info</h4>
           <div>
             <p>📅 Member since {{request.user.profile.date_created}} </p>
-            <p>🔥 Number of experience: 4</p>
+            <p>🔥 Number of experience: {{num_exp}}</p>
           </div>
         </div>
 
@@ -50,7 +50,6 @@
           </p>
         </div>
 
-        <!-- hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition: animation if needed -->
         <div id="social-links" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Social</h4>
           {% if profile.twitter or profile.linkedin or profile.github or profile.website %}

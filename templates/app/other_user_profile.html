@@ -3,39 +3,193 @@
 {% block content %}
 <div class="h-full">
 
-  <div class=" bg-background h-full space-y-4">
-      <div id="profile" class="flex items-center justify-center space-x-10 pt-9">
+  <div class="bg-background h-full space-y-4 p-14">
+      <div id="profile" class="flex items-center justify-center space-x-10">
         <div id="pic-container" class="w-52">
           <img src="{{profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2">
+        </div>
+        <div>
+          <h3>{{profile.first_name | title}} {{profile.last_name | title}}</h3>
+          <p>{{profile.bio}}</p>
         </div>
       </div>
 
       <div id="grid" class="grid gap-8 grid-cols-2 p-20">
-        <div id="bio" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+        <div id="bio" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Biography</h4>
           <p class="break-words">
             {% if profile.bio %}
               {{profile.bio}}
             {% else %} 
-              {{profile.first_name}} do not have bio
+              {{profile.first_name}} don't have bio 😅
             {% endif %}
           </p>
         </div>
-        <div id="add-info" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+        <div id="add-info" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Extra Info</h4>
           <div id="created-time">
             <p>📅 Member since {{profile.date_created}}</p>
           </div>
           <div id="num-exp">
-            <p>🔥 Number of experience: 4</p>
+            <p>🔥 Number of experience: {{num_exp}}</p>
           </div>
         </div>
 
-        <div id="email" class="border-2 rounded-xl p-5 space-y-3 hover:bg-slate-300 hover:text-black hover:-translate-y-0.5 transform transition">
+        <div id="email" class="border-2 rounded-xl p-5 space-y-3">
           <h4>Email</h4>
-          <p class="break-words">{{profile.email}}</p>
+          <p class="break-words">
+            {% if profile.email %}
+              {{profile.email}}
+            {% else %}
+              {{profile.first_name}} don't have email 😅
+            {% endif %}
+          </p>
+        </div>
+
+        <div id="social-links" class="border-2 rounded-xl p-5 space-y-3">
+          <h4>Social</h4>
+          {% if profile.twitter or profile.linkedin or profile.github or profile.website %}
+            <ul class="grid grid-cols-2 gap-2">
+              <!-- if twitter_link exist -->
+              <!--end if -->
+              {% if profile.twitter %}
+                <a href="{{profile.twitter}}" target="_blank" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+                  {% include 'icons/twitter.html' with class="h-8 w-8 mr-2 fill-white" %}  
+                  <li>
+                    Twitter
+                  </li>
+                </a>
+              {% endif %}
+              {% if profile.linkedin %}
+                <a href="{{profile.linkedin}}" target="_blank" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+                  {% include 'icons/linkedin.html' with class="h-8 w-8 mr-2 fill-white " %}  
+                  <li>
+                    Linkedin
+                  </li>
+                </a>
+              {% endif %}
+              {% if profile.github %}
+                <a href="{{profile.github}}" target="_blank" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+                  {% include 'icons/github.html' with class="h-8 w-8 mr-2 fill-white" %}
+                  <li>
+                    Github
+                  </li>
+                </a>
+              {% endif %}
+              {% if profile.website %}
+                <a href="{{profile.website}}" target="_blank" class="flex items-center w-4/6 hover:-translate-y-0.5 transform transition opacity-50 hover:opacity-100">
+                  {% include 'icons/website.html' with class="h-8 w-8 mr-2 fill-white"  %} 
+                  <li>
+                    Website
+                  </li>
+                </a>
+              {% endif %}
+            </ul>
+          {% else %}
+            <p>Add your online precense in settings🤩🤩</p>
+          {% endif %}
         </div>
       </div>
-  </div>
+      <!-- for experience in experiences
+              experience
+          endfor
+      -->
+      <h3>Experiences</h3>
+      <div id="cards-container" class="grid grid-flow-col auto-cols-[55%] gap-3 overflow-x-auto overscroll-x-contain">
+          <div id="card-container">
+            <div class="top-card border-2 rounded-xl bg-[url('/static/images/journey_image.jpg')] bg-no-repeat bg-cover bg-center h-[250px] cursor-pointer relative">
+              <p class="absolute top-3 left-3">(Kind of Experience)</p>
+              <p class="absolute bottom-3 left-3">(Name)</p>
+              <div class="absolute bottom-3 right-3">
+                {% include 'icons/heart.html' with class="h-8 w-8 cursor-pointer" %}            
+              </div>
+            </div>
+            <div class="bottom-card max-h-0 overflow-hidden bg-rice-white text-black">
+              <div class="p-4 text-center">
+                <span class="inline-block">(description)</span>
+                <div class="grid grid-cols-2 border-2">
+                  <div id="tech">
+                    <h3>tech used</h3>
+                    <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))]">
+                      {% include 'components/marker.html' with marker_name="HTML" marker_color="bg-red-700"%}
+                      {% include 'components/marker.html' with marker_name="CSS" marker_color="bg-blue-700"%}
+                      {% include 'components/marker.html' with marker_name="JavaScript" marker_color="bg-yellow-700"%}
+                    </div>
+                  </div>
+                  <div id="link">
+                    <p>Link</p>
+                    <p>No link</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="card-container">
+            <div class="top-card border-2 rounded-xl bg-[url('/static/images/journey_image.jpg')] bg-no-repeat bg-cover bg-center h-[250px] cursor-pointer relative">
+              <p class="absolute top-3 left-3">(Kind of Experience)</p>
+              <p class="absolute bottom-3 left-3">(Name)</p>
+              <div class="absolute bottom-3 right-3">
+                {% include 'icons/heart.html' with class="h-8 w-8 cursor-pointer" %}            
+              </div>
+            </div>
+            <div class="bottom-card max-h-0 overflow-hidden bg-rice-white text-black">
+              <div class="p-4 text-center">
+                <span class="inline-block">(description)</span>
+                <div class="grid grid-cols-2 border-2">
+                  <div id="tech">
+                    <h3>tech used</h3>
+                    <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))]">
+                      {% include 'components/marker.html' with marker_name="HTML" marker_color="bg-red-700"%}
+                      {% include 'components/marker.html' with marker_name="CSS" marker_color="bg-blue-700"%}
+                      {% include 'components/marker.html' with marker_name="JavaScript" marker_color="bg-yellow-700"%}
+                    </div>
+                  </div>
+                  <div id="link">
+                    <p>Link</p>
+                    <p>No link</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="card-container">
+            <div class="top-card border-2 rounded-xl bg-[url('/static/images/journey_image.jpg')] bg-no-repeat bg-cover bg-center h-[250px] cursor-pointer relative">
+              <p class="absolute top-3 left-3">(Kind of Experience)</p>
+              <p class="absolute bottom-3 left-3">(Name)</p>
+              <div class="absolute bottom-3 right-3">
+                {% include 'icons/heart.html' with class="h-8 w-8 cursor-pointer" %}            
+              </div>
+            </div>
+            <div class="bottom-card max-h-0 overflow-hidden bg-rice-white text-black">
+              <div class="p-4 text-center">
+                <span class="inline-block">(description)</span>
+                <div class="grid grid-cols-2 border-2">
+                  <div id="tech">
+                    <h3>tech used</h3>
+                    <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))]">
+                      {% include 'components/marker.html' with marker_name="HTML" marker_color="bg-red-700"%}
+                      {% include 'components/marker.html' with marker_name="CSS" marker_color="bg-blue-700"%}
+                      {% include 'components/marker.html' with marker_name="JavaScript" marker_color="bg-yellow-700"%}
+                    </div>
+                  </div>
+                  <div id="link">
+                    <p>Link</p>
+                    <p>No link</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+        
 </div>
+
+<script>
+  let topcards = document.querySelectorAll('.top-card');
+  console.log(topcards);
+
+  for(let i=0; i < topcards.length; i++) {
+    topcards[i].addEventListener('click', openCard);
+  }
+</script>
 {% endblock content %}

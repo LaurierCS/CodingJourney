@@ -118,7 +118,7 @@ def profilepage(request):
     page_header = ""
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
-
+    num_exp = len(Experience.objects.filter(profile=profile))
     # testing for getting other user profile
     profiles = Profile.objects.all()
 
@@ -128,16 +128,21 @@ def profilepage(request):
         "page_header": page_header,
         "profile":profile,
         "profiles": profiles,
+        "num_exp": num_exp,
     }
     return render(request, template_name, context)
 
 @login_required(login_url='auth_page')
 def otherprofilepage(request, pk):
     profile = Profile.objects.get(id=pk)
+    experiences = Experience.objects.filter(profile=profile)
+    num_exp = len(experiences)
 
     template_name = "app/other_user_profile.html"
     context = {
-        "profile":profile
+        "profile":profile,
+        "experiences": experiences,
+        "num_exp":num_exp,
     }
     return render(request, template_name, context)
 

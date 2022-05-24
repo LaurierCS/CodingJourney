@@ -28,76 +28,75 @@
             <label for="id_first_name" class="text-[25px]">
               {{setting_form.first_name.label | title}}
             </label>
+            {{setting_form.first_name}}
           </div>
-          {{setting_form.first_name}}
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_last_name" class="text-[25px]">
               {{setting_form.last_name.label | title}}
             </label>
+            {{setting_form.last_name}}
           </div>
-          {{setting_form.last_name}}
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_email" class="text-[25px]">
               {{setting_form.email.label | title}}
             </label>
+            {{setting_form.email}}
           </div>
-          {{setting_form.email}}
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_bio" class="text-[25px]">
               {{setting_form.twitter.label | title}}
             </label>
+            {{setting_form.twitter}}
           </div>
-          {{setting_form.twitter}}
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_bio" class="text-[25px]">
               {{setting_form.github.label | title}}
             </label>
+            {{setting_form.github}}
           </div>
-          {{setting_form.github}}
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_bio" class="text-[25px]">
               {{setting_form.linkedin.label | title}}
             </label>
-          </div>
           {{setting_form.linkedin}}
+          </div>
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_bio" class="text-[25px]">
               {{setting_form.website.label | title}}
             </label>
-          </div>
           {{setting_form.website}}
+          </div>
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_image" class="text-[25px]">
               {{setting_form.image.label | title}}
             </label>
-            
+            <div id="pic-container" class="w-44">
+              <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full m-2">
+            </div>
+            {{setting_form.image}}
           </div>
-          <div id="pic-container" class="w-44">
-            <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full m-2">
-          </div>
-          {{setting_form.image}}
         </div>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_bio" class="text-[25px]">
               {{setting_form.bio.label | title}}
             </label>
+            {{setting_form.bio}}
           </div>
-          {{setting_form.bio}}
         </div>
 
         <button type="submit" class="button">Save</button>
