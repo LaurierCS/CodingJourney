@@ -13,7 +13,8 @@ class NodeSideBar {
     "#nsb_experience_base",
     "#nsb_proficiency_menu",
     "#nsb_proficiency_arrow",
-    "#nsb_proficiency_toggle"
+    "#nsb_proficiency_toggle",
+    "#nsb_proficiency_list"
   ];
 
   constructor(element_id) {
