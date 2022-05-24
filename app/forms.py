@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput
+from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput, URLInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -81,8 +81,8 @@ class UserSettingForm(ModelForm):
       attrs={
         'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'placeholder': 'Write your first name here...',
-        }
-      )
+        },
+      ),
     )
   last_name = forms.CharField(
     label='last name',
@@ -91,19 +91,61 @@ class UserSettingForm(ModelForm):
         'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'placeholder': 'Write your last name here...',
         }
-      )
+      ),
     )
   email = forms.EmailField(
     label='email address',
     widget=forms.EmailInput(
       attrs={
-        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500'
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'Write your email here...'
         }
-      )
+      ), 
+      required=False,
     )
+  twitter = forms.URLField(
+    label='twitter',
+    widget=forms.URLInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'https://twitter.com/<username>'
+      },
+    ),
+     required=False,
+  )
+  linkedin = forms.URLField(
+    label='linkedin',
+    widget=forms.URLInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'https://www.linkedin.com/in/<username>'
+      }
+    ),
+    required=False,
+  )
+  github = forms.URLField(
+    label='github',
+    widget=forms.URLInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'https://github.com/<username>'
+      }
+    ),
+    required=False,
+  )
+  website = forms.URLField(
+    label='website',
+    widget=forms.URLInput(
+      attrs={
+        'class': 'input my-4 px-3 placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
+        'placeholder': 'Place your own website url here...'
+      }
+    ),
+    required=False,
+  )
   image = forms.ImageField(
     label='Upload image',
-    widget=forms.ClearableFileInput()
+    widget=forms.ClearableFileInput(),required=False,
   )
   bio = forms.CharField(
     label='Biography',
@@ -112,9 +154,12 @@ class UserSettingForm(ModelForm):
         'class':'input bg-transparent border-2 rounded-xl overflow-hidden min-h-[100px] my-4 px-3 resize-none box-bordere w-full placeholder-gray-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500',
         'rows': '4',
         'placeholder': 'Boast about yourself😎'
-        })
+        }),
+        required = False,
     )
+
 
 class SearchQueryForm(forms.Form):
   search_query = forms.CharField(required=True)
   search_scope = forms.CharField(required=True)
+
