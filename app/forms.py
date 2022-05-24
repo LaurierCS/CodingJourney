@@ -115,8 +115,12 @@ class UserSettingForm(ModelForm):
         })
     )
 
-    fields = ['email', 'image', 'bio']
+  fields = ['email', 'image', 'bio']
 
 class SearchQueryForm(forms.Form):
   search_query = forms.CharField(required=True)
   search_scope = forms.CharField(required=True)
+
+class UpdateDesiredSkillDescriptionForm(forms.Form):
+  description = forms.CharField(widget=forms.Textarea())
+  skill_name = forms.CharField(widget=forms.TextInput())

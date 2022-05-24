@@ -10,7 +10,10 @@ class NodeSideBar {
     "#nsb_description_form",
     "#nsb_description",
     "#nsb_experience_list",
-    "#nsb_experience_base"
+    "#nsb_experience_base",
+    "#nsb_proficiency_menu",
+    "#nsb_proficiency_arrow",
+    "#nsb_proficiency_toggle"
   ];
 
   constructor(element_id) {
@@ -51,6 +54,8 @@ class NodeSideBar {
 
     this._nsb_elements["nsb_description_form"].submit(this._submit_description.bind(this));
 
+    this._nsb_elements["nsb_proficiency_toggle"].click(this._toggle_proficiency_menu.bind(this))
+
     $.valHooks.textarea = {
       get(el) {
         return el.value.replace(/\r?\n/g, "\r\n")
@@ -59,15 +64,38 @@ class NodeSideBar {
 
     this._description = this._nsb_elements["nsb_description"].val();
     this._current_info = null;
-    this._profieciency_total = 5;
-    this._profieciency = 0;
+    this._proficiency_total = 5;
+    this._proficiency = 0;
+    this._proficiency_levels = [
+      "Aiming to Learn",
+      "Some Understanding",
+      "Some Proficiency",
+      "Capable",
+      "Able to Use Professionally",
+      "Expert",
+      ]
 
-    this._nsb_elements["nsb_proficiency_bar"].width((this._profieciency/this._profieciency_total*100).toString()+"%")
+    this._nsb_elements["nsb_proficiency_bar"].width((this._proficiency/this._proficiency_total*100).toString()+"%")
 
     this.is_opened = false;
 
     // hide sidebar by default
     this.hide();
+  }
+
+  _toggle_proficiency_menu() {
+    this._nsb_elements["nsb_proficiency_arrow"].toggleClass("rotate-180");
+    this._nsb_elements["nsb_proficiency_menu"].toggleClass("scale-y-0");
+
+    if (this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true") {
+      this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "false")
+    } else {
+      this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "true")
+    }
+  }
+
+  _adjust_proficiency() {
+
   }
 
   _submit_description(e) {
@@ -81,6 +109,13 @@ class NodeSideBar {
       method: "POST",
       body: formData
     })
+      .then((res) => {
+        if (res.status === 200) {
+          // update the node description data to the updated description once we get
+          // a successful status.
+          this._current_info.data.description = this._description;
+        }
+      })
       .catch(e => console.error(e)) // todo: show update failed message to user
   }
 
@@ -142,8 +177,8 @@ class NodeSideBar {
   }
 
   _set_new_progress_length(node) {
-    this._profieciency = node.data.proficiency ?? 0;
-    this._nsb_elements["nsb_proficiency_bar"].width((this._profieciency/this._profieciency_total*100).toString()+"%")
+    this._proficiency = node.data.proficiency ?? 0;
+    this._nsb_elements["nsb_proficiency_bar"].width((this._proficiency/this._proficiency_total*100).toString()+"%")
   }
 
   update_content(node) {
@@ -169,6 +204,11 @@ class NodeSideBar {
 
     // create experiences list
     this._create_experiences(node);
+
+    // close the proficiency menu if is active when updating content.
+    if (this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true") {
+      this._toggle_proficiency_menu()
+    }
   }
 
   show(d) {
