@@ -1,7 +1,8 @@
 {% load static %}
 <div class="projectCardContainer" id="proj-card-{{project.id}}">
     <div class="
-        condensed_card grid grid-cols-3 
+        condensed_card grid 
+        {% if type == "skill_search_click"%} grid-cols-4 {% else %} grid-cols-3 {% endif %}
         bg-slate-600 bg-opacity-[30%] 
         rounded-md my-1.5 align-middle mx-2 p-0
         pt-2 pb-2
