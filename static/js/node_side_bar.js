@@ -339,7 +339,8 @@ class NodeSideBar {
     if (this.is_editable && !this._toggle_edit()) return;
     
     this._current_info = node;
-    this._nsb_elements["nsb_image"].attr("src", "/" + node.data.icon_HREF)
+    // this._nsb_elements["nsb_image"].attr("src", "/" + node.data.icon_HREF)
+    this._nsb_elements["nsb_image"].attr("src", "/static/images/svg/badge.svg")
     this._nsb_elements["nsb_name"].text(node.data.name)
 
     this._nsb_elements["nsb_description"].val(node.data.description)
