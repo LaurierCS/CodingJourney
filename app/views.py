@@ -1,15 +1,6 @@
-<<<<<<< HEAD
 # DJANGO IMPORTS
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-||||||| 79b1c99
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
-=======
-from tkinter import E
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
->>>>>>> fff98abeffea3077d1c2e7a51360e172339df1f7
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.core import serializers
