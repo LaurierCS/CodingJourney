@@ -137,6 +137,14 @@
       </div>
     </section>
   </main>
+  <div 
+    id="nsb_error_overlay"
+    class="bg-slate-500/50 absolute top-0 left-0 right-0 bottom-0 z-10 flex items-center justify-center hidden">
+    <div class="p-6 bg-background rounded-md">
+      <p class="py-3">Could not update changes.</p>
+      <button id="nsb_close_overlay_button" class="button button-transition">Close</button>
+    </div>
+  </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/node_side_bar.js' %}"></script>

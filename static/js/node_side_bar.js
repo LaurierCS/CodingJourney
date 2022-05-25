@@ -15,6 +15,8 @@ class NodeSideBar {
     "#nsb_proficiency_arrow",
     "#nsb_proficiency_toggle",
     "#nsb_proficiency_list",
+    "#nsb_error_overlay",
+    "#nsb_close_overlay_button",
   ];
 
   constructor(element_id) {
@@ -36,14 +38,18 @@ class NodeSideBar {
     if (this._nsb.lenght < 1)
       throw Error("Could not find SideBar with id: " + this._element_id);
 
-    this._nsb_elements = {}
+    this._nsb_elements = {};
 
     for (let id of this.NODE_SIDE_BAR_IDS) {
-      let el = this._nsb.find(id)
+      let el = this._nsb.find(id);
       if (el.length > 0) {
-        this._nsb_elements[id.replace("#", "")] = el
+        this._nsb_elements[id.replace("#", "")] = el;
       } else {
-        console.warn("NodeSideBar: Required element missing with id: " + id + " . Updating content related to that element won't be possible.")
+        console.warn(
+          "NodeSideBar: Required element missing with id: " +
+            id +
+            " . Updating content related to that element won't be possible."
+        );
       }
     }
 
@@ -53,23 +59,33 @@ class NodeSideBar {
 
     this._nsb_elements["nsb_save"].click(this._save.bind(this));
 
-    this._nsb_elements["nsb_description_form"].submit(this._submit_changes.bind(this));
+    this._nsb_elements["nsb_description_form"].submit(
+      this._submit_changes.bind(this)
+    );
 
-    this._nsb_elements["nsb_proficiency_toggle"].click(this._toggle_proficiency_menu.bind(this))
-    
-    this._nsb_elements["nsb_proficiency_list"].children().click(this._onselect_proficiency.bind(this));
+    this._nsb_elements["nsb_proficiency_toggle"].click(
+      this._toggle_proficiency_menu.bind(this)
+    );
+
+    this._nsb_elements["nsb_proficiency_list"]
+      .children()
+      .click(this._onselect_proficiency.bind(this));
+
+    this._nsb_elements["nsb_close_overlay_button"].click(
+      this._toggle_error_overlay.bind(this)
+    );
 
     $.valHooks.textarea = {
       get(el) {
-        return el.value.replace(/\r?\n/g, "\r\n")
-      }
-    }
+        return el.value.replace(/\r?\n/g, "\r\n");
+      },
+    };
 
     this._description = this._nsb_elements["nsb_description"].val();
 
     // points to the current node data, same object as a descendant from the tree data.
     this._current_info = null;
-    
+
     // track changes in proficiency, prevent submittion of form if selected proficiency is the same as orignal
     this._proficiency = 0;
     this._original_proficiency = this._proficiency;
@@ -84,9 +100,9 @@ class NodeSideBar {
       "Capable",
       "Able to Use Professionally",
       "Expert",
-    ]
+    ];
 
-    this._set_new_progress_length(this._proficiency)
+    this._set_new_progress_length(this._proficiency);
 
     this.is_opened = false;
     this.is_editable = false;
@@ -95,41 +111,49 @@ class NodeSideBar {
     this.hide();
   }
 
+  _toggle_error_overlay() {
+    this._nsb_elements["nsb_error_overlay"].toggleClass("hidden");
+  }
+
   /**
    * Toggles the proficiency menu.
-   * @returns 
+   * @returns
    */
   _toggle_proficiency_menu() {
-
     if (!this.is_editable) return;
 
     // toggle animation
     this._nsb_elements["nsb_proficiency_arrow"].toggleClass("rotate-180");
     this._nsb_elements["nsb_proficiency_menu"].toggleClass("scale-y-0");
 
-    if (this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true") {
-      this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "false")
+    if (
+      this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true"
+    ) {
+      this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "false");
     } else {
-      this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "true")
+      this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "true");
     }
   }
 
   /**
    * Updates the proficiency text and proficiency bar when a new proficiency is selected.
-  * ! THIS METHOD DOES NOT SUBMIT ANY DATA TO THE BACKEND FOR UPDATE !
-   * @param {Event} e 
-   * @returns 
+   * ! THIS METHOD DOES NOT SUBMIT ANY DATA TO THE BACKEND FOR UPDATE !
+   * @param {Event} e
+   * @returns
    */
   _onselect_proficiency(e) {
-    const clicked_item = this._nsb_elements['nsb_proficiency_list'].find(e.target)
-    const selected_proficiency = parseInt(clicked_item.attr("data-proficiency-value"))
-    
-    // same proficiency
-    if (selected_proficiency === this._proficiency) 
-      return;
+    const clicked_item = this._nsb_elements["nsb_proficiency_list"].find(
+      e.target
+    );
+    const selected_proficiency = parseInt(
+      clicked_item.attr("data-proficiency-value")
+    );
 
-    this._set_proficiency_text(clicked_item.attr("data-proficiency-text"))
-    this._set_new_progress_length(selected_proficiency)
+    // same proficiency
+    if (selected_proficiency === this._proficiency) return;
+
+    this._set_proficiency_text(clicked_item.attr("data-proficiency-text"));
+    this._set_new_progress_length(selected_proficiency);
   }
 
   /**
@@ -137,16 +161,17 @@ class NodeSideBar {
    * @returns {{body: FormData, url: string, method: string}}
    */
   _get_form() {
-
-    const form_data = new FormData(this._nsb_elements["nsb_description_form"][0]);
-    form_data.append("skill_name", this._current_info.data.name)
-    form_data.append("proficiency", this._proficiency.toString())
+    const form_data = new FormData(
+      this._nsb_elements["nsb_description_form"][0]
+    );
+    form_data.append("skill_name", this._current_info.data.name);
+    form_data.append("proficiency", this._proficiency.toString());
 
     const obj = {
       body: form_data,
       url: this._nsb_elements["nsb_description_form"].attr("action"),
       method: this._nsb_elements["nsb_description_form"].attr("method"),
-    }
+    };
 
     return obj;
   }
@@ -154,7 +179,7 @@ class NodeSideBar {
   /**
    * Submits form with new values to backend.
    * Will reset description and proficiency on fail.
-   * @param {Event} e 
+   * @param {Event} e
    */
   _submit_changes(e) {
     e.preventDefault();
@@ -162,7 +187,7 @@ class NodeSideBar {
 
     fetch(form.url, {
       method: form.method,
-      body: form.body
+      body: form.body,
     })
       .then((res) => res.json())
       .then((new_data) => {
@@ -172,18 +197,24 @@ class NodeSideBar {
         this._current_info.data.description = this._description;
         this._current_info.data.proficiency = new_data.proficiency;
         this._current_info.data.proficiency_text = new_data.proficiency_text;
-        this._original_proficiency = this._set_new_progress_length(new_data.proficiency)
-        this._original_proficiency_text = this._set_proficiency_text(new_data.proficiency_text)
-        
-        this._toggle_edit();
+        this._original_proficiency = this._set_new_progress_length(
+          new_data.proficiency
+        );
+        this._original_proficiency_text = this._set_proficiency_text(
+          new_data.proficiency_text
+        );
       })
-      .catch(e => {
-        console.error(e)
-        
+      .catch((e) => {
+        console.error(e);
+
         // reset all values
         this._reset_values();
 
-        // todo: show update failed message to user
+        // open error overlay
+        this._toggle_error_overlay();
+      })
+      .finally(() => {
+        this._toggle_edit();
       });
   }
 
@@ -193,7 +224,9 @@ class NodeSideBar {
   _save() {
     // only submit if there was actual change
     if (this._has_changes()) {
-      this._nsb_elements["nsb_description_form"].submit()
+      this._nsb_elements["nsb_description_form"].submit();
+    } else {
+      this._toggle_edit();
     }
   }
 
@@ -204,9 +237,12 @@ class NodeSideBar {
    * @returns {boolean} true if edit mode was toggled successfully, false otherwise.
    */
   _toggle_edit() {
-    if (this._nsb_elements["nsb_description"].attr("readonly") && !this.is_editable) {
-      this._nsb_elements["nsb_description"].removeAttr("readonly")
-      this._nsb_elements["nsb_description"].focus()
+    if (
+      this._nsb_elements["nsb_description"].attr("readonly") &&
+      !this.is_editable
+    ) {
+      this._nsb_elements["nsb_description"].removeAttr("readonly");
+      this._nsb_elements["nsb_description"].focus();
     } else {
       // check if the description has changed or not
       if (this._has_changes() && !this._confirm_exit()) {
@@ -216,10 +252,10 @@ class NodeSideBar {
       // saving, then reset all values
       this._reset_values();
     }
-    
-    this._nsb_elements["nsb_save"].toggle()
+
+    this._nsb_elements["nsb_save"].toggle();
     this._nsb_elements["nsb_proficiency_arrow"].toggleClass("hidden");
-    this._nsb_elements["nsb_proficiency_toggle"].toggleClass("cursor-pointer")
+    this._nsb_elements["nsb_proficiency_toggle"].toggleClass("cursor-pointer");
     this.is_editable = !this.is_editable;
 
     return true;
@@ -239,8 +275,8 @@ class NodeSideBar {
   /**
    * Creates a list of experiences of the selected skill.
    * Elements are auto appended into the DOM.
-   * @param {descendant} node A descendant object from d3.js 
-   * @returns 
+   * @param {descendant} node A descendant object from d3.js
+   * @returns
    */
   _create_experiences(node) {
     if (this._nsb_elements["nsb_experience_list"].children().length > 0) {
@@ -250,20 +286,20 @@ class NodeSideBar {
 
     if (!node.data.experiences) return;
 
-    for (let i=0;i<node.data.experiences.length;i++) {
-      let clone = this._nsb_elements["nsb_experience_base"].clone()
-      clone.removeClass("hidden")
+    for (let i = 0; i < node.data.experiences.length; i++) {
+      let clone = this._nsb_elements["nsb_experience_base"].clone();
+      clone.removeClass("hidden");
       clone
         .find("#nsb_experience_name")
         .text(node.data.experiences[i].name)
-        .attr("id", `nsb_experience_index_${node.data.experiences[i].id}`)
-      
+        .attr("id", `nsb_experience_index_${node.data.experiences[i].id}`);
+
       clone
         .find("#nsb_experience_link")
         .attr("data-experience-id", node.data.experiences[i].id)
         .attr("data-experience-href", node.data.experiences[i].project_link)
         .attr("href", node.data.experiences[i].project_link)
-        .attr("id", `nsb_experience_link_${node.data.experiences[i].id}`)
+        .attr("id", `nsb_experience_link_${node.data.experiences[i].id}`);
       this._nsb_elements["nsb_experience_list"].append(clone);
     }
   }
@@ -272,7 +308,7 @@ class NodeSideBar {
    * Sets the progress bar under the proficiency section.
    * Updates the property `this._proficiency` as well.
    * @param {descendant|number} node_or_number A descendant object(from d3.js) or a number
-   * @returns 
+   * @returns
    */
   _set_new_progress_length(node_or_number) {
     if (typeof node_or_number === "number") {
@@ -281,7 +317,9 @@ class NodeSideBar {
       this._proficiency = node_or_number.data.proficiency ?? 0;
     }
 
-    this._nsb_elements["nsb_proficiency_bar"].width((this._proficiency/this._proficiency_total*100).toString()+"%")
+    this._nsb_elements["nsb_proficiency_bar"].width(
+      ((this._proficiency / this._proficiency_total) * 100).toString() + "%"
+    );
 
     return this._proficiency;
   }
@@ -309,7 +347,10 @@ class NodeSideBar {
    * @returns {boolean}
    */
   _has_changes() {
-    return this._description !== this._nsb_elements["nsb_description"].val() || this._original_proficiency !== this._proficiency
+    return (
+      this._description !== this._nsb_elements["nsb_description"].val() ||
+      this._original_proficiency !== this._proficiency
+    );
   }
 
   /**
@@ -322,8 +363,8 @@ class NodeSideBar {
 
   /**
    * Updates the contents of the side bar.
-   * @param {descendant} node A descendant object from d3.js 
-   * @returns 
+   * @param {descendant} node A descendant object from d3.js
+   * @returns
    */
   update_content(node) {
     if (node === undefined || node === null) {
@@ -337,14 +378,14 @@ class NodeSideBar {
      * This ensures that any changes that the user was making is not lost by misclicking another skill on the tree.
      */
     if (this.is_editable && !this._toggle_edit()) return;
-    
+
     this._current_info = node;
     // this._nsb_elements["nsb_image"].attr("src", "/" + node.data.icon_HREF)
-    this._nsb_elements["nsb_image"].attr("src", "/static/images/svg/badge.svg")
-    this._nsb_elements["nsb_name"].text(node.data.name)
+    this._nsb_elements["nsb_image"].attr("src", "/static/images/svg/badge.svg");
+    this._nsb_elements["nsb_name"].text(node.data.name);
 
-    this._nsb_elements["nsb_description"].val(node.data.description)
-    this._description = this._nsb_elements["nsb_description"].val()
+    this._nsb_elements["nsb_description"].val(node.data.description);
+    this._description = this._nsb_elements["nsb_description"].val();
 
     this._original_proficiency_text = this._set_proficiency_text(node);
 
@@ -354,15 +395,17 @@ class NodeSideBar {
     this._create_experiences(node);
 
     // close the proficiency menu if is active when updating content.
-    if (this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true") {
-      this._toggle_proficiency_menu()
+    if (
+      this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true"
+    ) {
+      this._toggle_proficiency_menu();
     }
   }
 
   /**
    * Shows the sidebar. Slide in animation from right -> left.
-   * @param {descendant} d A descendant object from d3.js 
-   * @returns 
+   * @param {descendant} d A descendant object from d3.js
+   * @returns
    */
   show(d) {
     if (d && d === this._current_info && this.is_opened) {
@@ -370,17 +413,17 @@ class NodeSideBar {
     }
     // update content first
     if (d) {
-      this.update_content(d)
+      this.update_content(d);
     }
     // show
-    this._nsb.removeClass("translate-x-full")
+    this._nsb.removeClass("translate-x-full");
     this.is_opened = true;
   }
 
   /**
    * Hides the sidebar. SLide out animation from left -> right.
    * Will ask for confirmation before exit if changes detected.
-   * @returns 
+   * @returns
    */
   hide() {
     // already hidden
@@ -392,7 +435,7 @@ class NodeSideBar {
       return;
     }
 
-    this._nsb.addClass("translate-x-full")
+    this._nsb.addClass("translate-x-full");
     this.is_opened = false;
   }
 }
