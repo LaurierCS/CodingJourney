@@ -70,22 +70,38 @@
       focus:outline-none;
     background-color: var(--background)
   }
+  
+  /* 
+  Scroll bar design is different across browsers.
+  There is a need to define several rules for cross compatibility and future proof.
+  The entire website will have the same styling for the scroll bar which makes maintainance a lot easier.
+  Sine using the `*` selector also affects the html element, the usual scroll bar on the right side of a web page,
+  is also affected.
+  */
 
-  input[type="range"] {
+  /* 
+  Chrome, Edge, and Safari Scroll Bar Rules
+  */
+  *::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  *::-webkit-scrollbar-track {
+    @apply bg-background rounded-full;
+  }
+  
+  *::-webkit-scrollbar-thumb {
     @apply 
-      appearance-none
-      w-full h-3
-      bg-[#3d488b]
       rounded-full
-    ;
+      bg-secondary;
   }
 
-  input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb {
-    @apply appearance-none w-5 h-5 rounded-full bg-primary cursor-pointer border-none;
-  }
-
-  input[type="range"]::-moz-range-progress, input[type="range"]::-webkit-slider-runnable-track {
-    @apply bg-secondary h-full rounded-full;
+  /* 
+  Firefox Scroll Bar Rules
+  */
+  * {
+    scrollbar-color: var(--secondary) var(--background);
+    @apply scroll-smooth;
   }
 }
 
