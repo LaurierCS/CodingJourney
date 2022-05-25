@@ -94,121 +94,23 @@
               experience
           endfor
       -->
-      <h3 class="text-center">Experiences</h3>
+      <h3 class="text-center mb-3">Experiences</h3>
       <div id="cards-container" class="grid grid-flow-col auto-cols-[55%] gap-3 overflow-x-auto overscroll-x-contain">
-          <div id="card-container">
-            <div class="top-card border-2 rounded-xl bg-[url('/static/images/journey_image.jpg')] bg-no-repeat bg-cover bg-center h-[250px] cursor-pointer relative">
-              <p class="absolute bottom-3 left-3">(Name)</p>
-              <div class="absolute bottom-3 right-3">
-                {% include 'icons/heart.html' with class="h-8 w-8 cursor-pointer" %}            
-              </div>
-            </div>
-            <div class="bottom-card max-h-0 overflow-hidden bg-rice-white text-black">
-              <div class="p-4 text-center">
-                <span class="inline-block">(description)</span>
-                <div class="grid grid-cols-2 border-2">
-                  <div id="tech">
-                    <h3>tech used</h3>
-                    <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))]">
-                      {% include 'components/marker.html' with marker_name="HTML" marker_color="bg-red-700"%}
-                      {% include 'components/marker.html' with marker_name="CSS" marker_color="bg-blue-700"%}
-                      {% include 'components/marker.html' with marker_name="JavaScript" marker_color="bg-yellow-700"%}
-                    </div>
-                  </div>
-                  <div id="link">
-                    <p>Link</p>
-                    <p>No link</p>
-                  </div>
-                </div>
-              </div>
+        {% for exp in experiences %}
+        <div id="card-container"
+        onclick="exp_getter('{{ exp.id }}' ,'experience-display-modal')"
+        >
+          <div class="top-card border-2 rounded-xl bg-[url('/static/images/journey_image.jpg')] bg-no-repeat bg-cover bg-center h-[250px] cursor-pointer relative">
+            <p class="absolute bottom-3 left-3 line-clamp-1">{{ exp.name }}</p>
+            <div class="absolute bottom-3 right-3">
+              {% include 'icons/heart.html' with class="h-8 w-8 cursor-pointer" %}            
             </div>
           </div>
+        </div>
+        {% endfor %}
       </div>
-      <!-- testing: modal -->
 
-      <div 
-      class="modal modal-content border-4 shadow-lg w-[800px] h-[800px] flex 
-      flex-col pointer-events-auto bg-clip-padding 
-      rounded-md outline-none text-current absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 z-40 scale-0"> 
-      <!-- scale-0 -> scale-1 if active --> 
-        <div
-            class="
-            modal-header flex flex-shrink-0 items-center justify-between 
-            p-4 rounded-t-md">
-            <svg id="nsb_close" xmlns="http://www.w3.org/2000/svg" 
-            class="relative left-[740px] h-6 w-6 cursor-pointer text-gray-500 hover:text-white" 
-            onclick="modalCloseBehaviour('experience-display-modal')"
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </div>
-        <div
-        class="px-[50px] pb-[30px] w-full h-full">
-            <div class="w-full flex justify-between">
-                <div 
-                class="experience-name">
-                    <h3 
-                    class="leading-normal" 
-                    id="exampleModalLabel">
-                    My Coding Journey
-                    </h3>
-                </div>
-                <div class="likes-icon pr-[15px]">
-                    9999 :)
-                </div>
-            </div>
-            <div
-            class="description pt-[20px]">
-                <h4
-                class="text-slate-400">
-                    Description
-                </h4>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque doloribus id accusantium omnis amet dolor facilis unde, saepe quidem deleniti laudantium voluptatem laborum velit magni quis architecto iste corporis laboriosam aut obcaecati magnam consequatur maiores vel. Vero, totam. Provident voluptatum fuga distinctio, nam delectus blanditiis eos! Officia quo sit laboriosam.
-                </p>
-            </div>
-            <div
-            class="tech-tag-container pt-[20px]">
-                <h4
-                class="text-slate-400">Skills</h4>
-                <div class="tech-tag tech-tag-blue p-2 ml-0">Python</div>
-                <div class="tech-tag tech-tag-green p-2">Django</div>
-                <div class="tech-tag tech-tag-orange p-2">Javascript</div>
-            </div>
-            <div
-            class="dates-container flex justify-between">
-                <div
-                class="start-date inline-block">
-                    <h4
-                    class="inline-block text-slate-400">Start Date:</h4>
-                    <div
-                    class="bg-slate-400/[.25] inline-block rounded-lg">
-                        <h4
-                        class=""> 12 April, 2022</h4>
-                    </div>
-                </div>
-                <div
-                class="end-date inline-block">
-                    <h4
-                    class="text-slate-400 inline-block ">End Date:</h4>
-                    <div
-                    class="bg-white opacity-10 inline-block rounded-lg">
-                        <h4
-                        class="text-white">18 April, 2022</h4>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="link pt-[20px]">
-                    <h4
-                    class="text-slate-400 inline-block ">Project Link</h4>
-                    <h5  class="text-slate-400"><a href="">https://linktoproject.me/</a></h5>
-            </div>
-        </div>
-      </div>
-      <!-- end of testing -->
-      <div id="overlay" class="fixed top-0 left-0 right-0 bottom-0 bg-slate-200 opacity-50 pointer-events-none"></div>
-        
+      {% include 'app/experience_display.html' %}
 </div>
 
 {% endblock content %}

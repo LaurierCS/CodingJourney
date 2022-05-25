@@ -46,7 +46,7 @@ function populateAndShowModal(data, modal_id) {
     // set project link
     $("#modal-project-link").html(exp["url"]);
 
-    console.log(data)
+    // console.log(data)
     modalOpenBehaviour(modal_id)
     // console.log(project_name);
 } 

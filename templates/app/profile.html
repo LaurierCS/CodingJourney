@@ -95,14 +95,6 @@
         </div>
 
       </div>
-
-      <!-- testing -->
-      <h3>Testing ground</h3>
-      {% for profile in profiles %}
-        <a href="{% url 'other_profile_page' profile.user.id %}" class="border-2">{{profile.first_name}}</a>
-      {% endfor %}
-
-      <!-- end of testing -->
   </div>
 </div>
 {% endblock content %}
