@@ -133,8 +133,8 @@ def profilepage(request):
     return render(request, template_name, context)
 
 @login_required(login_url='auth_page')
-def otherprofilepage(request, pk):
-    profile = Profile.objects.get(id=pk)
+def otherprofilepage(request, username):
+    profile = Profile.objects.get(user__username=username)
     experiences = Experience.objects.filter(profile=profile)
     num_exp = len(experiences)
 
@@ -322,7 +322,8 @@ class TreeQueries:
             skill["description"] = ds.description
             skill["experiences"] = list(ds.experience_set.all().values())
             for exp in skill["experiences"]:
-                exp['start_date'] = exp['start_date'].strftime("%m/%d/%Y")
+                if exp['start_date']:
+                    exp['start_date'] = exp['start_date'].strftime("%m/%d/%Y")
                 if exp["end_date"]:
                     exp['end_date'] = exp['end_date'].strftime("%m/%d/%Y")
             skill["proficiency_text"] = DesiredSkill.proficiency_choices[int(skill["proficiency"])][1]
@@ -479,6 +480,7 @@ class SearchQueries:
                 "first_name": user["first_name"],
                 "last_name": user["last_name"],
                 "bio": user["bio"],
+                "username": user['user__username'],
                 "category": "user",
                 "url": "",
             })

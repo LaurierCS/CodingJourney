@@ -89,7 +89,7 @@
     // clear all previous results
     search_result_list.children().remove("[data-removable-result=\"true\"]");
 
-    console.log(query_data)
+    // console.log(query_data)
 
     // construct the result lists
     for (let i=0;i<query_data.entries;i++) {
@@ -107,6 +107,7 @@
       if (result.category === "user") {
         result_item.find("#search_result_image").attr("src", `${static_url}${result.image}`)
         result_item.find("#search_result_image").removeClass("hidden")
+        result_item.find("#search_result_link").attr("href", (new URL(`/profile/${result.username}`, window.location.origin)).href)
       }
       
       search_result_list.append(result_item);
