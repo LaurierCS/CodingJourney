@@ -14,7 +14,8 @@ class NodeSideBar {
     "#nsb_proficiency_menu",
     "#nsb_proficiency_arrow",
     "#nsb_proficiency_toggle",
-    "#nsb_proficiency_list"
+    "#nsb_proficiency_list",
+    "#nsb_save_proficiency"
   ];
 
   constructor(element_id) {
@@ -56,6 +57,10 @@ class NodeSideBar {
     this._nsb_elements["nsb_description_form"].submit(this._submit_description.bind(this));
 
     this._nsb_elements["nsb_proficiency_toggle"].click(this._toggle_proficiency_menu.bind(this))
+    
+    this._nsb_elements["nsb_proficiency_list"].children().click(this._set_new_proficiency.bind(this));
+
+    this._nsb_elements["nsb_save_proficiency"].click(this._save_proficiency.bind(this));
 
     $.valHooks.textarea = {
       get(el) {
@@ -67,6 +72,8 @@ class NodeSideBar {
     this._current_info = null;
     this._proficiency_total = 5;
     this._proficiency = 0;
+    // track changes in proficiency, prevent submittion of form if selected proficiency is the same as orignal
+    this._original_proficiency = this._proficiency; 
     this._proficiency_levels = [
       "Aiming to Learn",
       "Some Understanding",
@@ -74,7 +81,7 @@ class NodeSideBar {
       "Capable",
       "Able to Use Professionally",
       "Expert",
-      ]
+    ]
 
     this._nsb_elements["nsb_proficiency_bar"].width((this._proficiency/this._proficiency_total*100).toString()+"%")
 
@@ -95,20 +102,50 @@ class NodeSideBar {
     }
   }
 
-  _adjust_proficiency() {
+  _set_new_proficiency(e) {
+    // `this` is not binded in this function to make accessing the selected profieciency easier.
+    // `this` points to the li element that was clicked instead of the current class instance.
+    const clicked_item = this._nsb_elements['nsb_proficiency_list'].find(e.target)
+    const selected_proficiency = parseInt(clicked_item.attr("data-proficiency-value"))
+    if (selected_proficiency === this._proficiency) 
+      return;
 
+    this._nsb_elements["nsb_save_proficiency"].removeClass("hidden")
+
+    this._nsb_elements["nsb_proficiency_text"].text(clicked_item.attr("data-proficiency-text"))
+
+    // update current node proficiency
+    // setting a new length for the progress bar needs a reference to the current skill data.
+    this._current_info.data.proficiency = selected_proficiency
+    this._set_new_progress_length(this._current_info)
+  }
+
+  _save_proficiency() {
+    if (this._original_proficiency === this._proficiency) {}
+  }
+
+  _get_form() {
+
+    const form_data = new FormData(this._nsb_elements["nsb_description_form"][0]);
+    form_data.append("skill_name", this._current_info.data.name)
+    form_data.append("proficiency", this._proficiency.toString())
+
+    const obj = {
+      body: form_data,
+      url: this._nsb_elements["nsb_description_form"].attr("action"),
+      method: this._nsb_elements["nsb_description_form"].attr("method"),
+    }
+
+    return obj;
   }
 
   _submit_description(e) {
     e.preventDefault();
-    const formData = new FormData(this._nsb_elements["nsb_description_form"][0]);
-    const url = this._nsb_elements["nsb_description_form"].attr("action");
+    const form = this._get_form();
 
-    formData.append("skill_name", this._current_info.data.name)
-
-    fetch(url, {
-      method: "POST",
-      body: formData
+    fetch(form.url, {
+      method: form.method,
+      body: form.body
     })
       .then((res) => {
         if (res.status === 200) {

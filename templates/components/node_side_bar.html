@@ -4,7 +4,15 @@
   <header class="flex justify-between items-center">
     <div class="flex items-center overflow-auto grow flex-1 w-full">
       <img id="nsb_image" src="{% static 'images/python_logo.png' %}" alt="Icon" class="h-8 w-8">
-      <h4 id="nsb_name" class="ml-2 text-[25px]">Node Name</h4>
+      <h4 id="nsb_name" class="ml-2 text-[25px] overflow-x-auto whitespace-nowrap">Node Name</h4>
+    </div>
+    <div class="flex items-center">
+      <svg id="nsb_save_description" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-success cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+      <svg id="nsb_edit_description" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+      </svg>
     </div>
     <svg id="nsb_close" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -23,23 +31,68 @@
         <svg id="nsb_proficiency_arrow" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-180 transition-transform duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
         </svg>
+        <!-- dropdown menu -->
         <div
           data-active="false"
           id="nsb_proficiency_menu"
-          class="absolute top-full right-0 left-0 text-base bg-background translate-y-2 rounded-md origin-top text-left scale-y-0 transition-transform duration-150">
+          class="
+          absolute top-full left-0 right-auto text-base bg-background translate-y-2 rounded-md origin-top text-left scale-y-0 transition-transform duration-150
+          border-2 border-solid border-slate-500
+          ">
           <ul  
             id="nsb_proficiency_list"
             class="p-2 select-none">
-            <li>Aiming to Learn</li>
+            <li
+              data-proficiency-text="Aiming to Learn"
+              data-proficiency-value="0"
+              class="hover:text-secondary transition-color duration-150 my-2"
+            >Aiming to Learn</li>
+            <li>
+              <div class="h-[2px] bg-slate-500"></div>
+            </li>
+            <li
+            data-proficiency-text="Some Understanding"
+            data-proficiency-value="1"
+            class="hover:text-secondary transition-color duration-150 my-2"
+            >Some Understanding</li>
+            <li>
+              <div class="h-[2px] bg-slate-500"></div>
+            </li>
+            <li
+            data-proficiency-text="Some Proficiency"
+            data-proficiency-value="2"
+            class="hover:text-secondary transition-color duration-150 my-2"
+            >Some Proficiency</li>
+            <li>
+              <div class="h-[2px] bg-slate-500"></div>
+            </li>
+            <li
+            data-proficiency-text="Capable"
+            data-proficiency-value="3"
+            class="hover:text-secondary transition-color duration-150 my-2"
+            >Capable</li>
+            <li>
+              <div class="h-[2px] bg-slate-500"></div>
+            </li>
+            <li
+            data-proficiency-text="Able to Use Professionally"
+            data-proficiency-value="4"
+            class="hover:text-secondary transition-color duration-150 my-2"
+            >Able to Use Professionally</li>
+            <li>
+              <div class="h-[2px] bg-slate-500"></div>
+            </li>
+            <li
+            data-proficiency-text="Expert"
+              data-proficiency-value="5"
+              class="hover:text-secondary transition-color duration-150 my-2"
+            >Expert</li>
           </ul>
         </div>
       </div>
-      <!-- <svg id="nsb_save_proficiency" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-success cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <svg id="nsb_save_proficiency" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-success cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
       </svg>
-      <svg id="" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-      </svg> -->
     </div>
     <div class="w-full h-3 bg-[#3d488b] rounded-full overflow-hidden">
       <div id="nsb_proficiency_bar" class="h-full bg-secondary rounded-full transition-all duration-200">
@@ -53,14 +106,6 @@
     <section class="my-4">
       <div class="flex justify-between items-center">
         <h4 class="mb-3 text-[25px]">Description</h4>
-      <div class="flex items-center">
-        <svg id="nsb_save_description" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-success cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-        <svg id="nsb_edit_description" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-        </svg>
-      </div>
       </div>
       <form id="nsb_description_form" action="{% url 'update_ds_description' %}" method="post">
         {% csrf_token %}

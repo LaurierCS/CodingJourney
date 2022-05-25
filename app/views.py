@@ -358,7 +358,7 @@ def update_desired_skill_description(request):
         ds = DesiredSkill.objects.filter(user_id=request.user.profile, skill__name=form['skill_name'].value())
 
         if len(ds) > 0:
-            ds.update(description=form['description'].value())
+            ds.update(description=form['description'].value(), proficiency=form['proficiency'].value())
         else:
             # create new desired skill
             skill = Skill.objects.get(name =form['skill_name'].value())
@@ -367,7 +367,7 @@ def update_desired_skill_description(request):
                 user_id=request.user.profile,
                 description=form['description'].value(),
                 skill=skill,
-                proficiency=0
+                proficiency=form['proficiency'].value()
             )
 
         
