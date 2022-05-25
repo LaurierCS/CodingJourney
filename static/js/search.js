@@ -1,7 +1,7 @@
 (() => {
   const search_form = $("#search_form")
 
-  if (search_form.lenght < 1) {
+  if (search_form.length < 1) {
     console.error("Could not find search form.")
     return;
   }
