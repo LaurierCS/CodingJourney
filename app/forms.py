@@ -158,6 +158,7 @@ class UserSettingForm(ModelForm):
         required = False,
     )
 
+  fields = ['email', 'image', 'bio']
 
 class SearchQueryForm(forms.Form):
   search_query = forms.CharField(required=True)

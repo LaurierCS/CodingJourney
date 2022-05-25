@@ -86,7 +86,7 @@
   }
 
   function showSearchResults(query_data) {
-    // clear all previous results
+    // clear all previous results 
     search_result_list.children().remove("[data-removable-result=\"true\"]");
 
     // console.log(query_data)
@@ -99,8 +99,9 @@
       result_item.attr("id", `search_result_link_${result.text}`)
       result_item.attr("data-removable-result", "true")
       result_item.attr("aria-hidden", "false")
-      result_item.removeClass("hidden")
-      result_item.find("#search_result_link").attr("href", result.url)
+      result_item.removeClass("hidden");
+      let url = (new URL(`experiences-by-skill/${result.text}`, window.location.origin)).href;
+      result_item.find("#search_result_link").attr("href", url)
       result_item.find("#search_result_text").text(result.text)
       result_item.find("#search_result_category").text(result.category)
       
