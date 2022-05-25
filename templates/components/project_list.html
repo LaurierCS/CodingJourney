@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% comment %} {% include "templates\components\sidemenu.html" %} {% endcomment %}
+{% comment %} {% include "templates/components/sidemenu.html" %} {% endcomment %}
 {% load static %}
 
 {% block headers %}
@@ -19,11 +19,11 @@ border-gray-600 rounded-lg m-1.5 overflow-y-auto">
     </div>
     <div class="projectListCardsContainer mt-3">
         {% for experience in experiences %}
-            {% include "components\project_list_card.html" with project=experience type=type %}
+            {% include "components/project_list_card.html" with project=experience type=type %}
         {% endfor %}
     </div>
 </div>
-{% include "app\experience_display.html" %}
+{% include "app/experience_display.html" %}
 </div>
 {% endblock content %}
 
