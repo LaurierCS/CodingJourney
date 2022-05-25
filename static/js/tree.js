@@ -303,10 +303,10 @@ const nodeImage = nodes
     // todo: return iconHref instead
 
     if (d.data.nodeType === NODE_TYPES.U && window.profile_pic) {
-      return new URL(static_url+"images/profile_picture_holder.jpg", window.location.href).pathname;
+      return new URL(static_url + window.profile_pic, window.location.href).pathname;
     }
 
-    return "/static/images/python_logo.png"
+    return "/static/images/svg/badge.svg" // todo: change to return actual icon when available
   })
   .attr("class", "node-image")
   .attr("width", d => d.data.nodeType !== NODE_TYPES.C ? d.data.nodeType === NODE_TYPES.N ? NODE_IMG_SIZE : NODE_DIM.U[0] : 0)

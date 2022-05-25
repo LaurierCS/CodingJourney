@@ -70,7 +70,7 @@
       focus:outline-none;
     background-color: var(--background)
   }
-
+  
   /* 
   Scroll bar design is different across browsers.
   There is a need to define several rules for cross compatibility and future proof.

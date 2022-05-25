@@ -120,3 +120,8 @@ class UserSettingForm(ModelForm):
 class SearchQueryForm(forms.Form):
   search_query = forms.CharField(required=True)
   search_scope = forms.CharField(required=True)
+
+class UpdateDesiredSkillDescriptionForm(forms.Form):
+  description = forms.CharField(widget=forms.Textarea(), required=False)
+  proficiency = forms.FloatField(required=False)
+  skill_name = forms.CharField(widget=forms.TextInput())
