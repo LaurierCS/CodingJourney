@@ -23,6 +23,7 @@
           {% endfor %}
         </ul>
         {% endif %}
+        <h3 id="setting_personal_information">Personal Information</h3>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_first_name" class="text-[25px]">
@@ -47,6 +48,26 @@
             {{setting_form.email}}
           </div>
         </div>
+        <div class="form-group border-2 rounded-xl p-5">
+          <div class="space-y-2">
+            <label for="id_image" class="text-[25px]">
+              {{setting_form.image.label | title}}
+            </label>
+            <div id="pic-container" class="w-44">
+              <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full m-2">
+            </div>
+            {{setting_form.image}}
+          </div>
+        </div>
+        <div class="form-group border-2 rounded-xl p-5">
+          <div class="space-y-2">
+            <label for="id_bio" class="text-[25px]">
+              {{setting_form.bio.label | title}}
+            </label>
+            {{setting_form.bio}}
+          </div>
+        </div>
+        <h3 id="setting_socials">Socials</h3>
         <div class="form-group border-2 rounded-xl p-5">
           <div class="space-y-2">
             <label for="id_bio" class="text-[25px]">
@@ -79,31 +100,85 @@
           {{setting_form.website}}
           </div>
         </div>
-        <div class="form-group border-2 rounded-xl p-5">
-          <div class="space-y-2">
-            <label for="id_image" class="text-[25px]">
-              {{setting_form.image.label | title}}
-            </label>
-            <div id="pic-container" class="w-44">
-              <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full m-2">
-            </div>
-            {{setting_form.image}}
-          </div>
-        </div>
-        <div class="form-group border-2 rounded-xl p-5">
-          <div class="space-y-2">
-            <label for="id_bio" class="text-[25px]">
-              {{setting_form.bio.label | title}}
-            </label>
-            {{setting_form.bio}}
-          </div>
-        </div>
-
         <button type="submit" class="button">Save</button>
+        <!-- float to the right so that its easier to reach -->
       </form>
+      <!-- delete desired skills section -->
+      <section class="w-3/5">
+        <div class="lg:space-y-6 text-center">
+          <h3 id="setting_desired_skills">Desired Skills</h3>
+          <p>Manage your desired skills.</p>
+        </div>
+        <div class="w-full">
+          <div class="form-group border-2 rounded-xl p-5">
+            <ul>
+              {% for ds in desired_skills %}
+              <li class="flex items-center w-full justify-between py-2">
+                <p class="line-clamp-1 flex-1 grow shrink">{{ ds.skill.name }}</p>
+                <a href="{% url 'delete_desired_skill' %}?name={{ ds.skill.name }}">                
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer hover:text-red-400 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </a>
+              </li>
+              {% empty %}
+              <li>
+                <p>No Desired Skills...</p>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- delete experience section -->
+      <section class="w-3/5">
+        <div class="lg:space-y-6 text-center">
+          <h3 id="setting_experiences">Experiences</h3>
+          <p>Manage your experiences.</p>
+        </div>
+        <div class="w-full">
+          <div class="form-group border-2 rounded-xl p-5">
+            <ul>
+              {% for exp in experiences %}
+              <li class="flex items-center w-full justify-between py-2">
+                <p class="line-clamp-1 flex-1 grow shrink">{{ exp.name }}</p>
+                <a href="{% url 'delete_exp' %}?id={{ exp.id }}">                
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer hover:text-red-400 transition-colors duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </a>
+              </li>
+              {% empty %}
+              <li>
+                <p>No Experiences...</p>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </section>
     </div>
-    <!-- The container for setting card -->
-    <!-- end of setting card -->
+  </div>
+  <div class="fixed right-0 top-1/2 pl-2 pr-6 py-3 bg-foreground rounded-md rounded-tr-none rounded-br-none">
+    <!-- content below should be placed better in the future 
+      As of now this side container is a content table to navigate the big setting page easier.
+    -->
+    <p class="text-lg font-semibold">Content Table</p>
+    <div class="w-full h-[2px] bg-gray-500"></div>
+    <ul class="font-normal">
+      <li class="hover:text-secondary transition-colors duration-150">
+        <a href="#setting_personal_information">Personal Information</a>
+      </li>
+      <li class="hover:text-secondary transition-colors duration-150">
+        <a href="#setting_socials">Socials</a>
+      </li>
+      <li class="hover:text-secondary transition-colors duration-150">
+        <a href="#setting_desired_skills">Desired Skills</a>
+      </li>
+      <li class="hover:text-secondary transition-colors duration-150">
+        <a href="#setting_experiences">Experiences</a>
+      </li>
+    </ul>
   </div>
 </div>
   <script

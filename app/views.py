@@ -153,6 +153,10 @@ def settingspage(request):
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
     setting_form = UserSettingForm(instance=profile)
+
+
+    # print(desired_skills)
+
     template_name = "app/setting.html"
 
     if request.method == "POST":
@@ -163,11 +167,16 @@ def settingspage(request):
             return redirect('settings_page')
         else:
             messages.warning(request, 'Incorrect detail change.')
+
+    desired_skills = DesiredSkill.objects.filter(user_id=profile)
+    experiences = Experience.objects.filter(profile=profile)
             
     context = {
         "document_title":document_title,
         "page_header": page_header,
         "profile":profile,
+        "desired_skills": desired_skills,
+        "experiences": experiences,
         "setting_form":setting_form,
     }
     return render(request, template_name, context)
@@ -394,6 +403,26 @@ def update_desired_skill_description(request):
         return JsonResponse(new_values)
     
     return HttpResponseBadRequest()
+
+def delete_desired_skill(request):
+
+    ds_name = request.GET.get('name')
+
+    ds = DesiredSkill.objects.get(skill__name=ds_name, user_id=request.user.profile)
+
+    ds.delete()
+
+    return redirect("settings_page")
+
+def delete_exp(request):
+
+    exp_id = request.GET.get('id')
+
+    exp = Experience.objects.get(id=exp_id, profile=request.user.profile)
+
+    exp.delete()
+
+    return redirect("settings_page")
 
 # class SkillsSerializer(serializers.ModelSerializer): 
     
