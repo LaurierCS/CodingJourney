@@ -15,7 +15,7 @@
         </div>
         {% if type == "skill_search_click"%}
         <div class="username my-auto flex justify-center">
-            <a href="{% url 'profile_page' %}/{{ project.profile.username }}">{{project.profile.username}}</a>
+            <a href="{% url 'profile_page' %}/{{ project.username }}">{{project.username}}</a>
         </div>
         {% endif %}
         <div class="likes my-auto flex justify-center">

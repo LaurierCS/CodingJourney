@@ -681,7 +681,8 @@ class TargetedQueries:
         skill=DesiredSkill.objects.filter(skill=Skill.objects.get(name=skill_name))
         experiences_qs = Experience.objects.filter(skills__in=skill).order_by('start_date')
         print(experiences_qs)
-        experiences = experiences_qs
+        experiences = experiences_qs.annotate(username=F("profile__user__username"))
+
         template_name = "components/project_list.html"
         context = {
             "document_title":document_title,
