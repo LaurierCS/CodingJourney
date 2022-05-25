@@ -10,10 +10,9 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=100, blank=False, default="John")
     last_name = models.CharField(max_length=100, blank=False, default="Doe")
     bio = models.TextField(max_length=500, blank=True)
-    email = models.EmailField(max_length=256)
+    email = models.EmailField(max_length=256, blank=True)
     image = models.ImageField(
         default="images/smiley.jpg", upload_to='images/', blank=True)
-    email = models.EmailField(max_length=256)
     # 👇 THE "tech_roadmap" RELATIONSHIP BELOW IS THE TECHNOLOGIES THAT THE USER WANTS TO ACHIEVE
     # (if a tech is in this list, it will show up on the tree graph)
     # This is all the tech they either want to work with or have already achieved experience with
@@ -21,10 +20,14 @@ class Profile(models.Model):
     # technologies they aren't even aiming to achieve
     # tech_roadmap = models.ManyToManyField("Technology", blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    email = models.EmailField(max_length=256)
+    email = models.EmailField(max_length=256, blank=True, null=True)
+    twitter = models.URLField(max_length=200, blank=True, null=True)
+    linkedin = models.URLField(max_length=200, blank=True, null=True)
+    github = models.URLField(max_length=200, blank=True, null=True)
+    website = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return self.first_name
+        return self.user.username
 
 
 """

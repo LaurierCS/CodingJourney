@@ -15,6 +15,7 @@ def create_profile(sender, instance, created, **kwargs):
             last_name = user.last_name,
             email = user.email
         )
+        
 
 
 @receiver(post_delete, sender=Profile)

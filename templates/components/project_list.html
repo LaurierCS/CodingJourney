@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% comment %} {% include "templates\components\sidemenu.html" %} {% endcomment %}
+{% comment %} {% include "templates/components/sidemenu.html" %} {% endcomment %}
 {% load static %}
 
 {% block headers %}
@@ -7,22 +7,31 @@
 {% endblock headers %}
 
 {% block content %}
-<div class='h-[90%]'>
-<div 
-class=
-"projectsListContainer h-full text-rice-white border-2 
-border-gray-600 rounded-lg m-1.5 overflow-y-auto">
-    <div 
-    class="projectListHeader grid grid-cols-3 mx-0 bg-[#00171F] 
-    rounded-md border-2 p-4">
-        {% include "components/project_list_header.html" %}
+<div class="grid grid-cols-12 h-[calc(100%_-_80px)]">
+    <div class="col-span-2">
+        {% include "components/sidemenu.html" %}
     </div>
-    <div class="projectListCardsContainer mt-3">
-        {% for experience in experiences %}
-            {% include "components\project_list_card.html" with project=experience %}
-        {% endfor %}
+    
+    <div id="treeContainer" class="col-span-10 h-full bg-background">
+        <div class='h-[90%]'>
+            <div 
+            class=
+            "projectsListContainer h-full text-rice-white border-2 
+            border-gray-600 rounded-lg m-1.5 my-[2.5rem] overflow-y-auto">
+                <div 
+                class="projectListHeader grid mx-0 bg-[#00171F] 
+                {% if type == "skill_search_click"%} grid-cols-4 {% else %} grid-cols-3 {% endif %}
+                rounded-md border-2 p-4">
+                    {% include "components/project_list_header.html" with type=type%}
+                </div>
+                <div class="projectListCardsContainer mt-3">
+                    {% for experience in experiences %}
+                        {% include "components/project_list_card.html" with project=experience type=type %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 {% endblock content %}
 

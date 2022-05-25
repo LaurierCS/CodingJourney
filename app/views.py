@@ -82,7 +82,7 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
-    tree_json = TreeQueries.getTrimmedTree(request.user.profile) # todo: profile to function when update_ds_description is merged.
+    tree_json = TreeQueries.getTrimmedTree(profile) # todo: profile to function when update_ds_description is merged.
     # tech_roadmap = profile.tech_roadmap
 
     template_name = "app/dashboard.html"
@@ -118,13 +118,31 @@ def profilepage(request):
     page_header = ""
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
-
+    num_exp = len(Experience.objects.filter(profile=profile))
+    # testing for getting other user profile
+    profiles = Profile.objects.all()
 
     template_name = "app/profile.html"
     context = {
         "document_title":document_title,
         "page_header": page_header,
-        "profile":profile
+        "profile":profile,
+        "profiles": profiles,
+        "num_exp": num_exp,
+    }
+    return render(request, template_name, context)
+
+@login_required(login_url='auth_page')
+def otherprofilepage(request, username):
+    profile = Profile.objects.get(user__username=username)
+    experiences = Experience.objects.filter(profile=profile)
+    num_exp = len(experiences)
+
+    template_name = "app/other_user_profile.html"
+    context = {
+        "profile":profile,
+        "experiences": experiences,
+        "num_exp":num_exp,
     }
     return render(request, template_name, context)
 
@@ -179,7 +197,6 @@ def registration_handler(request):
         register_form = CreateUserForm(request.POST)
         if register_form.is_valid():
             register_form.save()
-
             username = register_form.cleaned_data.get('username')
             password = register_form.cleaned_data.get("password1")
             user = authenticate(request, username=username, password=password)
@@ -480,6 +497,7 @@ class SearchQueries:
                 "first_name": user["first_name"],
                 "last_name": user["last_name"],
                 "bio": user["bio"],
+                "username": user['user__username'],
                 "category": "user",
                 "url": "",
             })
@@ -515,7 +533,7 @@ class SearchQueries:
                 "text": skill["name"],
                 "image": skill["icon_HREF"],
                 "category": "skill" if skill["node_type"] != "C" else "skill category",
-                "url": "",
+                "url": "/experience-list-skill?name=" + skill["id"],
             })
 
         for skill in potential_skills:
@@ -620,3 +638,72 @@ class SearchQueries:
             })
 
         return result
+
+class TargetedQueries:
+    def experienceGetter(request): 
+        if request.method == "POST":
+            return HttpResponseBadRequest("Does not accept POST requests.")
+
+        exp_id = request.GET.get("exp_id")
+
+        if exp_id is None:
+            return HttpResponseBadRequest("No experience ID given.")
+
+        try:
+            experience = Experience.objects.filter(pk=exp_id)
+        except Experience.DoesNotExist:
+            return HttpResponseBadRequest("No element exists with id:" + exp_id)
+        
+        
+        exp_values = experience.values(
+            "image",
+            "name",
+            "description",
+            "project_link",
+            "profile__user__username", 
+            "profile__image", 
+            "id",
+            "likes_amount",
+            "start_date",
+            "end_date",
+            )
+
+        exp = exp_values[0]
+        skills = DesiredSkill.objects.filter(experience__id=exp['id']).annotate(skill_name=F("skill__name")).values("skill_name")
+        experience_obj = {
+                "name": exp["name"],
+                "image": exp["image"],
+                "description": exp['description'],
+                'profile': {
+                    'username': exp['profile__user__username'],
+                    'image': exp['profile__image']
+                },
+                'skills': list(skills),
+                # 'kind': best_matches.filter(id=exp['id']).first().get_kind_display(),
+                "url": exp["project_link"],
+                "likes": exp["likes_amount"],
+                "start_date": exp["start_date"].strftime("%d %B, %Y") if exp['start_date'] is not None else None,
+                "end_date": exp["end_date"].strftime("%d %B, %Y") if exp['end_date'] is not None else None,
+                "category": "experience",
+            }
+        context = {
+            "experience": experience_obj,
+        }
+
+        return JsonResponse(context)
+
+    def getExperiencesBySkills(request, skill_name):
+        document_title = "Roadmap & Experiences"
+        # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
+        skill=DesiredSkill.objects.filter(skill=Skill.objects.get(name=skill_name))
+        experiences_qs = Experience.objects.filter(skills__in=skill).order_by('start_date')
+        print(experiences_qs)
+        experiences = experiences_qs.annotate(username=F("profile__user__username"))
+
+        template_name = "components/project_list.html"
+        context = {
+            "document_title":document_title,
+            "experiences":experiences,
+            "type": "skill_search_click"
+        }
+        return render(request, template_name, context)
