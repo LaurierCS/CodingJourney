@@ -1,53 +1,52 @@
-(() => {
-    const search_form = $("#search_form")
-  
-    if (search_form.lenght < 1) {
-      console.error("Could not find search form.")
-      return;
-    }
     
-    const search_endpoint = search_form.attr("action")
-    /**
-     * @type {string}
-     */
-    const method = search_form.attr("method")
-    const static_url = search_form.attr('data-static-url')
-    
-    const search_bar = $("#search_bar");
-    const search_query = $("#search_query")
-    const search_scope = $("#search_scope")
-    const search_icon = $("#search_icon")
-    const search_result_list = $("#search_result_list")
-    const search_result_item = $("#search_result_item") // result item template
-    const search_scope_list = $("#search_scope_list")
-    const search_scope_items = search_scope_list.children()
-    const search_result_container = $("#search_result_container")
-    const search_scope_menu = $("#search_scope_menu")
-    const current_scope_text = $("#current_scope_text")
-    const search_scope_filter = $("#search_scope_filter")
-    const filter_arrow = $("#filter_arrow")
-    
-    function exp_getter(exp_id) {
-        if (exp_id.val() === "") {
-        console.log("No ID provided")
-        }
+/**
+ * @type {string}
+ */
 
-        fetch(`${search_endpoint}?${new URLSearchParams({
-        "csrfmiddlewaretoken": formData.get("csrfmiddlewaretoken"),
-        "exp_id": exp_id,
-        })}`, {
-        method: method.toUpperCase()
-        })
-        .then(res => res.json())
-        .then(data => {
-            populateAndShowModal(data)
-        })
-        .catch(console.error);
-    }
+function exp_getter(exp_id, modal_id) {
+    let origin = window.location.origin
+    let search_endpoint = origin + "/experience-view-handler"
+    fetch(`${search_endpoint}?${new URLSearchParams({
+    // "csrfmiddlewaretoken": formData.get("csrfmiddlewaretoken"),
+    "exp_id": exp_id, //request.GET.get("exp_id")
+    })}`, {
+    method: "GET"
+    })
+    .then(res => res.json())
+    .then(data => {
+        populateAndShowModal(data, modal_id)
+    })
+    .catch(console.error);
+}
 
 
-    // 
-    function populateAndShowModal(data) { 
-        
+
+// 
+function populateAndShowModal(data, modal_id) { 
+    exp = data["experience"];
+    // set title
+    $("#experience-name").text(exp["name"]);
+    // set likes
+    $("#likes-icon").text(exp["likes"] + " Likes");
+    // set description
+    $("#modal-description").text(exp["description"]);
+    // set skills
+    const skills_colors = ["tech-tag-blue", "tech-tag-green", "tech-tag-orange"];
+    let skills_html = "";
+    let selector = 0;
+    for (let skill of exp["skills"]) { 
+        skills_html += `<div class="tech-tag ${skills_colors[selector]} p-2 ml-0">${skill["skill_name"]}</div> \n`;
+        selector = (selector + 1)%skills_colors.length;
     }
-})
+    $("#tech-tag-container").html(skills_html);
+    // set start date
+    $("#modal-start-date").text(exp["start_date"]);
+    // set end date
+    $("#modal-end-date").text(exp["end_date"]);
+    // set project link
+    $("#modal-project-link").html(exp["url"]);
+
+    console.log(data)
+    modalOpenBehaviour(modal_id)
+    // console.log(project_name);
+} 

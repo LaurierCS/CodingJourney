@@ -13,7 +13,9 @@ urlpatterns = [
     path('profilepage', views.profilepage, name="profile_page"),
     path('settings', views.settingspage, name="settings_page"),
     path('profile', views.profilepage, name="profile_page"),
-    
+    path('experiences-by-skill/<str:skill_name>', 
+        views.TargetedQueries.getExperiencesBySkills, 
+        name="experiences_by_skills"),    
 
     # ************************************************************
     # ENDPOINT URLS - FOR HANDLING DATA LIKE LOGIN AND REGISRATION

@@ -1,27 +1,5 @@
-{% extends "base.html" %}
-
 {% block content %}
 {% csrf_token %}
-    <button type="button" class="px-6
-      py-2.5
-      bg-blue-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" 
-      data-bs-toggle="modal" data-bs-target="#exampleModal"
-      onclick="modalOpenBehaviour('experience-display-modal')">
-      Add Experience
-</button>
 <div 
 class = "
     modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
@@ -30,10 +8,10 @@ class = "
 " 
 id="experience-display-modal"
 aria-hidden="true"
-style="">
-{% comment %} display: none  {% endcomment %}
+style="display: none">
+{% comment %} {% endcomment %}
     <div 
-    class="modal modal-content border-4 shadow-lg relative w-[800px] h-[800px] flex 
+    class="modal modal-content border-4 shadow-lg relative w-[800px] max-h-[800px] flex 
     flex-col h-full pointer-events-auto bg-clip-padding 
     rounded-md outline-none text-current">
         <div
@@ -48,37 +26,44 @@ style="">
             </svg>
         </div>
         <div
-        class="px-[50px] pb-[30px] w-full h-full">
+        class="px-[50px] pb-[10px] w-full">
             <div class="w-full flex justify-between">
                 <div 
                 class="experience-name">
                     <h3 
                     class="leading-normal" 
-                    id="exampleModalLabel">
+                    id="experience-name">
                     My Coding Journey
                     </h3>
                 </div>
-                <div class="likes-icon pr-[15px]">
+                <div class="likes-icon pr-[15px]" id="likes-icon">
                     9999 :)
                 </div>
             </div>
+        </div>
+        <div
+        class="px-[50px] pb-[30px] w-full h-full flex flex-col justify-between">
             <div
-            class="description pt-[20px]">
+            class="description pt-[20px] overflow-y-auto">
                 <h4
                 class="text-slate-400">
                     Description
                 </h4>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque doloribus id accusantium omnis amet dolor facilis unde, saepe quidem deleniti laudantium voluptatem laborum velit magni quis architecto iste corporis laboriosam aut obcaecati magnam consequatur maiores vel. Vero, totam. Provident voluptatum fuga distinctio, nam delectus blanditiis eos! Officia quo sit laboriosam.
-                </p>
+                <div class="max-h-[300px]">
+                    <p id="modal-description">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque doloribus id accusantium omnis amet dolor facilis unde, saepe quidem deleniti laudantium voluptatem laborum velit magni quis architecto iste corporis laboriosam aut obcaecati magnam consequatur maiores vel. Vero, totam. Provident voluptatum fuga distinctio, nam delectus blanditiis eos! Officia quo sit laboriosam.
+                    </p>
+                </div>
             </div>
             <div
             class="tech-tag-container pt-[20px]">
                 <h4
                 class="text-slate-400">Skills</h4>
-                <div class="tech-tag tech-tag-blue p-2 ml-0">Python</div>
-                <div class="tech-tag tech-tag-green p-2">Django</div>
-                <div class="tech-tag tech-tag-orange p-2">Javascript</div>
+                <div id="tech-tag-container">
+                    <div class="tech-tag tech-tag-blue p-2 ml-0">Python</div>
+                    <div class="tech-tag tech-tag-green p-2">Django</div>
+                    <div class="tech-tag tech-tag-orange p-2">Javascript</div>
+                </div>
             </div>
             <div
             class="dates-container flex justify-between">
@@ -89,7 +74,7 @@ style="">
                     <div
                     class="bg-slate-400/[.25] inline-block rounded-lg">
                         <h4
-                        class=""> 12 April, 2022</h4>
+                        id="modal-start-date"> 12 April, 2022</h4>
                     </div>
                 </div>
                 <div
@@ -97,9 +82,10 @@ style="">
                     <h4
                     class="text-slate-400 inline-block ">End Date:</h4>
                     <div
-                    class="bg-white opacity-10 inline-block rounded-lg">
+                    class="bg-slate-400/[.25] inline-block rounded-lg">
                         <h4
-                        class="text-white">18 April, 2022</h4>
+                        class="text-white"
+                        id="modal-end-date">18 April, 2022</h4>
                     </div>
                 </div>
             </div>
@@ -107,7 +93,7 @@ style="">
                 class="link pt-[20px]">
                     <h4
                     class="text-slate-400 inline-block ">Project Link</h4>
-                    <h5  class="text-slate-400"><a href="">https://linktoproject.me/</a></h5>
+                    <h5  class="text-slate-400" id="modal-project-link"><a href="">https://linktoproject.me/</a></h5>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 {% load static %}
-<div class="projectCardContainer" id="proj-card-{{project.id}}" >
+<div class="projectCardContainer" id="proj-card-{{project.id}}">
     <div class="
         condensed_card grid grid-cols-3 
         bg-slate-600 bg-opacity-[30%] 
@@ -7,18 +7,22 @@
         pt-2 pb-2
         justify-center align-center
         "
-        onClick="showDescription({{project.id}})">
+        onClick="exp_getter({{project.id}}, 'experience-display-modal')">
         {% comment %} bg-graay-300 rounded-sm border-slate-50 {% endcomment %}
         <div class="project_name my-auto flex justify-center">
-            <a href="{{project.project_link}}" target="_blank">{{project.name}}</a>
+            <a href="{{project.project_link}}">{{project.name}}</a>
         </div>
+        {% if type == "skill_search_click"%}
+        <div class="username my-auto flex justify-center">
+            <a href="{% url 'other_profile_page' %}/{{project.profile.username}}">{{project.name}}</a>
+        </div>
+        {% endif %}
         <div class="likes my-auto flex justify-center">
             {{project.likes_amount}}
         </div>
         <div class="post_date my-auto flex justify-center">
             {{project.start_date}}
         </div>
-        <div></div>
         <div class="markers">
             {% comment %} {% for marker in project.markers %} {% endcomment %}
                 {% comment %} {% include "/components/marker.html" with marker=project.markers %} {% endcomment %}
