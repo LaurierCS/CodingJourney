@@ -400,3 +400,7 @@
 .multi-select-input { 
   height: 425px;
 }
+
+.modal.active {
+  transform: translate(-50%, -30%) scale(1);
+}
