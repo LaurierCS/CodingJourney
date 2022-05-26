@@ -1,0 +1,20 @@
+{
+  "name": "pod4-heroku-deploy",
+  "version": "1.0.0",
+  "description": "npm scripts for production",
+  "scripts": {
+    "deploy": "npm run build-css && cd ../../../ && npm run heroku-push",
+    "build-css": "cd static/js/tailwind && npm run build",
+    "heroku-push": "git push heroku main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LaurierCS/Pod4.git"
+  },
+  "author": "Pod4 Members",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LaurierCS/Pod4/issues"
+  },
+  "homepage": "https://github.com/LaurierCS/Pod4#readme"
+}
