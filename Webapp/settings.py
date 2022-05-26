@@ -142,22 +142,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-
 MEDIA_URL = '/media/'
-
-# logging behaviour added by Aleks 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
-    },
-}
 
