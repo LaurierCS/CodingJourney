@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "npm scripts for production",
   "scripts": {
-    "deploy": "npm run build-css && cd ../../../ && npm run heroku-push",
-    "build-css": "cd static/js/tailwind && npm run build",
-    "heroku-push": "git push heroku main"
+    "deploy": "npm run build:css && cd ../../../ && npm run git:add && npm run git:commit && npm run heroku:push",
+    "git:add": "git add -A",
+    "git:commit": "git commit -m 'Deployment commit'",
+    "build:css": "cd static/js/tailwind && npm run build",
+    "heroku:push": "git push heroku main"
   },
   "repository": {
     "type": "git",
