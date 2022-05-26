@@ -51,6 +51,7 @@ INTERNAL_IPS = ['127.0.0.1']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", # serve static files on heroku
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -72,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.export_env', # export env needed for the app
             ],
         },
     },
@@ -93,11 +95,11 @@ WSGI_APPLICATION = 'Webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbnjgb8hccnb90',
-        'HOST': 'ec2-54-211-255-161.compute-1.amazonaws.com',
-        'PORT': 5432,
-        'USER': 'lvbuucmtfvkvnd',
-        'PASSWORD': 'e3f7bea0d2239f21e39c62282ffbff7cac480e69271a5116032eaf6fed5da251',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'HOST': os.environ.get('DATABASE_HOST'),
+        'PORT': int(os.environ.get('DATABASE_PORT')),
+        'USER': os.environ.get("DATABASE_USER"),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
     }
 }
 

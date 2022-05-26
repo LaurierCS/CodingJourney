@@ -9,7 +9,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700&family=Poppins:wght@200;400;500;700&family=Roboto:wght@200;400;500;700&display=swap" rel="stylesheet">
+    {% if DJANGO_ENV == 'production' %}
+    <link rel="stylesheet" href="{% static 'css/tailwind.min.css' %}">
+    {% else %}
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    {% endif %}
     {% block headers %} 
     {% endblock headers %}
   </head>
