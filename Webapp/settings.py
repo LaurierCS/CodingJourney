@@ -26,7 +26,12 @@ SECRET_KEY = 'o5ai32_u%y&n!(tbftje5r57_3+edq6iivyks-30(d&@n@nodl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1', 
+    '0.0.0.0',
+    'pod4-codingjourney.herokuapp.com',
+    'https://pod4-codingjourney.herokuapp.com/'
+]
 
 
 # Application definition
