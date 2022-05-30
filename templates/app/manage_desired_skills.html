@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block headers %}
+<title>Manage Desired Skills | {{ profile.user.username }}</title>
+{% endblock headers %}
+
+{% block content %}
+<div class="grid grid-cols-12 h-[calc(100%_-_80px)]">
+    {% include 'components/sidemenu.html' %}
+    <div class="col-span-10">
+      <ul>
+        {% for ds in desired_skills %}
+        <li>{{ ds }}</li>
+        {% empty %}
+        <li>no desired skills</li>
+        {% endfor %}
+      </ul>
+    </div>
+</div>
+{% endblock %}

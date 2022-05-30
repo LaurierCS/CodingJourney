@@ -181,6 +181,25 @@ def settingspage(request):
     }
     return render(request, template_name, context)
 
+@login_required(login_url='auth_page')
+def manage_desired_skills_page(request):
+
+    if request.POST:
+        return HttpResponseBadRequest('Does not accept POST request.')
+
+
+    # find all desired skills
+    ds = DesiredSkill.objects.filter(user_id=request.user.profile)
+
+    template_name = "app/manage_desired_skills.html"
+    context = {
+        "profile": request.user.profile,
+        "desired_skills": ds
+    }
+
+
+    return render(request, template_name, context)
+
 
 # *************************************************************************************
 # ENDPOINT VIEWS - ONLY PERFORM ACTIONS ON DATA OR RETURN DATA,  DONT RETURN A TEMPLATE
@@ -271,8 +290,7 @@ def experience_input_handler(request):
         context = {
             'form': form,
         } 
-        return render(request, 'app/experience_form.html', context=context)
-            
+        return render(request, 'app/experience_form.html', context=context)            
 
 class TreeQueries:
     def getFullTree():
@@ -406,13 +424,19 @@ def update_desired_skill_description(request):
 
 def delete_desired_skill(request):
 
-    ds_name = request.GET.get('name')
+    ds_names = request.POST.get('names')
+    callback_url = request.POST.get('callbackurl')
 
-    ds = DesiredSkill.objects.get(skill__name=ds_name, user_id=request.user.profile)
+    list_of_names = ds_names.split(',')
+
+    ds = DesiredSkill.objects.get(skill__name__in=list_of_names, user_id=request.user.profile)
 
     ds.delete()
 
-    return redirect("settings_page")
+    if callback_url is not None:
+        return redirect(callback_url)
+
+    return redirect("manage_desried_skills_page")
 
 def delete_exp(request):
 
