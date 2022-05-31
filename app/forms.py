@@ -1,3 +1,4 @@
+from dataclasses import field, fields
 from django import forms
 from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput, URLInput
 from django.contrib.auth.forms import UserCreationForm
@@ -168,3 +169,7 @@ class UpdateDesiredSkillDescriptionForm(forms.Form):
   description = forms.CharField(widget=forms.Textarea(), required=False)
   proficiency = forms.FloatField(required=False)
   skill_name = forms.CharField(widget=forms.TextInput())
+
+class DeleteDesiredSkillsForm(forms.Form):
+  names = forms.CharField(widget=forms.TextInput())
+  callbackurl = forms.CharField(widget=forms.TextInput, required=False)

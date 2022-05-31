@@ -194,7 +194,8 @@ def manage_desired_skills_page(request):
     template_name = "app/manage_desired_skills.html"
     context = {
         "profile": request.user.profile,
-        "desired_skills": ds
+        "desired_skills": ds,
+        "ds_count": len(ds)
     }
 
 
@@ -424,19 +425,24 @@ def update_desired_skill_description(request):
 
 def delete_desired_skill(request):
 
-    ds_names = request.POST.get('names')
-    callback_url = request.POST.get('callbackurl')
+    if request.POST:
+        form = DeleteDesiredSkillsForm(request.POST)
 
-    list_of_names = ds_names.split(',')
+        if form.is_valid():
+            ds_names = form['names'].value()
+            callback_url = form['callbackurl'] if 'callbackurl' in form else None
 
-    ds = DesiredSkill.objects.get(skill__name__in=list_of_names, user_id=request.user.profile)
+            list_of_names = ds_names.split(',')
 
-    ds.delete()
+            ds = DesiredSkill.objects.filter(skill__name__in=list_of_names, user_id=request.user.profile)
 
-    if callback_url is not None:
-        return redirect(callback_url)
+            for skill in ds:
+                skill.delete()
 
-    return redirect("manage_desried_skills_page")
+            if callback_url is not None:
+                return redirect(callback_url)
+
+    return redirect("manage_desired_skills_page")
 
 def delete_exp(request):
 
