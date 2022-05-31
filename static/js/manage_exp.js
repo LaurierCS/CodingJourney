@@ -9,9 +9,9 @@
    * @param {boolean} submit Auto submit form after filling. Default false.
    */
   function fill_form(names, submit = false) {
-    let form_el = $("#delete_ds_form");
+    let form_el = $("#delete_exp_form");
 
-    form_el.find("#ddsf_names").val(names.join(","));
+    form_el.find("#dexp_names").val(names.join(","));
 
     if (submit) form_el.submit();
 
@@ -20,7 +20,7 @@
 
   // enable click three dots to open drop down menu
   $("div[data-menu-button]").click(function (e) {
-    const drop_down = $(`#${$(this).attr("data-for-ds")}_drop_down`);
+    const drop_down = $(`#${$(this).attr("data-for-exp")}_drop_down`);
     drop_down.toggleClass("scale-y-0");
   });
 
@@ -28,9 +28,9 @@
   let is_multi_select_on = false;
 
   // the entire list of desired skills
-  const desired_skills_list = $("#desired_skills_list");
+  const experiences_list = $("#experiences_list");
 
-  const multi_selection_overlays = desired_skills_list.find(
+  const multi_selection_overlays = experiences_list.find(
     "div[select-overlay]"
   );
 
@@ -41,7 +41,7 @@
     if (is_multi_select_on) {
       if (
         to_delete_list.length > 0 &&
-        confirm("Are you sure you want to delete the selected desired skills?")
+        confirm("Are you sure you want to delete the selected experiences?")
       ) {
         fill_form(to_delete_list, true);
       }

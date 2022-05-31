@@ -444,7 +444,7 @@ def update_desired_skill_description(request):
 def delete_desired_skill(request):
 
     if request.POST:
-        form = DeleteDesiredSkillsForm(request.POST)
+        form = DeleteDsOrExpForm(request.POST)
 
         if form.is_valid():
             ds_names = form['names'].value()
@@ -464,13 +464,24 @@ def delete_desired_skill(request):
 
 def delete_exp(request):
 
-    exp_id = request.GET.get('id')
+    if request.POST:
+        form = DeleteDsOrExpForm(request.POST)
 
-    exp = Experience.objects.get(id=exp_id, profile=request.user.profile)
+        if form.is_valid():
+            exp_ids = form['names'].value()
+            callback_url = form['callbackurl'] if 'callbackurl' in form else None
 
-    exp.delete()
+            list_of_ids = exp_ids.split(',')
 
-    return redirect("settings_page")
+            experiences = Experience.objects.filter(id__in=list_of_ids, profile=request.user.profile)
+
+            for exp in experiences:
+                exp.delete()
+            
+            if callback_url is not None:
+                return redirect(callback_url)
+
+    return redirect("manage_experiences_page")
 
 # class SkillsSerializer(serializers.ModelSerializer): 
     
