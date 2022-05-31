@@ -201,6 +201,24 @@ def manage_desired_skills_page(request):
 
     return render(request, template_name, context)
 
+@login_required(login_url="auth_page")
+def manage_experiences_page(request):
+
+    if request.POST:
+        return HttpResponseBadRequest("Does not support POST request.")
+    
+    profile = request.user.profile
+
+    experiences = Experience.objects.filter(profile=profile)
+
+    template = "app/manage_experiences.html"
+    context = {
+        "profile": profile,
+        "experiences": experiences,
+        "experience_count": len(experiences),
+    }
+
+    return render(request, template, context)
 
 # *************************************************************************************
 # ENDPOINT VIEWS - ONLY PERFORM ACTIONS ON DATA OR RETURN DATA,  DONT RETURN A TEMPLATE
