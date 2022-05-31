@@ -1,4 +1,3 @@
-from dataclasses import field, fields
 from django import forms
 from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput, URLInput
 from django.contrib.auth.forms import UserCreationForm
