@@ -38,7 +38,7 @@
       <li data-exp="{{ exp.id }}" class="relative">
         <div
           class="rounded-md overflow-hidden h-[75%] bg-primary-darker relative after:absolute after:top-0 after:right-0 after:left-0 after:bottom-0 after:z-10 after:bg-gradient-to-b after:from-transparent after:to-gray-900/90 after:opacity-0 after:hover:opacity-100 after:transition-opacity after:duration-150 group">
-          {% if false %}
+          {% if exp.image %}
           <img src="{{ exp.image|default:'/static/images/svg/badge.svg' }}" alt="skill image"
             class="w-full h-full object-contain">
           {% else %}
