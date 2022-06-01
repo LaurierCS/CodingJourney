@@ -1,5 +1,4 @@
 # DJANGO IMPORTS
-from asyncio.windows_events import NULL
 from multiprocessing import context
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
@@ -202,7 +201,7 @@ def manage_desired_skills_page(request):
         "ds_count": len(ds)
     }
 
-    desired_skill_input_handler(request, context=context)
+    desired_skill_input_injection(request, context=context)
     return render(request, template_name, context)
 
 @login_required(login_url="auth_page")
