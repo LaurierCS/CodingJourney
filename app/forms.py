@@ -193,3 +193,7 @@ class UpdateDesiredSkillDescriptionForm(forms.Form):
   description = forms.CharField(widget=forms.Textarea(), required=False)
   proficiency = forms.FloatField(required=False)
   skill_name = forms.CharField(widget=forms.TextInput())
+
+class DeleteDsOrExpForm(forms.Form):
+  names = forms.CharField(widget=forms.TextInput())
+  callbackurl = forms.CharField(widget=forms.TextInput, required=False)

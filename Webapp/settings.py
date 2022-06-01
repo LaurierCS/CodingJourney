@@ -26,7 +26,12 @@ SECRET_KEY = 'o5ai32_u%y&n!(tbftje5r57_3+edq6iivyks-30(d&@n@nodl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1', 
+    '0.0.0.0',
+    'pod4-codingjourney.herokuapp.com',
+    'https://pod4-codingjourney.herokuapp.com/'
+]
 
 
 # Application definition
@@ -46,6 +51,7 @@ INTERNAL_IPS = ['127.0.0.1']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware", # serve static files on heroku
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.export_env', # export env needed for the app
             ],
         },
     },
@@ -84,6 +91,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DATABASE_NAME'),
+#         'HOST': os.environ.get('DATABASE_HOST'),
+#         'PORT': int(os.environ.get('DATABASE_PORT')),
+#         'USER': os.environ.get("DATABASE_USER"),
+#         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#     }
+# }
 
 
 # Password validation
@@ -131,22 +149,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-
 MEDIA_URL = '/media/'
-
-# logging behaviour added by Aleks 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
-    },
-}
 

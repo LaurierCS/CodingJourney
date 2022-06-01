@@ -33,9 +33,9 @@
                 </div>
                 <div class="w-full h-full pt-3 overflow-hidden block whitespace-nowrap">
                     {% comment %} Add overflow hidden to this parent {% endcomment %}
-                    {% comment %} then in js prev/next translates ALL tabs by width of parent component? {% endcomment %}
+                    {% comment %} then in js prev/next translates ALL exp-tabs by width of parent component? {% endcomment %}
                     <div 
-                    class='tab w-full h-full inline-block align-top whitespace-normal 
+                    class='exp-tab w-full h-full inline-block align-top whitespace-normal 
                     transition duration-300'>
                         <div class="w-full max-h-full flex flex-col">
                             {{ experience_input_form.non_field_errors }}
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div><div 
-                    class="tab w-full h-full max-h-full inline-block align-top whitespace-normal
+                    class="exp-tab w-full h-full max-h-full inline-block align-top whitespace-normal
                     transition duration-300">
                         <div class="w-full max-h-full flex flex-col">
                             <div class="fieldWrapper input-container">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div><div 
-                    class="tab inline-block w-full h-full whitespace-normal align-top
+                    class="exp-tab inline-block w-full h-full whitespace-normal align-top
                     transition duration-300">
                         <div class="fieldWrapper input-container">
                             {{ experience_input_form.skills.errors }}
@@ -94,8 +94,8 @@
                 </div>
                 <div>
                     <div class="flex justify-center">
-                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="prevBtn" onclick="translateRightByWidth('tab')">Previous</button>
-                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="nextBtn"  onclick="translateLeftByWidth('tab', 2)">Next</button>
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="prevBtn" onclick="translateRightByWidth('exp-tab')">Previous</button>
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="nextBtn"  onclick="translateLeftByWidth('exp-tab', 2)">Next</button>
                     </div>
                 </div>
             </div>
