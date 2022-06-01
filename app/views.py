@@ -1,4 +1,6 @@
 # DJANGO IMPORTS
+from asyncio.windows_events import NULL
+from multiprocessing import context
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -170,6 +172,8 @@ def settingspage(request):
         "profile":profile,
         "setting_form":setting_form,
     }
+    desired_skill_input_injection(request, context=context)
+    experience_input_injection(request, context=context)
     return render(request, template_name, context)
 
 
@@ -255,7 +259,6 @@ def experience_input_handler(request):
                 'form': form,
             } 
             return render(request, 'app/experience_form.html', context=context)
-        
     
     else: 
         form = ExperienceInputform()
@@ -263,7 +266,54 @@ def experience_input_handler(request):
             'form': form,
         } 
         return render(request, 'app/experience_form.html', context=context)
-            
+
+def experience_input_injection(request, context, form=None):
+    if form: 
+        context['experience_input_form'] = form
+    else: 
+        user = request.user.profile
+        form = ExperienceInputform()
+        context['experience_input_form'] = form
+
+def desired_skill_input_handler(request): 
+    context = {}
+    if request.method == 'POST':
+        user = request.user.profile
+        form = DesiredSkillsInputForm(data=request.POST, user_id=user)         
+
+        if (form.is_valid()):
+            form_data = form.cleaned_data
+            DesiredSkill.objects.create(
+                user_id=request.user.profile,
+                skill=form_data["skill"],
+                proficiency=form_data["proficiency"],
+                description=form_data["description"],
+            )
+            desired_skill_input_injection(request, context)
+            # experience_instance.skills.set(form_data["skills"])
+            return HttpResponse(status=201)
+        else: 
+            for field in form:
+                print("Field Error:", field.name,  field.errors)
+            desired_skill_input_injection(request, context=context, form=form)
+            return HttpResponse(status=400)
+    else: 
+        desired_skill_input_injection(request, context=context)
+        return render(request, 'app/desired_skill_modal.html', context=context)
+    
+def desired_skill_input_injection(request, context=context, form=None):
+    if form: 
+        context['desired_skill_form'] = form
+    else: 
+        user = request.user.profile
+        form = DesiredSkillsInputForm(user)
+        context['desired_skill_form'] = form
+    
+
+# *************************************************************************************
+# CLASS BASED VIEWS - COLLECTED UNDER INDIVIDUAL CLASS TYPES
+# *************************************************************************************
+
 
 class TreeQueries:
     def getFullTree():

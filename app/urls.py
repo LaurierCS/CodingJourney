@@ -29,6 +29,7 @@ urlpatterns = [
     path('experience-handler', views.experience_input_handler, name="experience-handler"),
     path('search', views.SearchQueries.searchHandle, name="search_page"),
     path('experience-view-handler', views.TargetedQueries.experienceGetter, name="Experience Query"),
+    path('desired-skill-input', views.desired_skill_input_handler, name="Experience Query"),
 
 
     # ************************************************************

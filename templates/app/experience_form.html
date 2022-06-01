@@ -1,28 +1,6 @@
-{% extends "base.html" %}
-
 {% block content %}
 <form action="/experience-input" method="post">
     {% csrf_token %}
-    <button type="button" class="px-6
-      py-2.5
-      bg-blue-600
-      text-white
-      font-medium
-      text-xs
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-blue-700 hover:shadow-lg
-      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-blue-800 active:shadow-lg
-      transition
-      duration-150
-      ease-in-out" 
-      data-bs-toggle="modal" data-bs-target="#exampleModal"
-      onclick="modalOpenBehaviour('experience-input-modal')">
-      Add Experience
-</button>
     <div 
         class = "
             modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
@@ -60,28 +38,28 @@
                     class='tab w-full h-full inline-block align-top whitespace-normal 
                     transition duration-300'>
                         <div class="w-full max-h-full flex flex-col">
-                            {{ form.non_field_errors }}
+                            {{ experience_input_form.non_field_errors }}
                             <div class="fieldWrapper input-container w-full p-5 mx-0">
-                                {{ form.name.errors }}
+                                {{ experience_input_form.name.errors }}
                                 <label for="id_name" class="input-label">Experience Name:</label>
                                 <div>
-                                    {{ form.name }}
+                                    {{ experience_input_form.name }}
                                 </div>
                             </div>
                             <div class="fieldWrapper input-container w-full p-5 mx-0">
-                                {{ form.kind.errors }}
+                                {{ experience_input_form.kind.errors }}
                                 <label for="id_type" class="input-label">Type of Experience:</label>
-                                {{ form.kind }}
+                                {{ experience_input_form.kind }}
                             </div>
                             <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
-                                {{ form.start_date.errors }}
+                                {{ experience_input_form.start_date.errors }}
                                 <label for="id_start_date" class="input-label">Start Date:</label>
-                                {{ form.start_date }}
+                                {{ experience_input_form.start_date }}
                             </div>
                             <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
-                                {{ form.end_date.errors }}
+                                {{ experience_input_form.end_date.errors }}
                                 <label for="id_end_date" class="input-label">End Date:</label>
-                                {{ form.end_date }}
+                                {{ experience_input_form.end_date }}
                             </div>
                         </div>
                     </div><div 
@@ -89,28 +67,28 @@
                     transition duration-300">
                         <div class="w-full max-h-full flex flex-col">
                             <div class="fieldWrapper input-container">
-                                {{ form.description.errors }}
+                                {{ experience_input_form.description.errors }}
                                 <div class="input-label absolute top-[-18px]">Description of Experience:</div>
-                                {{ form.description }}
+                                {{ experience_input_form.description }}
                             </div>
                             <div class="fieldWrapper input-container w-full p-5 mx-0">
-                                {{ form.project_link.errors }}
+                                {{ experience_input_form.project_link.errors }}
                                 <label for="id_project_link" class="input-label">Project Link:</label>
-                                {{ form.project_link }}
+                                {{ experience_input_form.project_link }}
                             </div>
                             <div class="fieldWrapper input-container w-full p-5 mx-0">
-                                {{ form.image.errors }}
+                                {{ experience_input_form.image.errors }}
                                 <label for="id_image" class="input-label">Image:</label>
-                                {{ form.image }}
+                                {{ experience_input_form.image }}
                             </div>
                         </div>
                     </div><div 
                     class="tab inline-block w-full h-full whitespace-normal align-top
                     transition duration-300">
                         <div class="fieldWrapper input-container">
-                            {{ form.skills.errors }}
+                            {{ experience_input_form.skills.errors }}
                             <div class="input-label absolute top-[-18px]">Skills Involved:</div>
-                            {{ form.skills }}
+                            {{ experience_input_form.skills }}
                         </div>
                     </div>
                 </div>
@@ -124,14 +102,6 @@
             <input class="modal-content rounded-md border-4 w-[450px] max-w-md" type="submit" value="Submit"/>
             </div>
         </div>
-    </div>
-    <button 
-        class =""
-        type="button"
-        data-modal-toggle="experience-modal"
-    >
-        Add Experience
-    </button>
 </form>
 {% endblock content %}
 
