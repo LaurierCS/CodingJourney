@@ -44,7 +44,7 @@ class Skill(models.Model):
 
   # Text fields
   id = models.CharField(primary_key=True, max_length=30)
-  name = models.CharField(max_length=30)
+  name = models.CharField(max_length=200)
   icon_HREF = models.URLField(max_length=200)
   node_type = models.CharField(max_length=40, choices=node_type_choices, default="C")
 
