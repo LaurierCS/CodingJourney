@@ -1,4 +1,5 @@
 # DJANGO IMPORTS
+from multiprocessing import context
 from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -179,8 +180,48 @@ def settingspage(request):
         "experiences": experiences,
         "setting_form":setting_form,
     }
+    desired_skill_input_injection(request, context=context)
+    experience_input_injection(request, context=context)
     return render(request, template_name, context)
 
+@login_required(login_url='auth_page')
+def manage_desired_skills_page(request):
+
+    if request.POST:
+        return HttpResponseBadRequest('Does not accept POST request.')
+
+
+    # find all desired skills
+    ds = DesiredSkill.objects.filter(user_id=request.user.profile)
+
+    template_name = "app/manage_desired_skills.html"
+    context = {
+        "profile": request.user.profile,
+        "desired_skills": ds,
+        "ds_count": len(ds)
+    }
+
+    desired_skill_input_injection(request, context=context)
+    return render(request, template_name, context)
+
+@login_required(login_url="auth_page")
+def manage_experiences_page(request):
+
+    if request.POST:
+        return HttpResponseBadRequest("Does not support POST request.")
+    
+    profile = request.user.profile
+
+    experiences = Experience.objects.filter(profile=profile)
+
+    template = "app/manage_experiences.html"
+    context = {
+        "profile": profile,
+        "experiences": experiences,
+        "experience_count": len(experiences),
+    }
+    experience_input_injection(request, context=context)
+    return render(request, template, context)
 
 # *************************************************************************************
 # ENDPOINT VIEWS - ONLY PERFORM ACTIONS ON DATA OR RETURN DATA,  DONT RETURN A TEMPLATE
@@ -253,9 +294,9 @@ def experience_input_handler(request):
             print(skills_ids)
             context = {
                 'form': form,
-            } 
+            }
             # experience_instance.skills.set(form_data["skills"])
-            return render(request, 'app/experience_form.html', context=context)
+            return HttpResponse(status=201)
         else: 
             for field in form:
                 print("Field Error:", field.name,  field.errors)
@@ -263,8 +304,7 @@ def experience_input_handler(request):
             context = {
                 'form': form,
             } 
-            return render(request, 'app/experience_form.html', context=context)
-        
+            return HttpResponse(status=400)
     
     else: 
         form = ExperienceInputform()
@@ -272,7 +312,54 @@ def experience_input_handler(request):
             'form': form,
         } 
         return render(request, 'app/experience_form.html', context=context)
-            
+
+def experience_input_injection(request, context, form=None):
+    if form: 
+        context['experience_input_form'] = form
+    else: 
+        user = request.user.profile
+        form = ExperienceInputform()
+        context['experience_input_form'] = form
+
+def desired_skill_input_handler(request): 
+    context = {}
+    if request.method == 'POST':
+        user = request.user.profile
+        form = DesiredSkillsInputForm(data=request.POST, user_id=user)         
+
+        if (form.is_valid()):
+            form_data = form.cleaned_data
+            DesiredSkill.objects.create(
+                user_id=request.user.profile,
+                skill=form_data["skill"],
+                proficiency=form_data["proficiency"],
+                description=form_data["description"],
+            )
+            desired_skill_input_injection(request, context)
+            # experience_instance.skills.set(form_data["skills"])
+            return HttpResponse(status=201)
+        else: 
+            for field in form:
+                print("Field Error:", field.name,  field.errors)
+            desired_skill_input_injection(request, context=context, form=form)
+            return HttpResponse(status=400)
+    else: 
+        desired_skill_input_injection(request, context=context)
+        return render(request, 'app/desired_skill_modal.html', context=context)
+    
+def desired_skill_input_injection(request, context=context, form=None):
+    if form: 
+        context['desired_skill_form'] = form
+    else: 
+        user = request.user.profile
+        form = DesiredSkillsInputForm(user)
+        context['desired_skill_form'] = form
+    
+
+# *************************************************************************************
+# CLASS BASED VIEWS - COLLECTED UNDER INDIVIDUAL CLASS TYPES
+# *************************************************************************************
+
 
 class TreeQueries:
     def getFullTree():
@@ -406,23 +493,45 @@ def update_desired_skill_description(request):
 
 def delete_desired_skill(request):
 
-    ds_name = request.GET.get('name')
+    if request.POST:
+        form = DeleteDsOrExpForm(request.POST)
 
-    ds = DesiredSkill.objects.get(skill__name=ds_name, user_id=request.user.profile)
+        if form.is_valid():
+            ds_names = form['names'].value()
+            callback_url = form['callbackurl'] if 'callbackurl' in form else None
 
-    ds.delete()
+            list_of_names = ds_names.split(',')
 
-    return redirect("settings_page")
+            ds = DesiredSkill.objects.filter(skill__name__in=list_of_names, user_id=request.user.profile)
+
+            for skill in ds:
+                skill.delete()
+
+            if callback_url is not None:
+                return redirect(callback_url)
+
+    return redirect("manage_desired_skills_page")
 
 def delete_exp(request):
 
-    exp_id = request.GET.get('id')
+    if request.POST:
+        form = DeleteDsOrExpForm(request.POST)
 
-    exp = Experience.objects.get(id=exp_id, profile=request.user.profile)
+        if form.is_valid():
+            exp_ids = form['names'].value()
+            callback_url = form['callbackurl'] if 'callbackurl' in form else None
 
-    exp.delete()
+            list_of_ids = exp_ids.split(',')
 
-    return redirect("settings_page")
+            experiences = Experience.objects.filter(id__in=list_of_ids, profile=request.user.profile)
+
+            for exp in experiences:
+                exp.delete()
+            
+            if callback_url is not None:
+                return redirect(callback_url)
+
+    return redirect("manage_experiences_page")
 
 # class SkillsSerializer(serializers.ModelSerializer): 
     

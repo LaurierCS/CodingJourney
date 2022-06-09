@@ -81,11 +81,11 @@ class DesiredSkill(models.Model):
 class Experience(models.Model):
   # technologies = models.ManyToManyField("Technology")
   EXPERIENCE_TYPE = (
-        ('E', 'Exploration'),
-        ('P', 'Project'),
-        ('L', 'Learning'),
-        ('H', 'Hackathon'),
-        ('Ev', 'Event'),
+    ('E', 'Exploration'),
+    ('P', 'Project'),
+    ('L', 'Learning'),
+    ('H', 'Hackathon'),
+    ('Ev', 'Event'),
   )
 
   # Foreign Key Fields

@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+# from . import testView
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -17,6 +18,8 @@ urlpatterns = [
     path('experiences-by-skill/<str:skill_name>', 
         views.TargetedQueries.getExperiencesBySkills, 
         name="experiences_by_skills"),    
+    path('manage-desired-skills', views.manage_desired_skills_page, name="manage_desired_skills_page"),
+    path('manage-experiences', views.manage_experiences_page, name="manage_experiences_page"),
 
     # ************************************************************
     # ENDPOINT URLS - FOR HANDLING DATA LIKE LOGIN AND REGISRATION
@@ -28,6 +31,7 @@ urlpatterns = [
     path('experience-handler', views.experience_input_handler, name="experience-handler"),
     path('search', views.SearchQueries.searchHandle, name="search_page"),
     path('experience-view-handler', views.TargetedQueries.experienceGetter, name="Experience Query"),
+    path('desired-skill-input', views.desired_skill_input_handler, name="Experience Query"),
     path('delete-ds', views.delete_desired_skill, name="delete_desired_skill"),
     path('delete-exp', views.delete_exp, name="delete_exp"),
 
@@ -39,6 +43,7 @@ urlpatterns = [
     path('test-trimmed-tree', views.TreeQueries.getTrimmedTree, name="get-trimmed-tree"),
     path('experience-input', views.experience_input_handler, name="exp-input-test"),
     path('experience-list', views.allexperiences, name='experience-list'),
+    # path('experience-display-modal', testView.experience_display_view , name='experience-list'),
 ]
 
 

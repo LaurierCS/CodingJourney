@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="{% url 'exp_like' %}" method="post">
+  {% csrf_token %}
+  {{ form }}
+</form>
+
+{% endblock %}
