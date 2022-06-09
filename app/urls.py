@@ -33,6 +33,7 @@ urlpatterns = [
     path('experience-view-handler', views.TargetedQueries.experienceGetter, name="Experience Query"),
     path('delete-ds', views.delete_desired_skill, name="delete_desired_skill"),
     path('delete-exp', views.delete_exp, name="delete_exp"),
+    path('exp-like', views.LikeHandlers.exp_like_handler, name="exp_like"),
 
 
     # ************************************************************

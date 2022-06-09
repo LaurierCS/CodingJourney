@@ -1,5 +1,5 @@
 # DJANGO IMPORTS
-from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -781,6 +781,7 @@ class TargetedQueries:
         return JsonResponse(context)
 
     def getExperiencesBySkills(request, skill_name):
+        print(skill_name)
         document_title = "Roadmap & Experiences"
         # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
         skill=DesiredSkill.objects.filter(skill=Skill.objects.get(name=skill_name))
@@ -795,3 +796,27 @@ class TargetedQueries:
             "type": "skill_search_click"
         }
         return render(request, template_name, context)
+
+    
+class LikeHandlers():
+    def exp_like_handler(request):
+
+        if request.POST:
+            print(LikeExperienceForm(request.POST))
+            exp_id = request.POST.get("exp_id")
+            profile = request.user.profile
+
+            exp = Experience.objects.filter(pk=exp_id)
+
+            if exp in profile.liked_experiences:
+                # unlike
+                profile.liked_experiences.remove(exp)
+                exp.decrement_like()
+            else:
+                # like
+                profile.liked_experiences.add(exp)
+                exp.increment_like()
+
+            return HttpResponse()
+
+        return HttpResponseBadRequest("GET request not allowed.")
