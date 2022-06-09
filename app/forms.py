@@ -177,3 +177,8 @@ class LikeExperienceForm(forms.ModelForm):
   class Meta:
     model = Experience
     fields = ["id"]
+
+  exp_id = forms.CharField(
+    label='Id',
+    widget=forms.TextInput()
+  )

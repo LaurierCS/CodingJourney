@@ -802,13 +802,13 @@ class LikeHandlers():
     def exp_like_handler(request):
 
         if request.POST:
-            print(LikeExperienceForm(request.POST))
-            exp_id = request.POST.get("exp_id")
+            form = LikeExperienceForm(request.POST)
+            exp_id = form['exp_id'].value()
             profile = request.user.profile
 
-            exp = Experience.objects.filter(pk=exp_id)
+            exp = Experience.objects.get(pk=int(exp_id))
 
-            if exp in profile.liked_experiences:
+            if exp in profile.liked_experiences.all():
                 # unlike
                 profile.liked_experiences.remove(exp)
                 exp.decrement_like()
