@@ -16,7 +16,7 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 {% if request.user.is_authenticated %}
 <script>
-    var profile_pic = "{{ request.user.profile.image|safe }}"
+    var profile_pic = "{{ request.user.profile.image.url }}"
     var username = "{{ request.user }}"
 </script>
 {% endif %}

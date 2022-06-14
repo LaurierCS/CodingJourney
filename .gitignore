@@ -150,4 +150,5 @@ GitHub.sublime-settings
 
 
 # USER MEDIA FOLDER, IGNORE TO NOT OVERRIDE EXISTING DATA WHEN PUSHING/DEPLOYING
-static/user_media
+static/user_media/profile_images
+static/user_media/experience_images

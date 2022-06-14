@@ -54,13 +54,7 @@
               {{setting_form.image.label | title}}
             </label>
             <div id="pic-container" class="w-44">
-              {% if 'image' in request.user.profile %}
-              <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full m-2">
-              {% else %}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-              </svg>
-              {% endif %}
+              <img src="{{request.user.profile.image.url}}" alt="profile.img" class="w-full h-44 object-cover object-top border-2 rounded-full m-2 bg-blue-50/80">
             </div>
             {{setting_form.image}}
           </div>
