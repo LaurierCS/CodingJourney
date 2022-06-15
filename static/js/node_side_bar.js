@@ -19,7 +19,7 @@ class NodeSideBar {
     "#nsb_close_overlay_button",
   ];
 
-  constructor(element_id) {
+  constructor(element_id, editable = true) {
     if ($ === undefined)
       throw Error(
         "NodeSideBar: Please include JQuery for the sidebar to work."
@@ -33,6 +33,7 @@ class NodeSideBar {
       );
 
     this._element_id = element_id ?? "nsb";
+    this.ediatable = editable;
 
     this._nsb = $(`#${this._element_id}`);
     if (this._nsb.lenght < 1)
@@ -52,24 +53,26 @@ class NodeSideBar {
         );
       }
     }
-
+    
     this._nsb_elements["nsb_close"].click(this.hide.bind(this));
+    
+    if (this.ediatable) {
+      this._nsb_elements["nsb_edit"].click(this._toggle_edit.bind(this));
 
-    this._nsb_elements["nsb_edit"].click(this._toggle_edit.bind(this));
+      this._nsb_elements["nsb_save"].click(this._save.bind(this));
 
-    this._nsb_elements["nsb_save"].click(this._save.bind(this));
+      this._nsb_elements["nsb_description_form"].submit(
+        this._submit_changes.bind(this)
+      );
 
-    this._nsb_elements["nsb_description_form"].submit(
-      this._submit_changes.bind(this)
-    );
-
-    this._nsb_elements["nsb_proficiency_toggle"].click(
-      this._toggle_proficiency_menu.bind(this)
-    );
-
-    this._nsb_elements["nsb_proficiency_list"]
-      .children()
-      .click(this._onselect_proficiency.bind(this));
+      this._nsb_elements["nsb_proficiency_toggle"].click(
+        this._toggle_proficiency_menu.bind(this)
+      );
+  
+      this._nsb_elements["nsb_proficiency_list"]
+        .children()
+        .click(this._onselect_proficiency.bind(this));
+    }
 
     this._nsb_elements["nsb_close_overlay_button"].click(
       this._toggle_error_overlay.bind(this)
@@ -396,7 +399,7 @@ class NodeSideBar {
 
     // close the proficiency menu if is active when updating content.
     if (
-      this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true"
+      this.editable && this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true"
     ) {
       this._toggle_proficiency_menu();
     }

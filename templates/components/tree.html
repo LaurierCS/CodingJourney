@@ -1,0 +1,7 @@
+{% block content %}
+{% load static %}
+<div id="{% firstof container_id 'treeContainer' %}" class="relative h-full overflow-hidden {{ classes }}">
+  {% include 'components/node_side_bar.html' %}
+</div>
+<script src="{% static 'js/skill_tree.js' %}"></script>
+{% endblock %}

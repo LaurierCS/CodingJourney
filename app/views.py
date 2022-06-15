@@ -1,6 +1,6 @@
 # DJANGO IMPORTS
 from multiprocessing import context
-from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -83,7 +83,6 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
-    tree_json = TreeQueries.getTrimmedTree(profile) # todo: profile to function when update_ds_description is merged.
     # tech_roadmap = profile.tech_roadmap
 
     template_name = "app/dashboard.html"
@@ -91,8 +90,7 @@ def dashboard(request):
         "document_title": document_title,
         "profile": profile,
         "experiences":experiences,
-        "tree_json": tree_json
-        # "tech_roadmap":tech_roadmap
+        "editable": True,
     }
     return render(request, template_name, context)
 
@@ -146,6 +144,20 @@ def otherprofilepage(request, username):
         "num_exp":num_exp,
     }
     return render(request, template_name, context)
+
+def other_user_skill_tree_page(request):
+    username = request.GET.get("username")
+    profile = Profile.objects.get(user__username=username)
+    ds = TreeQueries.getTrimmedTree(profile)
+    context = {
+        "tree_json": ds,
+        "profile": profile,
+        "editable": False
+    }
+    template = "app/other_user_skill_tree.html"
+
+    return render(request, template, context)
+
 
 @login_required(login_url='auth_page')
 def settingspage(request):
@@ -374,7 +386,7 @@ class TreeQueries:
         # desired skills query 
         desired_skill_objects = DesiredSkill.objects.filter(user_id=profile).order_by('skill')
         
-        # user has no desired skill set, so we just return a user node
+        # user has no  || Truedesired skill set, so we just return a user node
         if len(desired_skill_objects) < 1:
             # query user node
             skill_query = Skill.objects.filter(id="user")
@@ -383,23 +395,19 @@ class TreeQueries:
 
         # retrieve list of connected skills
         subset_skills = desired_skill_objects.values_list('skill', flat=True)
-        print(subset_skills)
         # query skill objects associated w/ desired skills
         skill_tree_qs = Skill.objects.filter(id=subset_skills[0])
-        print(skill_tree_qs)
 
         # pdb.set_trace()
         for i in range(1, len(subset_skills)):
             skill_tree_q = Skill.objects.filter(id=subset_skills[i])
             skill_tree_qs = skill_tree_qs.union(skill_tree_q)
-        
-        # skill_tree_qs = Skill.objects.filter(id__in=subset_skills)
-        
-        # skill_query contains parents of all desired skills objects
+        # skill_tr || Trueee_qs = Skill.objects.filter(id__in=subset_skills)
+        # skill_query con || Truetains parents of all desired skills objects
         skill_query = Skill.objects.filter(id__in=skill_tree_qs.values_list('parentId', flat=True))
         print(skill_query)
-        while (skill_query.exists()): 
-            # create union of skill_query objects w/ skill objects
+        while (skill_query.exists()):
+            # create u || Truenion of skill_query objects w/ skill objects
             skill_tree_qs = skill_tree_qs.union(skill_query)
             # requery skill_query objects to reference parents of previous skill_query
             skill_query = Skill.objects.filter(id__in=skill_query.values_list('parentId', flat=True))
@@ -428,6 +436,37 @@ class TreeQueries:
         # serialized = serializers.serialize('json', skill_tree_qs, ensure_ascii=False)
         serialized = json.dumps(list(skill_tree), ensure_ascii=False)
         return serialized
+
+    def get_tree_data_as_json(request):
+        username = request.GET.get("username")
+        profile = Profile.objects.get(user__username=username)
+        ds_objects = DesiredSkill.objects.filter(user_id=profile)
+
+        if len(ds_objects) < 1:
+            # query user node which includes the profile picture
+            skill_query = Skill.objects.filter(id="user")
+            skill_list = list(skill_query.values().annotate(icon_HREF=Value(value=profile.image.url, output_field=CharField())))
+            return JsonResponse({'data': skill_list})
+
+        # in case there are desired skills
+        # recursive query, bottom up
+        # skill_query = DesiredSkill.objects.raw("""
+        #     WITH RECURSIVE skill_tree AS (
+        #         SELECT ds.skill_id, ds.id from app_desiredskill ds WHERE user_id_id = 2
+                
+        #         UNION ALL
+                
+        #         SELECT sk.id, sk.name from app_skill sk
+        #         JOIN skill_tree st on st.skill_id = sk.id
+        #     )
+
+        #     SELECT * FROM skill_tree
+        # """.format(user_id=profile.user.id))
+
+
+        data = TreeQueries.getTrimmedTree(profile=profile)
+
+        return JsonResponse({ 'data': data })
 
 
     def populateDatabase(request): 
@@ -465,8 +504,8 @@ class TreeQueries:
                 skill.parentId = parentId
                 skill.save()
 
-def update_desired_skill_description(request):
-    if request.method == "POST":
+def update_desired_skill(request):
+    if request.method == "POST" and request.user.is_authenticated:
         form = UpdateDesiredSkillDescriptionForm(request.POST)
         ds = DesiredSkill.objects.filter(user_id=request.user.profile, skill__name=form['skill_name'].value())
 
@@ -845,3 +884,16 @@ class TargetedQueries:
             "type": "skill_search_click"
         }
         return render(request, template_name, context)
+
+    def getProfilePictureByUsername(request):
+        username = request.GET.get('username')
+
+        if username is not None:
+            profile = Profile.objects.get(user__username=username)
+            if profile is None:
+                return HttpResponseNotFound(f"No user with username: {username}")
+            data = {
+                "url": profile.image.url
+            }
+
+            return JsonResponse(data);
