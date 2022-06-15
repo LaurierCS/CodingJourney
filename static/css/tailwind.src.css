@@ -437,3 +437,14 @@
 .modal.active {
   transform: translate(-50%, -30%) scale(1);
 }
+
+/* id link styling */
+
+#how_it_works::before, #about_us::before {
+  display: block; 
+  content: " "; 
+  margin-top: -80px; 
+  height: 80px; 
+  visibility: hidden; 
+  pointer-events: none;
+}

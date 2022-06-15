@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="grid grid-cols-12 h-full">
+<div class="grid grid-cols-12 h-[calc(100%_-_80px)]">
 
   {% include "components/sidemenu.html" %}
 
@@ -13,7 +13,7 @@
         <div>
           <h3>{{request.user.username|title}}</h3>
           <a href="{% url 'settings_page' %}">
-            <button class="button p-3">
+            <button class="button p-3 mt-3">
               Edit Profile
             </button>
           </a>

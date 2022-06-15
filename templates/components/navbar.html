@@ -52,19 +52,6 @@
       </li>
     </ul>
     <!-- end of links -->
-    <!-- profile: img, profile-info(name, info) -->
-    {% if request.user.profile %}
-      <div class="flex justify-start items-center h-20">
-        <div id="pic-container" class="w-12">
-          <img src="{{request.user.profile.image.url}}" class="w-full h-12 border-2 object-cover object-top rounded-full">
-        </div>
-        <div class="ml-10">
-          <p class="cursor-pointer opacity-70 hover:opacity-100"><a href="{% url 'profile_page' %}">{{request.user.username | title}}</a></p>
-          <a href="{% url 'logout' %}" class="opacity-70 hover:opacity-100">Log Out</a>
-        </div>
-      </div>
-    {% endif %}
-    <!-- end of profile -->
   </div>
   <!-- end of container -->
   {% endif %} 
