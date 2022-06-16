@@ -1,5 +1,5 @@
 {% block content %}
-<form action="/experience-input" method="post">
+<form action="/experience-input" method="post" id="experience-form">
     {% csrf_token %}
     <div 
         class = "
@@ -103,22 +103,32 @@
             </div>
         </div>
 </form>
+{% comment %} <script type="text/javascript">
+    $("experience-form").on('submit','#experience-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:'{% url "experience-handler" %}',
+            data:
+            {
+                'name': [$("#exp-name").val()], 
+                'kind': [$("#exp-kind").val()], 
+                'start_date_month': [$("#id_start_date_month").val()], 
+                'start_date_day': [$("#id_start_date_day").val()], 
+                'start_date_year': [$("#id_start_date_year").val()], 
+                'end_date_month': ['1'], 
+                'end_date_day': [$("#id_end_date_month").val()], 
+                'end_date_year': [$("#id_end_date_year").val()], 
+                'description': [$("#exp-description").val()], 
+                'project_link': [$("#exp-project_link").val()], 
+                'image': ['image.png'], 
+                'skills': ['javascript', 'react']
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                  alert('Saved');
+                    }
+            })
+        });
+    </script> {% endcomment %}
 {% endblock content %}
-
-
-<!-- <form action="/view function/" method="post">
-    <label for="Project Name">Project Name:</label>
-    <input id="project_name" type="text"  name="project_name" value="{{project_name}}">
-
-    <label for="Project Link">Project Link:</label>
-    <input id="project_link" type="text"  name="project_link" value="{{project_link}}">
-
-    <label for="Start Date">Start Date:</label>
-    <input id="start_date" type="date"  name="start_date" value="{{start_date}}">
-
-    <label for="End Date">End Date:</label>
-    <input id="end_date" type="date"  name="end_date" value="{{end_date}}">
-
-    <button type="submit">Submit</button>
-
-</form> -->

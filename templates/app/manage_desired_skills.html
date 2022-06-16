@@ -28,7 +28,7 @@
           Select and Delete
         </button>
         {% endif %}
-        <button class="button button-transition" id="add_ds">
+        <button class="button button-transition" id="add_ds" onclick="modalOpenBehaviour('desired_skill-input-modal')">
           Add Desired Skill
         </button>
       </div>
@@ -37,7 +37,7 @@
     <ul class="grid gap-9 grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] px-9 transition-all duration-300" id="desired_skills_list">
       {% for ds in desired_skills %}
       <li data-ds="{{ ds.skill.name }}" class="relative">
-        <div class="rounded-md overflow-hidden h-[75%] bg-primary-darker">
+        <div class="rounded-md overflow-hidden h-[75%] bg-primary-darker" id="{{ds.pk}}"" data-ds-proficiency="{{ds.proficiency}}"">
           <img src="{{ ds.skill.icon_HREF|default:'/static/images/svg/badge.svg' }}" alt="skill image"
             class="w-full h-full object-contain">
         </div>
@@ -81,5 +81,6 @@
     <input type="hidden" name="names" id="ddsf_names">
   </form>
 </div>
+{% include "app/desired_skill_modal.html"%}
 <script src="{% static 'js/manage_ds.js' %}"></script>
 {% endblock %}
