@@ -60,6 +60,8 @@ class SkillTree {
     this.container_width = this.container.width();
     this.container_height = this.container.height();
     
+    $(window).resize(this._on_window_resize.bind(this));
+
     // set the viewbox to control zoom/padding
     this.viewbox = {
       x: -this.container_width / 2 - this.NODE_DIM.U[0] * 2,
@@ -432,5 +434,19 @@ class SkillTree {
     }
 
     this._tree_svg_el.on("wheel", this._on_zoom.bind(this));
+  }
+
+  _on_window_resize() {
+    if (this.container.length > 0) {
+      this.container_width = this.container.width();
+      this.container_height = this.container.height();
+
+      this._tree_svg_el.attr("width", this.container_width);
+      this._tree_svg_el.attr("height", this.container_height);
+      this._tree_svg_el.attr(
+        "viewBox",
+        this._get_viewbox_string(this.viewbox.x, this.viewbox.y, this.viewbox.width, this.viewbox.height)
+      );
+    }
   }
 }
