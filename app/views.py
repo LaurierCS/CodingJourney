@@ -380,9 +380,6 @@ class TreeQueries:
         return serialized
     
     def getTrimmedTree(profile):
-        # todo: 1. need to include parent of nodes, always.
-        # todo: 2. need to include user as root.
-        # todo: 3. condense all information into the node.
         # desired skills query 
         desired_skill_objects = DesiredSkill.objects.filter(user_id=profile).order_by('skill')
         
@@ -390,7 +387,7 @@ class TreeQueries:
         if len(desired_skill_objects) < 1:
             # query user node
             skill_query = Skill.objects.filter(id="user")
-            serialized_query = serializers.serialize("json", skill_query, ensure_ascii=False)
+            serialized_query = json.dumps(list(skill_query.values()), ensure_ascii=False)
             return serialized_query
 
         # retrieve list of connected skills
@@ -398,14 +395,13 @@ class TreeQueries:
         # query skill objects associated w/ desired skills
         skill_tree_qs = Skill.objects.filter(id=subset_skills[0])
 
-        # pdb.set_trace()
         for i in range(1, len(subset_skills)):
             skill_tree_q = Skill.objects.filter(id=subset_skills[i])
             skill_tree_qs = skill_tree_qs.union(skill_tree_q)
         # skill_tr || Trueee_qs = Skill.objects.filter(id__in=subset_skills)
         # skill_query con || Truetains parents of all desired skills objects
         skill_query = Skill.objects.filter(id__in=skill_tree_qs.values_list('parentId', flat=True))
-        print(skill_query)
+        # print(skill_query)
         while (skill_query.exists()):
             # create u || Truenion of skill_query objects w/ skill objects
             skill_tree_qs = skill_tree_qs.union(skill_query)
@@ -419,6 +415,10 @@ class TreeQueries:
 
         skill_tree = skill_tree_qs.values()
         for skill in skill_tree:
+            if skill['id'] == 'user':
+                # ASSIGN THE PROGILE IMAGE TO BE DISPLAYED IN THE FRONT-END
+                skill['icon_HREF'] = profile.image.url
+                print(skill['icon_HREF'])
             if (skill['id'] not in desired_skill_dict): 
                 continue
             ds = desired_skill_dict[skill['id']]
@@ -440,33 +440,44 @@ class TreeQueries:
     def get_tree_data_as_json(request):
         username = request.GET.get("username")
         profile = Profile.objects.get(user__username=username)
-        ds_objects = DesiredSkill.objects.filter(user_id=profile)
 
-        if len(ds_objects) < 1:
-            # query user node which includes the profile picture
-            skill_query = Skill.objects.filter(id="user")
-            skill_list = list(skill_query.values().annotate(icon_HREF=Value(value=profile.image.url, output_field=CharField())))
-            return JsonResponse({'data': skill_list})
+        ### COMMENTED BLOCK JUST FOR FUTURE REFERENCE TO IMPLEMENT RECURSIVE QUERY
+        # ds_objects = DesiredSkill.objects.filter(user_id=profile)
+
+        # if len(ds_objects) < 1:
+        #     # query user node which includes the profile picture
+        #     skill_query = Skill.objects.filter(id="user")
+        #     skill_list = list(skill_query.values().annotate(icon_HREF=Value(value=profile.image.url, output_field=CharField())))
+        #     return JsonResponse({'data': skill_list})
+
+        # skill_query = DesiredSkill.objects.raw("""
+        #         SELECT ds.skill_id, ds.id
+        #         FROM app_desiredskill ds 
+        #         WHERE user_id_id = 2 
+        #         JOIN app_skill s
+        #         ON s.id = ds.skill_id
+        # """)
+        # print(skill_query[0])
+        # for ds in skill_query:
+        #     print(ds)
 
         # in case there are desired skills
         # recursive query, bottom up
         # skill_query = DesiredSkill.objects.raw("""
         #     WITH RECURSIVE skill_tree AS (
-        #         SELECT ds.skill_id, ds.id from app_desiredskill ds WHERE user_id_id = 2
                 
         #         UNION ALL
                 
         #         SELECT sk.id, sk.name from app_skill sk
-        #         JOIN skill_tree st on st.skill_id = sk.id
+        #         WHERE skill_tree st on st.skill_id = sk.id
         #     )
 
         #     SELECT * FROM skill_tree
         # """.format(user_id=profile.user.id))
 
-
         data = TreeQueries.getTrimmedTree(profile=profile)
 
-        return JsonResponse({ 'data': data })
+        return JsonResponse({ 'data': data, 'is_owner': request.user.username == username })
 
 
     def populateDatabase(request): 
@@ -896,4 +907,4 @@ class TargetedQueries:
                 "url": profile.image.url
             }
 
-            return JsonResponse(data);
+            return JsonResponse(data)

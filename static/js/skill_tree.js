@@ -49,10 +49,11 @@ class SkillTree {
 
   ZOOM_WHEEL_RATIO = 0.1;
 
-  constructor(username, container, editable = true) {
+  constructor(username, container_selector) {
     this.username = username;
-    this.container_selector = container;
-    this.editable = editable;
+    this.container_selector = container_selector;
+
+    this.is_owner = false;
 
     // get container dimensions
     this.container = $(this.container_selector);
@@ -92,16 +93,22 @@ class SkillTree {
     // make http get request for tree data in json format
     try {
       const res = await fetch('/skill-tree-data?username='+this.username);
-      const { data } = await res.json();
+      const { data, is_owner } = await res.json();
       const skills = JSON.parse(data);
-      
+
+      this.is_owner = is_owner;
+
       if (skills.length < 1) return [];
 
       let i;
       for (i=0;i<skills.length;i++) {
         skills[i].parentId = skills[i].parentId_id;
         skills[i].nodeType = skills[i].node_type;
+        delete skills[i].parentId_id
+        delete skills[i].node_type
       }
+
+      this.profile_picture_url = skills[0].icon_HREF ?? "";
 
       return skills
 
@@ -152,7 +159,7 @@ class SkillTree {
     }
 
     if (this.profile_picture_url.length < 1) {
-      this.profile_picture_url = await this._get_profile_picture();
+      this.profile_picture_url = await this._get_profile_picture(true);
     }
 
     this.container_d3 = d3.select(this.container_selector);
@@ -254,9 +261,7 @@ class SkillTree {
 
     this.node_images = this.nodes
     .append("image")
-    .attr("href", d => {
-      // todo: return iconHref instead
-  
+    .attr("href", d => {  
       if (d.data.nodeType === this.NODE_TYPES.U) {
         return this.profile_picture_url;
       }
@@ -276,14 +281,18 @@ class SkillTree {
     await this._enable_tree_interactions();
   }
 
-  async _get_profile_picture() {
+  async _get_profile_picture(fetch_by_username = false) {
     try {
+      if (this.is_owner && fetch_by_username) {
+
+        const res = await fetch('/user-profile-picture?username='+this.username);
+  
+        const { url } = await res.json();
+
+        return url;
+      }
       
-      const res = await fetch('/user-profile-picture?username='+this.username);
-
-      const { url } = await res.json();
-
-      return url;
+      return this.tree_data[0].icon_HREF;
 
     } catch (error) {
       console.error("Error getting profile picture.")
@@ -395,7 +404,7 @@ class SkillTree {
   
     // check if sidebar exists or not
     if (!this.node_side_bar && NodeSideBar !== undefined) {
-      this.node_side_bar = new NodeSideBar("nsb", this.editable)
+      this.node_side_bar = new NodeSideBar("nsb", this.is_owner)
     }
   
     this.node_side_bar.show(d);

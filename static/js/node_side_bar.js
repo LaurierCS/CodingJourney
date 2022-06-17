@@ -19,7 +19,7 @@ class NodeSideBar {
     "#nsb_close_overlay_button",
   ];
 
-  constructor(element_id, editable = true) {
+  constructor(element_id, is_owner) {
     if ($ === undefined)
       throw Error(
         "NodeSideBar: Please include JQuery for the sidebar to work."
@@ -33,7 +33,7 @@ class NodeSideBar {
       );
 
     this._element_id = element_id ?? "nsb";
-    this.ediatable = editable;
+    this.is_owner = is_owner;
 
     this._nsb = $(`#${this._element_id}`);
     if (this._nsb.lenght < 1)
@@ -56,7 +56,7 @@ class NodeSideBar {
     
     this._nsb_elements["nsb_close"].click(this.hide.bind(this));
     
-    if (this.ediatable) {
+    if (this.is_owner) {
       this._nsb_elements["nsb_edit"].click(this._toggle_edit.bind(this));
 
       this._nsb_elements["nsb_save"].click(this._save.bind(this));
