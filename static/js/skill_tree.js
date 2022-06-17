@@ -271,12 +271,43 @@ class SkillTree {
       return "/static/images/svg/badge.svg" // todo: change to return actual icon when available
     })
     .attr("class", "node-image")
-    .attr("width", d => d.data.nodeType !== this.NODE_TYPES.C ? d.data.nodeType === this.NODE_TYPES.N ? this.NODE_IMG_SIZE : this.NODE_DIM.U[0] : 0)
-    .attr("height", d => d.data.nodeType !== this.NODE_TYPES.C ? d.data.nodeType === this.NODE_TYPES.N ? this.NODE_IMG_SIZE : this.NODE_DIM.U[1] : 0)
+    .attr("width", d => {
+
+      let width = 0;
+
+      switch (d.data.nodeType) {
+        case "U":
+          width = this.NODE_DIM.U[0];
+          break;
+        case "N":
+          width = this.NODE_IMG_SIZE;
+          break;
+        default:
+          break;
+      }
+
+      return width;
+    })
+    .attr("height", d => {
+      let height = 0;
+
+      switch (d.data.nodeType) {
+        case "U":
+          height = this.NODE_DIM.U[1];
+          break;
+        case "N":
+          height = this.NODE_IMG_SIZE;
+          break;
+        default:
+          break;
+      }
+
+      return height;
+    })
     .attr("x", d => d.x + this.NODE_DIM[d.data.nodeType][0] / 2 - (d.data.nodeType === this.NODE_TYPES.N ? this.NODE_IMG_SIZE : this.NODE_DIM.U[0]) / 2)
     .attr("y", d => d.y + this.NODE_DIM[d.data.nodeType][1] / 2 - (d.data.nodeType === this.NODE_TYPES.N ? this.NODE_IMG_SIZE : this.NODE_DIM.U[1]) / 2)
     .attr("clip-path", d => d.data.nodeType === this.NODE_TYPES.U ? "url(#user-clip)" : "")
-    .attr("preserveAspectRatio", "none")
+    .attr("preserveAspectRatio", "xMidYMid slice")
     .attr("data-node-image-id", d => d.id);
 
 
