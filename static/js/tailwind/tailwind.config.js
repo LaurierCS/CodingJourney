@@ -16,6 +16,14 @@ module.exports = {
         "sans-serif",
       ],
     },
+    screens: {
+      'mobile': {'max':'370px'},
+      // => @media (min-width: 370px) {...}
+      'tablet': {'max':'640px'},
+      // => @media (min-width: 640px) {...}
+      'desktop': {'max':'1080px'},
+      // => @media (min-width: 1280px) {...}
+    },
     /**
      * Extend the classes that tailwind has to offerY instead of overriding them.
      * Overriding any of the default category, such as margin, will get rid of all
