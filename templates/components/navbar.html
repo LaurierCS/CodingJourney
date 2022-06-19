@@ -46,8 +46,16 @@
 
   <!-- 1080px: change -->
   <div class="relative bottom-40 desktop:bottom-0">
-    <ul class="flex justify-end items-center h-20 w-11/12 mx-auto">
-      <!-- desktop:block hidden flex justify-end items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none -->
+    <ul class="flex justify-between items-center h-20 w-11/12 mx-auto">
+      <li class="inline-block mx-10 ">
+        {% include 'icons/burger.html' with class='w-8 h-8 opacity-70 hover:opacity-100 '%}
+      </li>
+      <!-- include a logo here -->
+      <li class="mr-10 cursor-pointer opacity-70 hover:opacity-100">
+        <a href="{% url 'landing_page' %}">
+          {% include 'icons/mainlogo.html' with class="w-32 h-32"%}
+        </a>
+      </li>
       <li class="mx-10 cursor-pointer">
         <a href="{% url 'auth_page' %}">
           <button class="button bg-dark-gradient button-transition">
@@ -58,9 +66,6 @@
             {% endif %}
           </button>
         </a>
-      </li>
-      <li class="inline-block mx-10 cursor-pointer">
-        {% include 'icons/burger.html' with class='w-8 h-8 opacity-70 hover:opacity-100 rounded-full bg-dark-gradient '%}
       </li>
     </ul>
   </div>
