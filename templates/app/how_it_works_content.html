@@ -1,20 +1,21 @@
 {% load static %}
 <section id="how_it_works" class="w-full relative pt-32">
-  <div class="w-1/2 mx-auto desktop:w-[60%]">
+  
+  <div class="w-1/2 max-w-11/12 mx-auto desktop:w-[70%] tablet:!w-[80%]">
     <article>
-      <h2 class="text-[3rem] mb-[60px] ">How it Works</h2>
+      <h2 class="text-[3rem] mb-[60px]">How it Works</h2>
       <p class="m-auto mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum suspendisse lorem nunc vivamus egestas ut sed morbi. Eget sapien id iaculis senectus mattis nulla in felis mauris. Arcu aenean placerat donec ut nullam vel, facilisis. Montes, nisl, eget vitae, nisi tortor massa. Ut pharetra lacinia metus nunc turpis lectus pellentesque non. Proin varius porttitor mauris, malesuada amet vulputate. Diam feugiat mattis eu non nisi, erat urna blandit integer. Felis ut non eu varius euismod vel, nisl imperdiet pulvinar. Suscipit fermentum nisl, amet id justo integer montes, ac. Lorem lectus felis, integer dolor. Faucibus nunc mauris maecenas bibendum neque, libero tortor consequat. Euismod nullam gravida aliquet elementum aliquam. Massa auctor at urna adipiscing sollicitudin faucibus sed tristique.</p>
     </article>
     {% include 'icons/double_chevron_down.html' with class="h-8 w-8 m-auto animate-bounce" %}
     <!-- change the flex direction here -->
     <div class="my-20 mx-auto w-full min-h-[476px] bg-primary rounded-lg p-10">
       <h3 class="font-bold text-4xl">Step X</h3>
-      <div class="my-12 flex flex-row desktop:flex-col text-left  desktop:text-justify">
+      <div class="my-12 tablet:my-8 flex flex-row desktop:flex-col text-left  desktop:text-justify">
         {% comment %}
           change div to an image element when screenshot is available
         {% endcomment %}
         <div class="flex-1 h-auto desktop:p-5">
-          <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-full h-full object-cover rounded-lg  desktop: desktop:object-fill desktop:h-[400px]" />
+          <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-full h-full object-cover rounded-lg desktop:object-fill desktop:max-h-[500px] tablet:!max-h-[425px]" />
         </div>
         <div class="flex-[2] ml-6 desktop:ml-0 desktop:px-5">
           <p class="text-justify">
@@ -26,12 +27,12 @@
     {% include 'icons/double_chevron_down.html' with class="h-8 w-8 m-auto animate-bounce" %}
     <div class="my-20 mx-auto w-full min-h-[476px] bg-primary rounded-lg p-10">
       <h3 class="font-bold text-4xl">Step X</h3>
-      <div class="my-12 flex flex-row desktop:flex-col text-left  desktop:text-justify">
+      <div class="my-12 tablet:my-8 flex flex-row desktop:flex-col text-left  desktop:text-justify">
         {% comment %}
           change div to an image element when screenshot is available
         {% endcomment %}
         <div class="flex-1 h-auto desktop:p-5">
-          <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-full h-full object-cover rounded-lg  desktop: desktop:object-fill desktop:h-[400px]" />
+          <img src="{% static 'images/screenshot_holder.jpg' %}" alt="step x screenshot" class="w-full h-full object-cover rounded-lg desktop:object-fill desktop:max-h-[500px] tablet:!max-h-[425px]" />
         </div>
         <div class="flex-[2] ml-6 desktop:ml-0 desktop:px-5">
           <p class="text-justify">
