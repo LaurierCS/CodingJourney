@@ -17,7 +17,7 @@ module.exports = {
       ],
     },
     screens: {
-      'mobile': {'max':'370px'},
+      'mobile': {'max':'450px'},
       // => @media (max-width: 370px) {...}
       'tablet': {'max':'800px'},
       // => @media (max-width: 800px) {...}
