@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'app.context_processors.export_env', # export env needed for the app
+                'app.context_processors.verify_ownership',
             ],
         },
     },
