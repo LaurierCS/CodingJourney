@@ -9,8 +9,8 @@
     <div class="flex-1 grow shrink flex items-center">
       <a href="{% url 'profile_page' %}">
         <div class="w-14 h-14 rounded-full overflow-hidden bg-background">
-          <img src="{% static 'images/profile_picture_holder.jpg' %}" alt="User Profile Picture"
-            class="w-full h-full object-cover">
+          <img src="{{ request.user.profile.image.url }}" alt="User Profile Picture"
+            class="w-full h-full object-cover text-white bg-blue-50/80">
         </div>
       </a>
       <div class="ml-2">
