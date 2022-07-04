@@ -95,6 +95,7 @@ class NodeSideBar {
     this._proficiency_text = this._nsb_elements["nsb_proficiency_text"].text();
     this._original_proficiency_text = this._proficiency_text;
     this._proficiency_total = 5;
+    this._proficiency_menu_is_opened = false;
 
     this._proficiency_levels = [
       "Aiming to Learn",
@@ -130,12 +131,14 @@ class NodeSideBar {
     this._nsb_elements["nsb_proficiency_menu"].toggleClass("scale-y-0");
 
     if (
-      this._nsb_elements["nsb_proficiency_menu"].attr("data-active") === "true"
+      this._proficiency_menu_is_opened
     ) {
       this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "false");
     } else {
       this._nsb_elements["nsb_proficiency_menu"].attr("data-active", "true");
     }
+
+    this._proficiency_menu_is_opened = !this._proficiency_menu_is_opened;
   }
 
   /**
@@ -254,6 +257,9 @@ class NodeSideBar {
       // if there were changes and the user confirm edit mode without
       // saving, then reset all values
       this._reset_values();
+
+      // close proficiency drop down menu if opened
+      if (this._proficiency_menu_is_opened) this._toggle_proficiency_menu();
     }
 
     this._nsb_elements["nsb_save"].toggle();
