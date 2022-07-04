@@ -1,0 +1,71 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
+{% block content %}
+<form action="/desired-skill-input" method="post">
+    {% csrf_token %}
+    <div 
+        class = "
+            modal desired_skill-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
+            left-0 z-50 w-full md:inset-0 h-full md:h-full flex justify-center items-center 
+            bg-gray-600 bg-opacity-50
+        " 
+        id="desired_skill-input-modal"
+        aria-hidden="true"
+        style="display: none ">
+        <div class = "relative w-[450px] max-w-md h-[700px]">
+            <div 
+                class="modal-content border-4 shadow-lg relative flex 
+                flex-col h-full pointer-events-auto bg-clip-padding 
+                rounded-md outline-none text-current">
+                <div
+                    class="
+                    modal-header flex flex-shrink-0 items-center justify-between 
+                    p-4 border-b border-gray-200 rounded-t-md">
+                    <h5 
+                        class="text-xl font-medium leading-normal" 
+                        id="exampleModalLabel">
+                        Desired Skill Input
+                    </h5>
+                    <svg id="nsb_close" xmlns="http://www.w3.org/2000/svg" 
+                    class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" 
+                    onclick="modalCloseBehaviour('desired_skill-input-modal')"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <div class="w-full h-full pt-3 overflow-hidden block whitespace-nowrap">
+                    {% comment %} Add overflow hidden to this parent {% endcomment %}
+                    {% comment %} then in js prev/next translates ALL tabs by width of parent component? {% endcomment %}
+                    <div 
+                    class='tab w-full h-full inline-block align-top whitespace-normal 
+                    transition duration-300'>
+                        <div class="w-full max-h-full flex flex-col">
+                            {{ desired_skill_form.non_field_errors }}
+                            <div class="fieldWrapper input-container w-full p-5 mx-0">
+                                {{ desired_skill_form.skill.errors }}
+                                <label for="id_name" class="input-label">Desired Skill:</label>
+                                <div class="text-black">
+                                    {{ desired_skill_form.skill }}
+                                </div>
+                            </div>
+                            <div class="fieldWrapper input-container w-full p-5 mx-0">
+                                {{ desired_skill_form.proficiency.errors }}
+                                <label for="id_type" class="input-label">Proficiency:</label>
+                                <div class="text-bg-slate-600">
+                                    {{ desired_skill_form.proficiency }}
+                                </div>
+                            </div>
+                            <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
+                                {{ desired_skill_form.description.errors }}
+                                <label for="id_start_date" class="input-label">Description:</label>
+                                {{ desired_skill_form.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input class="modal-content rounded-md border-4 w-[450px] max-w-md" type="submit" value="Submit"/>
+        </div>
+    </div>
+    
+</form>
+{% endblock content %}

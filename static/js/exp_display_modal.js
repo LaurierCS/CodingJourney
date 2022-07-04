@@ -2,7 +2,6 @@
 /**
  * @type {string}
  */
-
 function exp_getter(exp_id, modal_id) {
     let origin = window.location.origin
     let search_endpoint = origin + "/experience-view-handler"
@@ -20,8 +19,6 @@ function exp_getter(exp_id, modal_id) {
 }
 
 
-
-// 
 function populateAndShowModal(data, modal_id) { 
     exp = data["experience"];
     // set title

@@ -3,6 +3,7 @@ from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, Cleara
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+import threading
 
 from .models import *
 
@@ -55,6 +56,30 @@ class ExperienceInputform(forms.ModelForm):
       if end_date and end_date < start_date:
         raise forms.ValidationError(("End date should be greater than start date."), code="invalidDate")
       return cleaned_data
+
+
+class DesiredSkillsInputForm(forms.ModelForm):
+  skill = forms.ModelChoiceField(required=True, queryset=Skill.objects.all().values_list(), to_field_name="name") #  choices=Skill.objects.filter(Skill.objects.filter(node_type="N"))
+  proficiency = forms.ChoiceField(required=True, choices=DesiredSkill.proficiency_choices)
+  description = forms.Textarea()
+
+  def __init__(self, user_id, *args, **kwargs):
+    super(DesiredSkillsInputForm, self).__init__(*args, **kwargs)
+    self.fields['skill'].widget.attrs.update({'class': 'input select'})
+    self.fields['proficiency'].widget.attrs.update({'class': 'input select'})
+    self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input'})
+    self.filter_ds(user_id=user_id)
+
+  def filter_ds(self, user_id):
+    current_ds = DesiredSkill.objects.filter(user_id=user_id).values_list('skill')
+    remaining_skills = Skill.objects.all().filter(node_type="N").exclude(id__in=current_ds) 
+    # remaining_skills = Skill.objects.all().values_list()
+    self.fields["skill"].queryset = remaining_skills
+
+  class Meta: 
+    model = DesiredSkill
+    fields = "__all__"
+    exclude = ("user_id", "id")
 
 
 # class customMMCF():
