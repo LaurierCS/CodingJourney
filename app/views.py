@@ -453,6 +453,10 @@ def desired_skill_input_injection(request, context=context, form=None):
         user = request.user.profile
         form = DesiredSkillsInputForm(user)
         context['desired_skill_form'] = form
+
+    if request.GET.get("id"):
+        context["updating"] = True
+    
     
 
 # *************************************************************************************
@@ -631,21 +635,6 @@ def delete_exp(request):
                 return redirect(callback_url)
 
     return redirect("manage_experiences_page")
-
-# class SkillsSerializer(serializers.ModelSerializer): 
-    
-#     class Meta: 
-#         model = Skill
-#         fields = ('parentId', 'id', 'name', 'icon_HREF', 'node_type', 'experiences', 'proficiency', 'description')
-
-#     def get_experiences(self):
-#         return self.context['item'].experience
-    
-#     def get_proficiency(self): 
-#         return self.context['item'].proficiency
-    
-#     def get_description(self):
-#         return self.context['item'].description
 
 class SearchQueries:
 
@@ -831,6 +820,7 @@ class SearchQueries:
             skills = DesiredSkill.objects.filter(experience__id=exp['id']).annotate(skill_name=F("skill__name"), skill_image=F("skill__icon_HREF")).values("skill_name", "skill_image")
 
             result.append({
+                "id": exp["id"],
                 "text": exp["name"],
                 "image": exp["image"],
                 "description": exp['description'],
@@ -858,6 +848,7 @@ class SearchQueries:
                 kind = kind.get_kind_display()
 
             result.append({
+                "id": exp["id"],
                 "text": exp["name"],
                 "image": exp["image"],
                 "description": exp['description'],

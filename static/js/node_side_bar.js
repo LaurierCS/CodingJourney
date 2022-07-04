@@ -298,7 +298,8 @@ class NodeSideBar {
         .find("#nsb_experience_link")
         .attr("data-experience-id", node.data.experiences[i].id)
         .attr("data-experience-href", node.data.experiences[i].project_link)
-        .attr("href", node.data.experiences[i].project_link)
+        .attr("onclick", `exp_getter(${node.data.experiences[i].id}, "experience-display-modal")`)
+        .attr("href", 'javascript:void(0)')
         .attr("id", `nsb_experience_link_${node.data.experiences[i].id}`);
       this._nsb_elements["nsb_experience_list"].append(clone);
     }

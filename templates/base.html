@@ -27,7 +27,10 @@
       {% include "components/navbar.html"%}
     {% endblock nav %}
 
+    {% include "app/experience_display.html" %}
+
     {% block content %}
+
     {% endblock content %}
     <script src={% static 'js/Modal.js' %}></script>
     <script src={%static '/js/project_list_descrption.js' %}></script>
