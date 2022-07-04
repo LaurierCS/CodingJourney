@@ -1,33 +1,107 @@
 {% load static %}
 
+
 <nav
-  class="{% if transparent %} bg-transparent {% else %} bg-foreground {% endif %} w-full h-20 {% if alternate %} fixed top-0 left-0 z-[2] {% endif %}  transition-all duration-200 z-50"
+  class="{% if transparent %} 
+  bg-transparent 
+  {% else %} 
+  bg-foreground 
+  {% endif %} 
+  w-full h-20 
+  {% if alternate %} 
+  fixed top-0 left-0 z-1 
+  {% endif %} 
+  transition-all duration-200 z-50
+  "
 >
   {%if alternate %}
-  <ul
-    class="flex justify-end items-center my-0 mx-auto w-11/12 h-full text-rice-white list-none"
-  >
-    <li class="mx-10 cursor-pointer opacity-100">
-      {% include 'components/search_bar.html' %}
-    </li>
-    <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">
-      <a href="{% url 'landing_page' %}#how_it_works">How it Works</a>
-    </li>
-    <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">
-      <a href="{% url 'landing_page' %}#about_us">About Us</a>
-    </li>
-    <li class="mx-10 cursor-pointer">
-      <a href="{% url 'auth_page' %}"
-        ><button class="button bg-dark-gradient button-transition">
-          {% if user.is_authenticated %}
-            Dashboard
-          {% else %}
-            Log In
-          {% endif %}
-        </button></a
-      >
-    </li>
-  </ul>
+  <!-- the side nav bar test here -->
+  <div class="navbar-collapse hidden desktop:block fixed top-0 left-0 w-2/3 bg-slate-600">
+    <div class="w-11/12 mx-auto space-y-4">
+      <span class="close-btn h-[56px] p-4 flex justify-end items-center">
+        &#x2715;
+      </span>
+      <ul class="navbar space-y-2">
+        <li class="nav-item h-[52px] px-6">
+          <a href="#">Home</a>
+        </li>
+        <hr>
+        <li class="nav-item h-[52px] px-6">
+          <a href="#">How it works</a>
+        </li>
+        <hr>
+        <li class="nav-item h-[52px] px-6">
+          <a href="#">About Us</a>
+        </li>
+        <hr>
+      </ul>
+      <div>
+        <!-- the search bar -->
+        <a href="{% url 'auth_page' %}">
+          <button class="button bg-dark-gradient button-transition">
+            {% if user.is_authenticated %}
+              Dashboard
+            {% else %}
+              Log In
+            {% endif %}
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- this is where the media query comes in  -->
+  <div class="desktop:hidden h-auto my-auto">
+    <ul
+      class="flex justify-end items-center my-0 mx-auto w-11/12 h-20 text-rice-white list-none"
+    >
+      <li class="relative right-[33px] cursor-pointer opacity-100">
+        {% include 'components/search_bar.html' %}
+      </li>
+      <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">
+        <a href="{% url 'landing_page' %}#how_it_works">How it Works</a>
+      </li>
+      <li class="mx-10 cursor-pointer opacity-70 hover:opacity-100">
+        <a href="{% url 'landing_page' %}#about_us">About Us</a>
+      </li>
+      <li class="mx-10 cursor-pointer">
+        <a href="{% url 'auth_page' %}"
+          ><button class="button bg-dark-gradient button-transition">
+            {% if user.is_authenticated %}
+              Dashboard
+            {% else %}
+              Log In
+            {% endif %}
+          </button></a
+        >
+      </li>
+    </ul>
+  </div>
+
+  <!-- 1080px: change -->
+  <div class="desktop:bottom-0 relative bottom-40">
+    <ul class="flex justify-between items-center h-20 w-11/12 mx-auto">
+      <li class="inline-block mx-10 button-transition">
+        {% include 'icons/burger.html' with class='w-8 h-8 opacity-70 hover:opacity-100 '%}
+      </li>
+      <!-- include a logo here -->
+      <li class="cursor-pointer opacity-70 hover:opacity-100">
+        <a href="{% url 'landing_page' %}">
+          {% include 'icons/mainlogo.html' with class="w-32 h-32"%}
+        </a>
+      </li>
+      <li class="mx-10 cursor-pointer">
+        <a href="{% url 'auth_page' %}">
+          <button class="button bg-dark-gradient button-transition">
+            {% if user.is_authenticated %}
+              Dashboard
+            {% else %}
+              Log In
+            {% endif %}
+          </button>
+        </a>
+      </li>
+    </ul>
+  </div>
   {% else %}
   <!-- nav -->
   <!-- nav-container -->

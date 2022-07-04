@@ -10,16 +10,21 @@
 {%endblock nav%}
 
 {%block content %}
-<section id="banner" class="w-full h-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-[#0000004d]">
-  <div class="flex h-[95%]">
-    <div class="w-1/2 mt-[10%] ml-[15%] space-y-4 ">
-      <h1 class="font-bold text-[4rem] w-[70%]">Design your coding journey</h1>
+<section id="banner" class="desktop:hidden w-full h-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-[#0000004d]">
+  <div class="flex h-full">
+    <div class="space-y-4 w-1/2 mt-[10%] ml-[15%]"> <!-- w-1/2 mt-[10%] ml-[15%] -->
+      <h1 class="font-bold text-[3rem] w-[70%]">Design your coding journey</h1> 
+      <!-- 
+        4rem -> 3rem 
+        w-70 -> e
+      -->
       <p class="w-1/2 text-xl text-gray-100">
         Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!
       </p>
       <button class="bg-primary-gradient button-xl button-transition mt-4">Start Now</button>
     </div>
-    <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px]">
+    <!-- hidden image -->
+    <div class="relative top-1/4 right-[10rem] w-1/2 h-[400px] desktop:hidden">
       <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="w-[70%] absolute left-[30%] rounded-md drop-shadow-lg">
       <img src="{% static 'images/timeline.jpg' %}" alt="projects search view" class="w-[70%] absolute left-0 top-[20%] rounded-md drop-shadow-lg">
     </div>
@@ -28,6 +33,32 @@
     {% include 'icons/double_chevron_down.html' with class="h-8 w-8 m-auto animate-bounce" %}
   </div>
 </section>
+
+<section id="second-banner" class="hidden desktop:block w-full bg-cover bg-center bg-origin-border bg-fixed bg-blend-darken bg-[url('/static/images/journey_image.jpg')] bg-[#0000004d]">
+  <div class="flex flex-col pt-56 pb-40 text-center w-11/12 mx-auto"> <!-- add p instead of margin, cover the navbar background  -->
+    <div class="space-y-8 mx-10"> <!-- w-1/2 mt-[10%] ml-[15%] -->
+      <h1 class="font-bold text-[5vmin] ">Design your coding journey</h1> 
+      <p class="text-[2.5vmin] text-gray-100">
+        Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!
+      </p>
+      <button class="bg-primary-gradient button-xl button-transition mt-4">Start Now</button>
+    </div>
+  </div>
+  <div class="animate-fade-in animation-delay-500 opacity-0">
+    {% include 'icons/double_chevron_down.html' with class="h-8 w-8 m-auto animate-bounce" %}
+  </div>
+</section>
+<!-- create a gallery horizontal bar -->
+<div class="hidden desktop:block relative bottom-16 w-11/12 mx-10">
+  <div class="flex flex-row space-x-8">
+    <div class="basis-full">
+      <img src="{% static 'images/projects_search.jpg' %}" alt="projects search view" class="rounded-md drop-shadow-lg h-full">
+    </div>
+    <div class="basis-full">
+      <img src="{% static 'images/timeline.jpg' %}" alt="projects search view" class="rounded-md drop-shadow-lg h-full">
+    </div>
+  </div>
+</div>
 {% comment %}
   This anchor is needed because when going directly to the section the title will be blocked by the navbar since its position is fixed.
 {% endcomment %}
