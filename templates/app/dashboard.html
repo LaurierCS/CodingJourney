@@ -3,6 +3,7 @@
 
 {% block headers %} 
     <title>Dashboard</title>
+
 {% endblock headers %}
 
 {% block content %}
@@ -13,16 +14,11 @@
         {% include 'components/node_side_bar.html' %}
     </div>
 </div>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-{% if request.user.is_authenticated %}
+<script src="{% static 'js/skill_tree.js' %}"></script>
 <script>
-    var profile_pic = "{{ request.user.profile.image.url }}"
-    var username = "{{ request.user }}"
+  (async () => {
+    const skill_tree = new SkillTree("{{ profile.user.username }}", "#treeContainer");
+    await skill_tree.create_tree();
+  })();
 </script>
-{% endif %}
-<script>
-    var tree_data  = {{ tree_json|safe }}
-    var static_url = "{% static '' %}"
-</script>
-<script src="{% static 'js/tree.js' %}"></script>
 {% endblock content%}
