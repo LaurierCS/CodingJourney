@@ -173,8 +173,8 @@ class SkillTree {
       // todo: determine the space between category nodes based on the lenght of the labels.
       if (
         a.parent === b.parent &&
-        a.data.nodeType === NODE_TYPES.C &&
-        b.data.nodeType === NODE_TYPES.C
+        a.data.nodeType === this.NODE_TYPES.C &&
+        b.data.nodeType === this.NODE_TYPES.C
       ) {
         return 2;
       }
