@@ -1,5 +1,4 @@
 # DJANGO IMPORTS
-from multiprocessing import context
 from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -881,6 +880,7 @@ class TargetedQueries:
         return JsonResponse(context)
 
     def getExperiencesBySkills(request, skill_name):
+        print(skill_name)
         document_title = "Roadmap & Experiences"
         # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
         skill=DesiredSkill.objects.filter(skill=Skill.objects.get(name=skill_name))
@@ -908,3 +908,27 @@ class TargetedQueries:
             }
 
             return JsonResponse(data)
+
+    
+class LikeHandlers():
+    def exp_like_handler(request):
+
+        if request.POST:
+            form = LikeExperienceForm(request.POST)
+            exp_id = form['exp_id'].value()
+            profile = request.user.profile
+
+            exp = Experience.objects.get(pk=int(exp_id))
+
+            if exp in profile.liked_experiences.all():
+                # unlike
+                profile.liked_experiences.remove(exp)
+                exp.decrement_like()
+            else:
+                # like
+                profile.liked_experiences.add(exp)
+                exp.increment_like()
+
+            return HttpResponse()
+
+        return HttpResponseBadRequest("GET request not allowed.")

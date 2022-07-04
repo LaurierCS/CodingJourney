@@ -26,6 +26,8 @@ class Profile(models.Model):
     github = models.URLField(max_length=200, blank=True, null=True)
     website = models.URLField(max_length=200, blank=True, null=True)
 
+    liked_experiences = models.ManyToManyField("Experience", related_name="liked_experiences")
+
     def __str__(self):
         return self.user.username
 
@@ -93,7 +95,7 @@ class Experience(models.Model):
   skills = models.ManyToManyField(DesiredSkill)
   # Text Fields 
   name = models.CharField(max_length=200)
-  kind = models.CharField(max_length=40, choices=EXPERIENCE_TYPE, default="E" )
+  kind = models.CharField(max_length=40, choices=EXPERIENCE_TYPE, default="E")
   description = models.TextField(null=True, blank=True)
   # Other Fields
   likes_amount = models.IntegerField(default=0)
@@ -101,6 +103,16 @@ class Experience(models.Model):
   end_date = models.DateField(null=True, blank=True) #let these be allowed to be null for now until the widget is setup for date input sumbission
   project_link = models.URLField(max_length=2000, null=True, blank=True)
   image = models.ImageField(default="images/journey_image.jpg", upload_to='experience_images/', blank=True)
+  
+  def increment_like(self):
+    self.likes_amount += 1
+    self.save()
+    return
+
+  def decrement_like(self):
+    self.likes_amount -= 1
+    self.save()
+    return
   
   def __str__(self):
     return self.name

@@ -197,3 +197,13 @@ class UpdateDesiredSkillDescriptionForm(forms.Form):
 class DeleteDsOrExpForm(forms.Form):
   names = forms.CharField(widget=forms.TextInput())
   callbackurl = forms.CharField(widget=forms.TextInput, required=False)
+
+class LikeExperienceForm(forms.ModelForm):
+  class Meta:
+    model = Experience
+    fields = ["id"]
+
+  exp_id = forms.CharField(
+    label='Id',
+    widget=forms.TextInput()
+  )

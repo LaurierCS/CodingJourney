@@ -34,6 +34,7 @@ urlpatterns = [
     path('desired-skill-input', views.desired_skill_input_handler, name="Experience Query"),
     path('delete-ds', views.delete_desired_skill, name="delete_desired_skill"),
     path('delete-exp', views.delete_exp, name="delete_exp"),
+    path('exp-like', views.LikeHandlers.exp_like_handler, name="exp_like"),
     path('skill-tree-data', views.TreeQueries.get_tree_data_as_json, name="skill_tree_data"),
     path('user-profile-picture', views.TargetedQueries.getProfilePictureByUsername, name="user_profile_picture"),
 
