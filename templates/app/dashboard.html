@@ -7,10 +7,10 @@
 {% endblock headers %}
 
 {% block content %}
-<div class="grid grid-cols-12 h-[calc(100%_-_80px)]">
-    {% include "components/sidemenu.html" %}
+<div class="flex h-[calc(100%_-_80px)] relative">
+    {% include "components/sidemenu.html"%}
 
-    <div id="treeContainer" class="col-span-10 h-full bg-background relative overflow-hidden">
+    <div id="treeContainer" class="w-full h-full bg-background relative overflow-hidden">
         {% include 'components/node_side_bar.html' %}
     </div>
 </div>
