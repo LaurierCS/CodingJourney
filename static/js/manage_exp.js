@@ -59,6 +59,30 @@
     is_multi_select_on = !is_multi_select_on;
   });
 
+  const multi_select_toggle2 = $("#multi_select_toggle2")
+  multi_select_toggle2.click(function () {
+    // add as a saving button
+    if (is_multi_select_on) {
+      if (
+        to_delete_list.length > 0 &&
+        confirm("Are you sure you want to delete the selected experiences?")
+      ) {
+        fill_form(to_delete_list, true);
+      }
+
+      // reset overlay status and remove desired skill name from submit list.
+      $("div[data-is-selected='true']").click();
+
+      multi_select_toggle2.text(multi_select_toggle2.attr("data-content"));
+    } else {
+      multi_select_toggle2.text("Save");
+    }
+
+    // toggle select-overlay for all desired skills
+    multi_selection_overlays.toggleClass("hidden");
+    is_multi_select_on = !is_multi_select_on;
+  });
+
   multi_selection_overlays.click(function () {
     const clicked_item = $(this);
 

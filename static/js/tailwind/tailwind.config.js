@@ -16,14 +16,14 @@ module.exports = {
         "sans-serif",
       ],
     },
-    screens: {
-      'mobile': {'max':'450px'},
-      // => @media (max-width: 370px) {...}
-      'tablet': {'max':'800px'},
-      // => @media (max-width: 800px) {...}
-      'desktop': {'max':'1080px'},
-      // => @media (max-width: 1280px) {...}
-    },
+    // screens: {
+    //   'mobile': {'max':'450px'},
+    //   // => @media (max-width: 370px) {...}
+    //   'tablet': {'max':'800px'},
+    //   // => @media (max-width: 800px) {...}
+    //   'desktop': {'max':'1080px'},
+    //   // => @media (max-width: 1280px) {...}
+    // },
     /**
      * Extend the classes that tailwind has to offerY instead of overriding them.
      * Overriding any of the default category, such as margin, will get rid of all

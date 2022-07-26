@@ -6,10 +6,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="grid grid-cols-12 h-[calc(100%_-_80px)]">
-  {% include 'components/sidemenu.html' %}
-  <div class="col-span-10">
-    <div class="py-4 px-9 flex items-center justify-between">
+<div>
+  <div class="col-span-10 justiy-center">
+    <div class="hidden py-4 px-9 flex items-center justify-between md:flex lg:flex">
       <h3>All Experiences</h3>
       <div>
         {% if experience_count > 0 %}
@@ -31,13 +30,39 @@
         </button>
       </div>
     </div>
-    <div class="h-[2px] w-11/12 bg-gray-700 m-auto mb-4"></div>
-    <ul class="grid gap-9 grid-cols-[repeat(auto-fill,_minmax(270px,_1fr))] px-9 transition-all duration-300"
+    <div class="block py-4 px-9 flex-col items-center justify-between md:hidden lg:hidden">
+      <h3 class="text-center pb-2">All Experiences</h3>
+      <div class="flex justify-between px-[20px]">
+        
+        <button id="multi_select_toggle2" class="
+              button 
+              button-transition  
+              hover:duration-150
+              hover:bg-primary
+              text-sm
+              w-[100px]" data-content="Select and Delete">
+          Multiselect
+        </button>
+        
+        <button class="text-sm button button-transition w-[100px]" id="add_exp">
+          Add Experience
+        </button>
+      </div>
+    </div>
+    <div class=" h-[2px] w-11/12 bg-gray-700 m-auto mb-4"></div>
+    <ul class="
+    grid  transition-all duration-300
+    grid-cols-2
+    mx-3
+    sm:grid-cols-3
+    md:mx-9
+    lg:grid-cols-[repeat(auto-fill,_minmax(220px,_1fr))]
+    justify-center"
       id="experiences_list">
       {% for exp in experiences %}
-      <li data-exp="{{ exp.id }}" class="relative">
+      <li data-exp="{{ exp.id }}" class="relative px-2 py-2 min-w-[100px] max-w-[300px] min-h-[200px] md:min-w-[200px] md:max-w-[300px] md:min-h-[266px]">
         <div
-          class="rounded-md overflow-hidden h-[75%] bg-primary-darker relative after:absolute after:top-0 after:right-0 after:left-0 after:bottom-0 after:z-10 after:bg-gradient-to-b after:from-transparent after:to-gray-900/90 after:opacity-0 after:hover:opacity-100 after:transition-opacity after:duration-150 group">
+          class="rounded-md overflow-hidden h-[75%] bg-primary-darker relative z-10 after:absolute after:top-0 after:right-0 after:left-0 after:bottom-0 after:z-10 after:bg-gradient-to-b after:from-transparent after:to-gray-900/90 after:opacity-0 after:hover:opacity-100 after:transition-opacity after:duration-150 group">
           {% if exp.image %}
           <img src="{{ exp.image|default:'/static/images/svg/badge.svg' }}" alt="skill image"
             class="w-full h-full object-contain">
@@ -66,24 +91,24 @@
             </div>
           </div>
         </div>
-        <div class="h-[25%] flex items-center justify-between px-2">
+        <div class="h-[25%] flex items-center justify-between md:px-2">
           <div>
-            <p class="font-bold text-sm line-clamp-1">{{ exp.name }}</p>
+            <p class="font-bold text-xs md:text-sm line-clamp-1">{{ exp.name }}</p>
           </div>
           <div class="relative">
             <div id="{{ exp.id|add:'_drop_down_button' }}" data-menu-button data-for-exp="{{ exp.id }}"
-              class="h-8 w-8 duration-150 transition-colors cursor-pointer hover:bg-gray-400/30 rounded-full flex items-center justify-center ">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              class="h-4 w-4 sm:h-6 sm:w-6 md:h-8 md:w-8 duration-150 transition-colors cursor-pointer hover:bg-gray-400/30 rounded-full flex items-center justify-center ">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round"
                   d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
               </svg>
             </div>
             <div id="{{ exp.id|stringformat:'s'|add:"_drop_down"|cut:' ' }}" data-menu
-              class="absolute top-full right-0 origin-top bg-primary rounded-md overflow-hidden scale-y-0 duration-100 transition-transform">
-              <ul id="{{ exp.id|add:'_drop_down_list'|cut:' ' }}" drop-down-list>
+              class="absolute top-full right-0 origin-top bg-primary rounded-md overflow-hidden scale-y-0 duration-100 transition-transform z-30">
+              <ul id="{{ exp.id|add:'_drop_down_list'| cut:' ' }}" drop-down-list>
                 <li data-action="delete" data-action-content="{{ exp.id }}"
-                  class="px-3 py-1 cursor-pointer duration-300 hover:duration-150 transition-colors hover:bg-red-400">
+                  class="px-3 py-1 cursor-pointer duration-300 hover:duration-150 transition-colors hover:bg-red-400 z-50">
                   Delete
                 </li>
               </ul>
@@ -105,11 +130,12 @@
       {% endfor %}
     </ul>
   </div>
-  <form action="{% url 'delete_exp' %}" method="post" class="hidden" id="delete_exp_form">
-    {% csrf_token %}
-    <input type="hidden" name="names" id="dexp_names">
-  </form>
 </div>
+<form action="{% url 'delete_exp' %}" method="post" class="hidden" id="delete_exp_form">
+  {% csrf_token %}
+  <input type="hidden" name="names" id="dexp_names">
+</form>
+
 {% include "app/experience_form.html" %}
 <script src="{% static 'js/manage_exp.js' %}"></script>
 {% endblock %}
