@@ -94,6 +94,13 @@ class CreateUserForm(UserCreationForm):
     model = User
     fields = ['username','email', 'password1', 'password2', 'first_name', 'last_name']
 
+class ProfileImageForm(ModelForm):
+  class Meta:
+    model = Profile
+    fields = ['image']
+  
+  image = forms.ImageField()
+
 class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
@@ -108,6 +115,7 @@ class UserSettingForm(ModelForm):
         'placeholder': 'Write your first name here...',
         },
       ),
+    required=False
     )
   last_name = forms.CharField(
     label='last name',
@@ -117,6 +125,7 @@ class UserSettingForm(ModelForm):
         'placeholder': 'Write your last name here...',
         }
       ),
+      required=False
     )
   email = forms.EmailField(
     label='email address',
@@ -170,7 +179,7 @@ class UserSettingForm(ModelForm):
   )
   image = forms.ImageField(
     label='Upload image',
-    widget=forms.ClearableFileInput(),required=False,
+    required=False,
   )
   bio = forms.CharField(
     label='Biography',
