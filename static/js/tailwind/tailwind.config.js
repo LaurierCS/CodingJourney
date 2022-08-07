@@ -39,7 +39,6 @@ module.exports = {
         success: "var(--success)",
         active: "var(--active)",
         error: "var(--error)",
-        active: "var(--active)",
         white: "var(--white)",
         black: "var(--black)",
         background: "var(--background)",
@@ -87,7 +86,7 @@ module.exports = {
         'h3': '32px',
         'h4': '25px',
         'button': '16px',
-        'body': '18px',
+        'body': '16px',
         'link': '16px',
       },
       lineHeight : {

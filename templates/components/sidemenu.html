@@ -1,7 +1,7 @@
 {% load static %}
 
 {% comment %} sidemenu wrapper spans two cols in grid {% endcomment %}
-<div class="col-span-2 h-full bg-darker-blue pl-5 pr-2">
+<div class="w-screen md:w-72 h-full bg-darker-blue pl-5 pr-2 grow-0 shrink-0 fixed -top-0 z-10 hidden transition-all md:relative md:block" id="sidemenu">
 
   {% comment %} user part {% endcomment %}
 
@@ -29,7 +29,6 @@
       </svg>
     </a>
   </header>
-
   {% comment %} nav part {% endcomment %}
 
   <nav id="sidemenu" class="mt-5">
@@ -131,6 +130,25 @@
             <span class="line-clamp-1 py-3 px-2 hover:bg-background transition-colors duration-150 rounded-xl font-normal text-[17px] leading-[15px] cursor-pointer" onclick="modalOpenBehaviour('experience-input-modal')">Add Experience</span>
           </li>
         </ul>
+      </li>
+
+      <li class="-ml-3">
+        <a href="{% url 'landing_page' %}#about_us"
+          class="py-3 pl-3 flex items-center font-normal transition-colors duration-150 rounded-xl hover:bg-background">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="ml-2">About Us</span>
+        </a>
+      </li>
+      <li class="-ml-3">
+        <a href="{% url 'landing_page' %}#how_it_works"
+          class="py-3 pl-3 flex items-center font-normal transition-colors duration-150 rounded-xl hover:bg-background">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="ml-2">How It Works</span>
+        </a>
       </li>
     </ul>
   </nav>
