@@ -1,0 +1,62 @@
+{% block content %}
+<form action="/experience-input" method="post" id="experience-form">
+    {% csrf_token %}
+    <div 
+        class = "
+            modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
+            left-0 z-50 w-full md:inset-0 h-full md:h-full flex justify-center items-center 
+            bg-gray-600 bg-opacity-50
+        " 
+        id="experience-input-modal"
+        aria-hidden="true"
+        style="display: none ">
+        <div class = "relative w-[450px] max-w-md h-[700px]">
+            <div 
+                class="modal-content border-4 shadow-lg relative flex 
+                flex-col h-full pointer-events-auto bg-clip-padding 
+                rounded-md outline-none text-current">
+                <div
+                    class="
+                    modal-header flex flex-shrink-0 items-center justify-between 
+                    p-4 border-b border-gray-200 rounded-t-md">
+                    <h5 
+                        class="text-xl font-medium leading-normal" 
+                        id="exampleModalLabel">
+                        Experience Input
+                    </h5>
+                    <svg id="nsb_close" xmlns="http://www.w3.org/2000/svg" 
+                    class="h-6 w-6 cursor-pointer text-gray-500 hover:text-white" 
+                    onclick="modalCloseBehaviour('experience-input-modal')"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+                <div class="w-full h-full pt-3 overflow-hidden block whitespace-nowrap">
+                    {% comment %} Add overflow hidden to this parent {% endcomment %}
+                    {% comment %} then in js prev/next translates ALL exp-tabs by width of parent component? {% endcomment %}
+                    <div 
+                    class='exp-tab w-full h-full inline-block align-top whitespace-normal 
+                    transition duration-300'>
+                        {% include "components/experience_form/tab1.html" %}
+                    </div><div 
+                    class="exp-tab w-full h-full max-h-full inline-block align-top whitespace-normal
+                    transition duration-300">
+                        {% include "components/experience_form/tab2.html" %}
+                    </div><div 
+                    class="exp-tab inline-block w-full h-full whitespace-normal align-top
+                    transition duration-300">
+                        {% include "components/experience_form/tab3.html" %}
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-center">
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="prevBtn" onclick="translateRightByWidth('exp-tab')">Previous</button>
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="nextBtn"  onclick="translateLeftByWidth('exp-tab', 2)">Next</button>
+                    </div>
+                </div>
+            </div>
+            <input class="modal-content rounded-md border-4 w-[450px] max-w-md" type="submit" value="Submit"/>
+            </div>
+        </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,21 @@
+<div class="w-full max-h-full flex flex-col">
+    {{ experience_input_form.non_field_errors }}
+    <!-- Description of Experience -->
+    <div class="fieldWrapper input-container">
+        {{ experience_input_form.description.errors }}
+        <div class="input-label absolute top-[-18px]">Description of Experience:</div>
+        {{ experience_input_form.description }}
+    </div>
+    <!-- Link to Experience -->
+    <div class="fieldWrapper input-container w-full p-5 mx-0">
+        {{ experience_input_form.project_link.errors }}
+        <label for="id_project_link" class="input-label">Project Link:</label>
+        {{ experience_input_form.project_link }}
+    </div>
+    <!-- Associated Image -->
+    <div class="fieldWrapper input-container w-full p-5 mx-0">
+        {{ experience_input_form.image.errors }}
+        <label for="id_image" class="input-label">Image:</label>
+        {{ experience_input_form.image }}
+    </div>
+</div>
