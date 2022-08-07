@@ -38,16 +38,23 @@ class ExperienceInputform(forms.ModelForm):
         #   "descripton": "Experience Description",
         # }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user_id, *args, **kwargs):
       super(ExperienceInputform, self).__init__(*args, **kwargs)
-      self.fields['name'].widget.attrs.update({'class': 'input'})
-      self.fields['skills'].widget.attrs.update({'class': 'input multi-select-input'})
-      self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input'})
-      self.fields['start_date'].widget.attrs.update({'class': 'input select'})
-      self.fields['end_date'].widget.attrs.update({'class': 'input select'})
-      self.fields['project_link'].widget.attrs.update({'class': 'input'})
-      self.fields['kind'].widget.attrs.update({'class': 'input select'})
-      self.fields['image'].widget.attrs.update({'class': 'tech-tag tech-tag-blue'})
+      self.fields['name'].widget.attrs.update({'class': 'input', 'id': "exp-name"})
+      self.fields['skills'].widget.attrs.update({'class': 'skills-name input multi-select-input', 'id': "exp-skills"})
+      self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input', 'id': "exp-description"})
+      self.fields['start_date'].widget.attrs.update({'class': 'input select', 'id': "exp-start_date"})
+      self.fields['end_date'].widget.attrs.update({'class': 'input select', 'id': "exp-end_date"})
+      self.fields['project_link'].widget.attrs.update({'class': 'input', 'id': "exp-project_link"})
+      self.fields['kind'].widget.attrs.update({'class': 'input select', 'id': "exp-kind"})
+      self.fields['image'].widget.attrs.update({'class': 'tech-tag tech-tag-blue', 'id': "exp-image"})
+      self.filter_ds(user_id=user_id)
+
+    def filter_ds(self, user_id):
+      current_ds = DesiredSkill.objects.filter(user_id=user_id).values_list('skill')
+      desired_skills = Skill.objects.all().filter(node_type="N").filter(id__in=current_ds) 
+      # remaining_skills = Skill.objects.all().values_list()
+      self.fields["skills"].queryset = desired_skills
 
     def clean(self):
       cleaned_data = super().clean()

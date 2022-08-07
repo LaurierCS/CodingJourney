@@ -198,10 +198,6 @@ def settingspage(request):
 @login_required(login_url='auth_page')
 def manage_desired_skills_page(request):
 
-    if request.POST:
-        return HttpResponseBadRequest('Does not accept POST request.')
-
-
     # find all desired skills
     ds = DesiredSkill.objects.filter(user_id=request.user.profile)
 
@@ -287,7 +283,8 @@ def logout_handler(request):
 def experience_input_handler(request):
     
     if request.method == 'POST':
-        form = ExperienceInputform(request.POST)
+        user = request.user.profile
+        form = ExperienceInputform(data=request.POST, user_id=user)
         
         if (form.is_valid()):
             form_data = form.cleaned_data
@@ -302,34 +299,126 @@ def experience_input_handler(request):
                 image=form_data["image"],
             )
             skills_ids = [skill.id for skill in form_data['skills']]
-            print(skills_ids)
+            desired_skills = DesiredSkill.objects.filter(skill__in=skills_ids).values_list('pk')
+            for skill_tuple in desired_skills: 
+                experience_instance.skills.add(skill_tuple[0])
             context = {
                 'form': form,
             }
-            # experience_instance.skills.set(form_data["skills"])
-            return HttpResponse(status=201)
+
+            # redirect user to manage_experiences page
+            profile = request.user.profile
+
+            experiences = Experience.objects.filter(profile=profile)
+
+            template = "app/manage_experiences.html"
+            context = {
+                "profile": profile,
+                "experiences": experiences,
+                "experience_count": len(experiences),
+            }
+            experience_input_injection(request, context=context)
+            return render(request, template, context)
         else: 
             for field in form:
                 print("Field Error:", field.name,  field.errors)
             # print(form_data)        
+            # redirect user to manage_experiences page
+            profile = request.user.profile
+
+            experiences = Experience.objects.filter(profile=profile)
+
+            template = "app/manage_experiences.html"
             context = {
-                'form': form,
-            } 
-            return HttpResponse(status=400)
+                "profile": profile,
+                "experiences": experiences,
+                "experience_count": len(experiences),
+            }
+            experience_input_injection(request, context=context, form=form)
+            return render(request, template, context)
     
     else: 
-        form = ExperienceInputform()
+        user = request.user.profile
+        form = ExperienceInputform(data=request.POST, user_id=user)
         context = {
             'form': form,
         } 
         return render(request, 'app/experience_form.html', context=context)
+
+def experience_update_handler(request, id): 
+    if request.method == 'POST':
+        user = request.user.profile
+        form = ExperienceInputform(data=request.POST, user_id=user)
+        
+        if (form.is_valid()):
+            form_data = form.cleaned_data
+            experience_instance = Experience.objects.get(pk=id)
+            experience_instance.profile=request.user.profile,
+            experience_instance.name=form_data["name"],
+            experience_instance.kind=form_data["kind"],
+            experience_instance.description=form_data["description"],
+            experience_instance.start_date=form_data["start_date"],
+            experience_instance.end_date=form_data["end_date"],
+            experience_instance.project_link=form_data["project_link"],
+            experience_instance.image=form_data["image"], 
+            experience_instance.skills=form_data["skills"]
+            experience_instance.save()
+
+            # redirect user to manage_experiences page
+            profile = request.user.profile
+
+            experiences = Experience.objects.filter(profile=profile)
+
+            template = "app/manage_experiences.html"
+            context = {
+                "profile": profile,
+                "experiences": experiences,
+                "experience_count": len(experiences),
+            }
+            experience_input_injection(request, context=context)
+            return render(request, template, context)
+        else: 
+            for field in form:
+                print("Field Error:", field.name,  field.errors)
+            # print(form_data)        
+            # redirect user to manage_experiences page
+            profile = request.user.profile
+
+            experiences = Experience.objects.filter(profile=profile)
+
+            template = "app/manage_experiences.html"
+            context = {
+                "profile": profile,
+                "experiences": experiences,
+                "experience_count": len(experiences),
+            }
+            experience_input_injection(request, context=context, form=form)
+            return render(request, template, context)
+    
+    else: 
+        exp_instance = Experience.objects.get(pk=id)
+
+        user = request.user.profile
+        form = ExperienceInputform(data=request.POST, user_id=user, kwargs={
+            "name": exp_instance.name, 
+            "kind": exp_instance.kind, 
+            "description": exp_instance.description, 
+            "start_date": exp_instance.start_date, 
+            "end_date": exp_instance.end_date, 
+            "project_link": exp_instance.project_link, 
+            "image": exp_instance.image, 
+        })
+        context = {
+            'form': form,
+        } 
+        return render(request, 'app/experience_update_form.html', context=context)
 
 def experience_input_injection(request, context, form=None):
     if form: 
         context['experience_input_form'] = form
     else: 
         user = request.user.profile
-        form = ExperienceInputform()
+        form = ExperienceInputform(user_id=user)
         context['experience_input_form'] = form
 
 def desired_skill_input_handler(request): 
@@ -345,26 +434,39 @@ def desired_skill_input_handler(request):
                 skill=form_data["skill"],
                 proficiency=form_data["proficiency"],
                 description=form_data["description"],
-            )
+            ) 
             desired_skill_input_injection(request, context)
             # experience_instance.skills.set(form_data["skills"])
-            return HttpResponse(status=201)
+            return manage_desired_skills_page(request)
         else: 
             for field in form:
                 print("Field Error:", field.name,  field.errors)
+            ds = DesiredSkill.objects.filter(user_id=request.user.profile)
+
+            template_name = "app/manage_desired_skills.html"
+            context = {
+                "profile": request.user.profile,
+                "desired_skills": ds,
+                "ds_count": len(ds)
+            }
+
             desired_skill_input_injection(request, context=context, form=form)
-            return HttpResponse(status=400)
+            return render(request, template_name, context)
     else: 
         desired_skill_input_injection(request, context=context)
         return render(request, 'app/desired_skill_modal.html', context=context)
     
-def desired_skill_input_injection(request, context=context, form=None):
+def desired_skill_input_injection(request, context, form=None):
     if form: 
         context['desired_skill_form'] = form
     else: 
         user = request.user.profile
         form = DesiredSkillsInputForm(user)
         context['desired_skill_form'] = form
+
+    if request.GET.get("id"):
+        context["updating"] = True
+    
     
 
 # *************************************************************************************
@@ -582,21 +684,6 @@ def delete_exp(request):
 
     return redirect("manage_experiences_page")
 
-# class SkillsSerializer(serializers.ModelSerializer): 
-    
-#     class Meta: 
-#         model = Skill
-#         fields = ('parentId', 'id', 'name', 'icon_HREF', 'node_type', 'experiences', 'proficiency', 'description')
-
-#     def get_experiences(self):
-#         return self.context['item'].experience
-    
-#     def get_proficiency(self): 
-#         return self.context['item'].proficiency
-    
-#     def get_description(self):
-#         return self.context['item'].description
-
 class SearchQueries:
 
     def searchHandle(request):
@@ -781,6 +868,7 @@ class SearchQueries:
             skills = DesiredSkill.objects.filter(experience__id=exp['id']).annotate(skill_name=F("skill__name"), skill_image=F("skill__icon_HREF")).values("skill_name", "skill_image")
 
             result.append({
+                "id": exp["id"],
                 "text": exp["name"],
                 "image": exp["image"],
                 "description": exp['description'],
@@ -808,6 +896,7 @@ class SearchQueries:
                 kind = kind.get_kind_display()
 
             result.append({
+                "id": exp["id"],
                 "text": exp["name"],
                 "image": exp["image"],
                 "description": exp['description'],
@@ -837,6 +926,17 @@ class TargetedQueries:
             return HttpResponseBadRequest("No experience ID given.")
 
         try:
+            print("""
+            
+
+
+            """)
+            print(exp_id)
+            print("""
+            
+
+            
+            """)
             experience = Experience.objects.filter(pk=exp_id)
         except Experience.DoesNotExist:
             return HttpResponseBadRequest("No element exists with id:" + exp_id)
@@ -883,6 +983,7 @@ class TargetedQueries:
         print(skill_name)
         document_title = "Roadmap & Experiences"
         # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
+        
         skill=DesiredSkill.objects.filter(skill=Skill.objects.get(name=skill_name))
         experiences_qs = Experience.objects.filter(skills__in=skill).order_by('start_date')
         print(experiences_qs)
@@ -932,3 +1033,26 @@ class LikeHandlers():
             return HttpResponse()
 
         return HttpResponseBadRequest("GET request not allowed.")
+
+    def getDesiredSkillByUserAndSkill(request, skill_name): 
+        user = request.user.profile
+        skill = Skill.objects.get(skill_name)
+        ds = DesiredSkill.objects.filter(skill=skill)
+        return
+        # ds_obj = {
+        #     "name": exp["name"],
+        #     "image": exp["image"],
+        #     "description": exp['description'],
+        #     'profile': {
+        #         'username': exp['profile__user__username'],
+        #         'image': exp['profile__image']
+        #     },
+        #     'skills': list(skills),
+        #     # 'kind': best_matches.filter(id=exp['id']).first().get_kind_display(),
+        #     "url": exp["project_link"],
+        #     "likes": exp["likes_amount"],
+        #     "start_date": exp["start_date"].strftime("%d %B, %Y") if exp['start_date'] is not None else None,
+        #     "end_date": exp["end_date"].strftime("%d %B, %Y") if exp['end_date'] is not None else None,
+        #     "category": "experience",
+        # }
+

@@ -93,7 +93,7 @@
 
     // construct the result lists
     for (let i=0;i<query_data.entries;i++) {
-      let result = query_data.results[i]
+      let result = query_data.results[i];
       let result_item = search_result_item.clone()
       result_item.find("#search_result_link")
       result_item.attr("id", `search_result_link_${result.text}`)
@@ -109,6 +109,12 @@
         result_item.find("#search_result_image").attr("src", `${static_url}${result.image}`)
         result_item.find("#search_result_image").removeClass("hidden")
         result_item.find("#search_result_link").attr("href", (new URL(`/profile/${result.username}`, window.location.origin)).href)
+      }
+
+      if (result.category === "experience") { 
+        // prevents redirect behaviour of link
+        result_item.find("#search_result_link").attr("href", 'javascript:void(0)');
+        result_item.find("#search_result_link").attr('onclick', `exp_getter(${result.id}, 'experience-display-modal')`);
       }
       
       search_result_list.append(result_item);

@@ -1,0 +1,31 @@
+{% block content %}
+    <div class="w-full max-h-full flex flex-col">
+        {{ experience_input_form.non_field_errors }}
+        <!-- Name of Experience -->
+        <div class="fieldWrapper input-container w-full p-5 mx-0">
+            {{ experience_input_form.name.errors }}
+            <label for="id_name" class="input-label">Experience Name:</label>
+            <div>
+                {{ experience_input_form.name }}
+            </div>
+        </div>
+        <!-- Type of Experience -->
+        <div class="fieldWrapper input-container w-full p-5 mx-0">
+            {{ experience_input_form.kind.errors }}
+            <label for="id_type" class="input-label">Type of Experience:</label>
+            {{ experience_input_form.kind }}
+        </div>
+        <!-- Start Date of Experience -->
+        <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
+            {{ experience_input_form.start_date.errors }}
+            <label for="id_start_date" class="input-label">Start Date:</label>
+            {{ experience_input_form.start_date }}
+        </div>
+        <!-- End Date of Experience -->
+        <div class="fieldWrapper input-container flex block w-full p-5 mx-0">
+            {{ experience_input_form.end_date.errors }}
+            <label for="id_end_date" class="input-label">End Date:</label>
+            {{ experience_input_form.end_date }}
+        </div>
+    </div>
+{% endblock content %}
