@@ -24,10 +24,23 @@ from .models import *
 from .forms import *
 
 
+# New Imports from api
+# from views.pages.auth import *
+# from views.pages.dashboard import *
+# from views.pages.experiencesList import *
+# from views.pages.landing import *
+# from views.pages.manageDesiredSkills import *
+# from views.pages.manageExperiences import *
+# from views.pages.otherUserProfile import *
+# from views.pages.otherUserSkillTree import *
+# from views.pages.profile import *
+# from views.pages.settings import *
+
+
 # ****************************************************************************
 # TEMPLATE VIEWS - GET DATA, PERFORM OPERATIONS, AND RETURN A TEMPLATE
 # ****************************************************************************
-def langing_page(request):
+def landing_page(request):
     document_title = "Coding Journey"
     page_header = "Design your\ncoding journey"
     description = "Coding Journey is a journal for programmers. Mark your current destination, create your coding path, explore other coders' journey and more!"
@@ -420,6 +433,7 @@ def experience_input_injection(request, context, form=None):
         user = request.user.profile
         form = ExperienceInputform(user_id=user)
         context['experience_input_form'] = form
+    return form
 
 def desired_skill_input_handler(request): 
     context = {}
