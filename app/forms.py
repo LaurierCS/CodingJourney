@@ -104,9 +104,9 @@ class ProfileImageForm(ModelForm):
 class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
-    fields = '__all__'
-    exclude = ['user', 'date_created']
+    fields = ['image', 'first_name', 'last_name', 'email', 'bio', 'twitter', 'linkedin', 'github', 'website']
 
+  image = forms.ImageField()
   first_name = forms.CharField(
     label='first name',
     widget=forms.TextInput(
@@ -116,7 +116,7 @@ class UserSettingForm(ModelForm):
         },
       ),
     required=False
-    )
+  )
   last_name = forms.CharField(
     label='last name',
     widget=forms.TextInput(
@@ -126,7 +126,7 @@ class UserSettingForm(ModelForm):
         }
       ),
       required=False
-    )
+  )
   email = forms.EmailField(
     label='email address',
     widget=forms.EmailInput(
@@ -136,7 +136,7 @@ class UserSettingForm(ModelForm):
         }
       ), 
       required=False,
-    )
+  )
   twitter = forms.URLField(
     label='twitter',
     widget=forms.URLInput(
@@ -177,10 +177,6 @@ class UserSettingForm(ModelForm):
     ),
     required=False,
   )
-  image = forms.ImageField(
-    label='Upload image',
-    required=False,
-  )
   bio = forms.CharField(
     label='Biography',
     widget=forms.Textarea(
@@ -190,9 +186,7 @@ class UserSettingForm(ModelForm):
         'placeholder': 'Boast about yourself😎'
         }),
         required = False,
-    )
-
-  fields = ['email', 'image', 'bio']
+  )
 
 class SearchQueryForm(forms.Form):
   search_query = forms.CharField(required=True)
