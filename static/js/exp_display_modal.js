@@ -42,8 +42,9 @@ function populateAndShowModal(data, modal_id) {
     $("#modal-end-date").text(exp["end_date"]);
     // set project link
     $("#modal-project-link").html(exp["url"]);
+    $("#modal-project-link").attr('href', exp["url"]);
 
     // console.log(data)
     modalOpenBehaviour(modal_id)
     // console.log(project_name);
-} 
+}

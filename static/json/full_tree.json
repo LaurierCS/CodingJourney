@@ -6,28 +6,28 @@
     "parentId": "languages",
     "id": "python",
     "label": "Python",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/python-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "python",
     "id": "django",
     "label": "Django",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/django-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "python",
     "id": "flask",
     "label": "Flask",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/flask-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "python",
     "id": "fast_api",
     "label": "FastAPI",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/fast-api-logo.png",
     "node_type": "N"
   },
 
@@ -35,49 +35,49 @@
     "parentId": "languages",
     "id": "javascript",
     "label": "Javascript",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/javascript-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "javascript",
     "id": "nodejs",
     "label": "Node.js",
-    "icon_HREF": "",
+    "icon_HREF": "static/images/skill_images/node-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "javascript",
     "id": "angular",
     "label": "Angular",
-    "icon_HREF": "",
+    "icon_HREF": "static/images/skill_images/angular-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "javascript",
     "id": "typescript",
     "label": "Typescript",
-    "icon_HREF": "",
+    "icon_HREF": "static/images/skill_images/typescript-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "javascript",
     "id": "react",
     "label": "React",
-    "icon_HREF": "",
+    "icon_HREF": "static/images/skill_images/react-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "javascript",
     "id": "vuejs",
     "label": "Vue.js",
-    "icon_HREF": "",
+    "icon_HREF": "static/images/skill_images/vue-logo.svg",
     "node_type": "N"
   },
   {
     "parentId": "javascript",
     "id": "svelte",
     "label": "Svelte",
-    "icon_HREF": "",
+    "icon_HREF": "static/images/skill_images/javascript-logo.png",
     "node_type": "N"
   },
 
@@ -85,28 +85,28 @@
     "parentId": "languages",
     "id": "php",
     "label": "PHP",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/php-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "php",
     "id": "laravel",
     "label": "Laravel",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/laravel-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "php",
     "id": "code_igniter",
     "label": "CodeIgniter",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/codeigniter-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "php",
     "id": "symfony",
     "label": "Symfony",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/symfony-logo.png",
     "node_type": "N"
   },
 
@@ -114,44 +114,42 @@
     "parentId": "languages",
     "id": "java",
     "label": "Java",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/java-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "java",
     "id": "spring",
     "label": "Spring",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/spring-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "java",
     "id": "hibernate",
     "label": "Hibernate",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/hibernate-logo.png",
     "node_type": "N"
   },
   {
     "parentId": "java",
     "id": "struts",
     "label": "Struts",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/php-logo.png",
     "node_type": "N"
   },
-
   {
     "parentId": "languages",
     "id": "markdown_html_css",
     "label": "Markdown/HTML/CSS",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/HTML-CSS-logo.png",
     "node_type": "N"
   },
-
   {
     "parentId": "languages",
     "id": "c_cpp",
     "label": "C/C++",
-    "icon_HREF": "static/images/python_logo.png",
+    "icon_HREF": "static/images/skill_images/C++-logo.png",
     "node_type": "N"
   },
   {
@@ -161,7 +159,6 @@
     "icon_HREF": "static/images/python_logo.png",
     "node_type": "N"
   },
-
   {"parentId": "user", "label": "Programming Fundamentals", "id": "programming_fundamentals", "node_type": "C"},
   {
     "parentId": "programming_fundamentals",
@@ -337,7 +334,7 @@
   {
     "parentId": "machine_learning",
     "id": "machine_learning_python",
-    "label": "Python",
+    "label": "Python for ML",
     "icon_HREF": "",
     "node_type": "N"
   },
