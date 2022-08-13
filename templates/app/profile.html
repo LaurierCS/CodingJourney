@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="grid grid-cols-12 h-[calc(100%_-_80px)]">
+<div class="flex h-[calc(100%_-_80px)]">
 
   {% include "components/sidemenu.html" %}
 
-  <div class="col-span-10 bg-background h-full space-y-4 p-14">
+  <div class="w-full bg-background h-full space-y-4 p-14">
       <div id="profile" class="flex items-center justify-center space-x-10">
         <div id="pic-container" class="w-52">
           <img src="{{request.user.profile.image.url}}" alt="" class="w-full h-52 object-cover object-top rounded-full border-2 bg-blue-50/80">
