@@ -1,0 +1,51 @@
+{% block content %}
+{% if method %}
+<form action="/experience-input" method={{method}} id="experience-form">
+{% else %}
+<form action="/experience-input" method="POST" id="experience-form">
+{% endif %}
+    {% csrf_token %}
+    <div 
+        class = "
+            modal experience-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0
+            left-0 z-50 w-full md:inset-0 h-full md:h-full flex justify-center items-center 
+            bg-gray-600 bg-opacity-50
+        " 
+        id="experience-input-modal"
+        aria-hidden="true"
+        style="display: none ">
+        <div class = "relative w-[450px] max-w-md h-[700px]">
+            <div 
+                class="modal-content border-4 shadow-lg relative flex 
+                flex-col h-full pointer-events-auto bg-clip-padding 
+                rounded-md outline-none text-current">
+                {% include "components/experience_form/modal_header.html" %}
+                <div class="w-full h-full pt-3 overflow-hidden block whitespace-nowrap">
+                    {% comment %} Add overflow hidden to this parent {% endcomment %}
+                    {% comment %} then in js prev/next translates ALL exp-tabs by width of parent component? {% endcomment %}
+                    <div 
+                    class='exp-tab w-full h-full inline-block align-top whitespace-normal 
+                    transition duration-300'>
+                        {% include "components/experience_form/tab1.html" %}
+                    </div><div 
+                    class="exp-tab w-full h-full max-h-full inline-block align-top whitespace-normal
+                    transition duration-300">
+                        {% include "components/experience_form/tab2.html" %}
+                    </div><div 
+                    class="exp-tab inline-block w-full h-full whitespace-normal align-top
+                    transition duration-300">
+                        {% include "components/experience_form/tab3.html" %}
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-center">
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="prevBtn" onclick="translateRightByWidth('exp-tab')">Previous</button>
+                    <button type="button" class="tech-tag tech-tag-blue min-w-[100px] p-2" id="nextBtn"  onclick="translateLeftByWidth('exp-tab', 2)">Next</button>
+                    </div>
+                </div>
+            </div>
+            <input class="modal-content rounded-md border-4 w-[450px] max-w-md" type="submit" value="Submit"/>
+            </div>
+        </div>
+</form>
+{% endblock content %}
