@@ -147,3 +147,8 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+
+# USER MEDIA FOLDER, IGNORE TO NOT OVERRIDE EXISTING DATA WHEN PUSHING/DEPLOYING
+static/user_media/profile_images
+static/user_media/experience_images

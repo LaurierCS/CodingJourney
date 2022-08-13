@@ -13,8 +13,9 @@ var currentTab = 0;
 
 function translateLeftByWidth(className, maxTabs) {
     let elems = document.getElementsByClassName(className);
-    let width = elems[0].clientWidth
-    
+    let width = elems[0].clientWidth;
+    console.log(elems);
+
     if (currentTab < maxTabs) {
         currentTab = currentTab + 1;
         for (let elem of elems) {

@@ -18,6 +18,9 @@ urlpatterns = [
     path('experiences-by-skill/<str:skill_name>', 
         views.TargetedQueries.getExperiencesBySkills, 
         name="experiences_by_skills"),    
+    path('manage-desired-skills', views.manage_desired_skills_page, name="manage_desired_skills_page"),
+    path('manage-experiences', views.manage_experiences_page, name="manage_experiences_page"),
+    path('skill-tree', views.other_user_skill_tree_page, name="other_user_skill_tree_page"),
 
     # ************************************************************
     # ENDPOINT URLS - FOR HANDLING DATA LIKE LOGIN AND REGISRATION
@@ -25,12 +28,16 @@ urlpatterns = [
     path('login', views.login_handler, name="login"),
     path('register', views.registration_handler, name="register"),
     path('logout', views.logout_handler, name="logout"),
-    path('update-ds-description', views.update_desired_skill_description, name="update_ds_description"),
+    path('update-ds-description', views.update_desired_skill, name="update_ds"),
     path('experience-handler', views.experience_input_handler, name="experience-handler"),
     path('search', views.SearchQueries.searchHandle, name="search_page"),
     path('experience-view-handler', views.TargetedQueries.experienceGetter, name="Experience Query"),
+    path('desired-skill-input', views.desired_skill_input_handler, name="Experience Query"),
     path('delete-ds', views.delete_desired_skill, name="delete_desired_skill"),
     path('delete-exp', views.delete_exp, name="delete_exp"),
+    path('exp-like', views.LikeHandlers.exp_like_handler, name="exp_like"),
+    path('skill-tree-data', views.TreeQueries.get_tree_data_as_json, name="skill_tree_data"),
+    path('user-profile-picture', views.TargetedQueries.getProfilePictureByUsername, name="user_profile_picture"),
 
 
     # ************************************************************

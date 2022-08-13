@@ -1,5 +1,6 @@
 # DJANGO IMPORTS
-from django.http import HttpResponseBadRequest, HttpResponse, JsonResponse
+from multiprocessing import context
+from django.http import HttpResponseBadRequest, HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -82,7 +83,6 @@ def dashboard(request):
     document_title = "Skill Tree"
     profile = request.user.profile
     experiences = Experience.objects.filter(profile=profile)
-    tree_json = TreeQueries.getTrimmedTree(profile) # todo: profile to function when update_ds_description is merged.
     # tech_roadmap = profile.tech_roadmap
 
     template_name = "app/dashboard.html"
@@ -90,8 +90,7 @@ def dashboard(request):
         "document_title": document_title,
         "profile": profile,
         "experiences":experiences,
-        "tree_json": tree_json
-        # "tech_roadmap":tech_roadmap
+        "editable": True,
     }
     return render(request, template_name, context)
 
@@ -146,6 +145,20 @@ def otherprofilepage(request, username):
     }
     return render(request, template_name, context)
 
+def other_user_skill_tree_page(request):
+    username = request.GET.get("username")
+    profile = Profile.objects.get(user__username=username)
+    ds = TreeQueries.getTrimmedTree(profile)
+    context = {
+        "tree_json": ds,
+        "profile": profile,
+        "editable": False
+    }
+    template = "app/other_user_skill_tree.html"
+
+    return render(request, template, context)
+
+
 @login_required(login_url='auth_page')
 def settingspage(request):
     document_title = "Setting"
@@ -153,13 +166,23 @@ def settingspage(request):
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
     setting_form = UserSettingForm(instance=profile)
+    image_form = ProfileImageForm(instance=profile)
 
-
+    if request.method == "POST":
+        image_form = ProfileImageForm(request.POST, request.FILES, instance=profile)
+        if image_form.is_valid():
+            # upload = request.FILES['image']
+            print("ISOLATED FORM", request.FILES)
+            image_form.save()
+        else:
+            print("is not valid")
     # print(desired_skills)
 
     template_name = "app/setting.html"
 
+# TODO: REWRITE THE SETTINGS FORM
     if request.method == "POST":
+        print("FORM #1", request.FILES)
         setting_form = UserSettingForm(request.POST, request.FILES, instance=profile)
         if setting_form.is_valid():
             setting_form.save()
@@ -178,9 +201,50 @@ def settingspage(request):
         "desired_skills": desired_skills,
         "experiences": experiences,
         "setting_form":setting_form,
+        "image_form": image_form
     }
+    desired_skill_input_injection(request, context=context)
+    experience_input_injection(request, context=context)
     return render(request, template_name, context)
 
+@login_required(login_url='auth_page')
+def manage_desired_skills_page(request):
+
+    if request.POST:
+        return HttpResponseBadRequest('Does not accept POST request.')
+
+
+    # find all desired skills
+    ds = DesiredSkill.objects.filter(user_id=request.user.profile)
+
+    template_name = "app/manage_desired_skills.html"
+    context = {
+        "profile": request.user.profile,
+        "desired_skills": ds,
+        "ds_count": len(ds)
+    }
+
+    desired_skill_input_injection(request, context=context)
+    return render(request, template_name, context)
+
+@login_required(login_url="auth_page")
+def manage_experiences_page(request):
+
+    if request.POST:
+        return HttpResponseBadRequest("Does not support POST request.")
+    
+    profile = request.user.profile
+
+    experiences = Experience.objects.filter(profile=profile)
+
+    template = "app/manage_experiences.html"
+    context = {
+        "profile": profile,
+        "experiences": experiences,
+        "experience_count": len(experiences),
+    }
+    experience_input_injection(request, context=context)
+    return render(request, template, context)
 
 # *************************************************************************************
 # ENDPOINT VIEWS - ONLY PERFORM ACTIONS ON DATA OR RETURN DATA,  DONT RETURN A TEMPLATE
@@ -253,9 +317,9 @@ def experience_input_handler(request):
             print(skills_ids)
             context = {
                 'form': form,
-            } 
+            }
             # experience_instance.skills.set(form_data["skills"])
-            return render(request, 'app/experience_form.html', context=context)
+            return HttpResponse(status=201)
         else: 
             for field in form:
                 print("Field Error:", field.name,  field.errors)
@@ -263,8 +327,7 @@ def experience_input_handler(request):
             context = {
                 'form': form,
             } 
-            return render(request, 'app/experience_form.html', context=context)
-        
+            return HttpResponse(status=400)
     
     else: 
         form = ExperienceInputform()
@@ -272,7 +335,54 @@ def experience_input_handler(request):
             'form': form,
         } 
         return render(request, 'app/experience_form.html', context=context)
-            
+
+def experience_input_injection(request, context, form=None):
+    if form: 
+        context['experience_input_form'] = form
+    else: 
+        user = request.user.profile
+        form = ExperienceInputform()
+        context['experience_input_form'] = form
+
+def desired_skill_input_handler(request): 
+    context = {}
+    if request.method == 'POST':
+        user = request.user.profile
+        form = DesiredSkillsInputForm(data=request.POST, user_id=user)         
+
+        if (form.is_valid()):
+            form_data = form.cleaned_data
+            DesiredSkill.objects.create(
+                user_id=request.user.profile,
+                skill=form_data["skill"],
+                proficiency=form_data["proficiency"],
+                description=form_data["description"],
+            )
+            desired_skill_input_injection(request, context)
+            # experience_instance.skills.set(form_data["skills"])
+            return HttpResponse(status=201)
+        else: 
+            for field in form:
+                print("Field Error:", field.name,  field.errors)
+            desired_skill_input_injection(request, context=context, form=form)
+            return HttpResponse(status=400)
+    else: 
+        desired_skill_input_injection(request, context=context)
+        return render(request, 'app/desired_skill_modal.html', context=context)
+    
+def desired_skill_input_injection(request, context, form=None):
+    if form: 
+        context['desired_skill_form'] = form
+    else: 
+        user = request.user.profile
+        form = DesiredSkillsInputForm(user)
+        context['desired_skill_form'] = form
+    
+
+# *************************************************************************************
+# CLASS BASED VIEWS - COLLECTED UNDER INDIVIDUAL CLASS TYPES
+# *************************************************************************************
+
 
 class TreeQueries:
     def getFullTree():
@@ -281,38 +391,30 @@ class TreeQueries:
         return serialized
     
     def getTrimmedTree(profile):
-        # todo: 1. need to include parent of nodes, always.
-        # todo: 2. need to include user as root.
-        # todo: 3. condense all information into the node.
         # desired skills query 
         desired_skill_objects = DesiredSkill.objects.filter(user_id=profile).order_by('skill')
         
-        # user has no desired skill set, so we just return a user node
+        # user has no  || Truedesired skill set, so we just return a user node
         if len(desired_skill_objects) < 1:
             # query user node
             skill_query = Skill.objects.filter(id="user")
-            serialized_query = serializers.serialize("json", skill_query, ensure_ascii=False)
+            serialized_query = json.dumps(list(skill_query.values()), ensure_ascii=False)
             return serialized_query
 
         # retrieve list of connected skills
         subset_skills = desired_skill_objects.values_list('skill', flat=True)
-        print(subset_skills)
         # query skill objects associated w/ desired skills
         skill_tree_qs = Skill.objects.filter(id=subset_skills[0])
-        print(skill_tree_qs)
 
-        # pdb.set_trace()
         for i in range(1, len(subset_skills)):
             skill_tree_q = Skill.objects.filter(id=subset_skills[i])
             skill_tree_qs = skill_tree_qs.union(skill_tree_q)
-        
-        # skill_tree_qs = Skill.objects.filter(id__in=subset_skills)
-        
-        # skill_query contains parents of all desired skills objects
+        # skill_tr || Trueee_qs = Skill.objects.filter(id__in=subset_skills)
+        # skill_query con || Truetains parents of all desired skills objects
         skill_query = Skill.objects.filter(id__in=skill_tree_qs.values_list('parentId', flat=True))
-        print(skill_query)
-        while (skill_query.exists()): 
-            # create union of skill_query objects w/ skill objects
+        # print(skill_query)
+        while (skill_query.exists()):
+            # create u || Truenion of skill_query objects w/ skill objects
             skill_tree_qs = skill_tree_qs.union(skill_query)
             # requery skill_query objects to reference parents of previous skill_query
             skill_query = Skill.objects.filter(id__in=skill_query.values_list('parentId', flat=True))
@@ -324,6 +426,10 @@ class TreeQueries:
 
         skill_tree = skill_tree_qs.values()
         for skill in skill_tree:
+            if skill['id'] == 'user':
+                # ASSIGN THE PROGILE IMAGE TO BE DISPLAYED IN THE FRONT-END
+                skill['icon_HREF'] = profile.image.url
+                print(skill['icon_HREF'])
             if (skill['id'] not in desired_skill_dict): 
                 continue
             ds = desired_skill_dict[skill['id']]
@@ -341,6 +447,48 @@ class TreeQueries:
         # serialized = serializers.serialize('json', skill_tree_qs, ensure_ascii=False)
         serialized = json.dumps(list(skill_tree), ensure_ascii=False)
         return serialized
+
+    def get_tree_data_as_json(request):
+        username = request.GET.get("username")
+        profile = Profile.objects.get(user__username=username)
+
+        ### COMMENTED BLOCK JUST FOR FUTURE REFERENCE TO IMPLEMENT RECURSIVE QUERY
+        # ds_objects = DesiredSkill.objects.filter(user_id=profile)
+
+        # if len(ds_objects) < 1:
+        #     # query user node which includes the profile picture
+        #     skill_query = Skill.objects.filter(id="user")
+        #     skill_list = list(skill_query.values().annotate(icon_HREF=Value(value=profile.image.url, output_field=CharField())))
+        #     return JsonResponse({'data': skill_list})
+
+        # skill_query = DesiredSkill.objects.raw("""
+        #         SELECT ds.skill_id, ds.id
+        #         FROM app_desiredskill ds 
+        #         WHERE user_id_id = 2 
+        #         JOIN app_skill s
+        #         ON s.id = ds.skill_id
+        # """)
+        # print(skill_query[0])
+        # for ds in skill_query:
+        #     print(ds)
+
+        # in case there are desired skills
+        # recursive query, bottom up
+        # skill_query = DesiredSkill.objects.raw("""
+        #     WITH RECURSIVE skill_tree AS (
+                
+        #         UNION ALL
+                
+        #         SELECT sk.id, sk.name from app_skill sk
+        #         WHERE skill_tree st on st.skill_id = sk.id
+        #     )
+
+        #     SELECT * FROM skill_tree
+        # """.format(user_id=profile.user.id))
+
+        data = TreeQueries.getTrimmedTree(profile=profile)
+
+        return JsonResponse({ 'data': data, 'is_owner': request.user.username == username })
 
 
     def populateDatabase(request): 
@@ -378,8 +526,8 @@ class TreeQueries:
                 skill.parentId = parentId
                 skill.save()
 
-def update_desired_skill_description(request):
-    if request.method == "POST":
+def update_desired_skill(request):
+    if request.method == "POST" and request.user.is_authenticated:
         form = UpdateDesiredSkillDescriptionForm(request.POST)
         ds = DesiredSkill.objects.filter(user_id=request.user.profile, skill__name=form['skill_name'].value())
 
@@ -406,23 +554,45 @@ def update_desired_skill_description(request):
 
 def delete_desired_skill(request):
 
-    ds_name = request.GET.get('name')
+    if request.POST:
+        form = DeleteDsOrExpForm(request.POST)
 
-    ds = DesiredSkill.objects.get(skill__name=ds_name, user_id=request.user.profile)
+        if form.is_valid():
+            ds_names = form['names'].value()
+            callback_url = form['callbackurl'] if 'callbackurl' in form else None
 
-    ds.delete()
+            list_of_names = ds_names.split(',')
 
-    return redirect("settings_page")
+            ds = DesiredSkill.objects.filter(skill__name__in=list_of_names, user_id=request.user.profile)
+
+            for skill in ds:
+                skill.delete()
+
+            if callback_url is not None:
+                return redirect(callback_url)
+
+    return redirect("manage_desired_skills_page")
 
 def delete_exp(request):
 
-    exp_id = request.GET.get('id')
+    if request.POST:
+        form = DeleteDsOrExpForm(request.POST)
 
-    exp = Experience.objects.get(id=exp_id, profile=request.user.profile)
+        if form.is_valid():
+            exp_ids = form['names'].value()
+            callback_url = form['callbackurl'] if 'callbackurl' in form else None
 
-    exp.delete()
+            list_of_ids = exp_ids.split(',')
 
-    return redirect("settings_page")
+            experiences = Experience.objects.filter(id__in=list_of_ids, profile=request.user.profile)
+
+            for exp in experiences:
+                exp.delete()
+            
+            if callback_url is not None:
+                return redirect(callback_url)
+
+    return redirect("manage_experiences_page")
 
 # class SkillsSerializer(serializers.ModelSerializer): 
     
@@ -722,6 +892,7 @@ class TargetedQueries:
         return JsonResponse(context)
 
     def getExperiencesBySkills(request, skill_name):
+        print(skill_name)
         document_title = "Roadmap & Experiences"
         # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
         skill=DesiredSkill.objects.filter(skill=Skill.objects.get(name=skill_name))
@@ -736,3 +907,40 @@ class TargetedQueries:
             "type": "skill_search_click"
         }
         return render(request, template_name, context)
+
+    def getProfilePictureByUsername(request):
+        username = request.GET.get('username')
+
+        if username is not None:
+            profile = Profile.objects.get(user__username=username)
+            if profile is None:
+                return HttpResponseNotFound(f"No user with username: {username}")
+            data = {
+                "url": profile.image.url
+            }
+
+            return JsonResponse(data)
+
+    
+class LikeHandlers():
+    def exp_like_handler(request):
+
+        if request.POST:
+            form = LikeExperienceForm(request.POST)
+            exp_id = form['exp_id'].value()
+            profile = request.user.profile
+
+            exp = Experience.objects.get(pk=int(exp_id))
+
+            if exp in profile.liked_experiences.all():
+                # unlike
+                profile.liked_experiences.remove(exp)
+                exp.decrement_like()
+            else:
+                # like
+                profile.liked_experiences.add(exp)
+                exp.increment_like()
+
+            return HttpResponse()
+
+        return HttpResponseBadRequest("GET request not allowed.")

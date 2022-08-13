@@ -326,7 +326,7 @@ const nodeImage = nodes
     // todo: return iconHref instead
 
     if (d.data.nodeType === NODE_TYPES.U && window.profile_pic) {
-      return new URL(static_url + window.profile_pic, window.location.href).pathname;
+      return window.profile_pic;
     }
 
     return "/static/images/svg/badge.svg" // todo: change to return actual icon when available

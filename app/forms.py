@@ -3,6 +3,7 @@ from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, Cleara
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+import threading
 
 from .models import *
 
@@ -57,6 +58,30 @@ class ExperienceInputform(forms.ModelForm):
       return cleaned_data
 
 
+class DesiredSkillsInputForm(forms.ModelForm):
+  skill = forms.ModelChoiceField(required=True, queryset=Skill.objects.all().values_list(), to_field_name="name") #  choices=Skill.objects.filter(Skill.objects.filter(node_type="N"))
+  proficiency = forms.ChoiceField(required=True, choices=DesiredSkill.proficiency_choices)
+  description = forms.Textarea()
+
+  def __init__(self, user_id, *args, **kwargs):
+    super(DesiredSkillsInputForm, self).__init__(*args, **kwargs)
+    self.fields['skill'].widget.attrs.update({'class': 'input select'})
+    self.fields['proficiency'].widget.attrs.update({'class': 'input select'})
+    self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input'})
+    self.filter_ds(user_id=user_id)
+
+  def filter_ds(self, user_id):
+    current_ds = DesiredSkill.objects.filter(user_id=user_id).values_list('skill')
+    remaining_skills = Skill.objects.all().filter(node_type="N").exclude(id__in=current_ds) 
+    # remaining_skills = Skill.objects.all().values_list()
+    self.fields["skill"].queryset = remaining_skills
+
+  class Meta: 
+    model = DesiredSkill
+    fields = "__all__"
+    exclude = ("user_id", "id")
+
+
 # class customMMCF():
 
 from django.forms import ModelForm
@@ -69,12 +94,19 @@ class CreateUserForm(UserCreationForm):
     model = User
     fields = ['username','email', 'password1', 'password2', 'first_name', 'last_name']
 
+class ProfileImageForm(ModelForm):
+  class Meta:
+    model = Profile
+    fields = ['image']
+  
+  image = forms.ImageField()
+
 class UserSettingForm(ModelForm):
   class Meta:
     model = Profile
-    fields = '__all__'
-    exclude = ['user', 'date_created']
+    fields = ['image', 'first_name', 'last_name', 'email', 'bio', 'twitter', 'linkedin', 'github', 'website']
 
+  image = forms.ImageField()
   first_name = forms.CharField(
     label='first name',
     widget=forms.TextInput(
@@ -83,7 +115,8 @@ class UserSettingForm(ModelForm):
         'placeholder': 'Write your first name here...',
         },
       ),
-    )
+    required=False
+  )
   last_name = forms.CharField(
     label='last name',
     widget=forms.TextInput(
@@ -92,7 +125,8 @@ class UserSettingForm(ModelForm):
         'placeholder': 'Write your last name here...',
         }
       ),
-    )
+      required=False
+  )
   email = forms.EmailField(
     label='email address',
     widget=forms.EmailInput(
@@ -102,7 +136,7 @@ class UserSettingForm(ModelForm):
         }
       ), 
       required=False,
-    )
+  )
   twitter = forms.URLField(
     label='twitter',
     widget=forms.URLInput(
@@ -143,10 +177,6 @@ class UserSettingForm(ModelForm):
     ),
     required=False,
   )
-  image = forms.ImageField(
-    label='Upload image',
-    widget=forms.ClearableFileInput(),required=False,
-  )
   bio = forms.CharField(
     label='Biography',
     widget=forms.Textarea(
@@ -156,9 +186,7 @@ class UserSettingForm(ModelForm):
         'placeholder': 'Boast about yourself😎'
         }),
         required = False,
-    )
-
-  fields = ['email', 'image', 'bio']
+  )
 
 class SearchQueryForm(forms.Form):
   search_query = forms.CharField(required=True)
@@ -168,3 +196,17 @@ class UpdateDesiredSkillDescriptionForm(forms.Form):
   description = forms.CharField(widget=forms.Textarea(), required=False)
   proficiency = forms.FloatField(required=False)
   skill_name = forms.CharField(widget=forms.TextInput())
+
+class DeleteDsOrExpForm(forms.Form):
+  names = forms.CharField(widget=forms.TextInput())
+  callbackurl = forms.CharField(widget=forms.TextInput, required=False)
+
+class LikeExperienceForm(forms.ModelForm):
+  class Meta:
+    model = Experience
+    fields = ["id"]
+
+  exp_id = forms.CharField(
+    label='Id',
+    widget=forms.TextInput()
+  )

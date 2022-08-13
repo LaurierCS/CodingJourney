@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block headers %}
+
+<title>Skill Tree | {{ profile.user.username }}</title>
+
+{% endblock %}
+
+{% block content %}
+<div id="treeContainer" class="relative h-[calc(100%_-_80px)] overflow-hidden">
+  {% include 'components/node_side_bar.html' %}
+</div>
+
+<script src="{% static 'js/skill_tree.js' %}"></script>
+<script>
+  (async () => {
+    const skill_tree = new SkillTree("{{ profile.user.username }}", "#treeContainer", false);
+    await skill_tree.create_tree();
+  })();
+</script>
+{% endblock %}
