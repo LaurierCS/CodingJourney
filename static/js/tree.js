@@ -1,5 +1,9 @@
 // <script src="https://d3js.org/d3.v7.min.js"></script>
 
+
+// todo: refactor
+// todo: improve onZoom function
+
 // Globals
 
 /**
@@ -169,10 +173,28 @@ function onZoom(e) {
   // do not let user zoom when panning.
   if (isPointerDown) return;
 
+  if (!isTouchPadDefined) {
+    if (zoomEventCount === 0) {
+      zoomStart = Date.now();
+    }
+
+    zoomEventCount++;
+    
+    if (Date.now() - zoomStart > TOUCHPAD_TIMEOUT) {
+      if (zoomEventCount > ZOOM_EVENT_MAX_TRIGGERS) {
+        isTouchPad = true
+      }
+
+      isTouchPadDefined = true;
+      zoomStart = -1;
+    }
+    return;
+  }
+
   // 1 for zoom in, -1 for zoom out
   let sign = Math.sign(e.deltaY);
-  let zoomRatioWidth = viewBox.width * 0.1;
-  let zoomRatioHeight = viewBox.height * 0.1;
+  let zoomRatioWidth = viewBox.width * (isTouchPad ? ZOOM_TOUCHPAD_RATIO : ZOOM_WHEEL_RATIO);
+  let zoomRatioHeight = viewBox.height * (isTouchPad ? ZOOM_TOUCHPAD_RATIO : ZOOM_WHEEL_RATIO);
 
   if (sign < 0) {
     // zoom out
@@ -182,6 +204,7 @@ function onZoom(e) {
     viewBox.width = viewBox.width + zoomRatioWidth;
     viewBox.height = viewBox.height + zoomRatioHeight;
   }
+
   svgEl.setAttribute(
     "viewBox",
     getViewBoxString(viewBox.x, viewBox.y, viewBox.width, viewBox.height)
@@ -321,7 +344,15 @@ const nodeImage = nodes
 const originPoint = { x: -1, y: -1 };
 const newViewBox = { ...viewBox };
 const svgEl = document.getElementById("#tree");
+const TOUCHPAD_TIMEOUT = 50; // in miliseconds
+const ZOOM_EVENT_MAX_TRIGGERS = 5; // 5/50ms
+const ZOOM_TOUCHPAD_RATIO = 0.01;
+const ZOOM_WHEEL_RATIO = 0.1;
 let isPointerDown = false; 
+let zoomStart = -1;
+let zoomEventCount = 0;
+let isTouchPadDefined = false;
+let isTouchPad = false;
 
 if (window.PointerEvent) {
   svgEl.addEventListener("pointerdown", onPointerDown);
