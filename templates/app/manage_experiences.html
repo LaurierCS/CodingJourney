@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block content %}
-<div>
-  <div class="col-span-10 justiy-center">
+<div class="flex h-[calc(100%_-_80px)]">
+  {% include 'components/sidemenu.html' %}
+  <div class="w-full h-full justiy-center">
     <div class="hidden py-4 px-9 flex items-center justify-between md:flex lg:flex">
       <h3>All Experiences</h3>
       <div>
