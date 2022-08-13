@@ -1,4 +1,12 @@
 (() => {
+  const scopeMap = {
+    all: "all",
+    skill: "skill",
+    "skill category": "skill",
+    user: "user",
+    experience: "exp"
+  }
+
   const search_form = $("#search_form")
 
   if (search_form.length < 1) {
@@ -16,7 +24,7 @@
   const search_bar = $("#search_bar");
   const search_query = $("#search_query")
   const search_scope = $("#search_scope")
-  const search_icon = $("#search_icon")
+  // const search_icon = $("#search_icon")
   const search_result_list = $("#search_result_list")
   const search_result_item = $("#search_result_item") // result item template
   const search_scope_list = $("#search_scope_list")
@@ -45,7 +53,7 @@
     if (current_scope === new_scope) return;
 
     current_scope = new_scope;
-    current_scope_text.text(current_scope);
+    current_scope_text.text(scopeMap[current_scope]);
     search_scope_filter.attr("data-current-scope", current_scope);
     search_scope.val(current_scope)
     
@@ -86,10 +94,18 @@
   }
 
   function showSearchResults(query_data) {
+
+    if (window.innerWidth <= 768) return;
+
     // clear all previous results 
     search_result_list.children().remove("[data-removable-result=\"true\"]");
 
-    // console.log(query_data)
+    if (query_data.results.length > 0) {
+      search_bar.addClass("rounded-b-none")
+    } else {
+      search_bar.removeClass("rounded-b-none")
+    }
+
 
     // construct the result lists
     for (let i=0;i<query_data.entries;i++) {
@@ -103,7 +119,7 @@
       let url = (new URL(`experiences-by-skill/${result.text}`, window.location.origin)).href;
       result_item.find("#search_result_link").attr("href", url)
       result_item.find("#search_result_text").text(result.text)
-      result_item.find("#search_result_category").text(result.category)
+      result_item.find("#search_result_category").text(scopeMap[result.category])
       
       if (result.category === "user") {
         result_item.find("#search_result_image").attr("src", `${static_url}${result.image}`)

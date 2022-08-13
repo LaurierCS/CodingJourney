@@ -3,7 +3,7 @@
   <!-- search and filter -->
   <div class="relative bg-gray-900 rounded-md h-12 flex items-center" id="search_bar">
     <!-- left side, search -->
-    <div class="relative flex items-center min-w-[320px] max-w-lg h-full pl-3 flex-1">
+    <div class="relative flex items-center md:min-w-[320px] max-w-lg h-full pl-3 flex-1">
       <svg id="search_icon" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
@@ -21,10 +21,10 @@
       </form>
     </div>
     <!-- divider -->
-    <div class="w-[2px] bg-gray-700 h-1/2"></div>
+    <div class="hidden md:block w-[2px] bg-gray-700 h-1/2"></div>
     <!-- right side, filter -->
     <div id="search_scope_filter" data-current-scope="all"
-      class="flex items-center justify-between px-3 h-full w-36 relative"
+      class="hidden md:flex items-center justify-between px-3 h-full w-36 relative"
     >
       <span id="current_scope_text" class="mr-2 text-center capitalize select-none">all</span>
       <svg id="filter_arrow" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 rotate-180 transition-transform duration-150" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -78,7 +78,7 @@
     </div>
   </div>
   <!-- dropdown results -->
-  <div id="search_result_container" class="absolute top-full left-0 z-10 right-auto bg-gray-900 hover:opacity-100 transition-colors duration-150 w-full py-2 rounded-md translate-y-2 hidden">
+  <div id="search_result_container" class="absolute top-full left-0 z-20 right-auto bg-gray-900 hover:opacity-100 transition-colors duration-150 w-full py-2 rounded-md translate-y-2 hidden">
     <ul id="search_result_list" class="max-h-96 overflow-y-auto">
       <!-- TEMPLATE -->
       <!-- there are users, skills and experiences categories -->
@@ -100,7 +100,5 @@
     </ul>
   </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/debounce.js' %}"></script>
 <script src="{% static 'js/search.js' %}"></script>
