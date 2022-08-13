@@ -26,6 +26,10 @@
       while still have the default look on other pages when it is not replaced.
      -->
 
+    {% block nav %}
+    {% include 'components/navbar.html' %}
+    {% endblock  %}
+
     {% block content %}
     {% endblock content %}
     <script src={% static 'js/Modal.js' %}></script>
