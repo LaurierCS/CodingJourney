@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm, TextInput, EmailInput, DateTimeInput, ClearableFileInput, URLInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from searchableselect.widgets import SearchableSelect
 
 import threading
 
@@ -40,6 +41,8 @@ class ExperienceInputform(forms.ModelForm):
 
     def __init__(self, user_id, *args, **kwargs):
       super(ExperienceInputform, self).__init__(*args, **kwargs)
+      # self.fields['skills'].widget = SearchableSelect(
+      #   model='skills.DesiredSkill', search_field='name', limit=5, many=True)
       self.fields['name'].widget.attrs.update({'class': 'input', 'id': "exp-name"})
       self.fields['skills'].widget.attrs.update({'class': 'skills-name input multi-select-input', 'id': "exp-skills"})
       self.fields['description'].widget.attrs.update({'class': 'input fixed-size-input', 'id': "exp-description"})

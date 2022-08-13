@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from app.forms import DesiredSkillsInputForm
 from app.models import DesiredSkill
-from views.injectors.desiredSkillInputInjection import *
-from views.pages.manageDesiredSkills import *
+from app.views.injectors.desiredSkillInputInjection import *
+from app.views.pages.manageDesiredSkills import *
 
 
 def desired_skill_input_handler(request): 

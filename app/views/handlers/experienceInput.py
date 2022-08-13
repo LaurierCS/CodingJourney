@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from app.forms import ExperienceInputform
 from app.models import DesiredSkill, Experience
-from views.injectors.desiredSkillInputInjection import *
-from views.injectors.experienceInputInjection import *
-from views.pages.manageDesiredSkills import *
+from app.views.injectors.desiredSkillInputInjection import *
+from app.views.injectors.experienceInputInjection import *
+from app.views.pages.manageDesiredSkills import *
 
 def experience_input_handler(request):
-    
     if request.method == 'POST':
         user = request.user.profile
         form = ExperienceInputform(data=request.POST, user_id=user)
@@ -33,14 +32,13 @@ def experience_input_handler(request):
 
             # redirect user to manage_experiences page
             profile = request.user.profile
-
             experiences = Experience.objects.filter(profile=profile)
-
             template = "app/manage_experiences.html"
             context = {
                 "profile": profile,
                 "experiences": experiences,
                 "experience_count": len(experiences),
+                "method": "POST"
             }
             experience_input_injection(request, context=context)
             return render(request, template, context)
@@ -64,11 +62,9 @@ def experience_input_handler(request):
     
     else: 
         user = request.user.profile
-        form = ExperienceInputform(data=request.POST, user_id=user)
-        context = {
-            'form': form,
-        } 
-        return render(request, 'app/experience_form.html', context=context)
+        context = {} 
+        experience_input_injection(request, context=context)
+        return render(request, 'app/manage_experiences.html', context=context)
     
 def experience_update_handler(request, id): 
     if request.method == 'POST':
@@ -106,7 +102,7 @@ def experience_update_handler(request, id):
             for field in form:
                 print("Field Error:", field.name,  field.errors)
             # print(form_data)        
-            # redirect user to manage_experiences page
+            # redirect user to manage_experiences page 
             profile = request.user.profile
 
             experiences = Experience.objects.filter(profile=profile)

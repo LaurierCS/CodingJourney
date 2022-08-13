@@ -1,8 +1,8 @@
 from django.http import JsonResponse, HttpResponseBadRequest
 from app.forms import UpdateDesiredSkillDescriptionForm
 from app.models import DesiredSkill, Skill
-from views.injectors.desiredSkillInputInjection import *
-from views.pages.manageDesiredSkills import *
+from app.views.injectors.desiredSkillInputInjection import *
+from app.views.pages.manageDesiredSkills import *
 
 def update_desired_skill(request):
     if request.method == "POST" and request.user.is_authenticated:

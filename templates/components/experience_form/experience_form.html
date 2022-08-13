@@ -1,5 +1,9 @@
 {% block content %}
-<form action="/experience-input" method="post" id="experience-form">
+{% if method %}
+<form action="/experience-input" method={{method}} id="experience-form">
+{% else %}
+<form action="/experience-input" method="POST" id="experience-form">
+{% endif %}
     {% csrf_token %}
     <div 
         class = "

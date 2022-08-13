@@ -39,6 +39,4 @@ def settingspage(request):
         "experiences": experiences,
         "setting_form":setting_form,
     }
-    Injectors.desired_skill_input_injection(request, context=context)
-    Injectors.experience_input_injection(request, context=context)
     return render(request, template_name, context)

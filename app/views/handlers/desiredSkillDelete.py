@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
 from app.forms import DeleteDsOrExpForm
 from app.models import DesiredSkill
-from views.injectors.desiredSkillInputInjection import *
-from views.pages.manageDesiredSkills import *
+from app.views.injectors.desiredSkillInputInjection import *
+from app.views.pages.manageDesiredSkills import *
 
 def delete_desired_skill(request):
 

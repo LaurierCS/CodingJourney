@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
 from app.forms import DeleteDsOrExpForm
 from app.models import Experience
-from views.injectors.desiredSkillInputInjection import *
-from views.pages.manageDesiredSkills import *
+from app.views.injectors.desiredSkillInputInjection import *
+from app.views.pages.manageDesiredSkills import *
 
 def delete_exp(request):
 
