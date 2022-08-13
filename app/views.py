@@ -166,13 +166,23 @@ def settingspage(request):
     # PUT ALL OTHER DATA, QUERIES ETC BELOW HERE
     profile = request.user.profile
     setting_form = UserSettingForm(instance=profile)
+    image_form = ProfileImageForm(instance=profile)
 
-
+    if request.method == "POST":
+        image_form = ProfileImageForm(request.POST, request.FILES, instance=profile)
+        if image_form.is_valid():
+            # upload = request.FILES['image']
+            print("ISOLATED FORM", request.FILES)
+            image_form.save()
+        else:
+            print("is not valid")
     # print(desired_skills)
 
     template_name = "app/setting.html"
 
+# TODO: REWRITE THE SETTINGS FORM
     if request.method == "POST":
+        print("FORM #1", request.FILES)
         setting_form = UserSettingForm(request.POST, request.FILES, instance=profile)
         if setting_form.is_valid():
             setting_form.save()
@@ -191,6 +201,7 @@ def settingspage(request):
         "desired_skills": desired_skills,
         "experiences": experiences,
         "setting_form":setting_form,
+        "image_form": image_form
     }
     desired_skill_input_injection(request, context=context)
     experience_input_injection(request, context=context)
@@ -359,7 +370,7 @@ def desired_skill_input_handler(request):
         desired_skill_input_injection(request, context=context)
         return render(request, 'app/desired_skill_modal.html', context=context)
     
-def desired_skill_input_injection(request, context=context, form=None):
+def desired_skill_input_injection(request, context, form=None):
     if form: 
         context['desired_skill_form'] = form
     else: 
