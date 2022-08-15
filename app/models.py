@@ -27,7 +27,7 @@ class Profile(models.Model):
     website = models.URLField(max_length=200, blank=True, null=True)
 
     liked_experiences = models.ManyToManyField("Experience", related_name="liked_experiences")
-
+    
     def __str__(self):
         return self.user.username
 
@@ -52,6 +52,7 @@ class Skill(models.Model):
 
   def __str__(self): 
     return self.name
+
 
 """
   DesiredSkills list will contain all skills that a user is either currently proficient in or 

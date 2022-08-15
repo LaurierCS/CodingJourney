@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 {% block headers %}
 <title>Manage Experiences | {{ profile.user.username }}</title>
@@ -141,6 +142,8 @@
   {% csrf_token %}
   <input type="hidden" name="names" id="dexp_names">
 </form>
-{% include "components/experience_form/experience_form.html" with method=method%}
+{% include "components/experience_form/experience_form.html" with method=method %}
 <script src="{% static 'js/manage_exp.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src=""></script>
 {% endblock %}
