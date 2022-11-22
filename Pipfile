@@ -59,7 +59,7 @@ whitenoise = "==5.2.0"
 wrapt = "==1.12.1"
 Django = "==3.1.13"
 ipython_genutils = "==0.2.0"
-Pillow = "==8.3.2"
+Pillow = "==9.3.0"
 Pygments = "==2.9.0"
 django-browser-reload = "*"
 
